@@ -3,6 +3,7 @@ package Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -21,7 +22,7 @@ public class VentanaInicial extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	
 	private JButton bLogin = new JButton ("Login");
 	private JButton bSingUp = new JButton ("SingUp");
@@ -29,7 +30,7 @@ public class VentanaInicial extends JFrame{
 	private JComboBox<String> comboJuegos = new JComboBox<>(juegos);
 	
 	private ImageIcon logoCasino = new ImageIcon("foto/iconos/logo-no-background.png");
-	private ImageIcon logoCasinoPequeño = new ImageIcon("foto/iconos/logoCasinoPequeño.png");
+
 
 	private JButton bCasino = new JButton ();
 	
@@ -45,7 +46,11 @@ public class VentanaInicial extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Casino");
+		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
+						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
+		
 		setVisible(true);
+		setIconImage(new ImageIcon("foto/iconos/favicon-32x32.png").getImage());
 
 		add(pMenu);
 		
