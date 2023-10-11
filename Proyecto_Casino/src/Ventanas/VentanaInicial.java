@@ -7,13 +7,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -30,13 +26,11 @@ public class VentanaInicial extends JFrame{
 	
 	private JButton bLogin = new JButton ("Login");
 	private JButton bSingUp = new JButton ("SingUp");
-//	private String[] juegos = {"","Black Jack", "Crash", "Ruleta", "Coin-Flip"};
-//	private JComboBox<String> comboJuegos = new JComboBox<>(juegos);
 	private JButton bCasino = new JButton ();
 	private JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
 	private JPanel pMenuN2 = new JPanel (new BorderLayout());
-	
+	// Elementos JMenu
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menuJuegos = new JMenu("Juegos");
 	private JMenuItem menuItemBlackJack = new JMenuItem("Back Jack");
@@ -48,12 +42,12 @@ public class VentanaInicial extends JFrame{
 	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
 	
 	public VentanaInicial() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
-		setTitle("Casino");
+		setTitle("NoEscasino");
+		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
-		
 		setVisible(true);
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 
@@ -67,20 +61,17 @@ public class VentanaInicial extends JFrame{
 		pMenuN.add(bLogin, BorderLayout.EAST);
 		pMenuN.add(pMenuN2, BorderLayout.CENTER);
 		pMenuN.add(bCasino, BorderLayout.WEST);
-        //
+		pMenuN2.add(bSingUp, BorderLayout.EAST);
+        // Color y espacios en el Menu superior
 		pMenuN.setBorder(new EmptyBorder(20, 25, 15, 25));
 		pMenuN.setBackground(Color.LIGHT_GRAY);
-
 		pMenuN2.setBorder(new EmptyBorder(0, 5, 0, 5));
 		pMenuN2.setBackground(Color.LIGHT_GRAY);
-
-		pMenuN2.add(bSingUp, BorderLayout.EAST);
-		
+		// Configuración JMenu
 		setJMenuBar(menuBar);
-
 		menuBar.add(menuJuegos);
         menuJuegos.setMnemonic(KeyEvent.VK_F);
-        
+        // Items del menu "Juegos"
 		menuJuegos.add(menuItemBlackJack);
 		menuItemBlackJack.setMnemonic(KeyEvent.VK_S);
 		menuJuegos.addSeparator();
@@ -92,8 +83,6 @@ public class VentanaInicial extends JFrame{
 		menuJuegos.addSeparator();
 		menuJuegos.add(menuItemCoinFlip);
 		menuItemCoinFlip.setMnemonic(KeyEvent.VK_S);
-
-//		pMenuN2.add(menuJuegos, BorderLayout.WEST);
 
 		bLogin.addActionListener(new ActionListener() {
 
