@@ -1,12 +1,9 @@
 package Ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
+import java.awt.EventQueue;
+
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -94,3 +91,4 @@ public class VentanaLogin extends JFrame{
 		});
 	}
 }
+
