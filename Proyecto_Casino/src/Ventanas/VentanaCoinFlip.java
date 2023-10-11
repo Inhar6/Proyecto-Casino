@@ -1,9 +1,14 @@
 package Ventanas;
 
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 
 public class VentanaCoinFlip extends JFrame{
 
@@ -12,7 +17,7 @@ public class VentanaCoinFlip extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public VentanaCoinFlip() {
+	public VentanaCoinFlip(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Coin-Flip");
@@ -21,5 +26,16 @@ public class VentanaCoinFlip extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		
+		add(pMenu);
+		setJMenuBar(menuBar);
+		menuBar.add(menuJuegos);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				VentanaInicial ventanaInicial = new VentanaInicial();
+				ventanaInicial.setVisible(true);
+			}
+		});
 	}
 }

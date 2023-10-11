@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,10 +27,11 @@ public class VentanaInicial extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	// Botones
 	private JButton bLogin = new JButton ("Login");
 	private JButton bSingUp = new JButton ("SingUp");
 	private JButton bCasino = new JButton ();
+	// Paneles
 	private JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
 	private JPanel pMenuN2 = new JPanel (new BorderLayout());
@@ -38,9 +43,9 @@ public class VentanaInicial extends JFrame{
 	private JMenuItem menuItemRuleta = new JMenuItem("Ruleta");
 	private JMenuItem menuItemCoinFlip = new JMenuItem("Coin-Flip");
 
-	private ImageIcon logoCasino = new ImageIcon("foto/iconos/logoCasino.png");
+	private ImageIcon logoCasinoNegro = new ImageIcon("foto/iconos/logoCasinoNegro.png");
 	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
-	
+		
 	public VentanaInicial() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
@@ -49,15 +54,14 @@ public class VentanaInicial extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage((favicon).getImage());
 
 		add(pMenu);
 		
-		bCasino.setIcon(redimensionarIcono(favicon, 25, 25));
+		bCasino.setIcon(redimensionarIcono(logoCasinoNegro, 25, 25));
 		bCasino.setBorder(null);
 		
 		pMenu.add(pMenuN, BorderLayout.NORTH);
-		
 		pMenuN.add(bLogin, BorderLayout.EAST);
 		pMenuN.add(pMenuN2, BorderLayout.CENTER);
 		pMenuN.add(bCasino, BorderLayout.WEST);
@@ -92,36 +96,45 @@ public class VentanaInicial extends JFrame{
 
 			}
 		});
+		bCasino.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Click en bCasino");			
+			}
+		});
 		
 		menuItemBlackJack.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaBlackJack vBlackJack = new VentanaBlackJack();
+				VentanaBlackJack vBlackJack = new VentanaBlackJack(pMenu, menuJuegos, menuBar);
+				dispose();
 			}
 		});
 		menuItemCrash.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrash vCrash = new VentanaCrash();
+				VentanaCrash vCrash = new VentanaCrash(pMenu, menuJuegos, menuBar);
 			}
 		});
 		menuItemRuleta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRuleta vRuleta = new VentanaRuleta();
+				VentanaRuleta vRuleta = new VentanaRuleta(pMenu, menuJuegos, menuBar);
 			}
 		});
 		menuItemCoinFlip.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip();
+				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip(pMenu, menuJuegos, menuBar);
 			}
 		});
 	}
+
 	public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
 		Image image = imageIcon.getImage();
 		Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
