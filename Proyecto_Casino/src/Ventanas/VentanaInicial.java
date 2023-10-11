@@ -104,6 +104,15 @@ public class VentanaInicial extends JFrame{
 			}
 		});
 		
+		bSingUp.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaRegistro vSingUp = new VentanaRegistro();
+				
+			}
+		});
+		
 		menuItemBlackJack.addActionListener(new ActionListener() {
 			
 			@Override
