@@ -2,14 +2,17 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -42,7 +45,7 @@ public class VentanaRuleta extends JFrame{
 	private DefaultListModel<Integer> dlmHistorial;
 	private JScrollPane scroll;
 	
-	public VentanaRuleta() {
+	public VentanaRuleta(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Ruleta");
@@ -77,6 +80,19 @@ public class VentanaRuleta extends JFrame{
 		lstHistorial.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		scroll=new JScrollPane(lstHistorial);
 		
+		// Añadir esto para el menu superior
+		
+//		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+//		add(pMenu);
+//		setJMenuBar(menuBar);
+//		menuBar.add(menuJuegos);
+//		addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				VentanaInicial ventanaInicial = new VentanaInicial();
+//				ventanaInicial.setVisible(true);
+//			}
+//		});
 		
 		JPanel central = new JPanel();
 		JPanel inferior = new JPanel();
@@ -113,11 +129,9 @@ public class VentanaRuleta extends JFrame{
 	
 		setLayout(new GridLayout(3,1));
 		add(new JPanel());
+		// Cambiar por pMenu.add(central);
 		add(central);
 		add(new JPanel());
-		
-		
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 	}
 	
 	public static void main(String[] args) {
@@ -125,7 +139,7 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void run() {
-				new VentanaRuleta();
+				new VentanaRuleta(null, null, null);
 				
 			}
 		});

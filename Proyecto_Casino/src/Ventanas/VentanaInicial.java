@@ -4,13 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -118,7 +114,7 @@ public class VentanaInicial extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaBlackJack vBlackJack = new VentanaBlackJack(pMenu, menuJuegos, menuBar);
-				dispose();
+				
 			}
 		});
 		menuItemCrash.addActionListener(new ActionListener() {
@@ -139,7 +135,7 @@ public class VentanaInicial extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip(pMenu, menuJuegos, menuBar);
+				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip(pMenu, menuJuegos, menuBar);	
 			}
 		});
 	}
@@ -152,7 +148,7 @@ public class VentanaInicial extends JFrame{
 		
 		return(imageIcon);
 	}
-	
+		
 	public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
 
