@@ -6,15 +6,20 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
 
 public class VentanaInicial extends JFrame{
 	
@@ -23,44 +28,39 @@ public class VentanaInicial extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	private JButton bLogin = new JButton ("Login");
 	private JButton bSingUp = new JButton ("SingUp");
-	private String[] juegos = {"","Black Jack", "Crash", "Ruleta", "Coin-Flip"};
-	private JComboBox<String> comboJuegos = new JComboBox<>(juegos);
-	
-	private ImageIcon logoCasino = new ImageIcon("foto/iconos/logo-no-background.png");
-
-
+//	private String[] juegos = {"","Black Jack", "Crash", "Ruleta", "Coin-Flip"};
+//	private JComboBox<String> comboJuegos = new JComboBox<>(juegos);
 	private JButton bCasino = new JButton ();
-	
 	private JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
 	private JPanel pMenuN2 = new JPanel (new BorderLayout());
-	private JPanel pMenuN3 = new JPanel (new BorderLayout());
-	private JPanel pMenuC = new JPanel (new BorderLayout());
-	private JLabel label = new JLabel();
 	
+	private JMenuBar menuBar = new JMenuBar();
+	private JMenu menuJuegos = new JMenu("Juegos");
+	private JMenuItem menuItemBlackJack = new JMenuItem("Back Jack");
+	private JMenuItem menuItemCrash = new JMenuItem("Crash");
+	private JMenuItem menuItemRuleta = new JMenuItem("Ruleta");
+	private JMenuItem menuItemCoinFlip = new JMenuItem("Coin-Flip");
+
+	private ImageIcon logoCasino = new ImageIcon("foto/iconos/logoCasino.png");
+	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
 	
 	public VentanaInicial() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Casino");
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon-32x32.png").getImage());
+		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 
 		add(pMenu);
 		
-		label.setIcon(redimensionarIcono(logoCasino, 300, 300));
-//		bCasino.setIcon(logoCasinoPequeño);
-//		bCasino.setBorder(null);
-		
-		pMenuC.setBorder(new EmptyBorder(0,250,100,0));
-		pMenu.add(pMenuC,BorderLayout.CENTER);
-		pMenuC.add(label, BorderLayout.SOUTH);
+		bCasino.setIcon(redimensionarIcono(favicon, 25, 25));
+		bCasino.setBorder(null);
 		
 		pMenu.add(pMenuN, BorderLayout.NORTH);
 		
@@ -73,21 +73,63 @@ public class VentanaInicial extends JFrame{
 
 		pMenuN2.setBorder(new EmptyBorder(0, 5, 0, 5));
 		pMenuN2.setBackground(Color.LIGHT_GRAY);
-		
-		pMenuN3.setBorder(new EmptyBorder(0, 5, 0, 5));
-		pMenuN3.setBackground(Color.LIGHT_GRAY);
-		//
-		pMenuN2.add(new JLabel("Juegos:"),BorderLayout.WEST);
+
 		pMenuN2.add(bSingUp, BorderLayout.EAST);
 		
-		pMenuN2.add(pMenuN3,BorderLayout.CENTER);
-		pMenuN3.add(comboJuegos,BorderLayout.WEST);
+		setJMenuBar(menuBar);
+
+		menuBar.add(menuJuegos);
+        menuJuegos.setMnemonic(KeyEvent.VK_F);
+        
+		menuJuegos.add(menuItemBlackJack);
+		menuItemBlackJack.setMnemonic(KeyEvent.VK_S);
+		menuJuegos.addSeparator();
+		menuJuegos.add(menuItemCrash);
+		menuItemCrash.setMnemonic(KeyEvent.VK_S);
+		menuJuegos.addSeparator();
+		menuJuegos.add(menuItemRuleta);
+		menuItemRuleta.setMnemonic(KeyEvent.VK_S);
+		menuJuegos.addSeparator();
+		menuJuegos.add(menuItemCoinFlip);
+		menuItemCoinFlip.setMnemonic(KeyEvent.VK_S);
+
+//		pMenuN2.add(menuJuegos, BorderLayout.WEST);
 
 		bLogin.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin vl = new VentanaLogin();
+				VentanaLogin vLogin = new VentanaLogin();
+
+			}
+		});
+		
+		menuItemBlackJack.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaBlackJack vBlackJack = new VentanaBlackJack();
+			}
+		});
+		menuItemCrash.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCrash vCrash = new VentanaCrash();
+			}
+		});
+		menuItemRuleta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaRuleta vRuleta = new VentanaRuleta();
+			}
+		});
+		menuItemCoinFlip.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip();
 			}
 		});
 	}
