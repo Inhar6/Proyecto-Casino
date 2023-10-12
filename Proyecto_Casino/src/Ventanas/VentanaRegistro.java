@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 public class VentanaRegistro extends JFrame{
 
@@ -19,6 +18,8 @@ public class VentanaRegistro extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String[] paises = {"España","Francia","Alemania","Japon","China","Estados Unidos","Belgica","Reino Unido"};
 	
 	//Elementos
 	private JComboBox<String> jcbPais;
@@ -48,7 +49,7 @@ public class VentanaRegistro extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 		
-		jcbPais= new JComboBox<String>();
+		jcbPais= new JComboBox<String>(paises);
 		
 		Registro = new JLabel("Registro");
 		Pais = new JLabel("Pais de Residencia");
