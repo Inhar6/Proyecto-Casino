@@ -52,15 +52,15 @@ public class VentanaRuleta extends JFrame{
 		setVisible(true);
 		setLocationRelativeTo(null);
 		
-        //Añadir menuSuperior
-		JPanel menuSuperior = new JPanel(new GridLayout());
-		JMenuBar menuBar1 = new JMenuBar();
-		JMenu menu = new JMenu();
-		VentanaPanelMenu x = new VentanaPanelMenu();
-		//
-        add(menuSuperior);
-        setJMenuBar(menuBar1);
-        x.enseñarMenu(menuSuperior, menu);
+//        //Añadir menuSuperior
+//		JPanel menuSuperior = new JPanel(new GridLayout());
+//		JMenuBar menuBar1 = new JMenuBar();
+//		JMenu menu = new JMenu();
+//		VentanaPanelMenu x = new VentanaPanelMenu();
+//		//
+//        add(menuSuperior);
+//        setJMenuBar(menuBar1);
+//        x.enseñarMenu(menuSuperior, menu);
 		
 		//Botones
 		btnVerde = new JButton("Verde");

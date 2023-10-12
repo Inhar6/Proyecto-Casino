@@ -2,6 +2,8 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +39,13 @@ public class VentanaPanelMenu {
 	public JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
 	private JPanel pMenuN2 = new JPanel (new BorderLayout());
+	private JPanel pMenuN3 = new JPanel(new BorderLayout());
+	private JPanel pJuegos = new JPanel(new BorderLayout());
+	private JPanel pCasino = new JPanel(new BorderLayout());
+	private JPanel pInicio = new JPanel(new BorderLayout());
+	private JPanel pRegistro = new JPanel(new BorderLayout());
+	private JPanel pBalance = new JPanel(new BorderLayout());
+	private JPanel pUsuario = new JPanel(new BorderLayout());
 	// Barra de menus
 	private JMenuBar menuBar = new JMenuBar();
 	// Elementos JMenuJuegos
@@ -62,23 +71,48 @@ public class VentanaPanelMenu {
 		bCasino.setIcon(redimensionarIcono(logoCasinoNegro, 30, 30));
 		bCasino.setBorder(null);
 		bCasino.setBorder(new BevelBorder(BevelBorder.RAISED));
-		
+
 		pMenu.add(pMenuN, BorderLayout.NORTH);
-	
-		pMenuN.add(bLogin, BorderLayout.EAST);
-		pMenuN.add(bUsuario, BorderLayout.EAST);
-		pMenuN.add(pMenuN2, BorderLayout.CENTER);
-		pMenuN.add(bCasino, BorderLayout.WEST);
-		pMenuN2.add(bSingUp, BorderLayout.EAST);
-		pMenuN2.add(lBalance,BorderLayout.EAST);
-		pMenuN2.add(bJuegos,BorderLayout.WEST);
+		pMenuN.add(pMenuN2, BorderLayout.WEST);
+		pMenuN.add(pMenuN3, BorderLayout.EAST);
+		pMenuN2.add(pJuegos, BorderLayout.EAST);
+		pMenuN2.add(pCasino, BorderLayout.WEST);
+		pJuegos.add(bJuegos);
+		pCasino.add(bCasino);
+		pMenuN3.add(pInicio, BorderLayout.EAST);
+		pMenuN3.add(pRegistro, BorderLayout.WEST);
+		pMenuN3.add(pUsuario, BorderLayout.EAST);
+		pMenuN3.add(pBalance, BorderLayout.WEST);
+		pInicio.add(bLogin);
+		pRegistro.add(bSingUp);
+		pUsuario.add(bUsuario);
+		pBalance.add(lBalance);
+		
+		// Temporal hasta Añadir mas funciones : 
+		// Mostrar InicioRegistro / BalanceUsuario
+		JPanel mostrarBotones = new JPanel();
+		pMenuN.add(mostrarBotones, BorderLayout.CENTER);
+		mostrarBotones.add(bLogin);
+		mostrarBotones.add(bSingUp);
+		
         // Color y espacios en el Menu superior
 		Color colorPanel = new Color(71, 113, 72);
-		pMenuN.setBorder(new EmptyBorder(20, 25, 15, 25));
+		pMenuN.setBorder(new EmptyBorder(20, 25, 20, 25));
 		pMenuN.setBackground(colorPanel);
 		pMenuN2.setBorder(new EmptyBorder(0, 10, 0, 10));
 		pMenuN2.setBackground(colorPanel);
-		
+		pJuegos.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pJuegos.setBackground(colorPanel);
+		pCasino.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pCasino.setBackground(colorPanel);
+		pInicio.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pInicio.setBackground(colorPanel);
+		pRegistro.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pRegistro.setBackground(colorPanel);
+		pBalance.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pBalance.setBackground(colorPanel);
+		pUsuario.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pUsuario.setBackground(colorPanel);	
 		// Barra de menus
 		menuBar.setVisible(false); // Oculta la barra de menu, se abre con botones Juegos/Usuarios
 		// Configuración JMenuJuegos
@@ -108,8 +142,7 @@ public class VentanaPanelMenu {
 		menuUsuario.addSeparator();
 		menuUsuario.add(menuItemCerrarSesion);
 		menuItemCerrarSesion.setMnemonic(KeyEvent.VK_S);
-		
-		// Añadir JButton Usuario y balance
+
 		bLogin.addActionListener(new ActionListener() {
 
 			@Override

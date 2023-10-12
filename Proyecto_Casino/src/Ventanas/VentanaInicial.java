@@ -16,7 +16,9 @@ public class VentanaInicial extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-		
+	
+	JPanel p = new JPanel();
+	
 	public VentanaInicial() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
