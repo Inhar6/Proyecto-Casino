@@ -2,7 +2,10 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,12 +13,13 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
+import javax.swing.ListCellRenderer;
 
 
 public class VentanaRuleta extends JFrame{
@@ -24,6 +28,8 @@ public class VentanaRuleta extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private int[] rojo = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
 	
 	//Elementos
 	//Botones
@@ -47,10 +53,11 @@ public class VentanaRuleta extends JFrame{
 	
 	public VentanaRuleta(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(800, 600);
+		setSize(800, 500);
 		setTitle("Ruleta");
 		setVisible(true);
 		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 		
 		//Botones
 		btnVerde = new JButton("Verde");
@@ -76,29 +83,20 @@ public class VentanaRuleta extends JFrame{
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
 		lstHistorial = new JList<>(dlmHistorial);
+		//Para dar colores a los numeros de la lista
+		lstHistorial.setCellRenderer(new MyCellRender());
 		//Para que la lista se visualize de manera horizontal
 		lstHistorial.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		lstHistorial.setVisibleRowCount(1);
+		//lstHistorial.setFont(new Font("Arial", Font.BOLD,16));
 		scroll=new JScrollPane(lstHistorial);
-		
-		// Añadir esto para el menu superior
-		
-//		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
-//		add(pMenu);
-//		setJMenuBar(menuBar);
-//		menuBar.add(menuJuegos);
-//		addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				VentanaInicial ventanaInicial = new VentanaInicial();
-//				ventanaInicial.setVisible(true);
-//			}
-//		});
 		
 		JPanel central = new JPanel();
 		JPanel inferior = new JPanel();
 		JPanel inferior1 = new JPanel();
 		JPanel inferior2 = new JPanel();
 		JPanel derecho = new JPanel();
+		JPanel histo = new JPanel();
 		
 		inferior1.setLayout(new GridLayout(1,3));
 		inferior1.add(btn1Docena);
@@ -126,22 +124,92 @@ public class VentanaRuleta extends JFrame{
 		central.add(btnVerde, BorderLayout.WEST);
 		central.add(inferior,BorderLayout.SOUTH);
 		central.add(derecho,BorderLayout.EAST);
-	
-		setLayout(new GridLayout(3,1));
-		add(new JPanel());
-		// Cambiar por pMenu.add(central);
-		add(central);
-		add(new JPanel());
-	}
-	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
+
+		histo.setLayout(new GridLayout(4,2));
+		histo.add(new JPanel());
+		histo.add(new JPanel());
+		histo.add(new JPanel());
+		histo.add(new JPanel());
+		histo.add(new JPanel());
+		histo.add(new JPanel());
+		histo.add(scroll);
+		histo.add(new JPanel());
+		
+		JPanel ruleta = new JPanel();
+		ruleta.setLayout(new GridLayout(2, 1));
+		ruleta.add(histo);
+		ruleta.add(central);
+		
+		
+		pMenu.setLayout(new BorderLayout());
+		add(pMenu);
+		// Añadir esto para el menu superior	
+		setJMenuBar(menuBar);
+		menuBar.add(menuJuegos);
+		pMenu.add(ruleta);
+		
+		//pack();
+		
+		//Prueba para saber si el render funciona pulsando el boton verde
+		btnVerde.addActionListener(new ActionListener() {
 			
 			@Override
-			public void run() {
-				new VentanaRuleta(null, null, null);
+			public void actionPerformed(ActionEvent e) {
+					//Imprime en la lista valores del 0 al 10
+					for(int i = 0;i<=10;i++) {
+						dlmHistorial.addElement(i);
+					}
+				
 				
 			}
 		});
+
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				VentanaInicial ventanaInicial = new VentanaInicial();
+				ventanaInicial.setVisible(true);
+			}
+		});
 	}
+	
+	class MyCellRender extends JLabel implements ListCellRenderer<Integer>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends Integer> list, Integer value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setOpaque(true);
+			if(value == 0) {
+				setBackground(Color.green);
+				setForeground(Color.white);
+			}else if(esRojo(value)) {
+				setBackground(Color.red);
+				setForeground(Color.white);
+			}else {
+				setBackground(Color.BLACK);
+				setForeground(Color.white);
+			}
+			
+			return this;
+		}
+		
+	}
+	
+	//Funcion para saber si el valor que se muestra es rojo
+	public boolean esRojo(Integer i) {
+		for(Integer num : rojo) {
+			if(i.equals(num)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

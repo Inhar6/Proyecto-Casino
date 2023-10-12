@@ -125,7 +125,7 @@ public class VentanaInicial extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin vLogin = new VentanaLogin();
+				new VentanaLogin();
 
 			}
 		});
@@ -141,7 +141,7 @@ public class VentanaInicial extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistro vSingUp = new VentanaRegistro();
+				new VentanaRegistro();
 				
 			}
 		});
@@ -168,7 +168,7 @@ public class VentanaInicial extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaBlackJack vBlackJack = new VentanaBlackJack(pMenu, menuJuegos, menuBar);
+				new VentanaBlackJack(pMenu, menuJuegos, menuBar);
 				
 			}
 		});
@@ -176,21 +176,21 @@ public class VentanaInicial extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrash vCrash = new VentanaCrash(pMenu, menuJuegos, menuBar);
+				new VentanaCrash(pMenu, menuJuegos, menuBar);
 			}
 		});
 		menuItemRuleta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRuleta vRuleta = new VentanaRuleta(pMenu, menuJuegos, menuBar);
+				new VentanaRuleta(pMenu, menuJuegos, menuBar);
 			}
 		});
 		menuItemCoinFlip.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip(pMenu, menuJuegos, menuBar);	
+				new VentanaCoinFlip(pMenu, menuJuegos, menuBar);	
 			}
 		});
 	}
