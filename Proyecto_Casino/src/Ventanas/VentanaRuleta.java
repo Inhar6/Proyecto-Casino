@@ -45,12 +45,22 @@ public class VentanaRuleta extends JFrame{
 	private DefaultListModel<Integer> dlmHistorial;
 	private JScrollPane scroll;
 	
-	public VentanaRuleta(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
+	public VentanaRuleta() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Ruleta");
 		setVisible(true);
 		setLocationRelativeTo(null);
+		
+//        //Añadir menuSuperior
+//		JPanel menuSuperior = new JPanel(new GridLayout());
+//		JMenuBar menuBar1 = new JMenuBar();
+//		JMenu menu = new JMenu();
+//		VentanaPanelMenu x = new VentanaPanelMenu();
+//		//
+//        add(menuSuperior);
+//        setJMenuBar(menuBar1);
+//        x.enseñarMenu(menuSuperior, menu);
 		
 		//Botones
 		btnVerde = new JButton("Verde");
@@ -80,19 +90,6 @@ public class VentanaRuleta extends JFrame{
 		lstHistorial.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		scroll=new JScrollPane(lstHistorial);
 		
-		// Añadir esto para el menu superior
-		
-//		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
-//		add(pMenu);
-//		setJMenuBar(menuBar);
-//		menuBar.add(menuJuegos);
-//		addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				VentanaInicial ventanaInicial = new VentanaInicial();
-//				ventanaInicial.setVisible(true);
-//			}
-//		});
 		
 		JPanel central = new JPanel();
 		JPanel inferior = new JPanel();
@@ -129,7 +126,6 @@ public class VentanaRuleta extends JFrame{
 	
 		setLayout(new GridLayout(3,1));
 		add(new JPanel());
-		// Cambiar por pMenu.add(central);
 		add(central);
 		add(new JPanel());
 	}
@@ -139,7 +135,7 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void run() {
-				new VentanaRuleta(null, null, null);
+				new VentanaRuleta();
 				
 			}
 		});

@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowAdapter;
@@ -18,7 +19,7 @@ public class VentanaBlackJack extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public VentanaBlackJack(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
+	public VentanaBlackJack() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Black Jack");
@@ -28,9 +29,15 @@ public class VentanaBlackJack extends JFrame {
 		setVisible(true);
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 		
-		add(pMenu);
-		setJMenuBar(menuBar);
-		menuBar.add(menuJuegos);
+		// Añadir menuSuperior
+		JPanel menuSuperior = new JPanel(new GridLayout());
+		JMenuBar menuBar1 = new JMenuBar();
+		JMenu menu = new JMenu();
+		VentanaPanelMenu x = new VentanaPanelMenu();			
+		add(menuSuperior);
+		setJMenuBar(menuBar1);
+		x.enseñarMenu(menuSuperior, menu);
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,7 +17,7 @@ public class VentanaCrash extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public VentanaCrash(JPanel pMenu, JMenu menuJuegos, JMenuBar menuBar) {
+	public VentanaCrash() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Crash");
@@ -25,9 +26,16 @@ public class VentanaCrash extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
-		add(pMenu);
-		setJMenuBar(menuBar);
-		menuBar.add(menuJuegos);
+
+        // Añadir menuSuperior
+		JPanel menuSuperior = new JPanel(new GridLayout());
+		JMenuBar menuBar1 = new JMenuBar();
+		JMenu menu = new JMenu();
+		VentanaPanelMenu x = new VentanaPanelMenu();
+        add(menuSuperior);
+        setJMenuBar(menuBar1);
+        x.enseñarMenu(menuSuperior, menu);
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
