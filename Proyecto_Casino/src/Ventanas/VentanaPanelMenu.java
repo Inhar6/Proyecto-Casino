@@ -2,8 +2,6 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -147,7 +145,7 @@ public class VentanaPanelMenu {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin vLogin = new VentanaLogin();
+				new VentanaLogin();
 
 			}
 		});
@@ -163,7 +161,7 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistro vSingUp = new VentanaRegistro();
+				new VentanaRegistro();
 				
 			}
 		});
@@ -190,7 +188,7 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaBlackJack vBlackJack = new VentanaBlackJack();
+				new VentanaBlackJack();
 				
 			}
 		});
@@ -198,21 +196,21 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrash vCrash = new VentanaCrash();
+				new VentanaCrash();
 			}
 		});
 		menuItemRuleta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaRuleta vRuleta = new VentanaRuleta();
+				new VentanaRuleta();
 			}
 		});
 		menuItemCoinFlip.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCoinFlip vCoinFlip = new VentanaCoinFlip();	
+				new VentanaCoinFlip();	
 			}
 		});
 	}
