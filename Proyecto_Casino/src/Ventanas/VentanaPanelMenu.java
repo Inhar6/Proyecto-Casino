@@ -9,10 +9,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
@@ -61,6 +63,11 @@ public class VentanaPanelMenu {
 	private ImageIcon logoCasinoNegro = new ImageIcon("foto/iconos/logoNoEscasino.png");
 	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
 
+	private static int contadorVentanaBlackJack = 0;
+	private static int contadorVentanaCrash = 0;
+	private static int contadorVentanaRuelta = 0;
+	private static int contadorVentanaCoinFlip = 0;
+    private static int limiteVentanas = 1; // Establece el límite deseado
 	
 	public void enseñarMenu(JPanel panel, JMenu menu) {
 
@@ -188,7 +195,11 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaBlackJack();
+				if (contadorVentanaBlackJack < limiteVentanas) {
+                    new VentanaBlackJack();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
+                }
 				
 			}
 		});
@@ -196,21 +207,33 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaCrash();
+				if (contadorVentanaCrash < limiteVentanas) {
+                    new VentanaCrash();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
+                }
 			}
 		});
 		menuItemRuleta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaRuleta();
+				if (contadorVentanaRuelta < limiteVentanas) {
+					new VentanaRuleta();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
+                }
 			}
 		});
 		menuItemCoinFlip.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new VentanaCoinFlip();	
+				if (contadorVentanaCoinFlip < limiteVentanas) {
+					new VentanaCoinFlip();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
+                }	
 			}
 		});
 	}
@@ -223,5 +246,16 @@ public class VentanaPanelMenu {
 		
 		return(imageIcon);
 	}
-		
+    public void abrirNuevaVentanaBlackJack() {
+    	contadorVentanaBlackJack++;
+    }
+    public void abrirNuevaVentanaCrash() {
+    	contadorVentanaCrash++;
+    }
+    public void abrirNuevaVentanaRuleta() {
+    	contadorVentanaRuelta++;
+    }
+    public void abrirNuevaVentanaCoinFlip() {
+    	contadorVentanaCoinFlip++;
+    }
 }

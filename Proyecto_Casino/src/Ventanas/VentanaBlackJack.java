@@ -37,5 +37,6 @@ public class VentanaBlackJack extends JFrame {
 		add(menuSuperior);
 		setJMenuBar(menuBar1);
 		x.enseñarMenu(menuSuperior, menu);	
+		x.abrirNuevaVentanaBlackJack();
 	}
 }

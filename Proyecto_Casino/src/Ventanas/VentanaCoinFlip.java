@@ -36,5 +36,6 @@ public class VentanaCoinFlip extends JFrame{
         add(menuSuperior);
         setJMenuBar(menuBar1);
         x.enseñarMenu(menuSuperior, menu);
+        x.abrirNuevaVentanaCoinFlip();
 	}
 }

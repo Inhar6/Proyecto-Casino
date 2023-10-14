@@ -104,6 +104,7 @@ public class VentanaRuleta extends JFrame{
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
 		VentanaPanelMenu x = new VentanaPanelMenu();
+		x.abrirNuevaVentanaRuleta();
 		///////////////////////////////
       
 		inferior1.setLayout(new GridLayout(1,3));
