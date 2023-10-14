@@ -173,15 +173,6 @@ public class VentanaRuleta extends JFrame{
 				
 			}
 		});
-
-		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				VentanaInicial ventanaInicial = new VentanaInicial();
-				ventanaInicial.setVisible(true);
-			}
-		});
 	}
 	
 	class MyCellRender extends JLabel implements ListCellRenderer<Integer>{

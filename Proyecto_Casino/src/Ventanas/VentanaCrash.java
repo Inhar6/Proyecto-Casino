@@ -35,13 +35,5 @@ public class VentanaCrash extends JFrame{
         add(menuSuperior);
         setJMenuBar(menuBar1);
         x.enseñarMenu(menuSuperior, menu);
-		
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				VentanaInicial ventanaInicial = new VentanaInicial();
-				ventanaInicial.setVisible(true);
-			}
-	});
 	}
 }
