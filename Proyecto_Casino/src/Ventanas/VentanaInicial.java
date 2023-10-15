@@ -37,15 +37,7 @@ public class VentanaInicial extends JFrame{
         setJMenuBar(menuBar1);
         x.enseñarMenu(menuSuperior, menu);
 		setVisible(true);
-	}
-
-	public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
-		Image image = imageIcon.getImage();
-		Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
-		
-		imageIcon = new ImageIcon(newimg);
-		
-		return(imageIcon);
+		x.abrirNuevaVentanaInicial();
 	}
 		
 	public static void main(String[] args) {

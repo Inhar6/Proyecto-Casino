@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -17,6 +18,8 @@ public class VentanaCrash extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	
 	public VentanaCrash() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -28,7 +31,7 @@ public class VentanaCrash extends JFrame{
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
 
         // Añadir menuSuperior
-		JPanel menuSuperior = new JPanel(new GridLayout());
+		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
 		VentanaPanelMenu x = new VentanaPanelMenu();
@@ -36,5 +39,7 @@ public class VentanaCrash extends JFrame{
         setJMenuBar(menuBar1);
         x.enseñarMenu(menuSuperior, menu);
         x.abrirNuevaVentanaCrash();
+        
+        
 	}
 }

@@ -67,6 +67,8 @@ public class VentanaPanelMenu {
 	private static int contadorVentanaCrash = 0;
 	private static int contadorVentanaRuelta = 0;
 	private static int contadorVentanaCoinFlip = 0;
+	private static int contadorVentanaInicial = 0;
+
     private static int limiteVentanas = 1; // Establece el límite deseado
 	
 	public void enseñarMenu(JPanel panel, JMenu menu) {
@@ -160,7 +162,11 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Click en bCasino");			
+				if (contadorVentanaInicial < limiteVentanas) {
+                    new VentanaInicial();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Inicio.");
+                }			
 			}
 		});
 		
@@ -199,8 +205,7 @@ public class VentanaPanelMenu {
                     new VentanaBlackJack();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
-                }
-				
+                }	
 			}
 		});
 		menuItemCrash.addActionListener(new ActionListener() {
@@ -257,5 +262,8 @@ public class VentanaPanelMenu {
     }
     public void abrirNuevaVentanaCoinFlip() {
     	contadorVentanaCoinFlip++;
+    }
+    public void abrirNuevaVentanaInicial() {
+    	contadorVentanaInicial++;
     }
 }
