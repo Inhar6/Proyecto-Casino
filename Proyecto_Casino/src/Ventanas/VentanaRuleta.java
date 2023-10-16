@@ -106,7 +106,6 @@ public class VentanaRuleta extends JFrame{
 		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();
 		menuGeneral.abrirNuevaVentanaRuleta();
         // Añadir menuApostar
-        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
 		///////////////////////////////
@@ -158,7 +157,7 @@ public class VentanaRuleta extends JFrame{
 		
 		////////////////////////
         setJMenuBar(menuBar1);
-        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarApostar(menuInferior);
         menuGeneral.enseñarMenu(menuSuperior, menu);
 		////////////////////////
 		

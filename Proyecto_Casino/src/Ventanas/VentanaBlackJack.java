@@ -39,11 +39,10 @@ public class VentanaBlackJack extends JFrame {
 		setJMenuBar(menuBar1);
 		menuGeneral.abrirNuevaVentanaBlackJack();
         // Añadir menuApostar
-        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
-        //
-        menuApostar.enseñarApostar(menuInferior);
+
+        menuGeneral.enseñarApostar(menuInferior);
         menuGeneral.enseñarMenu(menuSuperior, menu);	
 
 	}

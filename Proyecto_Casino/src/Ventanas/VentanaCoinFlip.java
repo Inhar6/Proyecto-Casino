@@ -37,12 +37,10 @@ public class VentanaCoinFlip extends JFrame{
         add(menuSuperior);
         setJMenuBar(menuBar1);
         menuGeneral.abrirNuevaVentanaCoinFlip();
-        // Añadir menuApostar
-        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
         //
-        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarApostar(menuInferior);
         menuGeneral.enseñarMenu(menuSuperior, menu);
 	}
 }

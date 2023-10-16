@@ -38,13 +38,11 @@ public class VentanaCrash extends JFrame{
         add(menuSuperior, BorderLayout.NORTH);
         setJMenuBar(menuBar1);
         menuGeneral.abrirNuevaVentanaCrash();
-        //
         // Añadir menuApostar
-        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
         //
-        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarApostar(menuInferior);
         menuGeneral.enseñarMenu(menuSuperior, menu);
         //
         
