@@ -1,16 +1,16 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaCrash extends JFrame{
 
@@ -34,12 +34,22 @@ public class VentanaCrash extends JFrame{
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
-		VentanaPanelMenu x = new VentanaPanelMenu();
-        add(menuSuperior);
+		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();
+        add(menuSuperior, BorderLayout.NORTH);
         setJMenuBar(menuBar1);
-        x.enseñarMenu(menuSuperior, menu);
-        x.abrirNuevaVentanaCrash();
+        menuGeneral.abrirNuevaVentanaCrash();
+        //
+        // Añadir menuApostar
+        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
+        JPanel menuInferior = new JPanel(new BorderLayout());
+        add(menuInferior, BorderLayout.SOUTH);
+        //
+        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarMenu(menuSuperior, menu);
+        //
         
-        
+	}
+	public static void main(String[] args) {
+		new VentanaCrash();
 	}
 }

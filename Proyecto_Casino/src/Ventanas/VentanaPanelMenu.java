@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -166,6 +165,7 @@ public class VentanaPanelMenu {
                     new VentanaInicial();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Inicio.");
+                    contadorVentanaInicial--;
                 }			
 			}
 		});
@@ -205,6 +205,7 @@ public class VentanaPanelMenu {
                     new VentanaBlackJack();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
+                    contadorVentanaBlackJack--;
                 }	
 			}
 		});
@@ -216,6 +217,7 @@ public class VentanaPanelMenu {
                     new VentanaCrash();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
+                    contadorVentanaCrash--;
                 }
 			}
 		});
@@ -227,6 +229,7 @@ public class VentanaPanelMenu {
 					new VentanaRuleta();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
+                    contadorVentanaRuelta--;
                 }
 			}
 		});
@@ -238,6 +241,7 @@ public class VentanaPanelMenu {
 					new VentanaCoinFlip();
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
+                    contadorVentanaCoinFlip--;
                 }	
 			}
 		});

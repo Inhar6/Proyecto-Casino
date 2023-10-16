@@ -103,8 +103,12 @@ public class VentanaRuleta extends JFrame{
 		JPanel menuSuperior = new JPanel(new GridLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
-		VentanaPanelMenu x = new VentanaPanelMenu();
-		x.abrirNuevaVentanaRuleta();
+		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();
+		menuGeneral.abrirNuevaVentanaRuleta();
+        // Añadir menuApostar
+        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
+        JPanel menuInferior = new JPanel(new BorderLayout());
+        add(menuInferior, BorderLayout.SOUTH);
 		///////////////////////////////
       
 		inferior1.setLayout(new GridLayout(1,3));
@@ -154,7 +158,8 @@ public class VentanaRuleta extends JFrame{
 		
 		////////////////////////
         setJMenuBar(menuBar1);
-        x.enseñarMenu(menuSuperior, menu);
+        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarMenu(menuSuperior, menu);
 		////////////////////////
 		
 		add(ruleta);

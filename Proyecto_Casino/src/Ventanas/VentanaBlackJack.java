@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -33,10 +34,17 @@ public class VentanaBlackJack extends JFrame {
 		JPanel menuSuperior = new JPanel(new GridLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
-		VentanaPanelMenu x = new VentanaPanelMenu();			
+		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();			
 		add(menuSuperior);
 		setJMenuBar(menuBar1);
-		x.enseñarMenu(menuSuperior, menu);	
-		x.abrirNuevaVentanaBlackJack();
+		menuGeneral.abrirNuevaVentanaBlackJack();
+        // Añadir menuApostar
+        VentanaPanelApostar menuApostar = new VentanaPanelApostar();
+        JPanel menuInferior = new JPanel(new BorderLayout());
+        add(menuInferior, BorderLayout.SOUTH);
+        //
+        menuApostar.enseñarApostar(menuInferior);
+        menuGeneral.enseñarMenu(menuSuperior, menu);	
+
 	}
 }
