@@ -3,6 +3,7 @@ package Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +47,7 @@ public class VentanaRuleta extends JFrame{
 	private JButton btn1Fila;
 	private JButton btn2Fila;
 	private JButton btn3Fila;
+	private JButton btnJugar;
 	//JList
 	private JList<Integer> lstHistorial;
 	private DefaultListModel<Integer> dlmHistorial;
@@ -79,6 +81,7 @@ public class VentanaRuleta extends JFrame{
 		btn1Fila = new JButton("2a1");
 		btn2Fila = new JButton("2a1");
 		btn3Fila = new JButton("2a1");
+		btnJugar = new JButton("Jugar");
 		
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
@@ -97,6 +100,7 @@ public class VentanaRuleta extends JFrame{
 		JPanel inferior2 = new JPanel();
 		JPanel derecho = new JPanel();
 		JPanel histo = new JPanel();
+		JPanel juego = new JPanel();
 		
 		////////////////////////////
 		//Añadir menuSuperior
@@ -109,12 +113,11 @@ public class VentanaRuleta extends JFrame{
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
 		///////////////////////////////
-      
+        //RULETA
 		inferior1.setLayout(new GridLayout(1,3));
 		inferior1.add(btn1Docena);
 		inferior1.add(btn2Docena);
 		inferior1.add(btn3Docena);
-		
 		inferior2.setLayout(new GridLayout(1,6));
 		inferior2.add(btn1a18);
 		inferior2.add(btnPar);
@@ -122,20 +125,20 @@ public class VentanaRuleta extends JFrame{
 		inferior2.add(btnNegro);
 		inferior2.add(btnImpar);
 		inferior2.add(btn19a36);
-		
 		inferior.setLayout(new GridLayout(2, 1));
 		inferior.add(inferior1);
 		inferior.add(inferior2);
-		
 		derecho.setLayout(new GridLayout(3,1));
 		derecho.add(btn1Fila);
 		derecho.add(btn2Fila);
 		derecho.add(btn3Fila);
-		
 		central.setLayout(new BorderLayout());
 		central.add(btnVerde, BorderLayout.WEST);
 		central.add(inferior,BorderLayout.SOUTH);
 		central.add(derecho,BorderLayout.EAST);
+		
+		juego.setLayout(new FlowLayout());
+		juego.add(btnJugar);
 		
 		histo.setLayout(new GridLayout(3,2));
 		histo.add(new JPanel());
@@ -143,7 +146,7 @@ public class VentanaRuleta extends JFrame{
 		histo.add(scroll);
 		histo.add(new JPanel());
 		histo.add(new JPanel());
-		histo.add(new JPanel());
+		histo.add(juego);
 		
 		JPanel menuHisto = new JPanel();
 		menuHisto.setLayout(new GridLayout(2,1));
