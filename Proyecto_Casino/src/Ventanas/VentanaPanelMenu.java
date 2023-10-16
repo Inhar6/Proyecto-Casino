@@ -431,7 +431,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (balance > apuesta ) {
 					balance -= apuesta;
+					apuesta = 0;
 					lBalance.setText("Balance: " + balance);
+					lApuesta.setText("Apuesta: " + apuesta);
 				} else {
 					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
 				}
