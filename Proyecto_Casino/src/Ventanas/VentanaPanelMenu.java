@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -67,11 +71,12 @@ public class VentanaPanelMenu {
 	private ImageIcon logoCasinoNegro = new ImageIcon("foto/iconos/logoNoEscasino.png");
 	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
 
-	private static int contadorVentanaBlackJack = 0;
-	private static int contadorVentanaCrash = 0;
-	private static int contadorVentanaRuelta = 0;
-	private static int contadorVentanaCoinFlip = 0;
-	private static int contadorVentanaInicial = 0;
+//	private Estado estado;
+	static int contadorVentanaBlackJack = 0;
+	static int contadorVentanaCrash = 0;
+	static int contadorVentanaRuelta = 0;
+	static int contadorVentanaCoinFlip = 0;
+	static int contadorVentanaInicial = 0;
 
     private static int limiteVentanas = 1; // Establece el límite deseado
 	
@@ -177,9 +182,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaInicial < limiteVentanas) {
                     new VentanaInicial();
+                    contadorVentanaInicial++;
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Inicio.");
-                    contadorVentanaInicial--;
                 }			
 			}
 		});
@@ -217,9 +222,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaBlackJack < limiteVentanas) {
                     new VentanaBlackJack();
+                    contadorVentanaBlackJack++;
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
-                    contadorVentanaBlackJack--;
                 }	
 			}
 		});
@@ -229,9 +234,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaCrash < limiteVentanas) {
                     new VentanaCrash();
+                	contadorVentanaCrash++;
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
-                    contadorVentanaCrash--;
                 }
 			}
 		});
@@ -241,9 +246,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaRuelta < limiteVentanas) {
 					new VentanaRuleta();
+					contadorVentanaRuelta++;
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
-                    contadorVentanaRuelta--;
                 }
 			}
 		});
@@ -253,9 +258,9 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaCoinFlip < limiteVentanas) {
 					new VentanaCoinFlip();
+					contadorVentanaCoinFlip++;
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
-                    contadorVentanaCoinFlip--;
                 }	
 			}
 		});
@@ -269,21 +274,7 @@ public class VentanaPanelMenu {
 		
 		return(imageIcon);
 	}
-    public void abrirNuevaVentanaBlackJack() {
-    	contadorVentanaBlackJack++;
-    }
-    public void abrirNuevaVentanaCrash() {
-    	contadorVentanaCrash++;
-    }
-    public void abrirNuevaVentanaRuleta() {
-    	contadorVentanaRuelta++;
-    }
-    public void abrirNuevaVentanaCoinFlip() {
-    	contadorVentanaCoinFlip++;
-    }
-    public void abrirNuevaVentanaInicial() {
-    	contadorVentanaInicial++;
-    }
+    
     // PanelApostar
 	private JPanel pApostar = new JPanel(new BorderLayout());
 	private JPanel pApostarW = new JPanel(new BorderLayout());
@@ -364,10 +355,13 @@ public class VentanaPanelMenu {
         pBotonEliminarApuesta.setBackground(colorPanel); pBotonEliminarApuesta.setBorder(new EmptyBorder(0, 0, 0, 10));
         pLabelApuesta.setBackground(colorPanel); pLabelApuesta.setBorder(new EmptyBorder(0, 0, 0, 10));
         
+        //
+        //https://chat.openai.com/c/9efa7138-9668-45e2-83f6-0af11d881280
         // Aumenta el tamaño de la fuente de un JLabel
         Font fuente = lApuesta.getFont();
         Font nuevaFuente = new Font(fuente.getName(), Font.PLAIN, 18);
         lApuesta.setFont(nuevaFuente);
+        //
         
         ficha1.addActionListener (new ActionListener() {
 			

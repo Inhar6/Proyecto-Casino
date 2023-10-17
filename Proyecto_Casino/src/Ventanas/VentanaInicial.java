@@ -3,6 +3,9 @@ package Ventanas;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -20,24 +23,34 @@ public class VentanaInicial extends JFrame{
 	JPanel p = new JPanel();
 	
 	public VentanaInicial() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("NoEscasino");
 		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
+	    setVisible(true);
 		setIconImage((new ImageIcon("foto/iconos/favicon.png")).getImage());
 		
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new GridLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
-		VentanaPanelMenu x = new VentanaPanelMenu();
+		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();
         add(menuSuperior);
         setJMenuBar(menuBar1);
-        x.enseñarMenu(menuSuperior, menu);
-		setVisible(true);
-		x.abrirNuevaVentanaInicial();
+        menuGeneral.enseñarMenu(menuSuperior, menu);
+     // Contador ventanas abiertas
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                VentanaPanelMenu.contadorVentanaInicial = 0; // Reiniciar el contador
+            }
+            @Override
+            public void windowOpened(WindowEvent e) {
+            	VentanaPanelMenu.contadorVentanaInicial = 1;
+            }
+        });
 	}
 		
 	public static void main(String[] args) {
