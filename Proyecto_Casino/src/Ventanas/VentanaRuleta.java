@@ -45,7 +45,11 @@ public class VentanaRuleta extends JFrame{
 	private int[] filaS = {};
 	private int[] filaT = {};
 	*/
-	private List<Integer> apuesta = new ArrayList<Integer>();
+	private List<String> colorApuesta = new ArrayList<String>();
+	private List<Integer> filaApuesta = new ArrayList<Integer>();
+	private List<Integer> docenaApuesta = new ArrayList<Integer>();
+	private List<Integer> rangoApuesta = new ArrayList<Integer>();
+	private List<Integer> parApuesta = new ArrayList<Integer>();
 	
 	
 	//Elementos
@@ -64,6 +68,7 @@ public class VentanaRuleta extends JFrame{
 	private JButton btn2Fila;
 	private JButton btn3Fila;
 	private JButton btnJugar;
+	private JButton btnBorrarApuesta;
 	//JList
 	private JList<Integer> lstHistorial;
 	private DefaultListModel<Integer> dlmHistorial;
@@ -100,6 +105,7 @@ public class VentanaRuleta extends JFrame{
 		btn2Fila = new JButton("2a1");
 		btn3Fila = new JButton("2a1");
 		btnJugar = new JButton("Jugar");
+		btnBorrarApuesta= new JButton("Borrar apuesta");
 		
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
@@ -156,6 +162,7 @@ public class VentanaRuleta extends JFrame{
 		
 		juego.setLayout(new FlowLayout());
 		juego.add(btnJugar);
+		juego.add(btnBorrarApuesta);
 		
 		histo.setLayout(new GridLayout(3,2));
 		histo.add(new JPanel());
@@ -192,35 +199,34 @@ public class VentanaRuleta extends JFrame{
 
 		//pack();
 		
-		//Prueba para saber si el render funciona pulsando el boton verde
+		//Color verde
 		btnVerde.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*	
-				//Imprime en la lista valores del 0 al 10
-					for(int i = 0;i<=10;i++) {
-						dlmHistorial.addElement(i);
-					}
-				*/
 					btnVerde.setEnabled(false);
-					apuesta.add(0);
+					colorApuesta.add("verde");
+					
 				
 			}
 		});
+		//Color Rojo
 		btnRojo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnRojo.setEnabled(false);
+				colorApuesta.add("rojo");
 				
 			}
 		});
+		//Color Negro
 		btnNegro.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnNegro.setEnabled(false);
+				colorApuesta.add("negro");
 				
 			}
 		});
@@ -245,6 +251,7 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1a18.setEnabled(false);
+				rangoApuesta.add(1);
 			
 			}
 		});
@@ -253,69 +260,81 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn19a36.setEnabled(false);
-			
+				rangoApuesta.add(2);
 			}
 		});
+		//Primera docena
 		btn1Docena.addActionListener(new ActionListener() {
 					
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1Docena.setEnabled(false);
+				docenaApuesta.add(1);
 			
 			}
 		});
+		//Segunda docena
 		btn2Docena.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn2Docena.setEnabled(false);
-			
+				docenaApuesta.add(2);
 			}
 		});
+		//Tercera docena
 		btn3Docena.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn3Docena.setEnabled(false);
-			
+				docenaApuesta.add(3);
 			}
 		});
-
+		//Primera fila
 		btn1Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1Fila.setEnabled(false);
+				filaApuesta.add(1);
 			
 			}
 		});
+		//Segunda fila
 		btn2Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn2Fila.setEnabled(false);
-			
+				filaApuesta.add(2);
 			}
 		});
+		//Tercera fila
 		btn3Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn3Fila.setEnabled(false);
-			
+				filaApuesta.add(3);
 			}
 		});
-		
-		
+		//Borrar apuesta
+		btnBorrarApuesta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Se vacian todas las listas
+				reinicio(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta);
+				
+			}
+		});
+		//Jugar
 		btnJugar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int num = random.nextInt(36);
-				dlmHistorial.addElement(num);
-				//double resultado=juego(num, apuesta);
-				//System.out.println(resultado);
-				activarBotones();
+				juego(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta);
 				
 			}
 		});
@@ -384,14 +403,123 @@ public class VentanaRuleta extends JFrame{
 		btn3Fila.setEnabled(true);
 	}
 	
-	
-	public double juego(int num, List<Integer> apuesta) {
-		double resultado =0;
-		if(apuesta.contains(num)) {
-			
-		}else {
-			resultado=0;
-		}
-		return resultado;
+	private void juego(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas) {
+		//Saca un numero random del 0 al 36
+		int num = random.nextInt(36);
+		//Verificar si ha tocado para las casillas seleccionadas
+		double ganancia = verificarResultado(coloresApostadas,docenasApostadas,filasApostadas,rangoApostadas,parApostadas,num);
+		//Pone el numero en el historial-lista
+		dlmHistorial.addElement(num);
+		//Mostrar si se ha ganado o no
+		result(ganancia,num);
+		//Reiniciar
+		reinicio(coloresApostadas,docenasApostadas,filasApostadas,rangoApostadas,parApostadas);
+		///System.out.println(gano);
 	}
+	
+	public double verificarResultado(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas,int resultado) {
+		//Modificar segun se toque el dinero que se va a ingresar
+		double premioTotal=1.0;
+		//Premios por cada posible resultado
+		double colorValor = 2.0;
+		double docenaValor = 3.0;
+		double filaValor = 3.0;
+		double rangoValor = 2.0;
+		double parValor = 2.0;
+		
+		//Separamos en apartados para saber si han sido premiados
+		//Verificamos el color
+		for(String color : coloresApostadas) {
+			if(color.equals(obtenerColor(resultado))) {
+				premioTotal*=colorValor;
+			}
+		}
+		//Verificamos la docena
+		for(Integer docena : docenasApostadas) {
+			if(docena.equals(obtenerDocena(resultado))) {
+				premioTotal*=docenaValor;
+			}
+		}
+		//Verificamos la fila
+		 for(Integer fila : filasApostadas) {
+			if(fila.equals(obtenerFila(resultado))) {
+				premioTotal*=filaValor;
+			}
+		}
+		//Verificamos el rango
+		 for(Integer rango : rangoApostadas) {
+			if(rango.equals(obtenerRango(resultado))) {
+				premioTotal*=rangoValor;
+			}
+		}
+		//Verificamos si es par o impar
+	  	for(Integer par : rangoApostadas) {
+				if(par.equals(obtenerPar(resultado))) {
+					premioTotal*=parValor;
+				}
+			}
+		
+		return premioTotal;
+	}
+	
+	public String obtenerColor(int resultado) {
+		if(resultado==0) {
+			return "verde";
+		}else if(esRojo(resultado)) {
+			return "rojo";
+		}else {
+			return "negro";
+		}
+	}
+	public int obtenerDocena(int resultado) {
+		if(resultado >= 1 && resultado <= 12) {
+			return 1;
+		}else if(resultado >= 13 && resultado <= 24) {
+			return 2;
+		}else{
+			return 3;
+		}
+	}
+	public int obtenerFila(int resultado) {
+		if(resultado % 3 == 1) {
+			return 1;
+		}else if (resultado % 3 ==2) {
+			return 2;
+		}else {
+			return 3;
+		}
+	}
+	public int obtenerRango(int resultado) {
+		if(resultado >= 1 && resultado <= 18) {
+			return 1;
+		}else if(resultado >= 19 && resultado <= 36) {
+			return 2;
+		}else{
+			return 0;
+		}
+	}
+	public int obtenerPar(int resultado) {
+		if(resultado%2 ==0) {
+			return 1;
+		}else if(resultado == 0) {
+			return 0;
+		}else{
+			return 2;
+		}
+	}
+	
+	public void reinicio(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas) {
+		//Activa los botones para otra partida
+		activarBotones();
+		//Quitar los valores anteriores de la lista
+		coloresApostadas.clear();
+		docenasApostadas.clear();
+		filasApostadas.clear();
+		rangoApostadas.clear();
+		parApostadas.clear();
+	}
+	public void result(double gano, int r) {
+		System.out.println("Se ha ganado un total de "+ gano);
+	}
+	
 }
