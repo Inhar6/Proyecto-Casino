@@ -45,7 +45,7 @@ public class VentanaLogin extends JFrame{
 		
 		// JLabel Usuario/Contraseña
 		JLabel lIniciarSesion = new JLabel("Iniciar sesion");
-		JLabel lUsurario = new JLabel("Usuario");
+		JLabel lUsurario = new JLabel("Usuario       ");
 		JLabel lContraseña = new JLabel("Contraseña");
 		
 		//añadir J.. a paneles 
