@@ -53,12 +53,12 @@ public class VentanaRegistro extends JFrame{
 		
 		Registro = new JLabel("Registro");
 		Pais = new JLabel("Pais de Residencia");
-		DNI = new JLabel("DNI :");
-		Nombre = new JLabel("Nombre :");
-		Apellido = new JLabel("Apellidos :");
+		DNI = new JLabel            ("                                DNI :");
+		Nombre = new JLabel         ("                        Nombre :");
+		Apellido = new JLabel       ("                      Apellidos :");
 		FechaNacimiento = new JLabel("Fecha de Nacimiento :");
-		Usuario = new JLabel("Nombre de Usuario");
-		Contraseña = new JLabel("Contraseña");
+		Usuario = new JLabel        ("     Nombre de Usuario:");
+		Contraseña = new JLabel     ("                    Contraseña:");
 		
 		txtDNI = new JTextField(15);
 		txtNombre= new JTextField(15);
