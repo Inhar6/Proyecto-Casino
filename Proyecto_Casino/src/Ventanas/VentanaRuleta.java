@@ -76,7 +76,7 @@ public class VentanaRuleta extends JFrame{
 	//Random
 	Random random = new Random();
 	///IMAGEN
-	private String rutaImagen="C:\\Users\\Usuario\\Downloads\\mesa-ruleta2.png";
+	private String rutaImagen="foto/iconos/mesa-ruleta2.png";
 	private ImageIcon imagen;
 	private JLabel etiquetaImagen;
 			
