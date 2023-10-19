@@ -75,7 +75,14 @@ public class VentanaRuleta extends JFrame{
 	private JScrollPane scroll;
 	//Random
 	Random random = new Random();
-	
+	///IMAGEN
+	private String rutaImagen="C:\\Users\\Usuario\\Downloads\\mesa-ruleta2.png";
+	private ImageIcon imagen;
+	private JLabel etiquetaImagen;
+			
+			
+			
+			
 	public VentanaRuleta() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -106,6 +113,10 @@ public class VentanaRuleta extends JFrame{
 		btn3Fila = new JButton("2a1");
 		btnJugar = new JButton("Jugar");
 		btnBorrarApuesta= new JButton("Borrar apuesta");
+		//IMAGEN
+		imagen= new ImageIcon(rutaImagen);
+		etiquetaImagen = new JLabel(imagen);
+		etiquetaImagen.setBounds(50,50,200,200);
 		
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
@@ -159,6 +170,8 @@ public class VentanaRuleta extends JFrame{
 		central.add(btnVerde, BorderLayout.WEST);
 		central.add(inferior,BorderLayout.SOUTH);
 		central.add(derecho,BorderLayout.EAST);
+		//IMAGEN
+		central.add(etiquetaImagen,BorderLayout.CENTER);
 		
 		juego.setLayout(new FlowLayout());
 		juego.add(btnJugar);
