@@ -39,7 +39,6 @@ public class VentanaPerfil extends JFrame{
 	private JLabel nUsuario;
 	private JLabel fechaNacimiento;
 	private JLabel perfil;
-	private JLabel bal;
 	//JTextFields
 	private JTextField txtNombre;
 	private JTextField txtNUsuario;
@@ -70,7 +69,6 @@ public class VentanaPerfil extends JFrame{
 		nUsuario = new JLabel("Usuario");
 		fechaNacimiento = new JLabel("Fecha de nacimiento");
 		perfil = new JLabel("Perfil");
-		bal = new JLabel("Balance");
 		//JTextField
 		txtNombre= new JTextField(15);
 		txtNUsuario= new JTextField(15);
