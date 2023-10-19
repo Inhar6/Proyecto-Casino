@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -23,6 +26,16 @@ public class VentanaCoinFlip extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JButton bCara;
+	private JButton bCruz;
+  	
+	private JButton bBorrarSelec;
+	private JButton b1_2 ;
+	private JButton bx2 ;
+	private JButton bMax ;
+  		
+	private JButton bJugar;
 	
 	public VentanaCoinFlip() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,15 +63,15 @@ public class VentanaCoinFlip extends JFrame{
             }
         });
       //botones 
-      	JButton bCara = new JButton("Cara");
-      	JButton bCruz = new JButton("Cruz");
+      	bCara = new JButton("Cara");
+      	bCruz = new JButton("Cruz");
       	
-      	JButton bBorrarSelec = new JButton("Borrar Seleccion");
-      	JButton b1_2 = new JButton("1/2");
-      	JButton bx2 = new JButton("x2");
-      	JButton bMax = new JButton("Max");
+      	bBorrarSelec = new JButton("Borrar Seleccion");
+      	b1_2 = new JButton("1/2");
+      	bx2 = new JButton("x2");
+      	bMax = new JButton("Max");
       		
-      	JButton bJugar = new JButton("Jugar");
+      	bJugar = new JButton("Jugar");
       		
       	//lista
       	DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
@@ -117,5 +130,87 @@ public class VentanaCoinFlip extends JFrame{
 
         menuGeneral.enseñarApostar(menuInferior);
         menuGeneral.enseñarMenu(menuSuperior, menu);
+        
+        //listeners
+        bCara.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {				
+				
+				bCara.setEnabled(false);
+				bCruz.setEnabled(true);
+			}
+		});
+        
+        bCruz.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				bCara.setEnabled(true);
+				bCruz.setEnabled(false);
+				
+			}
+		});
+        
+        bBorrarSelec.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				bCara.setEnabled(true);
+				bCruz.setEnabled(true);
+				
+			}
+		});
+        
+        b1_2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        bx2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+        
+        bMax.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+        
+        bJugar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				
+				
+				
+				
+			String resultado = "";
+			int n =(int)(Math.random()*2+1);
+				
+				if(n == 1) {
+					resultado = "Cara";
+				}else{
+					resultado = "Cruz";
+				}
+				dlmHistorial.addElement(resultado);
+				
+				JOptionPane.showMessageDialog(null, resultado);
+			}
+		});
 	}
+
 }
+	
