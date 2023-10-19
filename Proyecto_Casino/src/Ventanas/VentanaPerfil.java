@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -26,6 +28,9 @@ public class VentanaPerfil extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	//Color del panel
+	private Color colorPanel = new Color(71, 113, 72);
 	
 	private String[] listaJuegos = {"Ruleta", "Crash", "BlackJack", "Coin Flip"};
 	//Elementos
@@ -41,12 +46,18 @@ public class VentanaPerfil extends JFrame{
 	private JTextField txtFechaNacimiento;
 	//JComboBox
 	private JComboBox<String> jcbJuegos;
-	//JTable
+	//JTable - Historial
 	private JTable tabla;
 	private DefaultTableModel dtmTabla;
 	private JScrollPane scroll;
+	//JTable - Balance
+	private JTable tablaB;
+	private DefaultTableModel dtmTablaB;
+	private JScrollPane scrollB;
 	//JButton
 	private JButton edit;
+	
+	
 	
 	public VentanaPerfil() {
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
@@ -64,14 +75,27 @@ public class VentanaPerfil extends JFrame{
 		txtNombre= new JTextField(15);
 		txtNUsuario= new JTextField(15);
 		txtFechaNacimiento= new JTextField(15);
+		//Borde
+		Border lineaDatos = BorderFactory.createLineBorder(colorPanel);
+		Border tituloDatos = BorderFactory.createTitledBorder(lineaDatos,"Datos");
 		//JComboBox
 		jcbJuegos= new JComboBox<String>(listaJuegos);
-		//JTable
+		//JTable - Historial
 		dtmTabla= new DefaultTableModel();
 		tabla = new JTable(dtmTabla);
 		tabla.setEnabled(false);
 		tabla.setDefaultRenderer(Object.class, new MyRender());
 		scroll = new JScrollPane(tabla);
+		Border lineaHistorial = BorderFactory.createLineBorder(colorPanel);
+		Border tituloHistorial = BorderFactory.createTitledBorder(lineaHistorial,"Historial");
+		//JTable - Balance
+		dtmTablaB= new DefaultTableModel();
+			dtmTablaB.addColumn("Saldo");
+		tablaB = new JTable(dtmTablaB);
+		//tabla.setDefaultRenderer(Object.class, new MyRender());
+		scrollB = new JScrollPane(tablaB);
+		Border lineaBalance = BorderFactory.createLineBorder(colorPanel);
+		Border tituloBalance = BorderFactory.createTitledBorder(lineaBalance,"Balance");
 		//JButton
 		edit= new JButton("Editar");
 		
@@ -87,7 +111,6 @@ public class VentanaPerfil extends JFrame{
 			JPanel juegos = new JPanel();
 				JPanel box = new JPanel();
 			JPanel balance = new JPanel ();
-				JPanel b = new JPanel();
 		JPanel editar = new JPanel();
 		
 		N.setLayout(new FlowLayout());
@@ -99,22 +122,25 @@ public class VentanaPerfil extends JFrame{
 		F.setLayout(new FlowLayout());
 		F.add(fechaNacimiento);
 		F.add(txtFechaNacimiento);
-		izquierdo.setLayout(new GridLayout(4,1));
+		izquierdo.setLayout(new GridLayout(5,1));
+		izquierdo.add(new JPanel());
 		izquierdo.add(N);
 		izquierdo.add(NU);
 		izquierdo.add(F);
+		izquierdo.add(new JPanel());
+		izquierdo.setBorder(tituloDatos);
 		juegos.setLayout(new BorderLayout());
 			box.setLayout(new FlowLayout());
 			box.add(jcbJuegos);
 		juegos.add(box, BorderLayout.NORTH);
 		juegos.add(scroll, BorderLayout.CENTER);
+		juegos.setBorder(tituloHistorial);
 		///
 		//GRAFICO
 		///
 		balance.setLayout(new BorderLayout());
-			b.setLayout(new FlowLayout());
-			b.add(bal);
-		balance.add(b, BorderLayout.NORTH);
+		balance.add(scrollB,BorderLayout.CENTER);
+		balance.setBorder(tituloBalance);
 		///
 		//GRAFICO
 		///
@@ -126,6 +152,7 @@ public class VentanaPerfil extends JFrame{
 		central.add(derecho);
 		perf.setLayout(new FlowLayout());
 		perf.add(perfil);
+		perf.setBackground(colorPanel);
 		editar.add(edit);
 		principal.setLayout(new BorderLayout());
 		principal.add(perf, BorderLayout.NORTH);
@@ -163,7 +190,7 @@ public class VentanaPerfil extends JFrame{
 		dtmTabla.setRowCount(0);
 		dtmTabla.setColumnCount(0);
 	}
-	
+	//Datos de prueba
 	public void pintarDatosRuleta() {
 		dtmTabla.addColumn("Tirada");
 		dtmTabla.addColumn("Resultado");
@@ -203,10 +230,11 @@ public class VentanaPerfil extends JFrame{
 			
 			setText(value.toString());
 			if(row%2 ==0) {
-				setBackground(Color.cyan);
+				setBackground(Color.LIGHT_GRAY);
 			}else {
 				setBackground(Color.white);
 			}
+			
 			
 			return this;
 		}
