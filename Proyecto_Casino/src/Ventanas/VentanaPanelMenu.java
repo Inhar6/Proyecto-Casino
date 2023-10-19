@@ -77,6 +77,7 @@ public class VentanaPanelMenu {
 	static int contadorVentanaRuelta = 0;
 	static int contadorVentanaCoinFlip = 0;
 	static int contadorVentanaInicial = 0;
+	static int contadorVentanaPerfil = 0;
 
     private static int limiteVentanas = 1; // Establece el límite deseado
 	
@@ -262,6 +263,19 @@ public class VentanaPanelMenu {
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
                 }	
+			}
+		});
+		menuItemPerfil.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(contadorVentanaPerfil < limiteVentanas) {
+					new VentanaPerfil();
+					contadorVentanaPerfil++;
+				}else {
+					JOptionPane.showMessageDialog(null, "Se alcanzo el limite de ventanas de Perfil");
+				}
+				
 			}
 		});
 	}
