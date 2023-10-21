@@ -254,23 +254,32 @@ public class VentanaCoinFlip extends JFrame{
 					}			
 					
 					if ( cont == 1 ){
-						System.out.println( "Cara*" );
-//						pIzquierda.setText("Cara*");
+						for (int i = 0; i < Math.random()*2; i++) {
+							
+							if (i == 0) {
+								resultado = "cara";
+								lFotos.setIcon( new ImageIcon ("foto/cara.png"));
+							}else {
+								resultado = "cruz";
+								lFotos.setIcon( new ImageIcon ("foto/cruz.png"));
+							}
+						}
 					}else if(cont == 2) {
-						resultado = "Cruz";
-					}else {
 						resultado = "Cara";
+					}else {
+						resultado = "Cruz";
 					}
-						
+					dlmHistorial.addElement(resultado);
+					
+					JOptionPane.showMessageDialog(null, resultado);
+					
 					hilo.stop();
 					}
 				
 			};	
 			hilo.start();
 				
-				dlmHistorial.addElement(resultado);
 				
-				JOptionPane.showMessageDialog(null, resultado);
 			}
 		});
         
