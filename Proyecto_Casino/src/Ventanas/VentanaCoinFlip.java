@@ -257,10 +257,10 @@ public class VentanaCoinFlip extends JFrame{
 						for (int i = 0; i < Math.random()*2; i++) {
 							
 							if (i == 0) {
-								resultado = "cara";
+								resultado = "Cara";
 								lFotos.setIcon( new ImageIcon ("foto/cara.png"));
 							}else {
-								resultado = "cruz";
+								resultado = "Cruz";
 								lFotos.setIcon( new ImageIcon ("foto/cruz.png"));
 							}
 						}
