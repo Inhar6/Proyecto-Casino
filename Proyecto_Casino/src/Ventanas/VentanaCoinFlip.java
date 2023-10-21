@@ -1,6 +1,7 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -13,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,6 +29,7 @@ public class VentanaCoinFlip extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	//botones
 	private JButton bCara;
 	private JButton bCruz;
   	
@@ -36,6 +39,18 @@ public class VentanaCoinFlip extends JFrame{
 	private JButton bMax ;
   		
 	private JButton bJugar;
+	
+	//contador
+	private int cont = 0;
+	
+	//hilo
+	private Thread hilo;
+	
+	//resultado moneda
+	private String resultado;
+	
+	//label imagenes 
+	private JLabel lFotos;
 	
 	public VentanaCoinFlip() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -62,6 +77,8 @@ public class VentanaCoinFlip extends JFrame{
                 VentanaPanelMenu.contadorVentanaBlackJack = 0; // Reiniciar el contador
             }
         });
+        
+        
       //botones 
       	bCara = new JButton("Cara");
       	bCruz = new JButton("Cruz");
@@ -85,7 +102,7 @@ public class VentanaCoinFlip extends JFrame{
       	JPanel pJuego = new JPanel();
       	JPanel pCentro = new JPanel();
       	JPanel pHisto = new JPanel();
-      		
+      	JPanel pIzquierda = new JPanel();	
       	/////////////////////////////////////////
       		
       	pInferior1.setLayout(new GridLayout(1,2));
@@ -102,9 +119,16 @@ public class VentanaCoinFlip extends JFrame{
       	pInferior.add(pInferior1);
       	pInferior.add(pInferior2);
       		
+      	pIzquierda.setLayout(new BorderLayout());
+
+      	lFotos = new JLabel();
+      	pIzquierda.add(lFotos, BorderLayout.NORTH); 
+      	pIzquierda.setBackground(Color.white);
+
       	pCentro.setLayout(new BorderLayout());
       	pCentro.add(pInferior,BorderLayout.SOUTH);
-      		
+      	pCentro.add(pIzquierda, BorderLayout.WEST);	
+      	
       	pJuego.setLayout(new FlowLayout());
       	pJuego.add(bJugar);
       		
@@ -192,24 +216,66 @@ public class VentanaCoinFlip extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
 				
+			    hilo = new Thread() {	
+				public void run()
+				{
+					for( int i = 1 ; i <= Math.random()*10+10; i++)
+					{
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						if (cont == 1 )
+						{
+							//cara
+							System.out.println("Cara" );
+							lFotos.setIcon( new ImageIcon ("foto/cara.png"));
+						}
+						else if ( cont == 2 )
+						{
+							//cruz
+							System.out.println("Cruz");
+							lFotos.setIcon( new ImageIcon ("foto/cruz.png"));
+						}
+						else
+						{
+							//canto
+							System.out.println("Canto");
+							lFotos.setIcon( new ImageIcon ("foto/canto.png"));
+					
+						}
+						cont++;
+						if ( cont == 3 )
+							cont = 0;
+					}			
+					
+					if ( cont == 1 ){
+						System.out.println( "Cara*" );
+//						pIzquierda.setText("Cara*");
+					}else if(cont == 2) {
+						resultado = "Cruz";
+					}else {
+						resultado = "Cara";
+					}
+						
+					hilo.stop();
+					}
 				
+			};	
+			hilo.start();
 				
-				
-			String resultado = "";
-			int n =(int)(Math.random()*2+1);
-				
-				if(n == 1) {
-					resultado = "Cara";
-				}else{
-					resultado = "Cruz";
-				}
 				dlmHistorial.addElement(resultado);
 				
 				JOptionPane.showMessageDialog(null, resultado);
 			}
 		});
+        
+       
+ 
 	}
 
 }
