@@ -2,7 +2,6 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -51,6 +50,9 @@ public class VentanaCoinFlip extends JFrame{
 	
 	//label imagenes 
 	private JLabel lFotos;
+	
+	//Cara o Cruz boton clicado 
+	private String caraCruz;
 	
 	public VentanaCoinFlip() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -102,7 +104,7 @@ public class VentanaCoinFlip extends JFrame{
       	JPanel pJuego = new JPanel();
       	JPanel pCentro = new JPanel();
       	JPanel pHisto = new JPanel();
-      	JPanel pIzquierda = new JPanel();	
+      	JPanel pIzquierda = new JPanel();
       	/////////////////////////////////////////
       		
       	pInferior1.setLayout(new GridLayout(1,2));
@@ -118,28 +120,30 @@ public class VentanaCoinFlip extends JFrame{
       	pInferior.setLayout(new GridLayout(2, 1));
       	pInferior.add(pInferior1);
       	pInferior.add(pInferior2);
-      		
-      	pIzquierda.setLayout(new BorderLayout());
-
+      	
       	lFotos = new JLabel();
+      	pIzquierda.setLayout(new BorderLayout());
+      	
       	pIzquierda.add(lFotos, BorderLayout.NORTH); 
+
       	pIzquierda.setBackground(Color.white);
 
       	pCentro.setLayout(new BorderLayout());
       	pCentro.add(pInferior,BorderLayout.SOUTH);
       	pCentro.add(pIzquierda, BorderLayout.WEST);	
       	
-      	pJuego.setLayout(new FlowLayout());
+//      pJuego.setLayout(new FlowLayout());
       	pJuego.add(bJugar);
       		
       	pHisto.setLayout(new GridLayout(2,1));
       	pHisto.add(new JPanel());
       	pHisto.add(new JPanel());
-      	pHisto.add(scroll);
+      	pHisto.add(scroll, BorderLayout.EAST);
       	pHisto.add(new JPanel());
       	pHisto.add(new JPanel());
-      	pHisto.add(pJuego);
-      		
+      	pHisto.add(pJuego, BorderLayout.SOUTH);
+     
+      	
       	JPanel menuHisto = new JPanel();
       	menuHisto.setLayout(new GridLayout(2,1));
       	menuHisto.add(menuSuperior);
@@ -163,6 +167,7 @@ public class VentanaCoinFlip extends JFrame{
 				
 				bCara.setEnabled(false);
 				bCruz.setEnabled(true);
+				caraCruz = "Cara";
 			}
 		});
         
@@ -172,7 +177,7 @@ public class VentanaCoinFlip extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				bCara.setEnabled(true);
 				bCruz.setEnabled(false);
-				
+				caraCruz = "Cruz";
 			}
 		});
         
@@ -270,8 +275,26 @@ public class VentanaCoinFlip extends JFrame{
 						resultado = "Cruz";
 					}
 					dlmHistorial.addElement(resultado);
+					//JOptionPane.showMessageDialog(null, resultado);
 					
-					JOptionPane.showMessageDialog(null, resultado);
+					 if (resultado == caraCruz) {
+				            JOptionPane.showMessageDialog(
+				                null,
+				                resultado+ " \n¡Has ganado! ¡Felicidades!",
+				                "Resultado",
+				                JOptionPane.INFORMATION_MESSAGE
+				            );
+				        } else {
+				            JOptionPane.showMessageDialog(
+				                null,
+				                resultado+ ".\n Has perdido. Mejor suerte la próxima vez.",
+				                "Resultado", JOptionPane.ERROR_MESSAGE
+				            );
+				        }
+					
+					//reiniciar botones
+					bCara.setEnabled(true);
+					bCruz.setEnabled(true);
 					
 					hilo.stop();
 					}
@@ -281,9 +304,7 @@ public class VentanaCoinFlip extends JFrame{
 				
 				
 			}
-		});
-        
-       
+		}); 
  
 	}
 
