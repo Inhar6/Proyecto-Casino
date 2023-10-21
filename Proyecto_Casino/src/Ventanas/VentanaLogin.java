@@ -1,6 +1,7 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
@@ -16,7 +17,8 @@ import javax.swing.JTextField;
 public class VentanaLogin extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-
+	//Color del panel
+	private Color colorPanel = new Color(71, 113, 72);
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
@@ -51,6 +53,7 @@ public class VentanaLogin extends JFrame{
 		//añadir J.. a paneles 
 		add(pIniciarSesion, BorderLayout.NORTH);
 		pIniciarSesion.add(lIniciarSesion, BorderLayout.CENTER);
+		pIniciarSesion.setBackground(colorPanel);
 		add(userPass,BorderLayout.CENTER);
 		userPass.add(pText1);
 		userPass.add(pText2);

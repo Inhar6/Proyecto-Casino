@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -41,6 +42,8 @@ public class VentanaRegistro extends JFrame{
 	private JTextField txtContraseña;
 	
 	private JButton btnRegistro;
+	//Color del panel
+	private Color colorPanel = new Color(71, 113, 72);
 	
 	public VentanaRegistro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -89,6 +92,7 @@ public class VentanaRegistro extends JFrame{
 		
 		pReg.setLayout(new FlowLayout());
 		pReg.add(Registro);
+		pReg.setBackground(colorPanel);
 		
 		pPais.setLayout(new FlowLayout());
 		pPais.add(Pais);
