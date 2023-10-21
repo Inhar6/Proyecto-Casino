@@ -65,9 +65,9 @@ public class VentanaPerfil extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		//JLabel
-		nombre = new JLabel("Nombre");
-		nUsuario = new JLabel("Usuario");
-		fechaNacimiento = new JLabel("Fecha de nacimiento");
+		nombre = new JLabel("Nombre:               ");
+		nUsuario = new JLabel("Usuario:             ");
+		fechaNacimiento = new JLabel("Fecha de nacimiento: ");
 		perfil = new JLabel("Perfil");
 		//JTextField
 		txtNombre= new JTextField(15);
