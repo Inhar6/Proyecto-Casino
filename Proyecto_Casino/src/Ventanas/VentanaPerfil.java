@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,7 +55,8 @@ public class VentanaPerfil extends JFrame{
 	private DefaultTableModel dtmTablaB;
 	private JScrollPane scrollB;
 	//JButton
-	private JButton edit;
+	private JButton btnEditar;
+	private JButton btnGuardar;
 	
 	
 	
@@ -95,7 +97,8 @@ public class VentanaPerfil extends JFrame{
 		Border lineaBalance = BorderFactory.createLineBorder(colorPanel);
 		Border tituloBalance = BorderFactory.createTitledBorder(lineaBalance,"Balance");
 		//JButton
-		edit= new JButton("Editar");
+		btnEditar= new JButton("Editar");
+		btnGuardar = new JButton("Guardar");
 		
 		//Paneles
 		JPanel principal = new JPanel();
@@ -151,13 +154,49 @@ public class VentanaPerfil extends JFrame{
 		perf.setLayout(new FlowLayout());
 		perf.add(perfil);
 		perf.setBackground(colorPanel);
-		editar.add(edit);
+		editar.add(btnEditar);
+		editar.add(btnGuardar);
 		principal.setLayout(new BorderLayout());
 		principal.add(perf, BorderLayout.NORTH);
 		principal.add(central,BorderLayout.CENTER);
 		principal.add(editar, BorderLayout.SOUTH);
 		
 		add(principal);
+		
+		//Que empiezen los JTextField desactivados y el boton de guardar
+		txtFechaNacimiento.setEditable(false);
+		txtNombre.setEditable(false);
+		txtNUsuario.setEditable(false);
+		btnGuardar.setEnabled(false);
+		
+		btnEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				txtFechaNacimiento.setEditable(true);
+				txtNombre.setEditable(true);
+				txtNUsuario.setEditable(true);
+				btnGuardar.setEnabled(true);
+				
+			}
+		});
+		btnGuardar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				int respuesta = JOptionPane.showConfirmDialog(null, "¿ Desea guardar los cambios ?");
+				if( respuesta == JOptionPane.YES_OPTION) {
+					txtFechaNacimiento.setEditable(false);
+					txtNombre.setEditable(false);
+					txtNUsuario.setEditable(false);
+					btnGuardar.setEnabled(false);
+				}else {
+					//No hace nada, deberia de guardar los datos del usuario
+				}
+				
+			}
+		});
 		
 		jcbJuegos.addActionListener(new ActionListener() {
 			
