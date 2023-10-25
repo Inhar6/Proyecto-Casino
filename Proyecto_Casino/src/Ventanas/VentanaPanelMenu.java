@@ -36,9 +36,11 @@ public class VentanaPanelMenu {
 	private JButton bUsuario = new JButton ("Usuario");
 	private JButton bJuegos = new JButton("Juegos");
 	private JButton bCasino = new JButton ();
+	// Color
+	static Color colorPanel = new Color(71, 113, 72);
 	// Balance
-	private int balance = 10000;
-	private JLabel lBalance = new JLabel("Balance: " + balance);	
+	static double balance = 10000;
+	static JLabel lBalance = new JLabel("Balance: " + balance);	
 	// Paneles
 	public JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
@@ -121,7 +123,6 @@ public class VentanaPanelMenu {
 		JButton mostrarNoLogin = new JButton();		
 		
         // Color y espacios en el Menu superior
-		Color colorPanel = new Color(71, 113, 72);
 		pMenuN.setBorder(new EmptyBorder(20, 25, 20, 25));
 		pMenuN.setBackground(colorPanel);
 		pMenuN2.setBorder(new EmptyBorder(0, 10, 0, 10));
@@ -294,14 +295,14 @@ public class VentanaPanelMenu {
 	private JPanel p100 = new JPanel(new BorderLayout());
 	private JPanel p1000 = new JPanel(new BorderLayout());
 
-	private int apuesta;
-	private JLabel lApuesta = new JLabel("Apuesta: " +  apuesta);
-    private JButton bApostar = new JButton("Apostar");
+	static double apuesta;
+	static JLabel lApuesta = new JLabel("Apuesta: " +  apuesta);
+    static JButton bApostar = new JButton("Apostar");
     private JButton bEliminarApuesta = new JButton("Eliminar apuesta");
     // Fichas
     private JButton ficha1 = new JButton("1");
     private JButton ficha10 = new JButton("10");
-    private JButton ficha25 = new JButton("20");
+    private JButton ficha25 = new JButton("25");
     private JButton ficha50 = new JButton("50");
     private JButton ficha100 = new JButton("100");
     private JButton ficha1000 = new JButton("1K");
@@ -332,14 +333,13 @@ public class VentanaPanelMenu {
         p50.add(ficha50);
         p100.add(ficha100);
         p1000.add(ficha1000);
-        p1.setBorder(new EmptyBorder(0,0,0,10)); p1.setBackground(colorPanel);
-        p10.setBorder(new EmptyBorder(0,10,0,10)); p10.setBackground(colorPanel);
-        p25.setBorder(new EmptyBorder(0,10,0,10)); p25.setBackground(colorPanel);
-        p50.setBorder(new EmptyBorder(0,10,0,10)); p50.setBackground(colorPanel);
-        p100.setBorder(new EmptyBorder(0,10,0,10)); p100.setBackground(colorPanel);
-        p1000.setBorder(new EmptyBorder(0,10,0,10)); p1000.setBackground(colorPanel);
-        
-
+        p1.setBorder(new EmptyBorder(0,0,0,5)); p1.setBackground(colorPanel);
+        p10.setBorder(new EmptyBorder(0,5,0,5)); p10.setBackground(colorPanel);
+        p25.setBorder(new EmptyBorder(0,5,0,5)); p25.setBackground(colorPanel);
+        p50.setBorder(new EmptyBorder(0,5,0,5)); p50.setBackground(colorPanel);
+        p100.setBorder(new EmptyBorder(0,5,0,5)); p100.setBackground(colorPanel);
+        p1000.setBorder(new EmptyBorder(0,5,0,5)); p1000.setBackground(colorPanel);
+   
         // Panel pApostarE
         pApostarE.add(pLabelApuesta, BorderLayout.WEST);
         pApostarE.add(pBotonEliminarApuesta, BorderLayout.CENTER);
@@ -361,6 +361,8 @@ public class VentanaPanelMenu {
         Font fuente = lApuesta.getFont();
         Font nuevaFuente = new Font(fuente.getName(), Font.PLAIN, 18);
         lApuesta.setFont(nuevaFuente);
+        lApuesta.setForeground(Color.yellow);
+        lBalance.setForeground(Color.yellow);
         //
         
         ficha1.addActionListener (new ActionListener() {
@@ -423,11 +425,12 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (balance > apuesta ) {
+				if (balance >= apuesta ) {
 					balance -= apuesta;
-					apuesta = 0;
 					lBalance.setText("Balance: " + balance);
 					lApuesta.setText("Apuesta: " + apuesta);
+				} else if (balance == 0 && apuesta == 0) {
+					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
 				} else {
 					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
 				}
