@@ -1,5 +1,6 @@
 package Ventanas;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -41,6 +42,8 @@ public class VentanaRegistro extends JFrame{
 	private JTextField txtContraseña;
 	
 	private JButton btnRegistro;
+	//Color del panel
+	private Color colorPanel = new Color(71, 113, 72);
 	
 	public VentanaRegistro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -53,12 +56,12 @@ public class VentanaRegistro extends JFrame{
 		
 		Registro = new JLabel("Registro");
 		Pais = new JLabel("Pais de Residencia");
-		DNI = new JLabel("DNI :");
-		Nombre = new JLabel("Nombre :");
-		Apellido = new JLabel("Apellidos :");
+		DNI = new JLabel            ("                                DNI :");
+		Nombre = new JLabel         ("                        Nombre :");
+		Apellido = new JLabel       ("                      Apellidos :");
 		FechaNacimiento = new JLabel("Fecha de Nacimiento :");
-		Usuario = new JLabel("Nombre de Usuario");
-		Contraseña = new JLabel("Contraseña");
+		Usuario = new JLabel        ("     Nombre de Usuario:");
+		Contraseña = new JLabel     ("                    Contraseña:");
 		
 		txtDNI = new JTextField(15);
 		txtNombre= new JTextField(15);
@@ -89,6 +92,7 @@ public class VentanaRegistro extends JFrame{
 		
 		pReg.setLayout(new FlowLayout());
 		pReg.add(Registro);
+		pReg.setBackground(colorPanel);
 		
 		pPais.setLayout(new FlowLayout());
 		pPais.add(Pais);

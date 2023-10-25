@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,9 +22,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.border.Border;
+
+import Clases.ApuestaRuleta;
 
 
 public class VentanaRuleta extends JFrame{
@@ -45,8 +50,11 @@ public class VentanaRuleta extends JFrame{
 	private int[] filaS = {};
 	private int[] filaT = {};
 	*/
-	private List<Integer> apuesta = new ArrayList<Integer>();
-	
+	private List<String> colorApuesta = new ArrayList<String>();
+	private List<Integer> filaApuesta = new ArrayList<Integer>();
+	private List<Integer> docenaApuesta = new ArrayList<Integer>();
+	private List<Integer> rangoApuesta = new ArrayList<Integer>();
+	private List<Integer> parApuesta = new ArrayList<Integer>();
 	
 	//Elementos
 	//Botones
@@ -64,16 +72,39 @@ public class VentanaRuleta extends JFrame{
 	private JButton btn2Fila;
 	private JButton btn3Fila;
 	private JButton btnJugar;
+	private JButton btnBorrarApuesta;
 	//JList
 	private JList<Integer> lstHistorial;
 	private DefaultListModel<Integer> dlmHistorial;
 	private JScrollPane scroll;
 	//Random
 	Random random = new Random();
+	//Apuestas
+	private int dineroTotalInicial=50;
+	private int dineroTotal = 50;
+	private int dineroApostadoTotal=0;
+	private int dineroApostado=0;
+	private JLabel saldo;
+	private JLabel saldoApostado;
+	private JButton btnSacarDinero;
+	private JButton btnapuesta1;
+	private JButton btnapuesta10;
+	private JButton btnapuesta20;
+	private JButton btnapuesta50;
+	private JButton btnapuesta100;
+	private JButton btnapuesta1k;
 	
+	///IMAGEN
+	private String rutaImagen="foto/iconos/mesa-ruleta2.png";
+	private ImageIcon imagen;
+	private JLabel etiquetaImagen;
+			
+			
+			
+			
 	public VentanaRuleta() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(800, 600);
+		setSize(800, 700);
 		setTitle("Ruleta");
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -100,6 +131,26 @@ public class VentanaRuleta extends JFrame{
 		btn2Fila = new JButton("2a1");
 		btn3Fila = new JButton("2a1");
 		btnJugar = new JButton("Jugar");
+		btnBorrarApuesta= new JButton("Borrar apuesta");
+		//Apuesta
+		saldo = new JLabel("---- " + dineroTotal + " ----");
+		saldoApostado= new JLabel("---- " + saldoApostado + " ----");
+		Border lineaApuesta = BorderFactory.createLineBorder(Color.red);
+		Border tituloAPuesta= BorderFactory.createTitledBorder(lineaApuesta,"Saldo de Ruleta");
+		Border lineaSaldo = BorderFactory.createLineBorder(Color.black);
+		Border tituloSaldo= BorderFactory.createTitledBorder(lineaSaldo,"Saldo Apostado");
+		btnSacarDinero = new JButton("Recuperar saldo");
+		btnapuesta1 = new JButton("1");
+		btnapuesta10= new JButton("10");
+		btnapuesta20= new JButton("20");
+		btnapuesta50= new JButton("50");
+		btnapuesta100= new JButton("100");
+		btnapuesta1k= new JButton("1K");
+		Border lineaFichas = BorderFactory.createLineBorder(Color.black);
+		Border tituloFichas= BorderFactory.createTitledBorder(lineaFichas,"Fichas");
+		//IMAGEN
+		imagen= new ImageIcon(rutaImagen);
+		etiquetaImagen = new JLabel(imagen);
 		
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
@@ -118,6 +169,12 @@ public class VentanaRuleta extends JFrame{
 		JPanel inferior2 = new JPanel();
 		JPanel derecho = new JPanel();
 		JPanel histo = new JPanel();
+		JPanel balance = new JPanel();	
+			JPanel pDinero = new JPanel();
+			JPanel pSaldo = new JPanel();
+			JPanel pRecuperar = new JPanel();
+		JPanel pFichas = new JPanel();
+			JPanel fichas = new JPanel();
 		JPanel juego = new JPanel();
 		
 		////////////////////////////
@@ -153,15 +210,42 @@ public class VentanaRuleta extends JFrame{
 		central.add(btnVerde, BorderLayout.WEST);
 		central.add(inferior,BorderLayout.SOUTH);
 		central.add(derecho,BorderLayout.EAST);
+		//IMAGEN
+		central.add(etiquetaImagen,BorderLayout.CENTER);
 		
 		juego.setLayout(new FlowLayout());
 		juego.add(btnJugar);
+		juego.add(btnBorrarApuesta);
+		
+		//Apuesta
+		pDinero.setLayout(new BorderLayout());
+		pDinero.setBorder(tituloAPuesta);
+		pDinero.add(saldo, BorderLayout.CENTER);
+		pSaldo.setLayout(new BorderLayout());
+		pSaldo.setBorder(tituloSaldo);
+		pSaldo.add(saldoApostado,BorderLayout.CENTER);
+		pRecuperar.setLayout(new BorderLayout());
+		pRecuperar.add(btnSacarDinero, BorderLayout.SOUTH);
+		balance.setLayout(new GridLayout(1,3));
+		balance.add(pDinero);
+		balance.add(pSaldo);
+		balance.add(pRecuperar);
+		fichas.setLayout(new FlowLayout());
+		fichas.add(btnapuesta1);
+		fichas.add(btnapuesta10);
+		fichas.add(btnapuesta20);
+		fichas.add(btnapuesta50);
+		fichas.add(btnapuesta100);
+		fichas.add(btnapuesta1k);
+		pFichas.setLayout(new BorderLayout());
+		pFichas.setBorder(tituloFichas);
+		pFichas.add(fichas, BorderLayout.NORTH);
 		
 		histo.setLayout(new GridLayout(3,2));
 		histo.add(new JPanel());
-		histo.add(new JPanel());
+		histo.add(balance);
 		histo.add(scroll);
-		histo.add(new JPanel());
+		histo.add(pFichas);
 		histo.add(new JPanel());
 		histo.add(juego);
 		
@@ -192,36 +276,40 @@ public class VentanaRuleta extends JFrame{
 
 		//pack();
 		
-		//Prueba para saber si el render funciona pulsando el boton verde
+		//Color verde
 		btnVerde.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*	
-				//Imprime en la lista valores del 0 al 10
-					for(int i = 0;i<=10;i++) {
-						dlmHistorial.addElement(i);
-					}
-				*/
 					btnVerde.setEnabled(false);
-					apuesta.add(0);
-				
+					colorApuesta.add("verde");
+					//Sumar dinero al total apostado
+					dineroApostadoTotal+=dineroApostado;
+					actualizarSaldos();
 			}
 		});
+		//Color Rojo
 		btnRojo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnRojo.setEnabled(false);
-				
+				colorApuesta.add("rojo");
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Color Negro
 		btnNegro.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnNegro.setEnabled(false);
-				
+				colorApuesta.add("negro");
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
 		btnPar.addActionListener(new ActionListener() {
@@ -229,7 +317,10 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnPar.setEnabled(false);
-				
+				parApuesta.add(1);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
 		btnImpar.addActionListener(new ActionListener() {
@@ -237,7 +328,10 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnImpar.setEnabled(false);
-			
+				parApuesta.add(2);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
 		btn1a18.addActionListener(new ActionListener() {
@@ -245,7 +339,10 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1a18.setEnabled(false);
-			
+				rangoApuesta.add(1);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
 		btn19a36.addActionListener(new ActionListener() {
@@ -253,69 +350,204 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn19a36.setEnabled(false);
-			
+				rangoApuesta.add(2);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Primera docena
 		btn1Docena.addActionListener(new ActionListener() {
 					
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1Docena.setEnabled(false);
-			
+				docenaApuesta.add(1);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Segunda docena
 		btn2Docena.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn2Docena.setEnabled(false);
-			
+				docenaApuesta.add(2);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Tercera docena
 		btn3Docena.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn3Docena.setEnabled(false);
-			
+				docenaApuesta.add(3);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
-
+		//Primera fila
 		btn1Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn1Fila.setEnabled(false);
-			
+				filaApuesta.add(1);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Segunda fila
 		btn2Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn2Fila.setEnabled(false);
-			
+				filaApuesta.add(2);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		//Tercera fila
 		btn3Fila.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btn3Fila.setEnabled(false);
-			
+				filaApuesta.add(3);
+				//Sumar dinero al total apostado
+				dineroApostadoTotal+=dineroApostado;
+				actualizarSaldos();
 			}
 		});
+		///
+		//Por ahora si se selecciona una ficha solo se podra jugar con ella
+		////
+		desactivarBotonesSegunSaldo();
+		avisoSaldo();
+		//Ficha de 1
+		btnapuesta1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 1;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta10.setEnabled(false);
+				btnapuesta20.setEnabled(false);
+				btnapuesta50.setEnabled(false);
+				btnapuesta100.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				
+			}
+		});
+		//Ficha de 10
+		btnapuesta10.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 10;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta1.setEnabled(false);
+				btnapuesta20.setEnabled(false);
+				btnapuesta50.setEnabled(false);
+				btnapuesta100.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				
+			}
+		});
+		//Ficha de 20
+		btnapuesta20.addActionListener(new ActionListener() {
 		
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 20;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta1.setEnabled(false);
+				btnapuesta10.setEnabled(false);
+				btnapuesta50.setEnabled(false);
+				btnapuesta100.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				
+			}
+		});
+		//Ficha de 50
+		btnapuesta50.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 50;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta1.setEnabled(false);
+				btnapuesta10.setEnabled(false);
+				btnapuesta20.setEnabled(false);
+				btnapuesta100.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				
+			}
+		});
+		//Ficha de 100
+		btnapuesta100.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 100;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta1.setEnabled(false);
+				btnapuesta10.setEnabled(false);
+				btnapuesta20.setEnabled(false);
+				btnapuesta50.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				
+			}
+		});
+		//Ficha de 1k
+		btnapuesta1k.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dineroApostado = 1000;
+				//Para que solo se seleccione 1 saldo
+				btnapuesta1.setEnabled(false);
+				btnapuesta10.setEnabled(false);
+				btnapuesta20.setEnabled(false);
+				btnapuesta50.setEnabled(false);
+				btnapuesta100.setEnabled(false);
+				
+			}
+		});
+		btnSacarDinero.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		//Borrar apuesta
+		btnBorrarApuesta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Se vacian todas las listas
+				dineroTotal=dineroTotalInicial;
+				reinicio(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta);
+				
+			}
+		});
+		//Jugar
 		btnJugar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int num = random.nextInt(36);
-				dlmHistorial.addElement(num);
-				//double resultado=juego(num, apuesta);
-				//System.out.println(resultado);
-				activarBotones();
+				juego(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta,dineroApostadoTotal);
 				
 			}
 		});
@@ -382,16 +614,161 @@ public class VentanaRuleta extends JFrame{
 		btn1Fila.setEnabled(true);
 		btn2Fila.setEnabled(true);
 		btn3Fila.setEnabled(true);
+		desactivarBotonesSegunSaldo();
+	}
+	public void actualizarSaldos() {
+		dineroTotal-=dineroApostado;
+		saldo.setText("---- " + dineroTotal + " ----");
+		saldoApostado.setText("---- " + dineroApostadoTotal + " ----");
+		
 	}
 	
+	private void juego(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas, int dineroApostado) {
+		//Saca un numero random del 0 al 36
+		int num = random.nextInt(36);
+		//Verificar si ha tocado para las casillas seleccionadas
+		int ganancia = verificarResultado(coloresApostadas,docenasApostadas,filasApostadas,rangoApostadas,parApostadas,num,dineroApostado);
+		//Pone el numero en el historial-lista
+		dlmHistorial.addElement(num);
+		//Mostrar si se ha ganado o no
+		result(ganancia,num);
+		//Reiniciar
+		reinicio(coloresApostadas,docenasApostadas,filasApostadas,rangoApostadas,parApostadas);
+		//Actualizar saldo
+		saldo.setText("---- "+ (dineroTotal + ganancia) +" ----");
+		dineroTotalInicial=dineroTotal + ganancia;
+
+	}
 	
-	public double juego(int num, List<Integer> apuesta) {
-		double resultado =0;
-		if(apuesta.contains(num)) {
-			
-		}else {
-			resultado=0;
+	public int verificarResultado(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas,int resultado, int premioTotal) {
+		//Premios por cada posible resultado
+		double colorValor = 2.0;
+		double docenaValor = 3.0;
+		double filaValor = 3.0;
+		double rangoValor = 2.0;
+		double parValor = 2.0;
+		
+		//Separamos en apartados para saber si han sido premiados
+		//Verificamos el color
+		for(String color : coloresApostadas) {
+			if(color.equals(obtenerColor(resultado))) {
+				premioTotal*=colorValor;
+			}
 		}
-		return resultado;
+		//Verificamos la docena
+		for(Integer docena : docenasApostadas) {
+			if(docena.equals(obtenerDocena(resultado))) {
+				premioTotal*=docenaValor;
+			}
+		}
+		//Verificamos la fila
+		 for(Integer fila : filasApostadas) {
+			if(fila.equals(obtenerFila(resultado))) {
+				premioTotal*=filaValor;
+			}
+		}
+		//Verificamos el rango
+		 for(Integer rango : rangoApostadas) {
+			if(rango.equals(obtenerRango(resultado))) {
+				premioTotal*=rangoValor;
+			}
+		}
+		//Verificamos si es par o impar
+	  	for(Integer par : rangoApostadas) {
+				if(par.equals(obtenerPar(resultado))) {
+					premioTotal*=parValor;
+				}
+			}
+		
+		return premioTotal;
 	}
+	
+	public String obtenerColor(int resultado) {
+		if(resultado==0) {
+			return "verde";
+		}else if(esRojo(resultado)) {
+			return "rojo";
+		}else {
+			return "negro";
+		}
+	}
+	public int obtenerDocena(int resultado) {
+		if(resultado >= 1 && resultado <= 12) {
+			return 1;
+		}else if(resultado >= 13 && resultado <= 24) {
+			return 2;
+		}else{
+			return 3;
+		}
+	}
+	public int obtenerFila(int resultado) {
+		if(resultado % 3 == 1) {
+			return 1;
+		}else if (resultado % 3 ==2) {
+			return 2;
+		}else {
+			return 3;
+		}
+	}
+	public int obtenerRango(int resultado) {
+		if(resultado >= 1 && resultado <= 18) {
+			return 1;
+		}else if(resultado >= 19 && resultado <= 36) {
+			return 2;
+		}else{
+			return 0;
+		}
+	}
+	public int obtenerPar(int resultado) {
+		if(resultado%2 ==0) {
+			return 1;
+		}else if(resultado == 0) {
+			return 0;
+		}else{
+			return 2;
+		}
+	}
+	
+	public void reinicio(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas) {
+		//Activa los botones para otra partida
+		activarBotones();
+		//Quitar los valores anteriores de la lista
+		coloresApostadas.clear();
+		docenasApostadas.clear();
+		filasApostadas.clear();
+		rangoApostadas.clear();
+		parApostadas.clear();
+		//Dinero apostado
+		dineroApostado=0;
+		dineroApostadoTotal=0;
+		actualizarSaldos();
+	    btnapuesta1.setEnabled(false);
+	    btnapuesta10.setEnabled(false);
+	    btnapuesta20.setEnabled(false);
+	    btnapuesta50.setEnabled(false);
+	    btnapuesta100.setEnabled(false);
+	    btnapuesta1k.setEnabled(false);
+		desactivarBotonesSegunSaldo();
+		
+	}
+	public void result(double gano, int r) {
+		ApuestaRuleta t = new ApuestaRuleta(r,obtenerColor(r),obtenerDocena(r),obtenerFila(r),obtenerRango(r),obtenerPar(r));
+		JOptionPane.showMessageDialog(null, t.toString());
+	}
+
+	public void desactivarBotonesSegunSaldo() {
+	    // Activa o desactiva los botones según el saldo disponible.
+	    btnapuesta1.setEnabled(dineroTotal >= 1);
+	    btnapuesta10.setEnabled(dineroTotal >= 10);
+	    btnapuesta20.setEnabled(dineroTotal >= 20);
+	    btnapuesta50.setEnabled(dineroTotal >= 50);
+	    btnapuesta100.setEnabled(dineroTotal >= 100);
+	    btnapuesta1k.setEnabled(dineroTotal >= 1000);
+	}
+	public void avisoSaldo() {
+		if(dineroTotal<=0) {
+			JOptionPane.showMessageDialog(null,"Saldo insuficiente");
+		}
+	}
+
 }
