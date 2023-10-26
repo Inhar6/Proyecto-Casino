@@ -1,17 +1,20 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.Window;
+import java.awt.Toolkit;import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -51,5 +54,78 @@ public class VentanaBlackJack extends JFrame {
             }
         });
         
+       
+      
+        
+       
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        JPanel panelTitulo = new JPanel();
+        JPanel paneldecartas = new JPanel((new GridLayout()));
+        JPanel panelBotones = new JPanel(new GridLayout(1,3));
+        
+     
+        add(panelPrincipal);
+        panelPrincipal.add(paneldecartas);
+        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
+        panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
+      
+        
+        JLabel labelTitulo = new JLabel("BLACKJACK");
+        Font fuente = new Font("Arial",Font.BOLD,40);
+        labelTitulo.setFont(fuente);
+        
+ 
+        JButton botonPedirCarta = new JButton("Pedir una carta");
+        JButton botonPlantarse = new JButton("Plantarse");
+        JButton botonDoblar = new JButton("Doblar");
+        
+       
+        panelTitulo.add(labelTitulo);
+        
+        panelBotones.add(botonPedirCarta);
+        panelBotones.add(botonPlantarse);
+        panelBotones.add(botonDoblar);
+        
+        botonPedirCarta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+        
+        botonPlantarse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        botonDoblar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+  
+        
+      
+        
+	}
+	
+
+	public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new VentanaBlackJack();				
+			}
+        });
 	}
 }

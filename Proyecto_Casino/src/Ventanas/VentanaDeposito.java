@@ -47,30 +47,30 @@ public class VentanaDeposito extends JFrame{
 		deposito.add(JLabelDeposito);
 		
 		//NUMERO DE CUENTA
-		JTextField JLabelnumeroDeCuenta = new JTextField("                    Numero de cuenta",20);
+		JTextField JLabelnumeroDeCuenta = new JTextField("                Numero de cuenta",20);
 		numeroDeCuenta.add(JLabelnumeroDeCuenta);
 		
 		
 		//DIA MES Y CVC
-		JTextField diaYmesJTextfield = new JTextField("          Dia / Mes " ,10);
+		JTextField diaYmesJTextfield = new JTextField("       Dia / Mes " ,9);
 		diaMesCvc.add(diaYmesJTextfield);
-		JTextField CvcJTextfield = new JTextField("             CVC  " ,10);
+		JTextField CvcJTextfield = new JTextField("         CVC  " ,9);
 		diaMesCvc.add(CvcJTextfield);
 		
 		//USUARIO
-		JTextField usuarioJTextfield = new JTextField("                             Usuario",20);
+		JTextField usuarioJTextfield = new JTextField("                        Usuario",20);
 		usuario.add(usuarioJTextfield);
 		
 		
 		
 		//CONTRASEÑA
-		JTextField cntraseñaJTextfield= new JTextField("                          Contraseña",20);
+		JTextField cntraseñaJTextfield= new JTextField("                     Contraseña",20);
 		contraseña.add(cntraseñaJTextfield);
 		
 		//CANTIDAD DE DEPOSITO
-		JTextField cantidadDeDepositoJTextfield = new JTextField("                  Cantidad de deposito",20);
+		JTextField cantidadDeDepositoJTextfield = new JTextField("              Cantidad de deposito",20);
 		cantidadDeDeposito.add(cantidadDeDepositoJTextfield);
-		cantidadDeDepositoJTextfield.setForeground(Color.blue);
+		
 		
 		//DEPOSITAR
 		JButton botonDepositar = new JButton("Depositar");
