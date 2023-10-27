@@ -80,6 +80,7 @@ public class VentanaPanelMenu {
 	static int contadorVentanaCoinFlip = 0;
 	static int contadorVentanaInicial = 0;
 	static int contadorVentanaPerfil = 0;
+	static int contadorVentanaDepositar =0;
 
     private static int limiteVentanas = 1; // Establece el límite deseado
 	
@@ -279,7 +280,27 @@ public class VentanaPanelMenu {
 				
 			}
 		});
+		
+		menuItemDepositar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(contadorVentanaDepositar < limiteVentanas) {
+							new VentanaDeposito();
+							contadorVentanaDepositar++;
+						}else {
+							JOptionPane.showMessageDialog(null, "Se alcanzo el limite de ventanas de Perfil");
+						}
+						
+					}
+				});
+		
+		
+		
 	}
+	
+	
+	
 
 	public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
 		Image image = imageIcon.getImage();
