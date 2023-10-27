@@ -324,17 +324,38 @@ public class VentanaPanelMenu {
     static JButton bApostar = new JButton("Apostar");
     private JButton bEliminarApuesta = new JButton("Eliminar apuesta");
     // Fichas
-    private JButton ficha1 = new JButton("1");
-    private JButton ficha10 = new JButton("10");
-    private JButton ficha25 = new JButton("25");
-    private JButton ficha50 = new JButton("50");
-    private JButton ficha100 = new JButton("100");
-    private JButton ficha1000 = new JButton("1K");
+    private JButton bficha1 = new JButton();
+    private JButton bficha10 = new JButton();
+    private JButton bficha25 = new JButton();
+    private JButton bficha50 = new JButton();
+    private JButton bficha100 = new JButton();
+    private JButton bficha1000 = new JButton();
     
     // Menu inferior de apuesta
     public void enseñarApostar(JPanel panel) {
     	Color colorPanel = new Color(71, 113, 72);
 
+    	// Imagenes fichas
+        ImageIcon logoFicha1 = new ImageIcon("foto/fichas/ficha1.png");
+        ImageIcon logoFicha10 = new ImageIcon("foto/fichas/ficha10.png");
+        ImageIcon logoFicha25 = new ImageIcon("foto/fichas/ficha25.png");
+        ImageIcon logoFicha50 = new ImageIcon("foto/fichas/ficha50.png");
+        ImageIcon logoFicha100 = new ImageIcon("foto/fichas/ficha100.png");
+        ImageIcon logoFicha1000 = new ImageIcon("foto/fichas/ficha1000.png");
+		bficha1.setIcon(redimensionarIcono(logoFicha1, 50, 50));
+		bficha1.setBorder(null);
+		bficha10.setIcon(redimensionarIcono(logoFicha10, 50, 50));
+		bficha10.setBorder(null);
+		bficha25.setIcon(redimensionarIcono(logoFicha25, 50, 50));
+		bficha25.setBorder(null);
+		bficha50.setIcon(redimensionarIcono(logoFicha50, 50, 50));
+		bficha50.setBorder(null);
+		bficha100.setIcon(redimensionarIcono(logoFicha100, 50, 50));
+		bficha100.setBorder(null);
+		bficha1000.setIcon(redimensionarIcono(logoFicha1000, 50, 50));
+		bficha1000.setBorder(null);
+		//
+		
     	panel.add(pApostar);
 
         // PanelApostar
@@ -351,19 +372,19 @@ public class VentanaPanelMenu {
         p25y50.add(p50,BorderLayout.EAST);
         p100y1000.add(p100,BorderLayout.WEST);
         p100y1000.add(p1000,BorderLayout.EAST);
-        p1.add(ficha1);
-        p10.add(ficha10);
-        p25.add(ficha25);
-        p50.add(ficha50);
-        p100.add(ficha100);
-        p1000.add(ficha1000);
+        p1.add(bficha1);
+        p10.add(bficha10);
+        p25.add(bficha25);
+        p50.add(bficha50);
+        p100.add(bficha100);
+        p1000.add(bficha1000);
         p1.setBorder(new EmptyBorder(0,0,0,5)); p1.setBackground(colorPanel);
         p10.setBorder(new EmptyBorder(0,5,0,5)); p10.setBackground(colorPanel);
         p25.setBorder(new EmptyBorder(0,5,0,5)); p25.setBackground(colorPanel);
         p50.setBorder(new EmptyBorder(0,5,0,5)); p50.setBackground(colorPanel);
         p100.setBorder(new EmptyBorder(0,5,0,5)); p100.setBackground(colorPanel);
         p1000.setBorder(new EmptyBorder(0,5,0,5)); p1000.setBackground(colorPanel);
-   
+                
         // Panel pApostarE
         pApostarE.add(pLabelApuesta, BorderLayout.WEST);
         pApostarE.add(pBotonEliminarApuesta, BorderLayout.CENTER);
@@ -389,7 +410,7 @@ public class VentanaPanelMenu {
         lBalance.setForeground(Color.yellow);
         //
         
-        ficha1.addActionListener (new ActionListener() {
+        bficha1.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -397,7 +418,7 @@ public class VentanaPanelMenu {
 				lApuesta.setText("Apuesta: " + apuesta);
 			}
 		});
-        ficha10.addActionListener (new ActionListener() {
+        bficha10.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -405,7 +426,7 @@ public class VentanaPanelMenu {
 				lApuesta.setText("Apuesta: " + apuesta);
 			}
 		});
-        ficha25.addActionListener (new ActionListener() {
+        bficha25.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -413,7 +434,7 @@ public class VentanaPanelMenu {
 				lApuesta.setText("Apuesta: " + apuesta);
 			}
 		});
-        ficha50.addActionListener (new ActionListener() {
+        bficha50.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -421,7 +442,7 @@ public class VentanaPanelMenu {
 				lApuesta.setText("Apuesta: " + apuesta);
 			}
 		});
-        ficha100.addActionListener (new ActionListener() {
+        bficha100.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -429,7 +450,7 @@ public class VentanaPanelMenu {
 				lApuesta.setText("Apuesta: " + apuesta);
 			}
 		});
-        ficha1000.addActionListener (new ActionListener() {
+        bficha1000.addActionListener (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
