@@ -54,18 +54,18 @@ public class VentanaApostarSeguro extends JFrame{
 		limiteDeDeposito.add(limiteDeDepositoJLabel);
 		
 		//JLABEL Y TEXTFIELD DE LIMITE DIARIO
-		JLabel diarioJLabel = new JLabel("Diarios");
+		JLabel diarioJLabel = new JLabel("Diarios:");
 		JTextField diarioJTextfield = new JTextField(10);
 		diario.add(diarioJLabel);
 		diario.add(diarioJTextfield);
 		//JLABEL Y TEXTFIELD DE LIMITE MENSUAL
-		JLabel mensualJLabel = new JLabel("Mensuales");
+		JLabel mensualJLabel = new JLabel("Mensuales:");
 		JTextField menusalJTextfield = new JTextField(10);
 		mensual.add(mensualJLabel);
 		mensual.add(menusalJTextfield);	
 		
 		//JLABEL Y TEXTFIELD DE LIMITE ANUAL
-		JLabel anualJLabel = new JLabel("Anuales");
+		JLabel anualJLabel = new JLabel("Anuales:");
 		JTextField anualJTextfield = new JTextField(10);
 		anual.add(anualJLabel);
 		anual.add(anualJTextfield);	

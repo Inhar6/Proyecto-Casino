@@ -1,6 +1,8 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -59,16 +62,17 @@ public class VentanaBlackJack extends JFrame {
         
        
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelTitulo = new JPanel();
+        JPanel panelTitulo = new JPanel(new GridLayout(1,3));
+        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
         JPanel paneldecartas = new JPanel((new GridLayout()));
         JPanel panelBotones = new JPanel(new GridLayout(1,3));
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         
      
         add(panelPrincipal);
-        panelPrincipal.add(paneldecartas);
-        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
         panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
-      
+        panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
+        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
         
         JLabel labelTitulo = new JLabel("BLACKJACK");
         Font fuente = new Font("Arial",Font.BOLD,40);
@@ -79,12 +83,37 @@ public class VentanaBlackJack extends JFrame {
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
         
-       
+        JButton botonAyuda = new JButton(new ImageIcon("foto/iconos/favicon.png"));
+        botonAyuda.setPreferredSize(new Dimension (30,30));
+        
+        panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
+       
         
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
+        
+        String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
+        		+ "1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)\n\n"
+        		+"2- El crupier se planta con 17 puntos\n\n"
+        		+"3-Las cartas del 2-10 puntuaran su valor nominal\n\n"
+        		+"4-Las cartas (J,Q,K) puntuaran 10 puntos\n\n"
+        		+"5-La carta A sera el comodin, y podra ser usada tanto con el valor 1 o 11\n\n"
+        		+"6-Tendras la opcion de doblar la aupesta durante la partida mediante el boton de doblar";
+        
+        
+        botonAyuda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ayuda, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+	
+				
+			}
+		});
+        
+        
         
         botonPedirCarta.addActionListener(new ActionListener() {
 			

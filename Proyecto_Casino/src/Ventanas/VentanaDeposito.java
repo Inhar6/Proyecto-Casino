@@ -66,7 +66,7 @@ public class VentanaDeposito extends JFrame{
 		
 		
 		
-		//CVC
+		//CVC     
 		JTextField JTextfieldCvc = new JTextField(10);
 		diaMesCvc.add(JTextfieldCvc);
 		String StringCvc = "CVC";
