@@ -3,6 +3,8 @@ package Ventanas;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -10,13 +12,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 
 public class VentanaDeposito extends JFrame{
-	
+	private Color colorPanel = new Color(71, 113, 72);
 	public VentanaDeposito() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,300);
@@ -29,12 +33,15 @@ public class VentanaDeposito extends JFrame{
 		
 		JPanel panelPrincipal = new JPanel(new GridLayout(7,1));
 		JPanel deposito = new JPanel();
+		deposito.setBackground(colorPanel);
 		JPanel numeroDeCuenta = new JPanel();
 		JPanel diaMesCvc = new JPanel();
 		JPanel usuario = new JPanel();
 		JPanel contraseña = new JPanel();
 		JPanel cantidadDeDeposito = new JPanel();
 		JPanel depositar = new JPanel();
+		
+		
 		
 		add(panelPrincipal);
 		panelPrincipal.add(deposito);
@@ -262,6 +269,21 @@ public class VentanaDeposito extends JFrame{
 					
 				
 			});
+		
+		botonDepositar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(JTextfieldNumeroDeCuenta.getForeground()== Color.gray|| JTextfieldDiaYMes.getForeground()== Color.gray|| JTextfieldCvc.getForeground()== Color.gray||
+						JTextfieldUsuario.getForeground()== Color.gray||JTextfieldContrasea.getForeground()== Color.gray||JTextfieldCantidadDeDeposito.getForeground()== Color.gray) {
+					
+					
+					JOptionPane.showMessageDialog(null, "Asegurate de rellenar todos los campos", "Error", JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+				
+			}
+		});
 		
 		
 		
