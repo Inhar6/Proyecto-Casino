@@ -37,8 +37,6 @@ public class VentanaCoinFlip extends JFrame{
 	private JButton bx2 ;
 	private JButton bMax ;
   		
-	private JButton bJugar;
-	
 	//contador
 	private int cont = 0;
 	
@@ -90,8 +88,6 @@ public class VentanaCoinFlip extends JFrame{
       	bx2 = new JButton("x2");
       	bMax = new JButton("Max");
       		
-      	bJugar = new JButton("Jugar");
-      		
       	//lista
       	DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
       	JList<String> lstHistorial = new JList<>(dlmHistorial);
@@ -101,7 +97,6 @@ public class VentanaCoinFlip extends JFrame{
       	JPanel pInferior = new JPanel();
       	JPanel pInferior1 = new JPanel();
       	JPanel pInferior2 = new JPanel();
-      	JPanel pJuego = new JPanel();
       	JPanel pCentro = new JPanel();
       	JPanel pHisto = new JPanel();
       	JPanel pIzquierda = new JPanel();
@@ -132,20 +127,15 @@ public class VentanaCoinFlip extends JFrame{
       	pCentro.add(pInferior,BorderLayout.SOUTH);
       	pCentro.add(pIzquierda, BorderLayout.WEST);	
       	
-//      pJuego.setLayout(new FlowLayout());
-      	pJuego.add(bJugar);
-      		
       	pHisto.setLayout(new GridLayout(2,1));
       	pHisto.add(new JPanel());
       	pHisto.add(new JPanel());
       	pHisto.add(scroll, BorderLayout.EAST);
       	pHisto.add(new JPanel());
       	pHisto.add(new JPanel());
-      	pHisto.add(pJuego, BorderLayout.SOUTH);
      
-      	
       	JPanel menuHisto = new JPanel();
-      	menuHisto.setLayout(new GridLayout(2,1));
+      	menuHisto.setLayout(new GridLayout(2,2));
       	menuHisto.add(menuSuperior);
       	menuHisto.add(pHisto);
       		
@@ -217,7 +207,7 @@ public class VentanaCoinFlip extends JFrame{
 			}
 		});
         
-        bJugar.addActionListener(new ActionListener() {
+        VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
