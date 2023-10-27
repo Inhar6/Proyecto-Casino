@@ -355,6 +355,7 @@ public class VentanaPanelMenu {
 		bficha1000.setIcon(redimensionarIcono(logoFicha1000, 50, 50));
 		bficha1000.setBorder(null);
 		//
+		pApostarW.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		
     	panel.add(pApostar);
 
