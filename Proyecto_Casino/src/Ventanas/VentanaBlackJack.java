@@ -1,5 +1,5 @@
 package Ventanas;
-
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,7 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import Clases.Carta;
@@ -30,6 +34,9 @@ public class VentanaBlackJack extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	//Atributos
+	private List<Carta> listaCartas = crearCarta(crearBaraja());
 	
 
 
@@ -87,6 +94,13 @@ public class VentanaBlackJack extends JFrame {
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
         
+        
+        
+        
+        JTextArea JTextAreaCartas = new JTextArea();
+        
+        
+     
  
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
@@ -97,6 +111,8 @@ public class VentanaBlackJack extends JFrame {
         
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
+        
+        paneldecartas.add(JTextAreaCartas);
        
         
         panelBotones.add(botonPedirCarta);
@@ -137,7 +153,8 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				System.out.println(listaCartas);
+				System.out.println(BarajarCartas(listaCartas));
 				
 			}
 		});
@@ -146,38 +163,77 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				System.out.println(crearBaraja());
+				
+			//	System.out.println(crearCarta(CrearBaraja()));
+				//System.out.println(BarajarCartas(crearCarta(CrearBaraja())));
+				
 				
 			}
 		});
+       
         
         
-    
-        
-  
-        
-      
+       
         
 	}
-	public void ComienzoJuego() {
-    	CrearBaraja();
-    	
-    }
-    
-    public List<Carta> CrearBaraja() {
+	
+	
+	
+	
+    //Metodo crear la baraja
+    public Map<String,List<String>> crearBaraja() {
+    	Map<String,List<String>> mapaCartas = new HashMap<>();
     	 List<Carta> baraja = new ArrayList<>();
     	 String[] numeros = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
     	 String[] palos = {"Corazones","Treboles","Picas","Diamantes"};
     	 
-    	 for (int i = 0;i<palos.length;i++) {
-    		 for(int f = 0;f<numeros.length;f++) {
-    			 Carta carta = new Carta(numeros[i],palos[f]);
-    			 baraja.add(carta);
-    		 }
+    	 mapaCartas.putIfAbsent("Corazones", new ArrayList<>());
+    	 mapaCartas.putIfAbsent("Treboles", new ArrayList<>());
+    	 mapaCartas.putIfAbsent("Picas", new ArrayList<>());
+    	 mapaCartas.putIfAbsent("Diamantes", new ArrayList<>());
+    	 for ( String numero : numeros) {
+    		 mapaCartas.get("Corazones").add(numero);
     	 }
-    	return baraja;
+    	 
+    	 mapaCartas.putIfAbsent("Treboles", new ArrayList<>());
+    	 for ( String numero : numeros) {
+    		 mapaCartas.get("Treboles").add(numero);
+    	 }
+    	 
+    	 mapaCartas.putIfAbsent("Picas", new ArrayList<>());
+    	 for ( String numero : numeros) {
+    		 mapaCartas.get("Picas").add(numero);
+    	 }
+    	 
+    	 mapaCartas.putIfAbsent("Diamantes", new ArrayList<>());
+    	 for ( String numero : numeros) {
+    		 mapaCartas.get("Diamantes").add(numero);
+    	 }
+    	 
+		return mapaCartas;
+   
     	 
     }
+    
+    public List<Carta> crearCarta(Map<String,List<String>> mapa) {
+    	List<Carta> lista = new ArrayList<>();
+    	for(String palo : mapa.keySet() ) {
+    		for (String numero : mapa.get(palo)) {
+    			lista.add(new Carta(numero,palo));
+    		}
+    	}
+    	
+		return lista;
+    	
+    }
+    // Metodo barajear cartas
+    public List<Carta> BarajarCartas(List<Carta> baraja) {
+    	Collections.shuffle(baraja);
+    	return baraja;
+   
+    }
+    
 	
 
 	public static void main(String[] args) {
