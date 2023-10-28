@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 public class VentanaDeposito extends JFrame{
 	private Color colorPanel = new Color(71, 113, 72);
+	private static final Logger logger = Logger.getLogger("VentanaDeposito");
 	public VentanaDeposito() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,300);
@@ -264,7 +267,7 @@ public class VentanaDeposito extends JFrame{
 				
 					
 				}
-					
+					  
 				
 					
 				
@@ -274,12 +277,49 @@ public class VentanaDeposito extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldNumeroDeCuenta.getText();
+				String text1 = JTextfieldCvc.getText();
+				
 				if(JTextfieldNumeroDeCuenta.getForeground()== Color.gray|| JTextfieldDiaYMes.getForeground()== Color.gray|| JTextfieldCvc.getForeground()== Color.gray||
 						JTextfieldUsuario.getForeground()== Color.gray||JTextfieldContrasea.getForeground()== Color.gray||JTextfieldCantidadDeDeposito.getForeground()== Color.gray) {
 					
 					
-					JOptionPane.showMessageDialog(null, "Asegurate de rellenar todos los campos", "Error", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Asegurate de rellenar todos los campos", "Error", JOptionPane.WARNING_MESSAGE);
 					
+				}else if (JTextfieldNumeroDeCuenta.getForeground()== Color.black &  JTextfieldDiaYMes.getForeground()== Color.black & JTextfieldCvc.getForeground()== Color.black &
+						JTextfieldUsuario.getForeground()== Color.black & JTextfieldContrasea.getForeground()== Color.black & JTextfieldCantidadDeDeposito.getForeground()== Color.black &
+						Pattern.matches("\\d{8}",text)& Pattern.matches("\\d{3}",text1)){
+					logger.info("Tu deposito ha sido realizado con exito");
+					
+				}
+				
+			}
+		});
+		
+		botonDepositar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldNumeroDeCuenta.getText();
+				if(Pattern.matches("\\d{8}",text )) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"Numero de cuenta \"debe contener exactamnte 8 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
+		
+		
+		botonDepositar.addActionListener(new ActionListener() {
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldCvc.getText();
+				if(Pattern.matches("\\d{3}",text )) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"CVC\"debe contener exactamnte 3 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
 				}
 				
 			}
