@@ -3,6 +3,9 @@ package Ventanas;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,6 +23,8 @@ public class VentanaRegistro extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	//Logger
+	private static final Logger logger = Logger.getLogger("Ventana Perfil");
 	
 	private String[] paises = {"España","Francia","Alemania","Japon","China","Estados Unidos","Belgica","Reino Unido"};
 	
@@ -41,6 +47,7 @@ public class VentanaRegistro extends JFrame{
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
 	
+	private JButton PoliticaDePrivacidad;
 	private JButton btnRegistro;
 	//Color del panel
 	private Color colorPanel = new Color(71, 113, 72);
@@ -71,7 +78,10 @@ public class VentanaRegistro extends JFrame{
 		txtFecha= new JTextField(15);
 		
 		btnRegistro = new JButton("Registrarse");
-		
+		PoliticaDePrivacidad = new JButton("--Politica de privacidad--");
+			PoliticaDePrivacidad.setForeground(Color.BLUE);
+			PoliticaDePrivacidad.setBackground(Color.WHITE);
+			
 		JCheckBox box = new JCheckBox("+ 18");
 			box.setSelected(false);
 		JCheckBox pol = new JCheckBox("He leido y acepto la politica de privacidad");
@@ -88,6 +98,7 @@ public class VentanaRegistro extends JFrame{
 		JPanel pNombreU = new JPanel();
 		JPanel pContraseña = new JPanel();
 		JPanel pAvisos = new JPanel();
+		JPanel pPrivacidad = new JPanel();
 		JPanel pBoton = new JPanel();
 		
 		pReg.setLayout(new FlowLayout());
@@ -126,11 +137,13 @@ public class VentanaRegistro extends JFrame{
 		pAvisos.add(box);
 		pAvisos.add(pol);
 		
+		pPrivacidad.setLayout(new FlowLayout());
+		pPrivacidad.add(PoliticaDePrivacidad);
 		
 		pBoton.setLayout(new FlowLayout());
 		pBoton.add(btnRegistro);
 		
-		central.setLayout(new GridLayout(10, 1));
+		central.setLayout(new GridLayout(11, 1));
 		central.add(pReg);
 		central.add(pPais);
 		central.add(pDNI);
@@ -140,11 +153,23 @@ public class VentanaRegistro extends JFrame{
 		central.add(pNombreU);
 		central.add(pContraseña);
 		central.add(pAvisos);
+		central.add(pPrivacidad);
 		central.add(pBoton);
 		
 		add(central);
 		
 		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		
+		PoliticaDePrivacidad.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logger.info("Politica de privacidad abierta");
+				String datos = "Politica de privacidad a rellenar";
+				JOptionPane.showMessageDialog(null, datos, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
 	}
 	
 }
