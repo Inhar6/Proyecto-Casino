@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,7 +35,7 @@ public class VentanaBlackJack extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private static final Logger logger = Logger.getLogger("VentanaBlackJack");
 	//Atributos
 	private List<Carta> listaCartas = crearCarta(crearBaraja());
 	
@@ -144,6 +145,7 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Has pedido una carta");
 				
 				
 			}
@@ -153,6 +155,7 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Has pulsado el boton plantarse");
 				System.out.println(listaCartas);
 				System.out.println(BarajarCartas(listaCartas));
 				
@@ -163,6 +166,7 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Has doblado la apuesta");
 				System.out.println(crearBaraja());
 				
 			//	System.out.println(crearCarta(CrearBaraja()));
