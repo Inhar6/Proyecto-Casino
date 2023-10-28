@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -59,7 +60,8 @@ public class VentanaRuleta extends JFrame{
 	private List<Integer> parApuesta = new ArrayList<Integer>();
 	//Apuesta unica
 	private Map<String, Map<Integer, Double>> mapaApuestas = new HashMap<>();
-	
+	//Logger
+	private static final Logger logger = Logger.getLogger("Ventana Ruleta");
 	//Elementos
 	//Botones
 	private JButton btnVerde;
@@ -581,6 +583,7 @@ public class VentanaRuleta extends JFrame{
 					dineroTotal += VentanaPanelMenu.apuesta;
 					dineroTotalInicial += VentanaPanelMenu.apuesta;
 					saldo.setText("---- " + dineroTotal + " ----");
+					logger.info("Añadido a la ventana ruleta "+ dineroTotal+ " del Balance");
 				}else {
 					JOptionPane.showMessageDialog(null, "Haga su apuesta");
 				}
@@ -593,6 +596,7 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton sacar dinero pulsado");
 				if(dineroTotal==0) {
 					btnSacarDinero.setEnabled(false);
 				}
@@ -608,10 +612,13 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.info("Boton borrar apuesta pulsado");
 				//Se vacian todas las listas
 				dineroTotal=dineroTotalInicial;
-				reinicio(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta);
-				
+				//reinicio(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta);
+				//Apuesta unica
+				//Se vacia el mapa
+				reinicio2(mapaApuestas);
 			}
 		});
 		//Jugar
@@ -620,9 +627,11 @@ public class VentanaRuleta extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//juego(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta,dineroApostadoTotal,dineroTotal);
+				logger.info("Boton jugar pulsado");
 				System.out.println(mapaApuestas);
 				juego2(mapaApuestas, dineroTotal);
 				System.out.println(mapaApuestas);
+				
 			}
 		});
 	}
@@ -997,10 +1006,12 @@ public class VentanaRuleta extends JFrame{
 		result(ganancia,num);
 		//Reiniciar
 		reinicio2(mapa);
+		logger.info("Vaciado el mapa de apuestas");
 		//Actualizar saldo
 		dineroTotal +=ganancia;
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
+		logger.info("Todas las acciones del juego terminadas");
 		}
 	}
 }
