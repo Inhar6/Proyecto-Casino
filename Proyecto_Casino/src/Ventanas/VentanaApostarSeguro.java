@@ -1,6 +1,7 @@
 package Ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
@@ -17,8 +18,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import java.util.logging.Logger;
 
 public class VentanaApostarSeguro extends JFrame{
+	private Color colorPanel = new Color(71, 113, 72);
+	private static final Logger logger = Logger.getLogger("VentanaApostarSeguro");
 	
 	public VentanaApostarSeguro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,9 +56,10 @@ public class VentanaApostarSeguro extends JFrame{
 		//JLABEL DE LIMITE DE DEPOSITO
 		JLabel limiteDeDepositoJLabel = new JLabel("Limite de deposito");
 		limiteDeDeposito.add(limiteDeDepositoJLabel);
+		limiteDeDeposito.setBackground(colorPanel);
 		
 		//JLABEL Y TEXTFIELD DE LIMITE DIARIO
-		JLabel diarioJLabel = new JLabel("Diarios:");
+		JLabel diarioJLabel = new JLabel( "       Diarios:");
 		JTextField diarioJTextfield = new JTextField(10);
 		diario.add(diarioJLabel);
 		diario.add(diarioJTextfield);
@@ -65,13 +70,13 @@ public class VentanaApostarSeguro extends JFrame{
 		mensual.add(menusalJTextfield);	
 		
 		//JLABEL Y TEXTFIELD DE LIMITE ANUAL
-		JLabel anualJLabel = new JLabel("Anuales:");
+		JLabel anualJLabel = new JLabel("      Anuales:");
 		JTextField anualJTextfield = new JTextField(10);
 		anual.add(anualJLabel);
 		anual.add(anualJTextfield);	
 		
 		//CHECKBOX PARA ACEPTAR LOS LIMITES
-		JCheckBox casilla = new JCheckBox("¿Seguro que quieres aceptar los limites?");
+		JCheckBox casilla = new JCheckBox("  ¿Seguro que quieres aceptar los limites?");
 		preguntaAlUsuario.add(casilla);
 		
 		//JBUTTON PARA GUARDAR LOS LIMITES
@@ -85,6 +90,7 @@ public class VentanaApostarSeguro extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(casilla.isSelected()) {
+					logger.info("Has establecido con exito tus limites de apuesta");
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "No has aceptado los terminos de los limites de apuesta","Mensaje informativo", JOptionPane.INFORMATION_MESSAGE);
