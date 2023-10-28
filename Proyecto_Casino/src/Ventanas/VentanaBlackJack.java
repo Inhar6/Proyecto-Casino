@@ -9,6 +9,9 @@ import java.awt.Toolkit;import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,12 +22,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import Clases.Carta;
+
 public class VentanaBlackJack extends JFrame {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+
 
 	public VentanaBlackJack() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,9 +64,11 @@ public class VentanaBlackJack extends JFrame {
             }
         });
         
-       
-      
         
+        
+       
+     
+      
        
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelTitulo = new JPanel(new GridLayout(1,3));
@@ -141,11 +150,34 @@ public class VentanaBlackJack extends JFrame {
 				
 			}
 		});
+        
+        
+    
+        
   
         
       
         
 	}
+	public void ComienzoJuego() {
+    	CrearBaraja();
+    	
+    }
+    
+    public List<Carta> CrearBaraja() {
+    	 List<Carta> baraja = new ArrayList<>();
+    	 String[] numeros = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+    	 String[] palos = {"Corazones","Treboles","Picas","Diamantes"};
+    	 
+    	 for (int i = 0;i<palos.length;i++) {
+    		 for(int f = 0;f<numeros.length;f++) {
+    			 Carta carta = new Carta(numeros[i],palos[f]);
+    			 baraja.add(carta);
+    		 }
+    	 }
+    	return baraja;
+    	 
+    }
 	
 
 	public static void main(String[] args) {
@@ -156,5 +188,7 @@ public class VentanaBlackJack extends JFrame {
 				new VentanaBlackJack();				
 			}
         });
+        
+        
 	}
 }
