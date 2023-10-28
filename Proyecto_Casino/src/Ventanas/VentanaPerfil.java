@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -34,6 +35,8 @@ public class VentanaPerfil extends JFrame{
 	private Color colorPanel = new Color(71, 113, 72);
 	
 	private String[] listaJuegos = {"Ruleta", "Crash", "BlackJack", "Coin Flip"};
+	//Logger
+	private static final Logger logger = Logger.getLogger("Ventana Perfil");
 	//Elementos
 	//JLabels
 	private JLabel nombre;
@@ -177,7 +180,7 @@ public class VentanaPerfil extends JFrame{
 				txtNombre.setEditable(true);
 				txtNUsuario.setEditable(true);
 				btnGuardar.setEnabled(true);
-				
+				logger.info("Edicion activada");
 			}
 		});
 		btnGuardar.addActionListener(new ActionListener() {
@@ -191,6 +194,7 @@ public class VentanaPerfil extends JFrame{
 					txtNombre.setEditable(false);
 					txtNUsuario.setEditable(false);
 					btnGuardar.setEnabled(false);
+					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNUsuario.getText()+"-"+txtFechaNacimiento.getText());
 				}else {
 					//No hace nada, deberia de guardar los datos del usuario
 				}
@@ -204,15 +208,19 @@ public class VentanaPerfil extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String juego = (String)jcbJuegos.getSelectedItem();
 				if(juego.equals("Ruleta")) {
+					logger.info("Muestra de datos en la tabla Ruleta");
 					limpiarTabla();
 					pintarDatosRuleta();
 				}else if(juego.equals("Coin Flip")) {
+					logger.info("Muestra de datos en la tabla Coin Flip");
 					limpiarTabla();
 					pintarDatosCoinFlip();
 				}else if(juego.equals("Crash")) {
+					logger.info("Muestra de datos en la tabla Crash");
 					limpiarTabla();
 					pintarDatosCrash();
 				}else {
+					logger.info("Muestra de datos en la tabla Black Jack");
 					limpiarTabla();
 					pintarDatosBlackJack();
 				}
