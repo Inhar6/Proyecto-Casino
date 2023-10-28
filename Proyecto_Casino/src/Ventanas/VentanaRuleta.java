@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -55,6 +57,8 @@ public class VentanaRuleta extends JFrame{
 	private List<Integer> docenaApuesta = new ArrayList<Integer>();
 	private List<Integer> rangoApuesta = new ArrayList<Integer>();
 	private List<Integer> parApuesta = new ArrayList<Integer>();
+	//Apuesta unica
+	private Map<String, Map<Integer, Double>> mapaApuestas = new HashMap<>();
 	
 	//Elementos
 	//Botones
@@ -145,6 +149,12 @@ public class VentanaRuleta extends JFrame{
 		btnapuesta1k= new JButton("1K");
 		Border lineaFichas = BorderFactory.createLineBorder(Color.black);
 		Border tituloFichas= BorderFactory.createTitledBorder(lineaFichas,"Fichas");
+		//Apuesta unica
+		mapaApuestas.put("Color", new HashMap<>());
+		mapaApuestas.put("Docena", new HashMap<>());
+		mapaApuestas.put("Rango", new HashMap<>());
+		mapaApuestas.put("Par", new HashMap<>());
+		mapaApuestas.put("Fila", new HashMap<>());
 		//IMAGEN
 		imagen= new ImageIcon(rutaImagen);
 		etiquetaImagen = new JLabel(imagen);
@@ -280,6 +290,9 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 					btnVerde.setEnabled(false);
 					colorApuesta.add("verde");
+					//Apuesta unica
+					//Verde == 1
+					mapaApuestas.get("Color").put(1, dineroApostado);
 					//Sumar dinero al total apostado
 					dineroApostadoTotal+=dineroApostado;
 					actualizarSaldos();
@@ -292,6 +305,9 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btnRojo.setEnabled(false);
 				colorApuesta.add("rojo");
+				//Apuesta unica
+				//Rojo == 2
+				mapaApuestas.get("Color").put(2, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -304,6 +320,9 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btnNegro.setEnabled(false);
 				colorApuesta.add("negro");
+				//Apuesta unica
+				//Negro == 3
+				mapaApuestas.get("Color").put(3, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -316,6 +335,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btnPar.setEnabled(false);
 				parApuesta.add(1);
+				//Apuesta unica
+				mapaApuestas.get("Par").put(1, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -328,6 +349,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btnImpar.setEnabled(false);
 				parApuesta.add(2);
+				//Apuesta unica
+				mapaApuestas.get("Par").put(2, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -340,6 +363,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn1a18.setEnabled(false);
 				rangoApuesta.add(1);
+				//Apuesta unica
+				mapaApuestas.get("Rango").put(1, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -352,6 +377,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn19a36.setEnabled(false);
 				rangoApuesta.add(2);
+				//Apuesta unica
+				mapaApuestas.get("Rango").put(2, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -364,6 +391,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn1Docena.setEnabled(false);
 				docenaApuesta.add(1);
+				//Apuesta unica
+				mapaApuestas.get("Docena").put(1, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -376,6 +405,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn2Docena.setEnabled(false);
 				docenaApuesta.add(2);
+				//Apuesta unica
+				mapaApuestas.get("Docena").put(2, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -388,6 +419,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn3Docena.setEnabled(false);
 				docenaApuesta.add(3);
+				//Apuesta unica
+				mapaApuestas.get("Docena").put(3, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -400,6 +433,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn1Fila.setEnabled(false);
 				filaApuesta.add(1);
+				//Apuesta unica
+				mapaApuestas.get("Fila").put(1, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -412,6 +447,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn2Fila.setEnabled(false);
 				filaApuesta.add(2);
+				//Apuesta unica
+				mapaApuestas.get("Fila").put(2, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -424,6 +461,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				btn3Fila.setEnabled(false);
 				filaApuesta.add(3);
+				//Apuesta unica
+				mapaApuestas.get("Fila").put(3, dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -440,12 +479,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 1;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta10.setEnabled(false);
 				btnapuesta20.setEnabled(false);
 				btnapuesta50.setEnabled(false);
 				btnapuesta100.setEnabled(false);
 				btnapuesta1k.setEnabled(false);
-				
+				*/
 			}
 		});
 		//Ficha de 10
@@ -455,12 +495,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 10;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta1.setEnabled(false);
 				btnapuesta20.setEnabled(false);
 				btnapuesta50.setEnabled(false);
 				btnapuesta100.setEnabled(false);
 				btnapuesta1k.setEnabled(false);
-				
+				*/
 			}
 		});
 		//Ficha de 20
@@ -470,12 +511,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 20;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta1.setEnabled(false);
 				btnapuesta10.setEnabled(false);
 				btnapuesta50.setEnabled(false);
 				btnapuesta100.setEnabled(false);
 				btnapuesta1k.setEnabled(false);
-				
+				*/
 			}
 		});
 		//Ficha de 50
@@ -485,11 +527,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 50;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta1.setEnabled(false);
 				btnapuesta10.setEnabled(false);
-				btnapuesta20.setEnabled(false);
+				btnapuesta50.setEnabled(false);
 				btnapuesta100.setEnabled(false);
 				btnapuesta1k.setEnabled(false);
+				*/
 				
 			}
 		});
@@ -500,11 +544,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 100;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta1.setEnabled(false);
 				btnapuesta10.setEnabled(false);
-				btnapuesta20.setEnabled(false);
 				btnapuesta50.setEnabled(false);
+				btnapuesta100.setEnabled(false);
 				btnapuesta1k.setEnabled(false);
+				*/
 				
 			}
 		});
@@ -515,11 +561,13 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				dineroApostado = 1000;
 				//Para que solo se seleccione 1 saldo
+				/*
 				btnapuesta1.setEnabled(false);
 				btnapuesta10.setEnabled(false);
-				btnapuesta20.setEnabled(false);
 				btnapuesta50.setEnabled(false);
 				btnapuesta100.setEnabled(false);
+				btnapuesta1k.setEnabled(false);
+				*/
 				
 			}
 		});
@@ -571,8 +619,10 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				juego(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta,dineroApostadoTotal,dineroTotal);
-				
+				//juego(colorApuesta,docenaApuesta,filaApuesta,rangoApuesta,parApuesta,dineroApostadoTotal,dineroTotal);
+				System.out.println(mapaApuestas);
+				juego2(mapaApuestas, dineroTotal);
+				System.out.println(mapaApuestas);
 			}
 		});
 	}
@@ -710,7 +760,7 @@ public class VentanaRuleta extends JFrame{
 		
 		return premioTotal;
 	}
-	
+	//Obtener color con String
 	public String obtenerColor(int resultado) {
 		if(resultado==0) {
 			return "verde";
@@ -718,6 +768,16 @@ public class VentanaRuleta extends JFrame{
 			return "rojo";
 		}else {
 			return "negro";
+		}
+	}
+	//Obtener color con Integer
+	public int obtenerColor2(int resultado) {
+		if(resultado==0) {
+			return 1;
+		}else if(esRojo(resultado)) {
+			return 2;
+		}else {
+			return 3;
 		}
 	}
 	public int obtenerDocena(int resultado) {
@@ -801,5 +861,146 @@ public class VentanaRuleta extends JFrame{
 		}
 		return false;
 	}
-
+	//Apuesta unica
+	public double verificar(Map<String, Map<Integer, Double>> mapa,int resultado) {
+		//Premios por cada posible resultado
+		double colorValor = 2.0;
+		double docenaValor = 3.0;
+		double filaValor = 3.0;
+		double rangoValor = 2.0;
+		double parValor = 2.0;
+		//Variables unicas
+		double premioColor=0.0;
+		double premioTotalColor=0.0;
+		double premioDocena=0.0;
+		double premioTotalDocena=0.0;
+		double premioFila=0.0;
+		double premioTotalFila=0.0;
+		double premioRango=0.0;
+		double premioTotalRango=0.0;
+		double premioPar=0.0;
+		double premioTotalPar=0.0;
+		
+		
+		//Separamos en apartados para saber si han sido premiados
+		//Verificamos cada docena
+		for(Integer color:mapa.get("Color").keySet()) {
+			 if(color.equals(obtenerColor2(resultado))) {
+				 premioColor = mapa.get("Color").get(color) * colorValor;
+				 premioTotalColor += premioColor;
+			 }
+		}
+		//Verificamos el color
+		/*
+		for(String color : coloresApostadas) {
+			if(color.equals(obtenerColor(resultado))) {
+				premioTotal*=colorValor;
+			}
+		}*/
+		//Verificamos cada docena
+		for(Integer docena:mapa.get("Docena").keySet()) {
+			 if(docena.equals(obtenerDocena(resultado))) {
+				 premioDocena = mapa.get("Docena").get(docena) * docenaValor;
+				 premioTotalDocena += premioDocena;
+			 }
+		}
+		/*
+		//Verificamos la docena
+		for(Integer docena : docenasApostadas) {
+			if(docena.equals(obtenerDocena(resultado))) {
+				premioTotal*=docenaValor;
+			}
+		}
+		*/
+		//Verificamos cada fila
+		for(Integer fila :mapa.get("Fila").keySet()) {
+			 if(fila.equals(obtenerFila(resultado))) {
+				 premioFila = mapa.get("Fila").get(fila) * filaValor;
+				 premioTotalFila += premioFila;
+			 }
+		}
+		/*
+		//Verificamos la fila
+		 for(Integer fila : filasApostadas) {
+			if(fila.equals(obtenerFila(resultado))) {
+				premioTotal*=filaValor;
+			}
+		}
+		*/
+		//Verificamos cada rango
+		for(Integer rango :mapa.get("Rango").keySet()) {
+			 if(rango.equals(obtenerRango(resultado))) {
+				 premioRango = mapa.get("Rango").get(rango) * rangoValor;
+				 premioTotalRango += premioRango;
+			 }
+		}
+		/*
+		//Verificamos el rango
+		 for(Integer rango : rangoApostadas) {
+			if(rango.equals(obtenerRango(resultado))) {
+				premioTotal*=rangoValor;
+			}
+		}
+		*/
+		//Verificamos cada rango
+		for(Integer par :mapa.get("Par").keySet()) {
+			 if(par.equals(obtenerPar(resultado))) {
+				 premioPar = mapa.get("Par").get(par) * parValor;
+				 premioTotalPar += premioPar;
+			 }
+		}
+		/*
+		//Verificamos si es par o impar
+	  	for(Integer par : rangoApostadas) {
+				if(par.equals(obtenerPar(resultado))) {
+					premioTotal*=parValor;
+				}
+			}
+		*/
+		double premio = premioTotalColor+premioTotalDocena+premioTotalFila+premioTotalPar+premioTotalRango;
+		return premio;
+	}
+	
+	public void reinicio2(Map<String, Map<Integer, Double>> mapa) {
+		//Activa los botones para otra partida
+		activarBotones();
+		//Quitar los valores anteriores del mapa
+		for (Map<Integer, Double> mapas :mapa.values()) {
+			mapas.clear();
+		}
+		//Dinero apostado
+		dineroApostado=0;
+		dineroApostadoTotal=0;
+		actualizarSaldos();
+	    /*
+		btnapuesta1.setEnabled(false);
+	    btnapuesta10.setEnabled(false);
+	    btnapuesta20.setEnabled(false);
+	    btnapuesta50.setEnabled(false);
+	    btnapuesta100.setEnabled(false);
+	    btnapuesta1k.setEnabled(false);
+		*/
+		
+	}
+	
+	private void juego2( Map<String, Map<Integer, Double>> mapa , double dineroSaldo) {
+		if(avisoSaldo(dineroSaldo)) {
+			btnBorrarApuesta.doClick();
+		}else {
+		//Saca un numero random del 0 al 36
+		int num = random.nextInt(36);
+		//Verificar si ha tocado para las casillas seleccionadas
+		double ganancia = verificar(mapa, num);
+		//Pone el numero en el historial-lista
+		dlmHistorial.addElement(num);
+		//Mostrar si se ha ganado o no
+		result(ganancia,num);
+		//Reiniciar
+		reinicio2(mapa);
+		//Actualizar saldo
+		dineroTotal +=ganancia;
+		saldo.setText("---- "+ dineroTotal +" ----");
+		dineroTotalInicial=dineroTotal + ganancia;
+		}
+	}
 }
