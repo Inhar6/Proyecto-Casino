@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class VentanaApostarSeguro extends JFrame{
 	private Color colorPanel = new Color(71, 113, 72);
@@ -60,41 +61,136 @@ public class VentanaApostarSeguro extends JFrame{
 		
 		//JLABEL Y TEXTFIELD DE LIMITE DIARIO
 		JLabel diarioJLabel = new JLabel( "       Diarios:");
-		JTextField diarioJTextfield = new JTextField(10);
+		JTextField JTextfieldDiario = new JTextField(10);
 		diario.add(diarioJLabel);
-		diario.add(diarioJTextfield);
+		diario.add(JTextfieldDiario);
 		//JLABEL Y TEXTFIELD DE LIMITE MENSUAL
 		JLabel mensualJLabel = new JLabel("Mensuales:");
-		JTextField menusalJTextfield = new JTextField(10);
+		JTextField JTextfieldMensual = new JTextField(10);
 		mensual.add(mensualJLabel);
-		mensual.add(menusalJTextfield);	
+		mensual.add(JTextfieldMensual);	
 		
 		//JLABEL Y TEXTFIELD DE LIMITE ANUAL
 		JLabel anualJLabel = new JLabel("      Anuales:");
-		JTextField anualJTextfield = new JTextField(10);
+		JTextField JTextfieldAnual = new JTextField(10);
 		anual.add(anualJLabel);
-		anual.add(anualJTextfield);	
+		anual.add(JTextfieldAnual);	
 		
 		//CHECKBOX PARA ACEPTAR LOS LIMITES
 		JCheckBox casilla = new JCheckBox("  ¿Seguro que quieres aceptar los limites?");
 		preguntaAlUsuario.add(casilla);
 		
 		//JBUTTON PARA GUARDAR LOS LIMITES
-		JButton botonaceptarLimites = new JButton("Aceptar Limites");
-		panelBoton.add(botonaceptarLimites);
+		JButton botonAceptarLimites = new JButton("Aceptar Limites");
+		panelBoton.add(botonAceptarLimites);
 		
-		botonaceptarLimites.addActionListener(new ActionListener() {
+		
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
 			
 			
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(JTextfieldDiario.getText().isEmpty()||JTextfieldMensual.getText().isEmpty()||JTextfieldAnual.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No has introducido todos los limites","Mensaje informativo", JOptionPane.INFORMATION_MESSAGE);
+					
+				}else {
+					
+				}
+				
+				
+			}
+			
+			});
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String textoDiario = JTextfieldDiario.getText();
+				String textoMnesual = JTextfieldMensual.getText();
+				String textoAnual = JTextfieldAnual.getText();
+				if(textoDiario.length()<=4) {
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"No puedes establecer cantidades superiores a 4 digitos", "Diario", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				
+			}
+		});
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String textoMensual = JTextfieldMensual.getText();
+				
+				if(textoMensual.length()<=5) {
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"No puedes establecer cantidades superiores a 5 digitos", "Mensual", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				
+			}
+		});
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String textoAnual = JTextfieldAnual.getText();
+				if( textoAnual.length()<=8) {
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"No puedes establecer cantidades superiores a 8 digitos", "Anual", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				
+			}
+		});
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
+			
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 				if(casilla.isSelected()) {
 					logger.info("Has establecido con exito tus limites de apuesta");
 					
 				}else {
-					JOptionPane.showMessageDialog(null, "No has aceptado los terminos de los limites de apuesta","Mensaje informativo", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Debes clickar la casilla", "Acepatr los limites", JOptionPane.INFORMATION_MESSAGE);
 				}
+					
+				
+				
+				
+			}
+			
+			});
+		
+		botonAceptarLimites.addActionListener(new ActionListener() {
+			
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String textoDiario = JTextfieldDiario.getText();
+				String textoMensual = JTextfieldMensual.getText();
+				String textoAnual = JTextfieldAnual.getText();
+				if(casilla.isSelected() & textoDiario.length()<=4 & textoMensual.length()<=5 & textoAnual.length()<=8) {
+					logger.info("Has establecido con exito tus limites de apuesta");
+					
+				}
+					
+				
 				
 				
 			}
