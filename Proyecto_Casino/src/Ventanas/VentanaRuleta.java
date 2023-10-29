@@ -214,9 +214,9 @@ public class VentanaRuleta extends JFrame{
 		inferior.add(inferior1);
 		inferior.add(inferior2);
 		derecho.setLayout(new GridLayout(3,1));
-		derecho.add(btn1Fila);
-		derecho.add(btn2Fila);
 		derecho.add(btn3Fila);
+		derecho.add(btn2Fila);
+		derecho.add(btn1Fila);
 		central.setLayout(new BorderLayout());
 		central.add(btnVerde, BorderLayout.WEST);
 		central.add(inferior,BorderLayout.SOUTH);
@@ -598,7 +598,8 @@ public class VentanaRuleta extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Boton sacar dinero pulsado");
 				if(dineroTotal==0) {
-					btnSacarDinero.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "No se puede sacar un resultado inferior o igual a 0");
+					//btnSacarDinero.setEnabled(false);
 				}
 				VentanaPanelMenu.balance+=dineroTotal;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
