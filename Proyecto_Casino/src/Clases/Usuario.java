@@ -79,8 +79,8 @@ public class Usuario {
 	//toString
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + ", DNI=" + DNI + ", nombreUsuario="
-				+ nombreUsuario + ", numeroCuenta=" + numeroCuenta + ", saldo=" + saldo + "]";
+		return nombre + ", " + apellidos + ", " + DNI + ", "
+				+ nombreUsuario ;
 	}
 	
 	
