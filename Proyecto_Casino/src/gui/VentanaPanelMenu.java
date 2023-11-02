@@ -28,7 +28,7 @@ public class VentanaPanelMenu {
 	private static final long serialVersionUID = 1L;
 	// Botones
 	private JButton bLogin = new JButton ("Login");
-	private JButton bSingUp = new JButton ("SingUp");
+	private JButton bSingUp = new JButton ("SignUp");
 	private JButton bUsuario = new JButton ("Usuario");
 	private JButton bJuegos = new JButton("Juegos");
 	private JButton bCasino = new JButton ();
