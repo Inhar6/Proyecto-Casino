@@ -263,10 +263,11 @@ public class VentanaPerfil extends JFrame{
 	public void pintarDatosCrash() {
 		dtmTabla.addColumn("Tirada");
 		dtmTabla.addColumn("Resultado");
+		dtmTabla.addColumn("Multiplicador");
 		dtmTabla.addColumn("Ganancia");
-		dtmTabla.addRow(new Object[] {1,"2.0",+20});
-		dtmTabla.addRow(new Object[] {2,"1.03",-30});
-		dtmTabla.addRow(new Object[] {3,"5.06",+150});
+		dtmTabla.addRow(new Object[] {1,"WIN","x3.46",+200});
+		dtmTabla.addRow(new Object[] {2,"LOSE","x0.0",-30});
+		dtmTabla.addRow(new Object[] {3,"WIN","x1.25",+150});
 	}
 	public void pintarDatosBlackJack() {
 
