@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -66,8 +66,8 @@ public class VentanaPanelMenu {
 	private JMenuItem menuItemDepositar = new JMenuItem("Depostar");
 	private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
 	
-	private ImageIcon logoCasinoNegro = new ImageIcon("foto/iconos/logoNoEscasino.png");
-	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
+	private ImageIcon logoCasinoNegro = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
+	private ImageIcon favicon = new ImageIcon("resources/images/iconos/favicon.png");
 
 //	private Estado estado;
 	static int contadorVentanaBlackJack = 0;
@@ -336,12 +336,12 @@ public class VentanaPanelMenu {
     	Color colorPanel = new Color(71, 113, 72);
 
     	// Imagenes fichas
-        ImageIcon logoFicha1 = new ImageIcon("foto/fichas/ficha1.png");
-        ImageIcon logoFicha10 = new ImageIcon("foto/fichas/ficha10.png");
-        ImageIcon logoFicha25 = new ImageIcon("foto/fichas/ficha25.png");
-        ImageIcon logoFicha50 = new ImageIcon("foto/fichas/ficha50.png");
-        ImageIcon logoFicha100 = new ImageIcon("foto/fichas/ficha100.png");
-        ImageIcon logoFicha1000 = new ImageIcon("foto/fichas/ficha1000.png");
+        ImageIcon logoFicha1 = new ImageIcon("resources/images/fichas/ficha1.png");
+        ImageIcon logoFicha10 = new ImageIcon("resources/images/fichas/ficha10.png");
+        ImageIcon logoFicha25 = new ImageIcon("resources/images/fichas/ficha25.png");
+        ImageIcon logoFicha50 = new ImageIcon("resources/images/fichas/ficha50.png");
+        ImageIcon logoFicha100 = new ImageIcon("resources/images/fichas/ficha100.png");
+        ImageIcon logoFicha1000 = new ImageIcon("resources/images/fichas/ficha1000.png");
 		bficha1.setIcon(redimensionarIcono(logoFicha1, 50, 50));
 		bficha1.setBorder(null);
 		bficha10.setIcon(redimensionarIcono(logoFicha10, 50, 50));

@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -66,7 +66,7 @@ public class VentanaPerfil extends JFrame{
 	
 	
 	public VentanaPerfil() {
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		setTitle("Perfil del Usuario");
 		setSize(500,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

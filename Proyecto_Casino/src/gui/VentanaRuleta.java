@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,7 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
-import Clases.ApuestaRuleta;
+import domain.ApuestaRuleta;
 
 
 public class VentanaRuleta extends JFrame{
@@ -88,7 +88,7 @@ public class VentanaRuleta extends JFrame{
 	private int tirada = 1;
 	
 	///IMAGEN
-	private String rutaImagen="foto/iconos/mesa-ruleta2.png";
+	private String rutaImagen="resources/images/iconos/mesa-ruleta2.png";
 	private ImageIcon imagen;
 	private JLabel etiquetaImagen;
 					
@@ -98,7 +98,7 @@ public class VentanaRuleta extends JFrame{
 		setTitle("Ruleta");
 		setVisible(true);
 		setLocationRelativeTo(null);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		//Botones
 		btnVerde = new JButton("Verde");

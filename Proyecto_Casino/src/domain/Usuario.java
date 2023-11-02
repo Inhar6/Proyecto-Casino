@@ -1,4 +1,4 @@
-package Clases;
+package domain;
 
 public class Usuario {
 	

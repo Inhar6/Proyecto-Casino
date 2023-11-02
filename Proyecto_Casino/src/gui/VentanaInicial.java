@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -30,7 +30,7 @@ public class VentanaInicial extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	    setVisible(true);
-		setIconImage((new ImageIcon("foto/iconos/favicon.png")).getImage());
+		setIconImage((new ImageIcon("resources/images/iconos/favicon.png")).getImage());
 		
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new GridLayout());
@@ -53,13 +53,5 @@ public class VentanaInicial extends JFrame{
         });
 	}
 		
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
 
-			@Override
-			public void run() {
-				new VentanaInicial();				
-			}
-        });
-	}
 }

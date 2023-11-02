@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Choice;
@@ -71,7 +71,7 @@ public class VentanaCrash extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
@@ -116,7 +116,7 @@ public class VentanaCrash extends JFrame{
         // Número random
         Random random = new Random();
        	double numeroRandom = random.nextDouble(1, 5);
-    	ImageIcon lose = new ImageIcon("foto/iconos/logoNoEscasino.png");
+    	ImageIcon lose = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
 
     	// ProgressBar
         pCrash.add(pBar, BorderLayout.CENTER);
@@ -195,7 +195,7 @@ public class VentanaCrash extends JFrame{
         ventanaWin.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 350) / 2),  
 								(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
         ventanaWin.setVisible(true);
-        ventanaWin.setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+        ventanaWin.setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
         
         JPanel pWinN = new JPanel();
 		JPanel pWinC = new JPanel();
@@ -269,7 +269,7 @@ public class VentanaCrash extends JFrame{
         ventanaLose.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 350) / 2),  
 								(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
         ventanaLose.setVisible(true);
-        ventanaLose.setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+        ventanaLose.setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
         
         
         JPanel pLoseN = new JPanel();

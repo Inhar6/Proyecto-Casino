@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,7 +33,7 @@ public class VentanaApostarSeguro extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		//PANELES
 		JPanel panelPrincipal = new JPanel(new GridLayout(6,1));

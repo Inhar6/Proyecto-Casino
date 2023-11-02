@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-import Clases.Usuario;
+import domain.Usuario;
 
 public class VentanaAdminUsuarios extends JFrame{
 

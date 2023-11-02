@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -158,7 +158,7 @@ public class VentanaRegistro extends JFrame{
 		
 		add(central);
 		
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		PoliticaDePrivacidad.addActionListener(new ActionListener() {
 			

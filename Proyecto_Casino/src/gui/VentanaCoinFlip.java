@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -60,7 +60,7 @@ public class VentanaCoinFlip extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new GridLayout());
@@ -228,19 +228,19 @@ public class VentanaCoinFlip extends JFrame{
 						{
 							//cara
 							System.out.println("Cara" );
-							lFotos.setIcon( new ImageIcon ("foto/cara.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/cara.png"));
 						}
 						else if ( cont == 2 )
 						{
 							//cruz
 							System.out.println("Cruz");
-							lFotos.setIcon( new ImageIcon ("foto/cruz.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/cruz.png"));
 						}
 						else
 						{
 							//canto
 							System.out.println("Canto");
-							lFotos.setIcon( new ImageIcon ("foto/canto.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/canto.png"));
 					
 						}
 						cont++;
@@ -253,10 +253,10 @@ public class VentanaCoinFlip extends JFrame{
 							
 							if (i == 0) {
 								resultado = "Cara";
-								lFotos.setIcon( new ImageIcon ("foto/cara.png"));
+								lFotos.setIcon( new ImageIcon ("resources/images/cara.png"));
 							}else {
 								resultado = "Cruz";
-								lFotos.setIcon( new ImageIcon ("foto/cruz.png"));
+								lFotos.setIcon( new ImageIcon ("resources/images/cruz.png"));
 							}
 						}
 					}else if(cont == 2) {

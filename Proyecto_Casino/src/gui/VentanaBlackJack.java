@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import Clases.Carta;
+import domain.Carta;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -49,7 +49,7 @@ public class VentanaBlackJack extends JFrame {
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		// Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new GridLayout());
@@ -107,7 +107,7 @@ public class VentanaBlackJack extends JFrame {
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
         
-        JButton botonAyuda = new JButton(new ImageIcon("foto/iconos/favicon.png"));
+        JButton botonAyuda = new JButton(new ImageIcon("resources/images/iconos/favicon.png"));
         botonAyuda.setPreferredSize(new Dimension (30,30));
         
         panelTitulo.add(botonAyuda);

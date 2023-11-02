@@ -1,4 +1,4 @@
-package Ventanas;
+package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -32,7 +32,7 @@ public class VentanaDeposito extends JFrame{
 		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
-		setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		JPanel panelPrincipal = new JPanel(new GridLayout(7,1));
 		JPanel deposito = new JPanel();
