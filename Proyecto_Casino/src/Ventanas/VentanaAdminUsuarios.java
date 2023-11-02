@@ -2,8 +2,11 @@ package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -15,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,6 +63,8 @@ public class VentanaAdminUsuarios extends JFrame{
 		//Lista Usuarios
 		dlmUsuarios = new DefaultListModel<>();
 		lstUsuarios = new JList<Usuario>(dlmUsuarios);
+		//Aplicamos el render
+		lstUsuarios.setCellRenderer(new MyCellRender());
 		scrollLst = new JScrollPane(lstUsuarios);
 		//ComboBox
 		jcbJuegos= new JComboBox<String>(listaJuegos);
@@ -66,11 +72,14 @@ public class VentanaAdminUsuarios extends JFrame{
 		dtmJuegos = new DefaultTableModel();
 		tJuegos = new JTable(dtmJuegos);
 		scrollJuegos = new JScrollPane(tJuegos);
+		
 		//Tabla Balance
 		dtmBalance = new DefaultTableModel();
 		tBalance = new JTable(dtmBalance);
 		scrollBalance = new JScrollPane(tBalance);
 		
+		//Rellena la lista con usuarios de prueba
+		rellenarListaEjemplo();
 		
 		JPanel pBuscador = new JPanel(new FlowLayout());
 		pBuscador.add(buscador);
@@ -106,4 +115,54 @@ public class VentanaAdminUsuarios extends JFrame{
 		setVisible(true);
 	}
 
+	
+	public void rellenarListaEjemplo() {
+		List<Usuario> listaDeUsuarios = new ArrayList<>();
+		listaDeUsuarios.add(new Usuario("Usuario1", "Apellido1", "11111111A", "user1", 12345, 1000.0));
+        listaDeUsuarios.add(new Usuario("Usuario2", "Apellido2", "22222222B", "user2", 67890, 1500.0));
+        listaDeUsuarios.add(new Usuario("Usuario3", "Apellido3", "33333333C", "user3", 54321, 75000.0));
+        listaDeUsuarios.add(new Usuario("Usuario4", "Apellido4", "44444444D", "user4", 98765, 20000.0));
+        listaDeUsuarios.add(new Usuario("Usuario5", "Apellido5", "55555555E", "user5", 24680, 300.0));
+        listaDeUsuarios.add(new Usuario("Usuario6", "Apellido6", "66666666F", "user6", 11223, 450000.0));
+        listaDeUsuarios.add(new Usuario("Usuario7", "Apellido7", "77777777G", "user7", 33221, 55000.0));
+        listaDeUsuarios.add(new Usuario("Usuario8", "Apellido8", "88888888H", "user8", 76543, 1200.0));
+        listaDeUsuarios.add(new Usuario("Usuario9", "Apellido9", "99999999I", "user9", 19876, 800.0));
+        listaDeUsuarios.add(new Usuario("Usuario10", "Apellido10", "10101010J", "user10", 23456, 2200.0));
+        listaDeUsuarios.add(new Usuario("Usuario11", "Apellido11", "11111111K", "user11", 90876, 170000.0));
+        listaDeUsuarios.add(new Usuario("Usuario12", "Apellido12", "12121212L", "user12", 65432, 1600.0));
+        listaDeUsuarios.add(new Usuario("Usuario13", "Apellido13", "13131313M", "user13", 56789, 1800.0));
+        listaDeUsuarios.add(new Usuario("Usuario14", "Apellido14", "14141414N", "user14", 11234, 4000.0));
+        listaDeUsuarios.add(new Usuario("Usuario15", "Apellido15", "15151515O", "user15", 98765, 300000.0));
+		dlmUsuarios.addAll(listaDeUsuarios);
+	}
+	
+	//Render para la lista de arriba
+	class MyCellRender extends JLabel implements ListCellRenderer<Usuario>{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends Usuario> list, Usuario value, int index,
+				boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+			setOpaque(true);
+			setHorizontalAlignment(CENTER);
+			//Mostrar la gente que tiene un saldo superior a 50.000
+			if(value.getSaldo()>= 50000) {
+				setBackground(Color.YELLOW);
+			}else {
+				setBackground(Color.WHITE);
+			}
+			if(isSelected) {
+				setBackground(Color.CYAN);
+				nombre.setText(value.toString());
+			}
+			
+			return this;
+		}
+		
+	}
 }
