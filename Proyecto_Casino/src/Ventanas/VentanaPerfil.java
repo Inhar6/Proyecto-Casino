@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -240,9 +242,15 @@ public class VentanaPerfil extends JFrame{
 		dtmTabla.addColumn("Tirada");
 		dtmTabla.addColumn("Resultado");
 		dtmTabla.addColumn("Ganancia");
-		dtmTabla.addRow(new Object[] {1,5,-10});
-		dtmTabla.addRow(new Object[] {2,30,-30});
-		dtmTabla.addRow(new Object[] {3,12,+150});
+		for(Entry<Integer, Map<Integer, Double>> entry :VentanaRuleta.mapaBalance.entrySet()) {
+			int tirada =entry.getKey();
+			for(Integer i : entry.getValue().keySet()) {
+				int resultado = i;
+				double ganancia = entry.getValue().get(i);
+				dtmTabla.addRow(new Object[] {tirada,resultado,ganancia});
+			}
+			
+		}
 	}
 	public void pintarDatosCoinFlip() {
 		dtmTabla.addColumn("Tirada");
@@ -253,7 +261,12 @@ public class VentanaPerfil extends JFrame{
 		dtmTabla.addRow(new Object[] {3,"Cruz",+150});
 	}
 	public void pintarDatosCrash() {
-
+		dtmTabla.addColumn("Tirada");
+		dtmTabla.addColumn("Resultado");
+		dtmTabla.addColumn("Ganancia");
+		dtmTabla.addRow(new Object[] {1,"2.0",+20});
+		dtmTabla.addRow(new Object[] {2,"1.03",-30});
+		dtmTabla.addRow(new Object[] {3,"5.06",+150});
 	}
 	public void pintarDatosBlackJack() {
 
@@ -274,13 +287,13 @@ public class VentanaPerfil extends JFrame{
 				int row, int column) {
 			
 			setText(value.toString());
+			setHorizontalAlignment(CENTER);
 			if(row%2 ==0) {
 				setBackground(Color.LIGHT_GRAY);
 			}else {
 				setBackground(Color.white);
 			}
-			
-			
+
 			return this;
 		}
 		
