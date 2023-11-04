@@ -81,7 +81,9 @@ public class VentanaBlackJack extends JFrame {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelTitulo = new JPanel(new GridLayout(1,3));
         panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JPanel paneldecartas = new JPanel((new GridLayout()));
+        JPanel paneldecartas = new JPanel((new GridLayout(2,1)));
+        JPanel panelCrupier = new JPanel(new GridLayout(2,1));
+        JPanel panelJugador = new JPanel(new GridLayout(2,1));
         JPanel panelBotones = new JPanel(new GridLayout(1,3));
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         
@@ -91,6 +93,9 @@ public class VentanaBlackJack extends JFrame {
         panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
         panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
         
+        paneldecartas.add(panelCrupier);
+        paneldecartas.add(panelJugador);
+        
         JLabel labelTitulo = new JLabel("BLACKJACK");
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
@@ -98,9 +103,16 @@ public class VentanaBlackJack extends JFrame {
         
         
         
-        JTextArea JTextAreaCartas = new JTextArea();
         
+        JLabel labelCrupier = new JLabel("CRUPIER");
+        JTextArea textAreaCrupier = new JTextArea();
+        JLabel labelJugador = new JLabel("JUGADOR");
+        JTextArea textAreaJugador = new JTextArea();
         
+        panelCrupier.add(labelCrupier);
+        panelCrupier.add(textAreaCrupier);
+        panelJugador.add(labelJugador);
+        panelJugador.add(textAreaJugador);
      
  
         JButton botonPedirCarta = new JButton("Pedir una carta");
@@ -113,7 +125,7 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
         
-        paneldecartas.add(JTextAreaCartas);
+        
        
         
         panelBotones.add(botonPedirCarta);
@@ -146,7 +158,9 @@ public class VentanaBlackJack extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has pedido una carta");
-				
+				Carta cartaDevolver = RepartirCarta(listaCartas);
+				String cartaTexto = cartaDevolver.toString();
+				textAreaJugador.setText(cartaTexto);
 				
 			}
 		});
@@ -236,6 +250,14 @@ public class VentanaBlackJack extends JFrame {
     	Collections.shuffle(baraja);
     	return baraja;
    
+    }
+    
+    public Carta RepartirCarta(List<Carta> listaCartas){
+    	BarajarCartas(listaCartas);
+    	Carta cartaDevolver = listaCartas.get(0);
+    	listaCartas.get(0);
+    	return cartaDevolver;
+    	
     }
     
 	
