@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Usuario {
 	
 	//Atributos
@@ -9,6 +12,9 @@ public class Usuario {
 	private String nombreUsuario;
 	private int numeroCuenta;
 	private double saldo;
+	//Mapas de historiales
+	private Map<Integer, Map<Integer, Double>> mapaRuleta ;
+	
 	
 	//Constructores
 	public Usuario(String nombre, String apellidos, String dNI, String nombreUsuario, int numeroCuenta, double saldo) {
@@ -19,6 +25,7 @@ public class Usuario {
 		this.nombreUsuario = nombreUsuario;
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
+		this.mapaRuleta = new HashMap<>();
 	}
 	
 	//Constructor vacio
@@ -76,6 +83,19 @@ public class Usuario {
 		this.saldo = saldo;
 	}
 	
+	public Map<Integer, Map<Integer, Double>> getMapaRuleta() {
+		return mapaRuleta;
+	}
+
+	public void setMapaRuleta(Map<Integer, Map<Integer, Double>> mapaRuleta) {
+		this.mapaRuleta = mapaRuleta;
+	}
+	//Añadirle cosas al mapa del usuario
+	public void addMapaRuleta(int tirada, int resultado, double ganancia) {
+		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
+		mapaRuleta.get(tirada).put(resultado, ganancia);
+	}
+
 	//toString
 	@Override
 	public String toString() {
