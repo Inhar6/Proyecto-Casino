@@ -5,8 +5,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -20,7 +24,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Usuario;
 
@@ -50,12 +57,22 @@ public class VentanaAdminUsuarios extends JFrame{
 	private DefaultTableModel dtmBalance;
 	private JTable tBalance;
 	private JScrollPane scrollBalance;
+	//Usuario
+	private Usuario user = new Usuario();
+	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1", 12345, 1000.0);
 	
 	public VentanaAdminUsuarios() {
 		setTitle("Datos de los Usuarios");
 		setSize(800,700);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		
+		////
+		Usuario1.addMapaRuleta(1, 23, 5000);
+		Usuario1.addMapaRuleta(2, 20, 50000);
+		Usuario1.addMapaRuleta(3, 12, 85000);
+		Usuario1.addMapaRuleta(4, 5, 75000);
+		////
 		
 		buscador = new JLabel("Filtrar por nombre: ");
 		txtBuscador= new JTextField(15);
@@ -64,17 +81,19 @@ public class VentanaAdminUsuarios extends JFrame{
 		dlmUsuarios = new DefaultListModel<>();
 		lstUsuarios = new JList<Usuario>(dlmUsuarios);
 		//Aplicamos el render
-		lstUsuarios.setCellRenderer(new MyCellRender());
+		lstUsuarios.setCellRenderer(new MyListCellRender());
 		scrollLst = new JScrollPane(lstUsuarios);
 		//ComboBox
 		jcbJuegos= new JComboBox<String>(listaJuegos);
 		//Tabla Juegos
 		dtmJuegos = new DefaultTableModel();
 		tJuegos = new JTable(dtmJuegos);
+		tJuegos.setDefaultRenderer(Object.class, new MyTableCellRender());
 		scrollJuegos = new JScrollPane(tJuegos);
 		
 		//Tabla Balance
 		dtmBalance = new DefaultTableModel();
+		dtmBalance.addColumn("Saldo");
 		tBalance = new JTable(dtmBalance);
 		scrollBalance = new JScrollPane(tBalance);
 		
@@ -111,14 +130,56 @@ public class VentanaAdminUsuarios extends JFrame{
 		setLayout(new GridLayout(2,1));
 		add(pUsuarios);
 		add(pHistoriales);
+		/*
+		txtBuscador.getDocument().addDocumentListener(new DocumentListener() {
+					
+					@Override
+					public void removeUpdate(DocumentEvent e) {
+						lstUsuarios.repaint();
+					}
+					
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+						lstUsuarios.repaint();			
+					}
+					
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+						//
+				}
+		});
+		*/
 		
+		jcbJuegos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String juegos = (String)jcbJuegos.getSelectedItem();
+				if(juegos.equals("Ruleta")) {
+					limpiarTabla();
+					pintadoRuleta(user.getMapaRuleta());
+					
+				}else if(juegos.equals("Crash")) {
+					limpiarTabla();
+					pintadoCrash();
+					
+				}else if(juegos.equals("Coin Flip")) {
+					limpiarTabla();
+					pintadoCoinFlip();
+				}else {
+					limpiarTabla();
+					pintadoBlackJack();
+				}
+				
+			}
+		});
 		setVisible(true);
 	}
 
 	
 	public void rellenarListaEjemplo() {
 		List<Usuario> listaDeUsuarios = new ArrayList<>();
-		listaDeUsuarios.add(new Usuario("Usuario1", "Apellido1", "11111111A", "user1", 12345, 1000.0));
+		listaDeUsuarios.add(Usuario1);
         listaDeUsuarios.add(new Usuario("Usuario2", "Apellido2", "22222222B", "user2", 67890, 1500.0));
         listaDeUsuarios.add(new Usuario("Usuario3", "Apellido3", "33333333C", "user3", 54321, 75000.0));
         listaDeUsuarios.add(new Usuario("Usuario4", "Apellido4", "44444444D", "user4", 98765, 20000.0));
@@ -136,8 +197,37 @@ public class VentanaAdminUsuarios extends JFrame{
 		dlmUsuarios.addAll(listaDeUsuarios);
 	}
 	
+	public void limpiarTabla() {
+		dtmJuegos.setRowCount(0);
+		dtmJuegos.setColumnCount(0);
+	}
+	
+	public void pintadoRuleta(Map<Integer, Map<Integer, Double>> mapa) {
+		dtmJuegos.addColumn("Tirada");
+		dtmJuegos.addColumn("Resultado");
+		dtmJuegos.addColumn("Ganancia");
+		for(Entry<Integer, Map<Integer, Double>> entry :mapa.entrySet()) {
+			int tirada =entry.getKey();
+			for(Integer i : entry.getValue().keySet()) {
+				int resultado = i;
+				double ganancia = entry.getValue().get(i);
+				dtmJuegos.addRow(new Object[] {tirada,resultado,ganancia});
+			}
+			
+		}
+	}
+	public void pintadoCoinFlip() {
+			
+	}
+	public void pintadoCrash() {
+		
+	}
+	public void pintadoBlackJack() {
+		
+	}
+	
 	//Render para la lista de arriba
-	class MyCellRender extends JLabel implements ListCellRenderer<Usuario>{
+	class MyListCellRender extends JLabel implements ListCellRenderer<Usuario>{
 
 		/**
 		 * 
@@ -159,10 +249,47 @@ public class VentanaAdminUsuarios extends JFrame{
 			if(isSelected) {
 				setBackground(Color.CYAN);
 				nombre.setText(value.toString());
+				user = value;
+				
 			}
+			/*
+			String cellText = value.getNombre();
+			if (!txtBuscador.getText().isBlank() && cellText.startsWith(txtBuscador.getText())) {
+				setText(String.format("<html><b>%s</b>%s</html>", 
+					txtBuscador.getText(),
+					cellText.substring(txtBuscador.getText().length())
+				));
+			} else {
+				setText(cellText);
+			}
+			*/
+			return this;
+			}
+		}
+	class MyTableCellRender extends JLabel implements TableCellRenderer{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		public MyTableCellRender() {
+			setOpaque(true);
+		}
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			setText(value.toString());
+			setHorizontalAlignment(CENTER);
 			
+			if(row % 2 ==0) {
+				setBackground(Color.LIGHT_GRAY);
+			}else{
+				setBackground(Color.WHITE);
+			}
 			return this;
 		}
 		
 	}
+	
 }
+	
