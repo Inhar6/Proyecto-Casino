@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
@@ -38,6 +39,7 @@ public class VentanaBlackJack extends JFrame {
 	private static final Logger logger = Logger.getLogger("VentanaBlackJack");
 	//Atributos
 	private List<Carta> listaCartas = crearCarta(crearBaraja());
+	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	
 
 
@@ -158,9 +160,23 @@ public class VentanaBlackJack extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has pedido una carta");
-				Carta cartaDevolver = RepartirCarta(listaCartas);
-				String cartaTexto = cartaDevolver.toString();
-				textAreaJugador.setText(cartaTexto);
+				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+				
+				
+				
+			}
+		});
+        
+        botonPedirCarta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logger.info("Has pedido una carta");
+				ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+				
+				
+
+				
 				
 			}
 		});
@@ -252,13 +268,47 @@ public class VentanaBlackJack extends JFrame {
    
     }
     
-    public Carta RepartirCarta(List<Carta> listaCartas){
-    	BarajarCartas(listaCartas);
-    	Carta cartaDevolver = listaCartas.get(0);
-    	listaCartas.get(0);
+    public Carta RepartirCarta(List<Carta> listaCartasBarajeada){
+    	Random random = new Random();
+    	int numeroRandom = random.nextInt(listaCartasBarajeada.size());
+    	Carta cartaDevolver = listaCartas.get(numeroRandom);
+    	listaCartasBarajeada.remove(numeroRandom);
     	return cartaDevolver;
     	
     }
+    
+    public void ImprimirCartasJugador(JTextArea jtextarea ,List<Carta> listaCartas) {
+    	
+    	Carta carta = RepartirCarta(listaCartasBarajeada);
+    	
+    	if(carta!= null) {
+    		String textoActual =jtextarea.getText();
+    		if (!textoActual.isEmpty()) {
+                textoActual += ", "; // 
+            }
+            String stringCarta = carta.toString();
+            textoActual += stringCarta;
+            jtextarea.setText(textoActual);
+    	}
+    }
+    
+    public void ImprimirCartasCrupier(JTextArea jtextarea ,List<Carta> listaCartas) {
+    	
+    	
+    	if(jtextarea.getText().isEmpty()) {
+    		Carta carta = RepartirCarta(listaCartasBarajeada);
+        	Carta carta2 = RepartirCarta(listaCartasBarajeada);
+        	String cartaString = carta.toString();
+        	String cartaString2 = carta2.toString();
+        	
+        	String textoActual = jtextarea.getText();
+        	
+        	String imprimir = textoActual + cartaString+","+cartaString2;
+        	jtextarea.setText(imprimir);
+    	}
+    	
+    }
+    
     
 	
 
