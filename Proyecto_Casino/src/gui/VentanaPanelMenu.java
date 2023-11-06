@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -26,9 +28,11 @@ public class VentanaPanelMenu {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger("VentanaPanelMenu");
+
 	// Botones
 	private JButton bLogin = new JButton ("Login");
-	private JButton bSingUp = new JButton ("SignUp");
+	private JButton bSingUp = new JButton ("SingUp");
 	private JButton bUsuario = new JButton ("Usuario");
 	private JButton bJuegos = new JButton("Juegos");
 	private JButton bCasino = new JButton ();
@@ -66,8 +70,8 @@ public class VentanaPanelMenu {
 	private JMenuItem menuItemDepositar = new JMenuItem("Depostar");
 	private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
 	
-	private ImageIcon logoCasinoNegro = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
-	private ImageIcon favicon = new ImageIcon("resources/images/iconos/favicon.png");
+	private ImageIcon logoCasinoNegro = new ImageIcon("foto/iconos/logoNoEscasino.png");
+	private ImageIcon favicon = new ImageIcon("foto/iconos/favicon.png");
 
 //	private Estado estado;
 	static int contadorVentanaBlackJack = 0;
@@ -172,7 +176,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaLogin();
-
+				logger.info("Has abierto una ventana 'Login'");
 			}
 		});
 		bCasino.addActionListener(new ActionListener() {
@@ -182,6 +186,7 @@ public class VentanaPanelMenu {
 				if (contadorVentanaInicial < limiteVentanas) {
                     new VentanaInicial();
                     contadorVentanaInicial++;
+                    logger.info("Has abierto una ventana inicial");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Inicio.");
                 }			
@@ -193,7 +198,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaRegistro();
-				
+				logger.info("Has abierto una ventana 'SingUp'");
 			}
 		});
 		bJuegos.addActionListener(new ActionListener() {
@@ -203,6 +208,7 @@ public class VentanaPanelMenu {
 				JComponent source = (JComponent) e.getSource();
 				JPopupMenu popupMenu = menuJuegos.getPopupMenu();
 				popupMenu.show(source,0, source.getHeight());
+				logger.info("Has abierto el menu 'Juegos'");
 			}
 		});
 		bUsuario.addActionListener(new ActionListener() {
@@ -212,6 +218,7 @@ public class VentanaPanelMenu {
 				JComponent source = (JComponent) e.getSource();
 				JPopupMenu popupMenu = menuUsuario.getPopupMenu();
 				popupMenu.show(source,0, source.getHeight());
+				logger.info("Has abierto el menu 'Usuario'");
 			}
 		});
 		
@@ -222,6 +229,7 @@ public class VentanaPanelMenu {
 				if (contadorVentanaBlackJack < limiteVentanas) {
                     new VentanaBlackJack();
                     contadorVentanaBlackJack++;
+                    logger.info("Has abierto una ventana 'Black Jack'");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
                 }	
@@ -234,6 +242,7 @@ public class VentanaPanelMenu {
 				if (contadorVentanaCrash < limiteVentanas) {
                     new VentanaCrash();
                 	contadorVentanaCrash++;
+                	logger.info("Has abierto una ventana 'Crash'");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
                 }
@@ -246,6 +255,7 @@ public class VentanaPanelMenu {
 				if (contadorVentanaRuelta < limiteVentanas) {
 					new VentanaRuleta();
 					contadorVentanaRuelta++;
+					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
                 }
@@ -258,6 +268,7 @@ public class VentanaPanelMenu {
 				if (contadorVentanaCoinFlip < limiteVentanas) {
 					new VentanaCoinFlip();
 					contadorVentanaCoinFlip++;
+					logger.info("Has abierto una ventana 'Coin-Flip'");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
                 }	
@@ -270,6 +281,7 @@ public class VentanaPanelMenu {
 				if(contadorVentanaPerfil < limiteVentanas) {
 					new VentanaPerfil();
 					contadorVentanaPerfil++;
+					logger.info("Has abierto una ventana 'Perfil'");
 				}else {
 					JOptionPane.showMessageDialog(null, "Se alcanzo el limite de ventanas de Perfil");
 				}
@@ -283,6 +295,7 @@ public class VentanaPanelMenu {
 						if(contadorVentanaDepositar < limiteVentanas) {
 							new VentanaDeposito();
 							contadorVentanaDepositar++;
+							logger.info("Has abierto una ventana 'Depositar'");
 						}else {
 							JOptionPane.showMessageDialog(null, "Se alcanzo el limite de ventanas de Perfil");
 						}
@@ -336,12 +349,12 @@ public class VentanaPanelMenu {
     	Color colorPanel = new Color(71, 113, 72);
 
     	// Imagenes fichas
-        ImageIcon logoFicha1 = new ImageIcon("resources/images/fichas/ficha1.png");
-        ImageIcon logoFicha10 = new ImageIcon("resources/images/fichas/ficha10.png");
-        ImageIcon logoFicha25 = new ImageIcon("resources/images/fichas/ficha25.png");
-        ImageIcon logoFicha50 = new ImageIcon("resources/images/fichas/ficha50.png");
-        ImageIcon logoFicha100 = new ImageIcon("resources/images/fichas/ficha100.png");
-        ImageIcon logoFicha1000 = new ImageIcon("resources/images/fichas/ficha1000.png");
+        ImageIcon logoFicha1 = new ImageIcon("foto/fichas/ficha1.png");
+        ImageIcon logoFicha10 = new ImageIcon("foto/fichas/ficha10.png");
+        ImageIcon logoFicha25 = new ImageIcon("foto/fichas/ficha25.png");
+        ImageIcon logoFicha50 = new ImageIcon("foto/fichas/ficha50.png");
+        ImageIcon logoFicha100 = new ImageIcon("foto/fichas/ficha100.png");
+        ImageIcon logoFicha1000 = new ImageIcon("foto/fichas/ficha1000.png");
 		bficha1.setIcon(redimensionarIcono(logoFicha1, 50, 50));
 		bficha1.setBorder(null);
 		bficha10.setIcon(redimensionarIcono(logoFicha10, 50, 50));
@@ -417,6 +430,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 1;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '1' a tu apuesta");
 			}
 		});
         bficha10.addActionListener (new ActionListener() {
@@ -425,6 +439,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 10;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '10' a tu apuesta");
 			}
 		});
         bficha25.addActionListener (new ActionListener() {
@@ -433,6 +448,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 25;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '25' a tu apuesta");
 			}
 		});
         bficha50.addActionListener (new ActionListener() {
@@ -441,6 +457,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 50;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '50' a tu apuesta");
 			}
 		});
         bficha100.addActionListener (new ActionListener() {
@@ -449,6 +466,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 100;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '100' a tu apuesta");
 			}
 		});
         bficha1000.addActionListener (new ActionListener() {
@@ -457,6 +475,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta += 1000;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has sumado '1000' a tu apuesta");
 			}
 		});
         bEliminarApuesta.addActionListener (new ActionListener() {
@@ -465,6 +484,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				apuesta = 0;
 				lApuesta.setText("Apuesta: " + apuesta);
+				logger.info("Has eliminado tu apuesta");
 			}
 		});
         bApostar.addActionListener(new ActionListener() {
@@ -475,6 +495,7 @@ public class VentanaPanelMenu {
 					balance -= apuesta;
 					lBalance.setText("Balance: " + balance);
 					lApuesta.setText("Apuesta: " + apuesta);
+					logger.info("Has hecho tu apuesta");
 				} else if (balance == 0 && apuesta == 0) {
 					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
 				} else {
