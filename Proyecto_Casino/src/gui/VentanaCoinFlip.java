@@ -3,12 +3,15 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +30,7 @@ public class VentanaCoinFlip extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger("VentanaCoinFlip");
 	
 	//botones
 	private JButton bCara;
@@ -82,6 +86,10 @@ public class VentanaCoinFlip extends JFrame{
       //botones 
       	bCara = new JButton("Cara");
       	bCruz = new JButton("Cruz");
+//      	bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//      	bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//      	bCara.setMargin(new Insets(10, 20, 10, 20));
+//      	bCruz.setMargin(new Insets(10, 20, 10, 20));
       	
       	bBorrarSelec = new JButton("Borrar Seleccion");
       	b1_2 = new JButton("1/2");
@@ -158,6 +166,7 @@ public class VentanaCoinFlip extends JFrame{
 				bCara.setEnabled(false);
 				bCruz.setEnabled(true);
 				caraCruz = "Cara";
+				logger.info("Has seleccionado cara");
 			}
 		});
         
@@ -168,6 +177,7 @@ public class VentanaCoinFlip extends JFrame{
 				bCara.setEnabled(true);
 				bCruz.setEnabled(false);
 				caraCruz = "Cruz";
+				logger.info("Has seleccionado cruz");
 			}
 		});
         
@@ -177,7 +187,7 @@ public class VentanaCoinFlip extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				bCara.setEnabled(true);
 				bCruz.setEnabled(true);
-				
+				logger.info("Has eliminado seleccionado");
 			}
 		});
         
@@ -208,7 +218,6 @@ public class VentanaCoinFlip extends JFrame{
 		});
         
         VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -265,7 +274,7 @@ public class VentanaCoinFlip extends JFrame{
 						resultado = "Cruz";
 					}
 					dlmHistorial.addElement(resultado);
-					//JOptionPane.showMessageDialog(null, resultado);
+					logger.info("Ha salido" + resultado );
 					
 					 if (resultado == caraCruz) {
 				            JOptionPane.showMessageDialog(
