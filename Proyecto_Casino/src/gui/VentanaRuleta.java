@@ -577,6 +577,7 @@ public class VentanaRuleta extends JFrame{
 				boolean isSelected, boolean cellHasFocus) {
 			setText(value.toString());
 			setOpaque(true);
+			setHorizontalAlignment(CENTER);
 			if(value == 0) {
 				setBackground(Color.green);
 				setForeground(Color.white);
