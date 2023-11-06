@@ -228,19 +228,19 @@ public class VentanaCoinFlip extends JFrame{
 						{
 							//cara
 							System.out.println("Cara" );
-							lFotos.setIcon( new ImageIcon ("resources/images/cara.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/cara.png"));
 						}
 						else if ( cont == 2 )
 						{
 							//cruz
 							System.out.println("Cruz");
-							lFotos.setIcon( new ImageIcon ("resources/images/cruz.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/cruz.png"));
 						}
 						else
 						{
 							//canto
 							System.out.println("Canto");
-							lFotos.setIcon( new ImageIcon ("resources/images/canto.png"));
+							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/canto.png"));
 					
 						}
 						cont++;
@@ -253,10 +253,10 @@ public class VentanaCoinFlip extends JFrame{
 							
 							if (i == 0) {
 								resultado = "Cara";
-								lFotos.setIcon( new ImageIcon ("resources/images/cara.png"));
+								lFotos.setIcon( new ImageIcon ("resources/caraCruz/images/cara.png"));
 							}else {
 								resultado = "Cruz";
-								lFotos.setIcon( new ImageIcon ("resources/images/cruz.png"));
+								lFotos.setIcon( new ImageIcon ("resources/caraCruz/images/cruz.png"));
 							}
 						}
 					}else if(cont == 2) {
