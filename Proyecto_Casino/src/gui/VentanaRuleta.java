@@ -41,7 +41,7 @@ public class VentanaRuleta extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	
-	private int[] rojo = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
+	private static int[] rojo = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
 	//Apuesta unica
 	private Map<String, Map<Integer, Double>> mapaApuestas = new HashMap<>();
 	//Logger
@@ -595,7 +595,7 @@ public class VentanaRuleta extends JFrame{
 	}
 	
 	//Funcion para saber si el valor que se muestra es rojo
-	public boolean esRojo(Integer i) {
+	public static boolean esRojo(Integer i) {
 		for(Integer num : rojo) {
 			if(i.equals(num)) {
 				return true;
@@ -636,7 +636,7 @@ public class VentanaRuleta extends JFrame{
 		avisoSaldo(dineroTotal);
 	}
 	//Obtener color con String
-	public String obtenerColor(int resultado) {
+	public static String obtenerColor(int resultado) {
 		if(resultado==0) {
 			return "verde";
 		}else if(esRojo(resultado)) {
@@ -646,7 +646,7 @@ public class VentanaRuleta extends JFrame{
 		}
 	}
 	//Obtener color con Integer
-	public int obtenerColor2(int resultado) {
+	public static int obtenerColor2(int resultado) {
 		if(resultado==0) {
 			return 1;
 		}else if(esRojo(resultado)) {
@@ -655,7 +655,7 @@ public class VentanaRuleta extends JFrame{
 			return 3;
 		}
 	}
-	public int obtenerDocena(int resultado) {
+	public static int obtenerDocena(int resultado) {
 		if(resultado >= 1 && resultado <= 12) {
 			return 1;
 		}else if(resultado >= 13 && resultado <= 24) {
@@ -664,7 +664,7 @@ public class VentanaRuleta extends JFrame{
 			return 3;
 		}
 	}
-	public int obtenerFila(int resultado) {
+	public static int obtenerFila(int resultado) {
 		if(resultado % 3 == 1) {
 			return 1;
 		}else if (resultado % 3 ==2) {
@@ -673,7 +673,7 @@ public class VentanaRuleta extends JFrame{
 			return 3;
 		}
 	}
-	public int obtenerRango(int resultado) {
+	public static int obtenerRango(int resultado) {
 		if(resultado >= 1 && resultado <= 18) {
 			return 1;
 		}else if(resultado >= 19 && resultado <= 36) {
@@ -682,11 +682,11 @@ public class VentanaRuleta extends JFrame{
 			return 0;
 		}
 	}
-	public int obtenerPar(int resultado) {
-		if(resultado%2 ==0) {
-			return 1;
-		}else if(resultado == 0) {
+	public static int obtenerPar(int resultado) {
+		if(resultado==0) {
 			return 0;
+		}else if(resultado%2 ==0) {
+			return 1;
 		}else{
 			return 2;
 		}
