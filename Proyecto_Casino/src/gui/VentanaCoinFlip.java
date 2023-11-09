@@ -86,10 +86,10 @@ public class VentanaCoinFlip extends JFrame{
       //botones 
       	bCara = new JButton("Cara");
       	bCruz = new JButton("Cruz");
-//      	bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//      	bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//      	bCara.setMargin(new Insets(10, 20, 10, 20));
-//      	bCruz.setMargin(new Insets(10, 20, 10, 20));
+      	bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      	bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+      	bCara.setMargin(new Insets(10, 20, 10, 20));
+      	bCruz.setMargin(new Insets(10, 20, 10, 20));
       	
       	bBorrarSelec = new JButton("Borrar Seleccion");
       	b1_2 = new JButton("1/2");
@@ -236,19 +236,16 @@ public class VentanaCoinFlip extends JFrame{
 						if (cont == 1 )
 						{
 							//cara
-							System.out.println("Cara" );
 							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/cara.png"));
 						}
 						else if ( cont == 2 )
 						{
 							//cruz
-							System.out.println("Cruz");
 							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/cruz.png"));
 						}
 						else
 						{
 							//canto
-							System.out.println("Canto");
 							lFotos.setIcon( new ImageIcon ("resources/images/caraCruz/canto.png"));
 					
 						}
