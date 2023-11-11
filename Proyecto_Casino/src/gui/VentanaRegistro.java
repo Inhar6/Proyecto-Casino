@@ -1,10 +1,19 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
@@ -15,7 +24,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import domain.Usuario;
 
 public class VentanaRegistro extends JFrame{
 
@@ -46,6 +61,9 @@ public class VentanaRegistro extends JFrame{
 	private JTextField txtFecha;
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
+	
+	private JCheckBox box;
+	private JCheckBox pol;
 	
 	private JButton PoliticaDePrivacidad;
 	private JButton btnRegistro;
@@ -82,11 +100,12 @@ public class VentanaRegistro extends JFrame{
 			PoliticaDePrivacidad.setForeground(Color.BLUE);
 			PoliticaDePrivacidad.setBackground(Color.WHITE);
 			
-		JCheckBox box = new JCheckBox("+ 18");
+		box = new JCheckBox("+ 18");
 			box.setSelected(false);
-		JCheckBox pol = new JCheckBox("He leido y acepto la politica de privacidad");
+			box.setEnabled(false);
+		pol = new JCheckBox("He leido y acepto la politica de privacidad");
 			pol.setSelected(false);
-		
+			pol.setEnabled(false);
 			
 		JPanel central = new JPanel();
 		JPanel pReg = new JPanel();
@@ -159,17 +178,114 @@ public class VentanaRegistro extends JFrame{
 		add(central);
 		
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
+			
+		btnRegistro.setEnabled(false);
+		String fecha= "yyyy-MM-dd";
+		txtFecha.setText(fecha);
+		
+		
+		//Para mostrar al usuaro la manera de introducir los datos
+		txtFecha.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtFecha.getText().equals(fecha)) {
+					txtFecha.setText("");
+					txtFecha.setForeground(Color.black);
+				}
+				
+			}
+			
+				@Override
+				public void focusLost(FocusEvent e) {
+					if(txtFecha.getText().isEmpty()) {
+						txtFecha.setText(fecha);
+						txtFecha.setForeground(Color.gray);
+					}
+				
+					
+				}	
+			});
+		//I la fecha no es valida el boton de registro no esta activo
+		txtFecha.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				validarFecha();
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				validarFecha();
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				validarFecha();
+				
+			}
+		});
 		
 		PoliticaDePrivacidad.addActionListener(new ActionListener() {
-			
+					
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Politica de privacidad abierta");
-				String datos = "Politica de privacidad a rellenar";
-				JOptionPane.showMessageDialog(null, datos, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+				String datos = leerPoliticaDePrivacidad();
+				//Hacer que el tetxto aparezca en buenas condiciones
+				JTextArea area = new JTextArea(datos);
+				area.setEditable(false);
+				area.setLineWrap(true);
+				area.setWrapStyleWord(true);
+				//Meter un scroll para que el texto no tenga problemas de visualizacion
+				JScrollPane scroll = new JScrollPane(area);
+				scroll.setPreferredSize(new Dimension(400,300));
+				JOptionPane.showMessageDialog(null, scroll, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+				pol.setSelected(true);
+				
+			}
+		});
+		
+		btnRegistro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Usuario u = new domain.Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(), 0, 0);
 				
 			}
 		});
 	}
 	
+	public String leerPoliticaDePrivacidad() {
+		 String rutaArchivo = "resources/ficheros/PoliticaDePrivacidad.txt";
+		 StringBuilder texto = new StringBuilder();
+	        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+	            String linea;
+	            while ((linea = br.readLine()) != null) {
+	            	texto.append(linea).append("\n");
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	       }
+	        return texto.toString();
+	   }
+	
+	public void validarFecha() {
+		try {
+            // Intentar analizar la fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(txtFecha.getText());
+            int anyo = parsedDate.getYear();
+           if(2023-anyo>=18) {
+        	   box.setSelected(true);
+        	   btnRegistro.setEnabled(true);
+           } 
+        } catch (ParseException ex) {
+            // Si ocurre una excepción, la fecha no es válida, deshabilitar el botón
+        	btnRegistro.setEnabled(false);
+        	box.setSelected(false);
+        }
+	}
 }
