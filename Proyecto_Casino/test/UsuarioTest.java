@@ -17,7 +17,7 @@ public class UsuarioTest {
 	
 	@Before
 	public void setUp() {
-		u = new Usuario("Manolo","Sainz", "123456789A","ManoSa",123456789,2000);
+		u = new Usuario("Manolo","Sainz", "123456789A","ManoSa","Contra",123456789,2000);
 		p = new Usuario();
 	}
 	
@@ -61,6 +61,15 @@ public class UsuarioTest {
 	public void testSetNombreUsuario() {
 		u.setNombreUsuario("Manolete");
 		assertEquals("Manolete",u.getNombreUsuario() );
+	}
+	@Test
+	public void testGetContraseña() {
+		assertEquals("Contra",u.getContraseña() );
+	}
+	@Test
+	public void testSetContraseña() {
+		u.setContraseña("ContraDos");
+		assertEquals("ContraDos",u.getContraseña() );
 	}
 	@Test
 	public void testGetNumeroCuenta() {
