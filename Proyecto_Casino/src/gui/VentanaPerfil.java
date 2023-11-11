@@ -26,6 +26,8 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import domain.Usuario;
+
 public class VentanaPerfil extends JFrame{
 
 	/**
@@ -48,7 +50,7 @@ public class VentanaPerfil extends JFrame{
 	//JTextFields
 	private JTextField txtNombre;
 	private JTextField txtNUsuario;
-	private JTextField txtFechaNacimiento;
+	private JTextField txtContraseña;
 	//JComboBox
 	private JComboBox<String> jcbJuegos;
 	//JTable - Historial
@@ -62,6 +64,8 @@ public class VentanaPerfil extends JFrame{
 	//JButton
 	private JButton btnEditar;
 	private JButton btnGuardar;
+	//Usuario
+	private Usuario user;
 	
 	
 	
@@ -71,15 +75,20 @@ public class VentanaPerfil extends JFrame{
 		setSize(500,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		//Usuario
+		user = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","contraseña1", 12345, 1000.0);
 		//JLabel
 		nombre = new JLabel("Nombre:               ");
 		nUsuario = new JLabel("Usuario:             ");
-		fechaNacimiento = new JLabel("Fecha de nacimiento: ");
+		fechaNacimiento = new JLabel("Contraseña:         ");
 		perfil = new JLabel("Perfil");
 		//JTextField
 		txtNombre= new JTextField(15);
+		txtNombre.setText(user.getNombre());
 		txtNUsuario= new JTextField(15);
-		txtFechaNacimiento= new JTextField(15);
+		txtNUsuario.setText(user.getNombreUsuario());
+		txtContraseña= new JTextField(15);
+		txtContraseña.setText(user.getContraseña());
 		//Borde
 		Border lineaDatos = BorderFactory.createLineBorder(colorPanel);
 		Border tituloDatos = BorderFactory.createTitledBorder(lineaDatos,"Datos");
@@ -127,7 +136,7 @@ public class VentanaPerfil extends JFrame{
 		NU.add(txtNUsuario);
 		F.setLayout(new FlowLayout());
 		F.add(fechaNacimiento);
-		F.add(txtFechaNacimiento);
+		F.add(txtContraseña);
 		izquierdo.setLayout(new GridLayout(5,1));
 		izquierdo.add(new JPanel());
 		izquierdo.add(N);
@@ -169,7 +178,7 @@ public class VentanaPerfil extends JFrame{
 		add(principal);
 		
 		//Que empiezen los JTextField desactivados y el boton de guardar
-		txtFechaNacimiento.setEditable(false);
+		txtContraseña.setEditable(false);
 		txtNombre.setEditable(false);
 		txtNUsuario.setEditable(false);
 		btnGuardar.setEnabled(false);
@@ -178,7 +187,7 @@ public class VentanaPerfil extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				txtFechaNacimiento.setEditable(true);
+				txtContraseña.setEditable(true);
 				txtNombre.setEditable(true);
 				txtNUsuario.setEditable(true);
 				btnGuardar.setEnabled(true);
@@ -192,13 +201,16 @@ public class VentanaPerfil extends JFrame{
 
 				int respuesta = JOptionPane.showConfirmDialog(null, "¿ Desea guardar los cambios ?");
 				if( respuesta == JOptionPane.YES_OPTION) {
-					txtFechaNacimiento.setEditable(false);
+					txtContraseña.setEditable(false);
 					txtNombre.setEditable(false);
 					txtNUsuario.setEditable(false);
 					btnGuardar.setEnabled(false);
-					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNUsuario.getText()+"-"+txtFechaNacimiento.getText());
+					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNUsuario.getText()+"-"+txtContraseña.getText());
 				}else {
 					//No hace nada, deberia de guardar los datos del usuario
+					user.setNombre(txtNombre.getText());
+					user.setNombreUsuario(txtNUsuario.getText());
+					user.setContraseña(txtContraseña.getText());
 				}
 				
 			}

@@ -252,7 +252,7 @@ public class VentanaRegistro extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Usuario u = new domain.Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(), 0, 0);
+				Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(),txtContraseña.getText(), 0, 0);
 				
 			}
 		});
