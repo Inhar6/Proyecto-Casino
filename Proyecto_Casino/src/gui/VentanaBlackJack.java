@@ -40,7 +40,8 @@ public class VentanaBlackJack extends JFrame {
 	//Atributos
 	private List<Carta> listaCartas = crearCarta(crearBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
-	
+	private int contadorBoton = 0;
+	private static final int limitePulsaciones = 5;
 
 
 	public VentanaBlackJack() {
@@ -74,11 +75,6 @@ public class VentanaBlackJack extends JFrame {
             }
         });
         
-        
-        
-       
-     
-      
        
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelTitulo = new JPanel(new GridLayout(1,3));
@@ -102,10 +98,6 @@ public class VentanaBlackJack extends JFrame {
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
         
-        
-        
-        
-        
         JLabel labelCrupier = new JLabel("CRUPIER");
         JTextArea textAreaCrupier = new JTextArea();
         JLabel labelJugador = new JLabel("JUGADOR");
@@ -126,9 +118,6 @@ public class VentanaBlackJack extends JFrame {
         
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
-        
-        
-       
         
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
@@ -152,35 +141,26 @@ public class VentanaBlackJack extends JFrame {
 				
 			}
 		});
-        
-        
-        
+           
         botonPedirCarta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logger.info("Has pedido una carta");
-				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
-				
-				
-				
-			}
-		});
-        
-        botonPedirCarta.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				logger.info("Has pedido una carta");
 				ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
-				
-				
+				logger.info("Has pedido una carta");
+				if(contadorBoton< limitePulsaciones) {
+					ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+					contadorBoton++;
+				}else if (contadorBoton>= limitePulsaciones) {
+					botonPedirCarta.setEnabled(false);
+					JOptionPane.showMessageDialog(null,"Has alcanzado el limite de cartas","Limite de cartas",JOptionPane.INFORMATION_MESSAGE);
+					logger.info("Has alcanzado el limite de cartas");
 
-				
+				}
 				
 			}
 		});
-        
+                
         botonPlantarse.addActionListener(new ActionListener() {
 			
 			@Override
@@ -206,14 +186,9 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
        
-        
-        
-       
+     
         
 	}
-	
-	
-	
 	
     //Metodo crear la baraja
     public Map<String,List<String>> crearBaraja() {
@@ -246,8 +221,7 @@ public class VentanaBlackJack extends JFrame {
     	 }
     	 
 		return mapaCartas;
-   
-    	 
+    
     }
     
     public List<Carta> crearCarta(Map<String,List<String>> mapa) {
@@ -300,9 +274,7 @@ public class VentanaBlackJack extends JFrame {
         	Carta carta2 = RepartirCarta(listaCartasBarajeada);
         	String cartaString = carta.toString();
         	String cartaString2 = carta2.toString();
-        	
         	String textoActual = jtextarea.getText();
-        	
         	String imprimir = textoActual + cartaString+","+cartaString2;
         	jtextarea.setText(imprimir);
     	}
