@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,6 +44,7 @@ public class VentanaAdminUsuarios extends JFrame{
 	private JLabel buscador;
 	private JTextField txtBuscador;
 	private JLabel nombre;
+	private JButton btnBaja;
 	//JList
 	private DefaultListModel<Usuario> dlmUsuarios;
 	private JList<Usuario> lstUsuarios;
@@ -59,7 +61,9 @@ public class VentanaAdminUsuarios extends JFrame{
 	private JScrollPane scrollBalance;
 	//Usuario
 	private Usuario user = new Usuario();
-	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1", 12345, 1000.0);
+	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","", 12345, 1000.0);
+	private Usuario Usuario2 = new Usuario("Usuario2", "Apellido2", "22222222B", "user2","", 67890, 1500.0);
+	private List<Usuario> listaUsuarios = new ArrayList<>();
 	
 	public VentanaAdminUsuarios() {
 		setTitle("Datos de los Usuarios");
@@ -67,16 +71,24 @@ public class VentanaAdminUsuarios extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
+		//Datos de prueba
 		////
 		Usuario1.addMapaRuleta(1, 23, 5000);
 		Usuario1.addMapaRuleta(2, 20, 50000);
 		Usuario1.addMapaRuleta(3, 12, 85000);
 		Usuario1.addMapaRuleta(4, 5, 75000);
 		////
+		Usuario2.addMapaRuleta(1, 23, 4356);
+		Usuario2.addMapaRuleta(2, 3, 5600);
+		Usuario2.addMapaRuleta(3, 36, 256);
+		Usuario2.addMapaRuleta(4, 0, 1000);
+		////
+		
 		
 		buscador = new JLabel("Filtrar por nombre: ");
 		txtBuscador= new JTextField(15);
 		nombre = new JLabel("Nombre del usuario seleccionado");
+		btnBaja = new JButton("Dar de baja");
 		//Lista Usuarios
 		dlmUsuarios = new DefaultListModel<>();
 		lstUsuarios = new JList<Usuario>(dlmUsuarios);
@@ -98,13 +110,15 @@ public class VentanaAdminUsuarios extends JFrame{
 		scrollBalance = new JScrollPane(tBalance);
 		
 		//Rellena la lista con usuarios de prueba
-		rellenarListaEjemplo();
+		listaUsuarios = rellenarListaEjemplo();
+		dlmUsuarios.addAll(listaUsuarios);
 		
 		JPanel pBuscador = new JPanel(new FlowLayout());
 		pBuscador.add(buscador);
 		pBuscador.add(txtBuscador);
 		JPanel pNombre = new JPanel(new FlowLayout());
 		pNombre.add(nombre);
+		pNombre.add(btnBaja);
 		JPanel pUsuarios = new JPanel();
 		pUsuarios.setLayout(new BorderLayout());
 		pUsuarios.add(pBuscador, BorderLayout.NORTH);
@@ -158,11 +172,9 @@ public class VentanaAdminUsuarios extends JFrame{
 				if(juegos.equals("Ruleta")) {
 					limpiarTabla();
 					pintadoRuleta(user.getMapaRuleta());
-					
 				}else if(juegos.equals("Crash")) {
 					limpiarTabla();
-					pintadoCrash();
-					
+					pintadoCrash();				
 				}else if(juegos.equals("Coin Flip")) {
 					limpiarTabla();
 					pintadoCoinFlip();
@@ -173,28 +185,42 @@ public class VentanaAdminUsuarios extends JFrame{
 				
 			}
 		});
+		btnBaja.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(user != null) {
+					listaUsuarios.remove(user);
+					dlmUsuarios.removeAllElements();
+					dlmUsuarios.addAll(listaUsuarios);
+					lstUsuarios.repaint();
+					user = null; 
+				}
+			}
+		});
+		
 		setVisible(true);
 	}
 
 	
-	public void rellenarListaEjemplo() {
+	public List<Usuario> rellenarListaEjemplo() {
 		List<Usuario> listaDeUsuarios = new ArrayList<>();
 		listaDeUsuarios.add(Usuario1);
-        listaDeUsuarios.add(new Usuario("Usuario2", "Apellido2", "22222222B", "user2", 67890, 1500.0));
-        listaDeUsuarios.add(new Usuario("Usuario3", "Apellido3", "33333333C", "user3", 54321, 75000.0));
-        listaDeUsuarios.add(new Usuario("Usuario4", "Apellido4", "44444444D", "user4", 98765, 20000.0));
-        listaDeUsuarios.add(new Usuario("Usuario5", "Apellido5", "55555555E", "user5", 24680, 300.0));
-        listaDeUsuarios.add(new Usuario("Usuario6", "Apellido6", "66666666F", "user6", 11223, 450000.0));
-        listaDeUsuarios.add(new Usuario("Usuario7", "Apellido7", "77777777G", "user7", 33221, 55000.0));
-        listaDeUsuarios.add(new Usuario("Usuario8", "Apellido8", "88888888H", "user8", 76543, 1200.0));
-        listaDeUsuarios.add(new Usuario("Usuario9", "Apellido9", "99999999I", "user9", 19876, 800.0));
-        listaDeUsuarios.add(new Usuario("Usuario10", "Apellido10", "10101010J", "user10", 23456, 2200.0));
-        listaDeUsuarios.add(new Usuario("Usuario11", "Apellido11", "11111111K", "user11", 90876, 170000.0));
-        listaDeUsuarios.add(new Usuario("Usuario12", "Apellido12", "12121212L", "user12", 65432, 1600.0));
-        listaDeUsuarios.add(new Usuario("Usuario13", "Apellido13", "13131313M", "user13", 56789, 1800.0));
-        listaDeUsuarios.add(new Usuario("Usuario14", "Apellido14", "14141414N", "user14", 11234, 4000.0));
-        listaDeUsuarios.add(new Usuario("Usuario15", "Apellido15", "15151515O", "user15", 98765, 300000.0));
-		dlmUsuarios.addAll(listaDeUsuarios);
+        listaDeUsuarios.add(Usuario2);
+        listaDeUsuarios.add(new Usuario("Usuario3", "Apellido3", "33333333C", "user3","", 54321, 75000.0));
+        listaDeUsuarios.add(new Usuario("Usuario4", "Apellido4", "44444444D", "user4", "",98765, 20000.0));
+        listaDeUsuarios.add(new Usuario("Usuario5", "Apellido5", "55555555E", "user5","", 24680, 300.0));
+        listaDeUsuarios.add(new Usuario("Usuario6", "Apellido6", "66666666F", "user6", "",11223, 450000.0));
+        listaDeUsuarios.add(new Usuario("Usuario7", "Apellido7", "77777777G", "user7", "",33221, 55000.0));
+        listaDeUsuarios.add(new Usuario("Usuario8", "Apellido8", "88888888H", "user8", "",76543, 1200.0));
+        listaDeUsuarios.add(new Usuario("Usuario9", "Apellido9", "99999999I", "user9", "",19876, 800.0));
+        listaDeUsuarios.add(new Usuario("Usuario10", "Apellido10", "10101010J", "user10","", 23456, 2200.0));
+        listaDeUsuarios.add(new Usuario("Usuario11", "Apellido11", "11111111K", "user11", "",90876, 170000.0));
+        listaDeUsuarios.add(new Usuario("Usuario12", "Apellido12", "12121212L", "user12","", 65432, 1600.0));
+        listaDeUsuarios.add(new Usuario("Usuario13", "Apellido13", "13131313M", "user13","", 56789, 1800.0));
+        listaDeUsuarios.add(new Usuario("Usuario14", "Apellido14", "14141414N", "user14", "",11234, 4000.0));
+        listaDeUsuarios.add(new Usuario("Usuario15", "Apellido15", "15151515O", "user15","", 98765, 300000.0));
+		return listaDeUsuarios;
 	}
 	
 	public void limpiarTabla() {
@@ -249,7 +275,7 @@ public class VentanaAdminUsuarios extends JFrame{
 			if(isSelected) {
 				setBackground(Color.CYAN);
 				nombre.setText(value.toString());
-				user = value;
+				user = (Usuario)value;
 				
 			}
 			/*
