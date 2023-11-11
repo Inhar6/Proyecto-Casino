@@ -10,6 +10,7 @@ public class Usuario {
 	private String apellidos;
 	private String DNI;
 	private String nombreUsuario;
+	private String contraseña;
 	private int numeroCuenta;
 	private double saldo;
 	//Mapas de historiales
@@ -17,12 +18,13 @@ public class Usuario {
 	
 	
 	//Constructores
-	public Usuario(String nombre, String apellidos, String dNI, String nombreUsuario, int numeroCuenta, double saldo) {
+	public Usuario(String nombre, String apellidos, String dNI, String nombreUsuario, String contraseña, int numeroCuenta, double saldo) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		DNI = dNI;
 		this.nombreUsuario = nombreUsuario;
+		this.contraseña = contraseña;
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
 		this.mapaRuleta = new HashMap<>();
@@ -65,6 +67,14 @@ public class Usuario {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+	
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 
 	public int getNumeroCuenta() {
