@@ -282,6 +282,33 @@ public class VentanaBlackJack extends JFrame {
     }
     
     
+    
+    public int ContadorPuntuacionJugador(String textoCartas) {
+    	String[] separacionCartas = textoCartas.split(";");
+    	int sumaDePuntuacion = 0;
+    	for (String c : separacionCartas) {
+    		String[] separacionCarta = c.split("-");
+    		if(separacionCarta.length >=2) {
+    			
+    			String numeroCarta = separacionCarta[1];
+    			
+    			if(numeroCarta.equals("A")){
+    				sumaDePuntuacion+=1;
+    				
+    				}else if(numeroCarta.equals("J")||numeroCarta.equals("Q")||numeroCarta.equals("K")) {
+    					sumaDePuntuacion+= 10;
+    					
+    				}else {
+    					sumaDePuntuacion+= Integer.parseInt(numeroCarta);
+    				}
+    			}
+     	}
+    	return sumaDePuntuacion;
+    }
+    
+    
+    
+    
 	
 
 	public static void main(String[] args) {
