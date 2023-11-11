@@ -166,9 +166,14 @@ public class VentanaBlackJack extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has pulsado el boton plantarse");
-				System.out.println(listaCartas);
-				System.out.println(BarajarCartas(listaCartas));
 				
+				String textoActualCrupier = textAreaCrupier.getText();
+				String textoActualJugador = textAreaJugador.getText();
+				
+				int puntuacionCrupier = ContadorPuntuacionCrupier(textoActualCrupier);
+				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
+				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
+				textAreaJugador.setText(textoActualJugador+ "\n"+ "Puntuacion:" + puntuacionJugador);
 			}
 		});
         
@@ -177,10 +182,7 @@ public class VentanaBlackJack extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has doblado la apuesta");
-				System.out.println(crearBaraja());
 				
-			//	System.out.println(crearCarta(CrearBaraja()));
-				//System.out.println(BarajarCartas(crearCarta(CrearBaraja())));
 				
 				
 			}
@@ -254,16 +256,16 @@ public class VentanaBlackJack extends JFrame {
     public void ImprimirCartasJugador(JTextArea jtextarea ,List<Carta> listaCartas) {
     	
     	Carta carta = RepartirCarta(listaCartasBarajeada);
-    	
     	if(carta!= null) {
-    		String textoActual =jtextarea.getText();
+    		 String textoActual =jtextarea.getText();
     		if (!textoActual.isEmpty()) {
-                textoActual += ", "; // 
+                textoActual += ";"; // 
             }
             String stringCarta = carta.toString();
             textoActual += stringCarta;
             jtextarea.setText(textoActual);
     	}
+    
     }
     
     public void ImprimirCartasCrupier(JTextArea jtextarea ,List<Carta> listaCartas) {
@@ -275,23 +277,21 @@ public class VentanaBlackJack extends JFrame {
         	String cartaString = carta.toString();
         	String cartaString2 = carta2.toString();
         	String textoActual = jtextarea.getText();
-        	String imprimir = textoActual + cartaString+","+cartaString2;
+        	String imprimir = textoActual + cartaString+";"+cartaString2;
         	jtextarea.setText(imprimir);
     	}
     	
     }
     
-    
-    
-    public int ContadorPuntuacionJugador(String textoCartas) {
+    public int ContadorPuntuacionCrupier(String textoCartas) {
     	String[] separacionCartas = textoCartas.split(";");
     	int sumaDePuntuacion = 0;
     	for (String c : separacionCartas) {
     		String[] separacionCarta = c.split("-");
     		if(separacionCarta.length >=2) {
     			
-    			String numeroCarta = separacionCarta[1];
-    			
+    			String numeroCarta = separacionCarta[1].trim();
+    			try {
     			if(numeroCarta.equals("A")){
     				sumaDePuntuacion+=1;
     				
@@ -300,6 +300,35 @@ public class VentanaBlackJack extends JFrame {
     					
     				}else {
     					sumaDePuntuacion+= Integer.parseInt(numeroCarta);
+    				}}
+    			catch(NumberFormatException e){
+    					e.printStackTrace();
+    				}
+    			}
+     	}
+    	return sumaDePuntuacion;
+    }
+    
+    public int ContadorPuntuacionJugador(String textoCartas) {
+    	String[] separacionCartas = textoCartas.split(";");
+    	int sumaDePuntuacion = 0;
+    	for (String c : separacionCartas) {
+    		String[] separacionCarta = c.split("-");
+    		if(separacionCarta.length >=2) {
+    			
+    			String numeroCarta = separacionCarta[1].trim();
+    			try {
+    			if(numeroCarta.equals("A")){
+    				sumaDePuntuacion+=1;
+    				
+    				}else if(numeroCarta.equals("J")||numeroCarta.equals("Q")||numeroCarta.equals("K")) {
+    					sumaDePuntuacion+= 10;
+    					
+    				}else {
+    					sumaDePuntuacion+= Integer.parseInt(numeroCarta);
+    				}}
+    			catch(NumberFormatException e){
+    					e.printStackTrace();
     				}
     			}
      	}
@@ -311,7 +340,7 @@ public class VentanaBlackJack extends JFrame {
     
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {            
         SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
