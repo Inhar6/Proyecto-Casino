@@ -63,7 +63,7 @@ public class VentanaAdminUsuarios extends JFrame{
 	private Usuario user = new Usuario();
 	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","", 12345, 1000.0);
 	private Usuario Usuario2 = new Usuario("Usuario2", "Apellido2", "22222222B", "user2","", 67890, 1500.0);
-	private List<Usuario> listaUsuarios = new ArrayList<>();
+	public static List<Usuario> listaUsuarios = new ArrayList<>();
 	
 	public VentanaAdminUsuarios() {
 		setTitle("Datos de los Usuarios");
