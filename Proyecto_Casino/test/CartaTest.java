@@ -1,0 +1,43 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import domain.Carta;
+
+public class CartaTest {
+	private Carta c;
+	
+	@Before 
+	public void setUp() {
+		c = new Carta("9","ROMBOS");
+	}
+	
+	@Test
+	public void testGetNumeros() {
+		assertEquals("9", c.getNumero());
+	}
+	
+	@Test
+	public void testSetNumeros() {
+		c.setNumero("9");
+		assertEquals("9", c.getNumero());
+	}
+	
+	@Test
+	public void testGetPalo() {
+		assertEquals("ROMBOS", c.getPalo());
+	}
+	
+	@Test
+	public void testSetPalo() {
+		c.setPalo("ROMBOS");
+		assertEquals("ROMBOS", c.getPalo());
+	}
+	
+	@Test
+	public void testtoString() {
+		assertEquals(String.format("%s-%s",c.getPalo(),c.getNumero()), c.toString());
+	}
+
+}
