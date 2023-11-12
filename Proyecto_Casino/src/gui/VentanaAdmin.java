@@ -45,7 +45,7 @@ public class VentanaAdmin extends JFrame{
 		setLayout(new BorderLayout());
 		add(admin, BorderLayout.NORTH);
 		add(pPrincipal,BorderLayout.CENTER);
-		pack();
+		
 		
 		btnUsuarios.addActionListener(new ActionListener() {
 			
@@ -55,7 +55,16 @@ public class VentanaAdmin extends JFrame{
 				
 			}
 		});
+		btnJuegos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new VentanaAdminJuegos();
+				
+			}
+		});
 		setVisible(true);
+		pack();
 	}
 	
 	public static void main(String[] args) {
