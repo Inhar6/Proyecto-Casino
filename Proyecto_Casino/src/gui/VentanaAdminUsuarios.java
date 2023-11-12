@@ -145,22 +145,21 @@ public class VentanaAdminUsuarios extends JFrame{
 		add(pUsuarios);
 		add(pHistoriales);
 		/*
-		txtBuscador.getDocument().addDocumentListener(new DocumentListener() {
-					
-					@Override
-					public void removeUpdate(DocumentEvent e) {
-						lstUsuarios.repaint();
-					}
-					
-					@Override
-					public void insertUpdate(DocumentEvent e) {
-						lstUsuarios.repaint();			
-					}
-					
-					@Override
-					public void changedUpdate(DocumentEvent e) {
-						//
-				}
+		txtBuscador.getDocument().addDocumentListener(new DocumentListener() {	
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				actualizarLista();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				actualizarLista();			
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				actualizarLista();
+			}
 		});
 		*/
 		
@@ -219,7 +218,7 @@ public class VentanaAdminUsuarios extends JFrame{
         listaDeUsuarios.add(new Usuario("Usuario12", "Apellido12", "12121212L", "user12","", 65432, 1600.0));
         listaDeUsuarios.add(new Usuario("Usuario13", "Apellido13", "13131313M", "user13","", 56789, 1800.0));
         listaDeUsuarios.add(new Usuario("Usuario14", "Apellido14", "14141414N", "user14", "",11234, 4000.0));
-        listaDeUsuarios.add(new Usuario("Usuario15", "Apellido15", "15151515O", "user15","", 98765, 300000.0));
+        listaDeUsuarios.add(new Usuario("User", "Apellido", "15151515O", "user15","", 98765, 300000.0));
 		return listaDeUsuarios;
 	}
 	
@@ -252,6 +251,22 @@ public class VentanaAdminUsuarios extends JFrame{
 		
 	}
 	
+	/*
+	public void actualizarLista() {
+		String filtro = txtBuscador.getText().toLowerCase();
+		List<Usuario> lstFiltro = new ArrayList<>();
+		for(int i = 0; i<dlmUsuarios.size();i++ ) {
+			Usuario u = dlmUsuarios.getElementAt(i);
+			if(u.getNombre().toLowerCase().startsWith(filtro)) {
+				lstFiltro.add(u);
+			}
+		}
+		lstUsuarios.setModel(new DefaultListModel<>());
+		for(Usuario user:lstFiltro) {
+			((DefaultListModel<Usuario>)lstUsuarios.getModel()).addElement(user);
+		}
+	}
+	*/
 	//Render para la lista de arriba
 	class MyListCellRender extends JLabel implements ListCellRenderer<Usuario>{
 
