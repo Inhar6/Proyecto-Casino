@@ -846,19 +846,19 @@ public class VentanaRuleta extends JFrame{
 		dlmHistorial.addElement(num);
 		//Mostrar si se ha ganado o no
 		result(ganancia,num);
-		//Reiniciar
-		reinicio2(mapa);
-		logger.info("Vaciado el mapa de apuestas");
-		//Actualizar saldo
-		dineroTotal +=ganancia;
 		//Lista Balance
 		mapaBalance.putIfAbsent(tirada, new HashMap<>());
-		mapaBalance.get(tirada).put(num, ganancia);
+		mapaBalance.get(tirada).put(num, ganancia - dineroApostadoTotal);
 		System.out.println(mapaBalance);
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
 		logger.info("Todas las acciones del juego terminadas");
 		tirada++;
+		//Actualizar saldo
+		dineroTotal +=ganancia;
+		//Reiniciar
+		reinicio2(mapa);
+		logger.info("Vaciado el mapa de apuestas");
 		}
 	}
 }
