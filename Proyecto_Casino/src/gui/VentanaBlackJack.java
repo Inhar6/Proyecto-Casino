@@ -174,6 +174,18 @@ public class VentanaBlackJack extends JFrame {
 				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
 				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
 				textAreaJugador.setText(textoActualJugador+ "\n"+ "Puntuacion:" + puntuacionJugador);
+				saberGanador(puntuacionCrupier,puntuacionJugador);
+			}
+		});
+        
+        botonPlantarse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				botonPlantarse.setEnabled(false);
+				botonPedirCarta.setEnabled(false);
+				botonDoblar.setEnabled(false);
+				
 			}
 		});
         
@@ -333,6 +345,28 @@ public class VentanaBlackJack extends JFrame {
     			}
      	}
     	return sumaDePuntuacion;
+    }
+    
+    public void saberGanador(int puntuacionCrupier, int puntuacionJugador) {
+    	if(puntuacionCrupier>21 & puntuacionJugador>21) {
+    		JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    		
+    	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
+    		JOptionPane.showMessageDialog(null, "Has ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    		
+    	}else if(puntuacionCrupier<=21 && puntuacionCrupier>21){
+    		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    	}else {
+    		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
+    		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
+    			 JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    			 
+             }else if(jugadorGanador == 1) {
+            	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+             }else if(jugadorGanador == 2) {
+            	 JOptionPane.showMessageDialog(null, "Has Ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+             }
+    	}
     }
     
     
