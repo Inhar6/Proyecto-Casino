@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -69,6 +71,16 @@ public class VentanaLogin extends JFrame{
 		pBotones.add(bRecuperarContraseña);
 		pBotones.add(bInicioSecion);
 		
+		bInicioSecion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if("Admin".equals(tfUsuario.getText()) && "Admin".equals(new String(passContraseña.getPassword()))) {
+					new VentanaAdmin();
+				}
+				
+			}
+		});
 	}
 }
 
