@@ -11,9 +11,8 @@ import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
@@ -252,7 +251,15 @@ public class VentanaRegistro extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(),txtContraseña.getText(), 0, 0);
+				if(txtNombre.getText()!= null && txtApellido.getText()!= null && txtDNI.getText()!= null&& txtUsuario.getText()!= null && txtContraseña.getText()!= null) {
+					Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(),txtContraseña.getText(), 0, 0);
+					VentanaAdminUsuarios.listaUsuarios.add(u);
+					logger.info("Nuevo usuario creado");
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Se deben de introducir todos los datos");
+					logger.info("Datos mal introducidos");
+				}
 				
 			}
 		});
@@ -273,19 +280,19 @@ public class VentanaRegistro extends JFrame{
 	   }
 	
 	public void validarFecha() {
-		try {
-            // Intentar analizar la fecha
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date parsedDate = dateFormat.parse(txtFecha.getText());
-            int anyo = parsedDate.getYear();
-           if(2023-anyo>=18) {
-        	   box.setSelected(true);
-        	   btnRegistro.setEnabled(true);
-           } 
-        } catch (ParseException ex) {
-            // Si ocurre una excepción, la fecha no es válida, deshabilitar el botón
-        	btnRegistro.setEnabled(false);
-        	box.setSelected(false);
+        // Intentar analizar la fecha
+		String fechaTexto = txtFecha.getText();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate fecha = LocalDate.parse(fechaTexto, formatter);
+            int anyo = fecha.getYear();
+            if(2023-anyo >=18) {
+            	box.setSelected(true);
+            	btnRegistro.setEnabled(true);
+            }
+        } catch (Exception e) {
+           // logger.info("Error al analizar la fecha. Asegúrate de que está en el formato correcto.");
         }
-	}
+    }
+	
 }
