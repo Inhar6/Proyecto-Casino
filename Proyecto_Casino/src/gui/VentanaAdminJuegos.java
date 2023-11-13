@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import domain.Point;
 
 public class VentanaAdminJuegos extends JFrame{
 
@@ -27,7 +31,7 @@ public class VentanaAdminJuegos extends JFrame{
 	private JButton btnInformes;
 	//Estadisticas
 	//Estadisticas-->Ruleta
-	
+	private List<Point> puntosRuleta;
 	//Estadisticas-->Crash
 	
 	//Estadisticas-->CoinFlip
@@ -47,6 +51,8 @@ public class VentanaAdminJuegos extends JFrame{
 		//Ruleta
 		Border lineaRuleta = BorderFactory.createLineBorder(Color.RED);
 		Border tituloRuleta = BorderFactory.createTitledBorder(lineaRuleta,"Ruleta");
+		puntosRuleta=puntosPrueba();
+		PanelGrafico grfRuleta = new PanelGrafico(puntosRuleta);
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCrash = BorderFactory.createTitledBorder(lineaCrash,"Crash");
@@ -65,7 +71,8 @@ public class VentanaAdminJuegos extends JFrame{
 			pBajo.add(btnInformes);
 			pBajo.setBackground(colorPanel);
 		JPanel pJuegos = new JPanel(new GridLayout(2,2));
-			JPanel pRuleta = new JPanel();
+			JPanel pRuleta = new JPanel(new BorderLayout());
+				pRuleta.add(grfRuleta, BorderLayout.CENTER);
 			JPanel pCrash = new JPanel();
 			JPanel pCoinFlip = new JPanel();
 			JPanel pBlackJack = new JPanel();
@@ -89,5 +96,15 @@ public class VentanaAdminJuegos extends JFrame{
 		add(pJuegos, BorderLayout.CENTER);
 		
 		setVisible(true);
+	}
+	
+	public List<Point> puntosPrueba(){
+		List<Point> lista = new ArrayList<>();
+		lista.add(new Point(1, 2));
+		lista.add(new Point(2, 3));
+		lista.add(new Point(3, 4));
+		lista.add(new Point(4, 2));
+		lista.add(new Point(5, 6));
+		return lista;
 	}
 }

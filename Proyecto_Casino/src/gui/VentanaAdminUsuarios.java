@@ -30,6 +30,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import domain.Point;
 import domain.Usuario;
 
 public class VentanaAdminUsuarios extends JFrame{
@@ -55,10 +56,8 @@ public class VentanaAdminUsuarios extends JFrame{
 	private DefaultTableModel dtmJuegos;
 	private JTable tJuegos;
 	private JScrollPane scrollJuegos;
-	//JTable-->Balance
-	private DefaultTableModel dtmBalance;
-	private JTable tBalance;
-	private JScrollPane scrollBalance;
+	//Grafico Balance
+	private List<Point> lstBalance;
 	//Usuario
 	private Usuario user = new Usuario();
 	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","", 12345, 1000.0);
@@ -84,7 +83,6 @@ public class VentanaAdminUsuarios extends JFrame{
 		Usuario2.addMapaRuleta(4, 0, 1000);
 		////
 		
-		
 		buscador = new JLabel("Filtrar por nombre: ");
 		txtBuscador= new JTextField(15);
 		nombre = new JLabel("Nombre del usuario seleccionado");
@@ -103,11 +101,9 @@ public class VentanaAdminUsuarios extends JFrame{
 		tJuegos.setDefaultRenderer(Object.class, new MyTableCellRender());
 		scrollJuegos = new JScrollPane(tJuegos);
 		
-		//Tabla Balance
-		dtmBalance = new DefaultTableModel();
-		dtmBalance.addColumn("Saldo");
-		tBalance = new JTable(dtmBalance);
-		scrollBalance = new JScrollPane(tBalance);
+		//Grafico Balance
+		lstBalance=puntosPrueba();
+		PanelGrafico grfBalance = new PanelGrafico(lstBalance);
 		
 		//Rellena la lista con usuarios de prueba
 		listaUsuarios = rellenarListaEjemplo();
@@ -136,7 +132,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		Border tituloBalance = BorderFactory.createTitledBorder(lineaBalance,"Balance");
 		JPanel pBalance = new JPanel(new BorderLayout());
 		pBalance.setBorder(tituloBalance);
-		pBalance.add(scrollBalance, BorderLayout.CENTER);
+		pBalance.add(grfBalance, BorderLayout.CENTER);
 		JPanel pHistoriales = new JPanel(new GridLayout(1,2));
 		pHistoriales.add(pJuegos);
 		pHistoriales.add(pBalance);
@@ -249,6 +245,15 @@ public class VentanaAdminUsuarios extends JFrame{
 	}
 	public void pintadoBlackJack() {
 		
+	}
+	public List<Point> puntosPrueba(){
+		List<Point> lista = new ArrayList<>();
+		lista.add(new Point(1, 2));
+		lista.add(new Point(2, 3));
+		lista.add(new Point(3, 4));
+		lista.add(new Point(4, 2));
+		lista.add(new Point(5, 6));
+		return lista;
 	}
 	
 	/*
