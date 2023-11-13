@@ -1,6 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Usuario {
@@ -15,6 +17,8 @@ public class Usuario {
 	private double saldo;
 	//Mapas de historiales
 	private Map<Integer, Map<Integer, Double>> mapaRuleta ;
+	//Lista balance
+	private List<Point> lstBalance;
 	
 	
 	//Constructores
@@ -28,6 +32,7 @@ public class Usuario {
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
 		this.mapaRuleta = new HashMap<>();
+		this.lstBalance = new ArrayList<>();
 	}
 	
 	//Constructor vacio
@@ -104,6 +109,17 @@ public class Usuario {
 	public void addMapaRuleta(int tirada, int resultado, double ganancia) {
 		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
 		mapaRuleta.get(tirada).put(resultado, ganancia);
+	}
+	public List<Point> getLstBalance() {
+		return lstBalance;
+	}
+
+	public void setLstBalance(List<Point> lstBalance) {
+		this.lstBalance = lstBalance;
+	}
+	//Añadirle cosas a la lista de puntos
+	public void addListaBalance(Point p) {
+		lstBalance.add(p);
 	}
 
 	//toString
