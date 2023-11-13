@@ -17,6 +17,10 @@ public class PanelGrafico extends JPanel {
 		this.dataPoints = dataPoints;
 	}
 	
+	public void setDataPoints(List<Point> dataPoints) {
+        this.dataPoints = dataPoints;
+    }
+	
 	//chat.openai.com
 	@Override
 	protected void paintComponent(Graphics g) {

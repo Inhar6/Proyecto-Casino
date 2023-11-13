@@ -27,6 +27,8 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -58,6 +60,7 @@ public class VentanaAdminUsuarios extends JFrame{
 	private JScrollPane scrollJuegos;
 	//Grafico Balance
 	private List<Point> lstBalance;
+	private PanelGrafico grfBalance;
 	//Usuario
 	private Usuario user = new Usuario();
 	private Usuario Usuario1 = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","", 12345, 1000.0);
@@ -81,8 +84,12 @@ public class VentanaAdminUsuarios extends JFrame{
 		Usuario2.addMapaRuleta(2, 3, 5600);
 		Usuario2.addMapaRuleta(3, 36, 256);
 		Usuario2.addMapaRuleta(4, 0, 1000);
+		Usuario2.addListaBalance(new Point(3,1));
+		Usuario2.addListaBalance(new Point(4,6));
+		Usuario2.addListaBalance(new Point(6,4));
+		Usuario2.addListaBalance(new Point(7,3));
+		Usuario2.addListaBalance(new Point(8,2));
 		////
-		
 		buscador = new JLabel("Filtrar por nombre: ");
 		txtBuscador= new JTextField(15);
 		nombre = new JLabel("Nombre del usuario seleccionado");
@@ -103,7 +110,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		
 		//Grafico Balance
 		lstBalance=puntosPrueba();
-		PanelGrafico grfBalance = new PanelGrafico(lstBalance);
+		grfBalance = new PanelGrafico(lstBalance);
 		
 		//Rellena la lista con usuarios de prueba
 		listaUsuarios = rellenarListaEjemplo();
@@ -158,26 +165,36 @@ public class VentanaAdminUsuarios extends JFrame{
 			}
 		});
 		*/
-		
-		jcbJuegos.addActionListener(new ActionListener() {
+		lstUsuarios.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				String juegos = (String)jcbJuegos.getSelectedItem();
-				if(juegos.equals("Ruleta")) {
-					limpiarTabla();
-					pintadoRuleta(user.getMapaRuleta());
-				}else if(juegos.equals("Crash")) {
-					limpiarTabla();
-					pintadoCrash();				
-				}else if(juegos.equals("Coin Flip")) {
-					limpiarTabla();
-					pintadoCoinFlip();
-				}else {
-					limpiarTabla();
-					pintadoBlackJack();
-				}
-				
+			public void valueChanged(ListSelectionEvent e) {
+				 if (!e.getValueIsAdjusting()) {
+			            user = lstUsuarios.getSelectedValue();
+			            if (user != null) {
+			                // Actualizar la tabla
+			                if ("Ruleta".equals(jcbJuegos.getSelectedItem())) {
+			                    limpiarTabla();
+			                    pintadoRuleta(user.getMapaRuleta());
+			                } else if ("Crash".equals(jcbJuegos.getSelectedItem())) {
+			                    limpiarTabla();
+			                    pintadoCrash();
+			                } else if ("Coin Flip".equals(jcbJuegos.getSelectedItem())) {
+			                    limpiarTabla();
+			                    pintadoCoinFlip();
+			                } else {
+			                    limpiarTabla();
+			                    pintadoBlackJack();
+			                }
+
+			                // Actualizar el gráfico
+			                grfBalance.setDataPoints(user.getLstBalance());
+			                grfBalance.repaint();
+
+			                // Actualizar la etiqueta con el nombre del usuario
+			                nombre.setText(user.toString());
+			            }
+				 }
 			}
 		});
 		btnBaja.addActionListener(new ActionListener() {
@@ -296,6 +313,10 @@ public class VentanaAdminUsuarios extends JFrame{
 				setBackground(Color.CYAN);
 				nombre.setText(value.toString());
 				user = (Usuario)value;
+				tJuegos.repaint();
+				//Pintado del grafico
+				grfBalance.setDataPoints(user.getLstBalance());
+			    grfBalance.repaint();
 				
 			}
 			/*
