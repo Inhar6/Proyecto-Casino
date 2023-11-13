@@ -266,7 +266,7 @@ public class VentanaRegistro extends JFrame{
 	}
 	
 	public String leerPoliticaDePrivacidad() {
-		 String rutaArchivo = "resources/ficheros/PoliticaDePrivacidad.txt";
+		 String rutaArchivo = "resources/data/PoliticaDePrivacidad.txt";
 		 StringBuilder texto = new StringBuilder();
 	        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
 	            String linea;
