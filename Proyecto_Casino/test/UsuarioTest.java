@@ -2,12 +2,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import domain.Point;
 import domain.Usuario;
 
 public class UsuarioTest {
@@ -104,8 +107,23 @@ public class UsuarioTest {
 		assertEquals(mapa,u.getMapaRuleta() );
 	}
 	@Test
-	public void testAssMapaRuleta() {
+	public void testAddMapaRuleta() {
 		u.addMapaRuleta(1, 2, 600);
 		assertFalse(u.getMapaRuleta().isEmpty());
+	}
+	@Test
+	public void testGetLstBalance() {
+		assertTrue(u.getLstBalance().isEmpty());
+	}
+	@Test
+	public void testSetLstBalance() {
+		List<Point> lstPuntos = new ArrayList<>();
+		u.setLstBalance(lstPuntos);
+		assertEquals(lstPuntos,u.getLstBalance() );
+	}
+	@Test
+	public void testAddLstBalance() {
+		u.addListaBalance(new Point(2, 4));
+		assertFalse(u.getLstBalance().isEmpty());
 	}
 }
