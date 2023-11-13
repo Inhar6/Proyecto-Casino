@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import domain.Point;
 import domain.Usuario;
 
 public class VentanaPerfil extends JFrame{
@@ -57,15 +60,13 @@ public class VentanaPerfil extends JFrame{
 	private JTable tabla;
 	private DefaultTableModel dtmTabla;
 	private JScrollPane scroll;
-	//JTable - Balance
-	private JTable tablaB;
-	private DefaultTableModel dtmTablaB;
-	private JScrollPane scrollB;
 	//JButton
 	private JButton btnEditar;
 	private JButton btnGuardar;
 	//Usuario
 	private Usuario user;
+	//Grafico
+	private List<Point> GraficoBalance;
 	
 	
 	
@@ -100,14 +101,9 @@ public class VentanaPerfil extends JFrame{
 		tabla.setEnabled(false);
 		tabla.setDefaultRenderer(Object.class, new MyRender());
 		scroll = new JScrollPane(tabla);
+		//Bordes
 		Border lineaHistorial = BorderFactory.createLineBorder(colorPanel);
 		Border tituloHistorial = BorderFactory.createTitledBorder(lineaHistorial,"Historial");
-		//JTable - Balance
-		dtmTablaB= new DefaultTableModel();
-			dtmTablaB.addColumn("Saldo");
-		tablaB = new JTable(dtmTablaB);
-		//tabla.setDefaultRenderer(Object.class, new MyRender());
-		scrollB = new JScrollPane(tablaB);
 		Border lineaBalance = BorderFactory.createLineBorder(colorPanel);
 		Border tituloBalance = BorderFactory.createTitledBorder(lineaBalance,"Balance");
 		//JButton
@@ -153,15 +149,16 @@ public class VentanaPerfil extends JFrame{
 		///
 		//GRAFICO
 		///
-		balance.setLayout(new BorderLayout());
-		balance.add(scrollB,BorderLayout.CENTER);
-		balance.setBorder(tituloBalance);
-		///
+		balance.setLayout(new FlowLayout());
 		//GRAFICO
+		GraficoBalance = puntosPrueba();
+		PanelGrafico chartPanel = new PanelGrafico(GraficoBalance);
+		chartPanel.setBorder(tituloBalance);
 		///
 		derecho.setLayout(new GridLayout(2,1));
 		derecho.add(juegos);
-		derecho.add(balance);
+		//derecho.add(balance);
+		derecho.add(chartPanel);
 		central.setLayout(new GridLayout(1,2));
 		central.add(izquierdo);
 		central.add(derecho);
@@ -243,7 +240,7 @@ public class VentanaPerfil extends JFrame{
 
      
 		setVisible(true);
-		//pack();
+		
 	}
 	public void limpiarTabla() {
 		dtmTabla.setRowCount(0);
@@ -310,5 +307,15 @@ public class VentanaPerfil extends JFrame{
 			return this;
 		}
 		
+	}
+	
+	public List<Point> puntosPrueba(){
+		List<Point> lista = new ArrayList<>();
+		lista.add(new Point(1, 2));
+		lista.add(new Point(2, 3));
+		lista.add(new Point(3, 4));
+		lista.add(new Point(4, 2));
+		lista.add(new Point(5, 6));
+		return lista;
 	}
 }
