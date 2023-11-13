@@ -55,12 +55,12 @@ public class VentanaBlackJack extends JFrame {
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		// Añadir menuSuperior
-		JPanel menuSuperior = new JPanel(new GridLayout());
+		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
-		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();			
-		add(menuSuperior);
-		setJMenuBar(menuBar1);
+		VentanaPanelMenu menuGeneral = new VentanaPanelMenu(); // Crea una ventana "VenatanaPanelMenu"
+        add(menuSuperior, BorderLayout.NORTH);
+        setJMenuBar(menuBar1);
         // Añadir menuApostar
         JPanel menuInferior = new JPanel(new BorderLayout());
         add(menuInferior, BorderLayout.SOUTH);
