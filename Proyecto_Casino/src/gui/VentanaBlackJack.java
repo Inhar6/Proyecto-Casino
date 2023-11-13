@@ -41,7 +41,7 @@ public class VentanaBlackJack extends JFrame {
 	private List<Carta> listaCartas = crearCarta(crearBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
-	private static final int limitePulsaciones = 5;
+	private static final int limitePulsaciones = 3;
 
 
 	public VentanaBlackJack() {
@@ -82,7 +82,7 @@ public class VentanaBlackJack extends JFrame {
         JPanel paneldecartas = new JPanel((new GridLayout(2,1)));
         JPanel panelCrupier = new JPanel(new GridLayout(2,1));
         JPanel panelJugador = new JPanel(new GridLayout(2,1));
-        JPanel panelBotones = new JPanel(new GridLayout(1,3));
+        JPanel panelBotones = new JPanel(new GridLayout(1,4));
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         
      
@@ -107,8 +107,9 @@ public class VentanaBlackJack extends JFrame {
         panelCrupier.add(textAreaCrupier);
         panelJugador.add(labelJugador);
         panelJugador.add(textAreaJugador);
+        
      
- 
+        JButton botonJugar = new JButton("Jugar");
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
@@ -119,6 +120,7 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
         
+        panelBotones.add(botonJugar);
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
@@ -126,10 +128,31 @@ public class VentanaBlackJack extends JFrame {
         String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
         		+ "1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)\n\n"
         		+"2- El crupier se planta con 17 puntos\n\n"
-        		+"3-Las cartas del 2-10 puntuaran su valor nominal\n\n"
+        		+"3-Las cartas del 1-10 puntuaran su valor nominal\n\n"
         		+"4-Las cartas (J,Q,K) puntuaran 10 puntos\n\n"
-        		+"5-La carta A sera el comodin, y podra ser usada tanto con el valor 1 o 11\n\n"
-        		+"6-Tendras la opcion de doblar la aupesta durante la partida mediante el boton de doblar";
+        		+"5-Tendras la opcion de doblar la aupesta durante la partida mediante el boton de doblar";
+        
+        
+        
+        
+        botonPedirCarta.setEnabled(false);
+        botonPlantarse.setEnabled(false);
+        botonDoblar.setEnabled(false);
+        
+        botonJugar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				  botonPedirCarta.setEnabled(true);
+			      botonPlantarse.setEnabled(true);
+			      botonDoblar.setEnabled(true);
+			      ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+			      botonJugar.setEnabled(false);
+				
+			}
+		});
         
         
         botonAyuda.addActionListener(new ActionListener() {
@@ -146,7 +169,6 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
 				logger.info("Has pedido una carta");
 				if(contadorBoton< limitePulsaciones) {
 					ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
@@ -160,7 +182,8 @@ public class VentanaBlackJack extends JFrame {
 				
 			}
 		});
-                
+        
+     
         botonPlantarse.addActionListener(new ActionListener() {
 			
 			@Override
@@ -172,8 +195,9 @@ public class VentanaBlackJack extends JFrame {
 				
 				int puntuacionCrupier = ContadorPuntuacionCrupier(textoActualCrupier);
 				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
-				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
+				
 				textAreaJugador.setText(textoActualJugador+ "\n"+ "Puntuacion:" + puntuacionJugador);
+				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
 				saberGanador(puntuacionCrupier,puntuacionJugador);
 			}
 		});
@@ -182,6 +206,7 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				botonPlantarse.setEnabled(false);
 				botonPedirCarta.setEnabled(false);
 				botonDoblar.setEnabled(false);
@@ -354,7 +379,7 @@ public class VentanaBlackJack extends JFrame {
     	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
     		JOptionPane.showMessageDialog(null, "Has ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
     		
-    	}else if(puntuacionCrupier<=21 && puntuacionCrupier>21){
+    	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
     		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
     	}else {
     		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
