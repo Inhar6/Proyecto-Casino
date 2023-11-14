@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
 	
 	//Atributos
 	private String nombre;
@@ -127,6 +127,11 @@ public class Usuario {
 	public String toString() {
 		return nombre + ", " + apellidos + ", " + DNI + ", "
 				+ nombreUsuario ;
+	}
+
+	@Override
+	public int compareTo(Usuario o) {
+		return this.nombre.compareTo(o.nombre);
 	}
 	
 	
