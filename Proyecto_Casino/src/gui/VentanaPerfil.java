@@ -101,7 +101,6 @@ public class VentanaPerfil extends JFrame{
 		tabla.setEnabled(false);
 		tabla.setDefaultRenderer(Object.class, new MyRender());
 		scroll = new JScrollPane(tabla);
-		//Bordes
 		Border lineaHistorial = BorderFactory.createLineBorder(colorPanel);
 		Border tituloHistorial = BorderFactory.createTitledBorder(lineaHistorial,"Historial");
 		Border lineaBalance = BorderFactory.createLineBorder(colorPanel);

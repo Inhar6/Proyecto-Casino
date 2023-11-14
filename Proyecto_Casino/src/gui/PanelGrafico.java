@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.List;
@@ -20,7 +21,14 @@ public class PanelGrafico extends JPanel {
 	public void setDataPoints(List<Point> dataPoints) {
         this.dataPoints = dataPoints;
     }
-	
+	public void ajustarTamaño() {
+        // Ajusta el tamaño del gráfico según tus preferencias
+        // Puedes establecer un tamaño fijo o calcularlo en base al tamaño del panel
+        int ancho = getWidth(); // o establecer un valor específico
+        int alto = getHeight(); // o establecer un valor específico
+        setPreferredSize(new Dimension(ancho, alto));
+        revalidate();
+    }
 	//chat.openai.com
 	@Override
 	protected void paintComponent(Graphics g) {
