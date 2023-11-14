@@ -7,8 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -28,7 +26,6 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import domain.Point;
 import domain.Usuario;
 
 public class VentanaPerfil extends JFrame{
@@ -65,8 +62,6 @@ public class VentanaPerfil extends JFrame{
 	private JButton btnGuardar;
 	//Usuario
 	private Usuario user;
-	//Grafico
-	private List<Point> GraficoBalance;
 	
 	
 	
@@ -150,8 +145,8 @@ public class VentanaPerfil extends JFrame{
 		///
 		balance.setLayout(new FlowLayout());
 		//GRAFICO
-		GraficoBalance = puntosPrueba();
-		PanelGrafico chartPanel = new PanelGrafico(GraficoBalance);
+		user.setLstBalance(VentanaRuleta.lstBalance);
+		PanelGrafico chartPanel = new PanelGrafico(user.getLstBalance());
 		chartPanel.setBorder(tituloBalance);
 		///
 		derecho.setLayout(new GridLayout(2,1));
@@ -250,7 +245,7 @@ public class VentanaPerfil extends JFrame{
 		dtmTabla.addColumn("Tirada");
 		dtmTabla.addColumn("Resultado");
 		dtmTabla.addColumn("Ganancia");
-		for(Entry<Integer, Map<Integer, Double>> entry :VentanaRuleta.mapaBalance.entrySet()) {
+		for(Entry<Integer, Map<Integer, Double>> entry :VentanaRuleta.mapaTiradas.entrySet()) {
 			int tirada =entry.getKey();
 			for(Integer i : entry.getValue().keySet()) {
 				int resultado = i;
@@ -306,15 +301,5 @@ public class VentanaPerfil extends JFrame{
 			return this;
 		}
 		
-	}
-	
-	public List<Point> puntosPrueba(){
-		List<Point> lista = new ArrayList<>();
-		lista.add(new Point(1, 2));
-		lista.add(new Point(2, 3));
-		lista.add(new Point(3, 4));
-		lista.add(new Point(4, 2));
-		lista.add(new Point(5, 6));
-		return lista;
 	}
 }

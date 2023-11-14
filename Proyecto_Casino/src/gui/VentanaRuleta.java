@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
 import domain.ApuestaRuleta;
+import domain.Point;
 
 
 public class VentanaRuleta extends JFrame{
@@ -84,8 +86,11 @@ public class VentanaRuleta extends JFrame{
 	private JButton btnapuesta100;
 	private JButton btnapuesta1k;
 	//Historial de balance
-	public static Map<Integer, Map<Integer, Double>> mapaBalance = new HashMap<>();
+	public static Map<Integer, Map<Integer, Double>> mapaTiradas = new HashMap<>();
 	private int tirada = 1;
+	//Lista Balance
+	public static List<Point> lstBalance = new ArrayList<>();
+	private int marca = 1;
 	
 	///IMAGEN
 	private String rutaImagen="resources/images/iconos/mesa-ruleta2.png";
@@ -529,6 +534,9 @@ public class VentanaRuleta extends JFrame{
 					JOptionPane.showMessageDialog(null, "No se puede sacar un resultado inferior o igual a 0");
 					//btnSacarDinero.setEnabled(false);
 				}
+				//Añadido al grafico del balance
+				lstBalance.add(new Point(marca,(int)dineroTotal/1000));
+				marca+=1;
 				VentanaPanelMenu.balance+=dineroTotal;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 				dineroTotal = 0;
@@ -847,9 +855,9 @@ public class VentanaRuleta extends JFrame{
 		//Mostrar si se ha ganado o no
 		result(ganancia,num);
 		//Lista Balance
-		mapaBalance.putIfAbsent(tirada, new HashMap<>());
-		mapaBalance.get(tirada).put(num, ganancia - dineroApostadoTotal);
-		System.out.println(mapaBalance);
+		mapaTiradas.putIfAbsent(tirada, new HashMap<>());
+		mapaTiradas.get(tirada).put(num, ganancia - dineroApostadoTotal);
+		System.out.println(mapaTiradas);
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
 		logger.info("Todas las acciones del juego terminadas");
