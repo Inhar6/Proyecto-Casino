@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +18,8 @@ public class VentanaAdmin extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	//Logger
+	private static final Logger logger = Logger.getLogger("Ventana Administrador Usuarios");
 	//Elementos
 	private JLabel admin;
 	
@@ -52,7 +54,7 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaAdminUsuarios();
-				
+				logger.info("Pulsado boton para ir a Ventana Administrador Usuario");
 			}
 		});
 		btnJuegos.addActionListener(new ActionListener() {
@@ -60,6 +62,7 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new VentanaAdminJuegos();
+				logger.info("Pulsado boton para ir a Ventana Administrador Juegos");
 				
 			}
 		});

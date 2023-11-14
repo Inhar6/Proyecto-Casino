@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -79,6 +80,10 @@ public class VentanaAdminUsuarios extends JFrame{
 		Usuario1.addMapaRuleta(2, 20, 50000);
 		Usuario1.addMapaRuleta(3, 12, 85000);
 		Usuario1.addMapaRuleta(4, 5, 75000);
+		Usuario1.addListaBalance(new Point(5,5));
+		Usuario1.addListaBalance(new Point(6,4));
+		Usuario1.addListaBalance(new Point(7,3));
+		Usuario1.addListaBalance(new Point(1,2));
 		////
 		Usuario2.addMapaRuleta(1, 23, 4356);
 		Usuario2.addMapaRuleta(2, 3, 5600);
@@ -202,11 +207,17 @@ public class VentanaAdminUsuarios extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(user != null) {
-					listaUsuarios.remove(user);
-					dlmUsuarios.removeAllElements();
-					dlmUsuarios.addAll(listaUsuarios);
-					lstUsuarios.repaint();
-					user = null; 
+					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres dar de baja al usuario [" + user + "]");
+					if(opcion == JOptionPane.YES_OPTION) {
+						listaUsuarios.remove(user);
+						dlmUsuarios.removeAllElements();
+						dlmUsuarios.addAll(listaUsuarios);
+						lstUsuarios.repaint();
+						user = null;
+					}else {
+						
+					}
+					 
 				}
 			}
 		});
