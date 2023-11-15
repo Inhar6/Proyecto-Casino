@@ -90,7 +90,7 @@ public class VentanaRuleta extends JFrame{
 	private int tirada = 1;
 	//Lista Balance
 	public static List<Point> lstBalance = new ArrayList<>();
-	private int marca = 1;
+	private int marca = 0;
 	
 	///IMAGEN
 	private String rutaImagen="resources/images/iconos/mesa-ruleta2.png";
@@ -720,7 +720,7 @@ public class VentanaRuleta extends JFrame{
 		JOptionPane.showMessageDialog(null, t.toString());
 	}
 
-	public boolean avisoSaldo(double dinero) {
+	public static boolean avisoSaldo(double dinero) {
 		if(dinero < 0) {
 			JOptionPane.showMessageDialog(null,"Saldo insuficiente");
 			return true;

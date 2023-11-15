@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -79,5 +81,10 @@ public class VentanaRuletaTest {
 	@Test
 	public void testObtenerColorNegroString() {
 		assertEquals("negro", VentanaRuleta.obtenerColor(2));
+	}
+	@Test
+	public void testAvisoSaldo() {
+		assertFalse(VentanaRuleta.avisoSaldo(1000));
+		assertTrue(VentanaRuleta.avisoSaldo(-100));
 	}
 }
