@@ -534,11 +534,11 @@ public class VentanaRuleta extends JFrame{
 					JOptionPane.showMessageDialog(null, "No se puede sacar un resultado inferior o igual a 0");
 					//btnSacarDinero.setEnabled(false);
 				}
-				//Añadido al grafico del balance
-				lstBalance.add(new Point(marca,(int)dineroTotal/1000));
-				marca+=1;
 				VentanaPanelMenu.balance+=dineroTotal;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+				//Añadido al grafico del balance
+				lstBalance.add(new Point(marca,(int)VentanaPanelMenu.balance/1000));
+				marca+=1;
 				dineroTotal = 0;
 				dineroTotalInicial = 0;
 				saldo.setText("---- " + dineroTotal + " ----");
