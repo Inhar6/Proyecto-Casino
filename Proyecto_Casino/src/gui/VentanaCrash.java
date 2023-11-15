@@ -40,6 +40,7 @@ public class VentanaCrash extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger("Ventana Crah");
 
+	// Paneles Crash
 	private JPanel pCrash = new JPanel(new GridLayout(3,1));
     private JPanel pDatos  = new JPanel (new BorderLayout());
 	private JPanel pHistorial = new JPanel(new BorderLayout());
@@ -54,9 +55,10 @@ public class VentanaCrash extends JFrame{
 	private double numeroFinal; // numero final que saca el usuario
 	private double nuevoBalance; // numero nuevo balance
 	private double numeroCrono; // numero por el que va el timer
-	private Timer timer;
-	
 	private double ganado;
+	private Timer timer;
+	private Random random = new Random();
+
 	
 	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
 	private JLabel lApostado = new JLabel("Apostado: ");
@@ -67,12 +69,13 @@ public class VentanaCrash extends JFrame{
 	
 	private JButton bSacar = new JButton("Sacar");
 	
-	private Random random = new Random();
 	
 	//JTable - Historial
 	private JTable tabla;
 	private DefaultTableModel dtmTabla;
 	private JScrollPane scroll;
+	private int filaWinLose = -1;
+	private int colWinLose = -1;
 	
 	// PorgressBar
 	private JProgressBar progressBar = new JProgressBar(100, 500);
@@ -89,7 +92,7 @@ public class VentanaCrash extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
-
+				
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
@@ -104,7 +107,7 @@ public class VentanaCrash extends JFrame{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                VentanaPanelMenu.contadorVentanaCrash = 0; // Reiniciar el contador
+                VentanaPanelMenu.contadorVentanaBlackJack = 0; // Reiniciar el contador
             }
         });
         
@@ -184,6 +187,8 @@ public class VentanaCrash extends JFrame{
 			        bSacar.setEnabled(true);
 			        VentanaPanelMenu.bApostar.setEnabled(false);
 			        contadorApostar++;
+//			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
+//			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
 			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
 		        } else {
@@ -211,7 +216,7 @@ public class VentanaCrash extends JFrame{
 				pintarDatosCrash();
 			}
 		});
-
+      
 	    // Mostrar VentanaMenuPanel
 	    menuGeneral.enseñarApostar(menuInferior);
 	    menuGeneral.enseñarMenu(menuSuperior, menu);
@@ -288,7 +293,7 @@ public class VentanaCrash extends JFrame{
         ventanaLose.setSize(300, 250);
 		// Centra la ventana en el centro de la pantlla
         ventanaLose.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 350) / 2),  
-								(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
+									(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
         ventanaLose.setVisible(true);
         ventanaLose.setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
         
@@ -347,7 +352,6 @@ public class VentanaCrash extends JFrame{
 		});
         timer.setRepeats(false);
     }
-
     private void resetJuego() {
     	VentanaPanelMenu.bApostar.setEnabled(true);
     	progressBar.setValue(valor = 100);
@@ -363,26 +367,30 @@ public class VentanaCrash extends JFrame{
         lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
         lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
     }
-	class MyRender extends JLabel implements TableCellRenderer{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		public MyRender() {
-			setOpaque(true);
-		}
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			setText(value.toString());
-			if (win == true) {
-				setBackground(Color.GREEN);
-			} else {
-				setBackground(Color.RED);
-			}
-			return this;
-		}
+
+	public class MyRender extends JLabel implements TableCellRenderer {
+
+	    private static final long serialVersionUID = 1L;
+
+	    public MyRender() {
+	        setOpaque(true);
+	        setFont(new Font("Arial", Font.PLAIN, 14));
+	    }
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        setText(value.toString());
+
+	        if ("WIN".equals(value) && column == 1) {
+	            setBackground(Color.GREEN);
+	        } else if ("LOSE".equals(value) && column == 1) {
+	            setBackground(Color.RED);
+	        } else {
+	            setBackground(table.getBackground());
+	        }
+	        return this; // Devuelve el propio JLabel modificado.
+	    }
 	}
+	
 	public void pintarDatosCrash() {
 		if (win == true) {
 			Object[] jugadaWin = new Object[] {contadorApostar, "WIN", "x" + numeroX + "." + segundos, "+" + ganado};

@@ -40,7 +40,7 @@ public class VentanaPanelMenu {
 	static Color colorPanel = new Color(71, 113, 72);
 	// Balance
 	static double balance = 10000;
-	static JLabel lBalance = new JLabel("Balance: " + balance);	
+	static JLabel lBalance = new JLabel("Balance: " + balance);
 	// Paneles
 	public JPanel pMenu = new JPanel (new BorderLayout());
 	private JPanel pMenuN = new JPanel (new BorderLayout());
@@ -67,28 +67,26 @@ public class VentanaPanelMenu {
 	// Elementos JMenuUsuario
 	private JMenu menuUsuario = new JMenu("Usuario");
 	private JMenuItem menuItemPerfil = new JMenuItem("Perfil");
-	private JMenuItem menuItemDepositar = new JMenuItem("Depostar");
+	private JMenuItem menuItemDepositar = new JMenuItem("Depositar");
 	private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
 	
 	private ImageIcon logoCasinoNegro = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
 
-//	private Estado estado;
 	static int contadorVentanaBlackJack = 0;
 	static int contadorVentanaCrash = 0;
 	static int contadorVentanaRuelta = 0;
 	static int contadorVentanaCoinFlip = 0;
 	static int contadorVentanaInicial = 0;
 	static int contadorVentanaPerfil = 0;
-	static int contadorVentanaDepositar =0;
+	static int contadorVentanaDepositar = 0;
 
     private static int limiteVentanas = 1; // Establece el límite deseado
 	
     // Menu superior
-
 	public void enseñarMenu(JPanel panel, JMenu menu) {
 
 		panel.add(pMenu);
-		
+
 		bCasino.setIcon(redimensionarIcono(logoCasinoNegro, 30, 30));
 		bCasino.setBorder(null);
 		bCasino.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -253,7 +251,7 @@ public class VentanaPanelMenu {
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaRuelta < limiteVentanas) {
 					new VentanaRuleta();
-					contadorVentanaRuelta++;
+					contadorVentanaCrash++;
 					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
@@ -490,17 +488,24 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (balance >= apuesta ) {
-					balance -= apuesta;
-					lBalance.setText("Balance: " + balance);
-					lApuesta.setText("Apuesta: " + apuesta);
-					logger.info("Has hecho tu apuesta");
-				} else if (balance == 0 && apuesta == 0) {
-					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-				} else {
-					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-				}
-				
+//				if (balance >= apuesta ) {
+//					balance -= apuesta;
+//					lBalance.setText("Balance: " + balance);
+//					lApuesta.setText("Apuesta: " + apuesta);
+//					logger.info("Has hecho tu apuesta");
+//				} else if (balance == 0 && apuesta == 0) {
+//					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+//				}
+				if (balance >= apuesta) {
+		            balance -= apuesta;
+		            lBalance.setText("Balance: " + balance);
+		            lApuesta.setText("Apuesta: " + apuesta);
+		            logger.info("Has hecho tu apuesta");
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+		        }
 			}
 		});
     }
