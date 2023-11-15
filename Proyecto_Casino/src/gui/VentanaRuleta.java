@@ -268,7 +268,7 @@ public class VentanaRuleta extends JFrame{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                VentanaPanelMenu.contadorVentanaRuelta = 0; // Reiniciar el contador
+                VentanaPanelMenu.contadorVentanaJuego = 0; // Reiniciar el contador
             }
         });
 		////////////////////////
