@@ -71,7 +71,7 @@ public class VentanaBlackJack extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                VentanaPanelMenu.contadorVentanaBlackJack = 0; // Reiniciar el contador
+                VentanaPanelMenu.contadorVentanaJuego = 0; // Reiniciar el contador
             }
         });
         
@@ -147,6 +147,7 @@ public class VentanaBlackJack extends JFrame {
 			      botonPlantarse.setEnabled(true);
 			      botonDoblar.setEnabled(true);
 			      ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+			      ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
 			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
 			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
 			      botonJugar.setEnabled(false);
@@ -197,6 +198,12 @@ public class VentanaBlackJack extends JFrame {
 				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
 				
 				textAreaJugador.setText(textoActualJugador+ "\n"+ "Puntuacion:" + puntuacionJugador);
+				while(puntuacionCrupier<18) {
+					ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+					
+					puntuacionCrupier = ContadorPuntuacionCrupier(textoActualCrupier);
+					textoActualCrupier = textAreaCrupier.getText();
+				}
 				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
 				saberGanador(puntuacionCrupier,puntuacionJugador);
 			}
@@ -296,7 +303,7 @@ public class VentanaBlackJack extends JFrame {
     	if(carta!= null) {
     		 String textoActual =jtextarea.getText();
     		if (!textoActual.isEmpty()) {
-                textoActual += ";"; // 
+                textoActual += ";"; 
             }
             String stringCarta = carta.toString();
             textoActual += stringCarta;
@@ -306,16 +313,17 @@ public class VentanaBlackJack extends JFrame {
     }
     
     public void ImprimirCartasCrupier(JTextArea jtextarea ,List<Carta> listaCartas) {
+
     	
-    	
-    	if(jtextarea.getText().isEmpty()) {
-    		Carta carta = RepartirCarta(listaCartasBarajeada);
-        	Carta carta2 = RepartirCarta(listaCartasBarajeada);
-        	String cartaString = carta.toString();
-        	String cartaString2 = carta2.toString();
-        	String textoActual = jtextarea.getText();
-        	String imprimir = textoActual + cartaString+";"+cartaString2;
-        	jtextarea.setText(imprimir);
+    	Carta carta = RepartirCarta(listaCartasBarajeada);
+    	if(carta!= null) {
+    		 String textoActual =jtextarea.getText();
+    		if (!textoActual.isEmpty()) {
+                textoActual += ";"; 
+            }
+            String stringCarta = carta.toString();
+            textoActual += stringCarta;
+            jtextarea.setText(textoActual);
     	}
     	
     }
