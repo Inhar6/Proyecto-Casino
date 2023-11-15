@@ -72,10 +72,11 @@ public class VentanaPanelMenu {
 	
 	private ImageIcon logoCasinoNegro = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
 
-	static int contadorVentanaBlackJack = 0;
-	static int contadorVentanaCrash = 0;
-	static int contadorVentanaRuelta = 0;
-	static int contadorVentanaCoinFlip = 0;
+//	static int contadorVentanaBlackJack = 0;
+//	static int contadorVentanaCrash = 0;
+//	static int contadorVentanaRuelta = 0;
+//	static int contadorVentanaCoinFlip = 0;
+	static int contadorVentanaJuego = 0;
 	static int contadorVentanaInicial = 0;
 	static int contadorVentanaPerfil = 0;
 	static int contadorVentanaDepositar = 0;
@@ -223,12 +224,12 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaBlackJack < limiteVentanas) {
+				if (contadorVentanaJuego < limiteVentanas) {
                     new VentanaBlackJack();
-                    contadorVentanaBlackJack++;
+                    contadorVentanaJuego++;
                     logger.info("Has abierto una ventana 'Black Jack'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
                 }	
 			}
 		});
@@ -236,12 +237,12 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaCrash < limiteVentanas) {
+				if (contadorVentanaJuego < limiteVentanas) {
                     new VentanaCrash();
-                	contadorVentanaCrash++;
+                    contadorVentanaJuego++;
                 	logger.info("Has abierto una ventana 'Crash'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
                 }
 			}
 		});
@@ -249,12 +250,12 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaRuelta < limiteVentanas) {
+				if (contadorVentanaJuego < limiteVentanas) {
 					new VentanaRuleta();
-					contadorVentanaCrash++;
+					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
                 }
 			}
 		});
@@ -262,12 +263,12 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaCoinFlip < limiteVentanas) {
+				if (contadorVentanaJuego < limiteVentanas) {
 					new VentanaCoinFlip();
-					contadorVentanaCoinFlip++;
+					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Coin-Flip'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
                 }	
 			}
 		});
