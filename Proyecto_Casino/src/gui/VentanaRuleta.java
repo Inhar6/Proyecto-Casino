@@ -515,6 +515,8 @@ public class VentanaRuleta extends JFrame{
 					//Metemos el dinero total como el saldo que se introuce en la apuesta
 					dineroTotal += VentanaPanelMenu.apuesta;
 					dineroTotalInicial += VentanaPanelMenu.apuesta;
+					VentanaPanelMenu.balance-=dineroTotal;
+					VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 					saldo.setText("---- " + dineroTotal + " ----");
 					logger.info("Añadido a la ventana ruleta "+ dineroTotal+ " del Balance");
 				}else {
