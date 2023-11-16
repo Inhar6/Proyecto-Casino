@@ -72,16 +72,12 @@ public class VentanaPanelMenu {
 	
 	private ImageIcon logoCasinoNegro = new ImageIcon("resources/images/iconos/logoNoEscasino.png");
 
-//	static int contadorVentanaBlackJack = 0;
-//	static int contadorVentanaCrash = 0;
-//	static int contadorVentanaRuelta = 0;
-//	static int contadorVentanaCoinFlip = 0;
 	static int contadorVentanaJuego = 0;
 	static int contadorVentanaInicial = 0;
 	static int contadorVentanaPerfil = 0;
 	static int contadorVentanaDepositar = 0;
 
-    private static int limiteVentanas = 1; // Establece el límite deseado
+    static int limiteVentanas = 1; // Establece el límite deseado
 	
     // Menu superior
 	public void enseñarMenu(JPanel panel, JMenu menu) {
@@ -229,7 +225,7 @@ public class VentanaPanelMenu {
                     contadorVentanaJuego++;
                     logger.info("Has abierto una ventana 'Black Jack'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
                 }	
 			}
 		});
@@ -242,7 +238,7 @@ public class VentanaPanelMenu {
                     contadorVentanaJuego++;
                 	logger.info("Has abierto una ventana 'Crash'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
                 }
 			}
 		});
@@ -255,7 +251,7 @@ public class VentanaPanelMenu {
 					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
                 }
 			}
 		});
@@ -268,7 +264,7 @@ public class VentanaPanelMenu {
 					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Coin-Flip'");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Juego.");
+                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
                 }	
 			}
 		});
@@ -485,29 +481,29 @@ public class VentanaPanelMenu {
 				logger.info("Has eliminado tu apuesta");
 			}
 		});
-        bApostar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				if (balance >= apuesta ) {
-//					balance -= apuesta;
-//					lBalance.setText("Balance: " + balance);
-//					lApuesta.setText("Apuesta: " + apuesta);
-//					logger.info("Has hecho tu apuesta");
-//				} else if (balance == 0 && apuesta == 0) {
-//					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-//				} else {
-//					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-//				}
-				if (balance >= apuesta) {
-		            balance -= apuesta;
-		            lBalance.setText("Balance: " + balance);
-		            lApuesta.setText("Apuesta: " + apuesta);
-		            logger.info("Has hecho tu apuesta");
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-		        }
-			}
-		});
+//        bApostar.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+////				if (balance >= apuesta ) {
+////					balance -= apuesta;
+////					lBalance.setText("Balance: " + balance);
+////					lApuesta.setText("Apuesta: " + apuesta);
+////					logger.info("Has hecho tu apuesta");
+////				} else if (balance == 0 && apuesta == 0) {
+////					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+////				} else {
+////					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+////				}
+//				if (balance >= apuesta) {
+//		            balance -= apuesta;
+//		            lBalance.setText("Balance: " + balance);
+//		            lApuesta.setText("Apuesta: " + apuesta);
+//		            logger.info("Has hecho tu apuesta");
+//		        } else {
+//		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+//		        }
+//			}
+//		});
     }
 }

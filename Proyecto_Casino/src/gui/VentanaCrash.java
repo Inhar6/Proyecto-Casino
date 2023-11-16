@@ -158,8 +158,14 @@ public class VentanaCrash extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (VentanaPanelMenu.apuesta != 0) {
-		           	double numeroRandom = random.nextDouble(1, 5);
+				if (VentanaPanelMenu.apuesta != 0 && VentanaPanelMenu.balance >= VentanaPanelMenu.apuesta) {
+					
+					VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
+					
+					VentanaPanelMenu.lBalance.setText("Balance: " + VentanaPanelMenu.balance);
+					VentanaPanelMenu.lApuesta.setText("Apuesta: " + VentanaPanelMenu.apuesta);
+					
+					double numeroRandom = random.nextDouble(1, 5);
 		            // https://chat.openai.com/c/b0d0f57d-6616-4fe0-833b-1bd6ac8e7d5d
 		            timer = new Timer(10, new ActionListener() {
 		                public void actionPerformed(ActionEvent e) {
@@ -210,6 +216,7 @@ public class VentanaCrash extends JFrame{
 				ganado = numeroFinal * VentanaPanelMenu.apuesta;
 				lGanado.setText("Ganado: " + Math.round(ganado * 100.0) / 100.0);
 				nuevoBalance = VentanaPanelMenu.balance + ganado;
+				VentanaPanelMenu.balance = nuevoBalance;
 				VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 				win = true;
 				ventanaWin();
