@@ -38,7 +38,7 @@ public class VentanaBlackJack extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger("VentanaBlackJack");
 	//Atributos
-	private List<Carta> listaCartas = crearCarta(crearBaraja());
+	private List<Carta> listaCartas = crearBarajaCartas(crearBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
 	private static final int limitePulsaciones = 3;
@@ -270,7 +270,7 @@ public class VentanaBlackJack extends JFrame {
     
     }
     
-    public List<Carta> crearCarta(Map<String,List<String>> mapa) {
+    public List<Carta> crearBarajaCartas(Map<String,List<String>> mapa) {
     	List<Carta> lista = new ArrayList<>();
     	for(String palo : mapa.keySet() ) {
     		for (String numero : mapa.get(palo)) {
@@ -335,7 +335,7 @@ public class VentanaBlackJack extends JFrame {
     		String[] separacionCarta = c.split("-");
     		if(separacionCarta.length >=2) {
     			
-    			String numeroCarta = separacionCarta[1].trim();
+    			String numeroCarta = separacionCarta[0].trim();
     			try {
     			if(numeroCarta.equals("A")){
     				sumaDePuntuacion+=1;
@@ -361,7 +361,7 @@ public class VentanaBlackJack extends JFrame {
     		String[] separacionCarta = c.split("-");
     		if(separacionCarta.length >=2) {
     			
-    			String numeroCarta = separacionCarta[1].trim();
+    			String numeroCarta = separacionCarta[0].trim();
     			try {
     			if(numeroCarta.equals("A")){
     				sumaDePuntuacion+=1;

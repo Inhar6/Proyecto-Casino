@@ -10,7 +10,7 @@ public class CartaTest {
 	
 	@Before 
 	public void setUp() {
-		c = new Carta("9","ROMBOS");
+		c = new Carta("9","Rombos");
 	}
 	
 	@Test
@@ -26,13 +26,13 @@ public class CartaTest {
 	
 	@Test
 	public void testGetPalo() {
-		assertEquals("ROMBOS", c.getPalo());
+		assertEquals("Rombos", c.getPalo());
 	}
 	
 	@Test
 	public void testSetPalo() {
-		c.setPalo("ROMBOS");
-		assertEquals("ROMBOS", c.getPalo());
+		c.setPalo("Rombos");
+		assertEquals("Rombos", c.getPalo());
 	}
 	
 	@Test
