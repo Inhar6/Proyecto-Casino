@@ -2,17 +2,17 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaCoinFlip extends JFrame{
 
@@ -37,9 +38,6 @@ public class VentanaCoinFlip extends JFrame{
 	private JButton bCruz;
   	
 	private JButton bBorrarSelec;
-	private JButton b1_2 ;
-	private JButton bx2 ;
-	private JButton bMax ;
   		
 	//contador
 	private int cont = 0;
@@ -56,107 +54,106 @@ public class VentanaCoinFlip extends JFrame{
 	//Cara o Cruz boton clicado 
 	private String caraCruz;
 	
+	private JPanel contentPane;
+	
+	
 	public VentanaCoinFlip() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);			
 		setSize(800, 600);
 		setTitle("Coin-Flip");
 		// Centra la ventana en el centro de la pantlla
-		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
-						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
+		setLocationRelativeTo(null);
 		setVisible(true);
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
-
-        // Añadir menuSuperior
-		JPanel menuSuperior = new JPanel(new GridLayout());
+			
 		JMenuBar menuBar1 = new JMenuBar();
 		JMenu menu = new JMenu();
 		VentanaPanelMenu menuGeneral = new VentanaPanelMenu();
-        add(menuSuperior);
-        setJMenuBar(menuBar1);
-        JPanel menuInferior = new JPanel(new BorderLayout());
-        add(menuInferior, BorderLayout.SOUTH);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                VentanaPanelMenu.contadorVentanaBlackJack = 0; // Reiniciar el contador
-            }
-        });
-        
-        
-      //botones 
-      	bCara = new JButton("Cara");
-      	bCruz = new JButton("Cruz");
-      	bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      	bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      	bCara.setMargin(new Insets(10, 20, 10, 20));
-      	bCruz.setMargin(new Insets(10, 20, 10, 20));
-      	
-      	bBorrarSelec = new JButton("Borrar Seleccion");
-      	b1_2 = new JButton("1/2");
-      	bx2 = new JButton("x2");
-      	bMax = new JButton("Max");
-      		
-      	//lista
+	    setJMenuBar(menuBar1);
+		
+     	 //botones 
+     	bCara = new JButton("Cara");
+     	bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+     	bCara.setMargin(new Insets(10, 30, 10, 20));
+     	
+     	bCruz = new JButton("Cruz");
+     	bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+     	bCruz.setMargin(new Insets(10, 30, 10, 20));
+     	
+     	bBorrarSelec = new JButton("Borrar seleccion");
+     	bBorrarSelec.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+     	bBorrarSelec.setMargin(new Insets(10, 30, 10, 20));
+     	
+	   	//lista
       	DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
       	JList<String> lstHistorial = new JList<>(dlmHistorial);
       	JScrollPane scroll = new JScrollPane(lstHistorial);
-      		
-      	//paneles
-      	JPanel pInferior = new JPanel();
-      	JPanel pInferior1 = new JPanel();
-      	JPanel pInferior2 = new JPanel();
-      	JPanel pCentro = new JPanel();
-      	JPanel pHisto = new JPanel();
-      	JPanel pIzquierda = new JPanel();
-      	/////////////////////////////////////////
-      		
-      	pInferior1.setLayout(new GridLayout(1,2));
-      	pInferior1.add(bCara);
-      	pInferior1.add(bCruz);
-      		
-      	pInferior2.setLayout(new GridLayout(1,4));
-      	pInferior2.add(bBorrarSelec);
-      	pInferior2.add(b1_2);
-      	pInferior2.add(bx2);
-      	pInferior2.add(bMax);
-      		
-      	pInferior.setLayout(new GridLayout(2, 1));
-      	pInferior.add(pInferior1);
-      	pInferior.add(pInferior2);
-      	
-      	lFotos = new JLabel();
-      	pIzquierda.setLayout(new BorderLayout());
-      	
-      	pIzquierda.add(lFotos, BorderLayout.NORTH); 
+      	 
+		contentPane = new JPanel();
 
-      	pIzquierda.setBackground(Color.white);
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+			
+		JPanel panelMenuSuperior = new JPanel();
+		panelMenuSuperior.setLayout( new GridLayout() );
+		contentPane.add(panelMenuSuperior, BorderLayout.NORTH);
+		
+		JPanel panelMenuInferior = new JPanel();
+		panelMenuInferior.setLayout(new GridLayout());
+		contentPane.add(panelMenuInferior, BorderLayout.SOUTH);
+	
+		JPanel panelPrincipal = new JPanel();
+		contentPane.add(panelPrincipal, BorderLayout.CENTER);
+		panelPrincipal.setLayout(new BorderLayout(0, 0));
+			
+		JPanel panelBotonIferior = new JPanel();
+		panelBotonIferior.setLayout(new GridLayout(1,2));
+		panelBotonIferior.add(bCara);
+		panelBotonIferior.add(bBorrarSelec);
+		panelBotonIferior.add(bCruz);
+		panelPrincipal.add(panelBotonIferior, BorderLayout.SOUTH);
+			
+		JPanel panelCentral = new JPanel();
+		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
+			
+		JPanel panelMoneda = new JPanel();
+		lFotos = new JLabel();
+		panelMoneda.setBackground(Color.white);
+		panelMoneda.add(lFotos);
+		panelMoneda.add(new JLabel(new ImageIcon("resources/images/caraCruz/cara.png")));
+			
+		JPanel panelHistorico = new JPanel();
+		panelHistorico.setLayout(new GridLayout(2, 1));
+		panelHistorico.add(new JLabel("Historial de juego"));
+		panelHistorico.add(scroll);
+			
+		JPanel menuHisto = new JPanel();
+		menuHisto.setLayout(new GridLayout());
+      	menuHisto.add(panelHistorico);
 
-      	pCentro.setLayout(new BorderLayout());
-      	pCentro.add(pInferior,BorderLayout.SOUTH);
-      	pCentro.add(pIzquierda, BorderLayout.WEST);	
-      	
-      	pHisto.setLayout(new GridLayout(2,1));
-      	pHisto.add(new JPanel());
-      	pHisto.add(new JPanel());
-      	pHisto.add(scroll, BorderLayout.EAST);
-      	pHisto.add(new JPanel());
-      	pHisto.add(new JPanel());
-     
-      	JPanel menuHisto = new JPanel();
-      	menuHisto.setLayout(new GridLayout(2,2));
-      	menuHisto.add(menuSuperior);
-      	menuHisto.add(pHisto);
-      		
-      	JPanel coin = new JPanel();
-      	coin.setLayout(new GridLayout(2, 1));
-      	coin.add(menuHisto);
-      	coin.add(pCentro);
-      		
-      	add(coin);
-
-        menuGeneral.enseñarApostar(menuInferior);
-        menuGeneral.enseñarMenu(menuSuperior, menu);
-        
+		GroupLayout gl_panelCentral = new GroupLayout(panelCentral);
+		gl_panelCentral.setHorizontalGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup().addGap(100)
+						.addComponent(panelMoneda, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+						.addComponent(panelHistorico, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+						.addGap(75)));
+		
+		gl_panelCentral.setVerticalGroup(gl_panelCentral.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCentral.createSequentialGroup().addGap(100)
+						.addComponent(panelMoneda, GroupLayout.PREFERRED_SIZE, 230,GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(85, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panelCentral.createSequentialGroup()
+						.addContainerGap(110, Short.MAX_VALUE)
+						.addComponent(panelHistorico,GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+						.addGap(125)));
+			panelCentral.setLayout(gl_panelCentral);
+		
+		
+	  menuGeneral.enseñarApostar(panelMenuInferior);
+	  menuGeneral.enseñarMenu(panelMenuSuperior, menu);
+				
+		      
         //listeners
         bCara.addActionListener(new ActionListener() {
 			
@@ -188,32 +185,6 @@ public class VentanaCoinFlip extends JFrame{
 				bCara.setEnabled(true);
 				bCruz.setEnabled(true);
 				logger.info("Has eliminado seleccionado");
-			}
-		});
-        
-        b1_2.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        
-        bx2.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-        
-        bMax.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 			}
 		});
         
