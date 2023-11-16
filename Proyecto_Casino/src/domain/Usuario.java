@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Usuario implements Comparable<Usuario>{
 	
@@ -128,7 +129,30 @@ public class Usuario implements Comparable<Usuario>{
 		return nombre + ", " + apellidos + ", " + DNI + ", "
 				+ nombreUsuario ;
 	}
-
+	
+	//HashCode
+	@Override
+	public int hashCode() {
+		return Objects.hash(DNI, apellidos, contraseña, lstBalance, mapaRuleta, nombre, nombreUsuario, numeroCuenta,
+				saldo);
+	}
+	
+	//Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Usuario))
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(DNI, other.DNI) && Objects.equals(apellidos, other.apellidos)
+				&& Objects.equals(contraseña, other.contraseña) && Objects.equals(lstBalance, other.lstBalance)
+				&& Objects.equals(mapaRuleta, other.mapaRuleta) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(nombreUsuario, other.nombreUsuario) && numeroCuenta == other.numeroCuenta
+				&& Double.doubleToLongBits(saldo) == Double.doubleToLongBits(other.saldo);
+	}
+	
+	//Comparador
 	@Override
 	public int compareTo(Usuario o) {
 		return this.nombre.compareTo(o.nombre);
