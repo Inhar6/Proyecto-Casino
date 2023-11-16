@@ -152,7 +152,6 @@ public class VentanaCoinFlip extends JFrame{
 		
 	  menuGeneral.enseñarApostar(panelMenuInferior);
 	  menuGeneral.enseñarMenu(panelMenuSuperior, menu);
-				
 		      
         //listeners
         bCara.addActionListener(new ActionListener() {
