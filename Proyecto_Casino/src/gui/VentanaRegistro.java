@@ -251,20 +251,21 @@ public class VentanaRegistro extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(txtNombre.getText()!= null && txtApellido.getText()!= null && txtDNI.getText()!= null&& txtUsuario.getText()!= null && txtContraseña.getText()!= null) {
-					Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(), txtUsuario.getText(),txtContraseña.getText(), 0, 0);
+				if (camposCompletos()) {
+					Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(),
+							txtUsuario.getText(), txtContraseña.getText(), 0, 0);
 					VentanaAdminUsuarios.listaUsuarios.add(u);
 					logger.info("Nuevo usuario creado");
 					dispose();
-				}else {
-					JOptionPane.showMessageDialog(null, "Se deben de introducir todos los datos");
+				} else {
+					JOptionPane.showMessageDialog(null, "Se deben llenar todos los campos", "Error",
+							JOptionPane.ERROR_MESSAGE);
 					logger.info("Datos mal introducidos");
 				}
-				
 			}
 		});
 	}
-	
+	//Lee el fichero de politica de privacidad
 	public String leerPoliticaDePrivacidad() {
 		 String rutaArchivo = "resources/data/PoliticaDePrivacidad.txt";
 		 StringBuilder texto = new StringBuilder();
@@ -294,5 +295,10 @@ public class VentanaRegistro extends JFrame{
            // logger.info("Error al analizar la fecha. Asegúrate de que está en el formato correcto.");
         }
     }
+	//Comprobar si todos los datos estan rellenados correctamente
+	private boolean camposCompletos() {
+	    return !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtDNI.getText().isEmpty()
+	            && !txtUsuario.getText().isEmpty() && !txtContraseña.getText().isEmpty();
+	}
 	
 }
