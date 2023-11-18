@@ -200,7 +200,9 @@ public class VentanaCoinFlip extends JFrame{
         VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				logger.info("Ha empezado la apuesta");
+				
 			    hilo = new Thread() {	
 				public void run()
 				{
