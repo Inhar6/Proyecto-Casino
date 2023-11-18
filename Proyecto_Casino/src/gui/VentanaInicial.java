@@ -81,15 +81,10 @@ public class VentanaInicial extends JFrame{
         
         pInicial.setBorder(new EmptyBorder(10,10,10,10));
         pInicial.setBackground(VentanaPanelMenu.colorPanel);
-
         pJuego1.setBorder(new EmptyBorder(10,10,10,10));
         pJuego2.setBorder(new EmptyBorder(10,10,10,10));
         pJuego3.setBorder(new EmptyBorder(10,10,10,10));
         pJuego4.setBorder(new EmptyBorder(10,10,10,10));
-//        pJuego1.setBackground(VentanaPanelMenu.colorPanel);
-//        pJuego2.setBackground(VentanaPanelMenu.colorPanel);
-//        pJuego3.setBackground(VentanaPanelMenu.colorPanel);
-//        pJuego4.setBackground(VentanaPanelMenu.colorPanel);
 
         pJuego1.add(bJuego1);
         pJuego2.add(bJuego2);

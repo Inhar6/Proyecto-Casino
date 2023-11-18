@@ -48,23 +48,24 @@ public class VentanaCrash extends JFrame{
 	private JPanel pBar = new JPanel(new BorderLayout());
 	private JPanel pSacar = new JPanel(new GridLayout());
 	
+	
 	private boolean win;
 	private boolean lose;
 	private int segundos; // numero decimal
 	private int numeroX = 1; // numero entero ej: X.324423
-	private double numeroFinal; // numero final que saca el usuario
+	private double multiplicador; // numero final que saca el usuario
 	private double nuevoBalance; // numero nuevo balance
 	private double numeroCrono; // numero por el que va el timer
 	private double ganado;
 	private Timer timer;
 	private Random random = new Random();
-
+	
 	
 	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
 	private JLabel lApostado = new JLabel("Apostado: ");
 	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");
-	private JLabel lNumeroFinal = new JLabel("Numero final: " + numeroFinal);
+	private JLabel lMultiplicador = new JLabel("Numero final: " + multiplicador);
 	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
 	
 	private JButton bSacar = new JButton("Sacar");
@@ -74,8 +75,6 @@ public class VentanaCrash extends JFrame{
 	private JTable tabla;
 	private DefaultTableModel dtmTabla;
 	private JScrollPane scroll;
-	private int filaWinLose = -1;
-	private int colWinLose = -1;
 	
 	// PorgressBar
 	private JProgressBar progressBar = new JProgressBar(100, 500);
@@ -151,7 +150,7 @@ public class VentanaCrash extends JFrame{
         pSacar.add(bSacar);
         bSacar.setEnabled(false);
         pSacar.add(lGanado);
-        pSacar.add(lNumeroFinal);
+        pSacar.add(lMultiplicador);
         pSacar.add(lNumeroCrono);
         
         VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
@@ -175,16 +174,13 @@ public class VentanaCrash extends JFrame{
 		                    	valor++;
 		                        progressBar.setString("x" + numeroX + "." + segundos);
 		                      	progressBar.setValue(valor);
-//		                      	System.out.println(valor);
 		                        actualizarEtiquetaTiempo();
 		                        if(segundos == 99) {
 		                        	segundos = 0;
 		                        	numeroX++;
 		                        }
 		                	} else {
-		                		lose = true;
-		                		pintarDatosCrash();
-		                		ventanaLose();
+		                		lose();
 		                    	timer.stop();
 		                	}
 		                }
@@ -211,16 +207,14 @@ public class VentanaCrash extends JFrame{
 				logger.info("Has sacado tu aspuesta");
 				timer.stop();
 		        bSacar.setEnabled(false);
-				numeroFinal =  numeroX + (segundos/100.0);
-		        lNumeroFinal.setText("Numero final: " + numeroFinal);
-				ganado = numeroFinal * VentanaPanelMenu.apuesta;
+				multiplicador =  obtenerMultiplicador(numeroX, segundos);
+		        lMultiplicador.setText("Multiplicador: " + multiplicador);
+				ganado = multiplicador * VentanaPanelMenu.apuesta;
 				lGanado.setText("Ganado: " + Math.round(ganado * 100.0) / 100.0);
 				nuevoBalance = VentanaPanelMenu.balance + ganado;
 				VentanaPanelMenu.balance = nuevoBalance;
 				VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
-				win = true;
-				ventanaWin();
-				pintarDatosCrash();
+				win();
 			}
 		});
       
@@ -229,137 +223,7 @@ public class VentanaCrash extends JFrame{
 	    menuGeneral.enseñarMenu(menuSuperior, menu);
 	    //
 	}
-    private void ventanaWin() {
-        JFrame ventanaWin = new JFrame();
-        ventanaWin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaWin.setSize(300, 250);
-		// Centra la ventana en el centro de la pantlla
-        ventanaWin.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 350) / 2),  
-								(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
-        ventanaWin.setVisible(true);
-        ventanaWin.setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
-        
-        JPanel pWinN = new JPanel();
-		JPanel pWinC = new JPanel();
-		JPanel pWinS = new JPanel();
-
-		
-		JLabel lWin = new JLabel("WIN");
-		JLabel lMultiplicador = new JLabel("x" + numeroFinal);
-		JLabel lGanado = new JLabel("+ " + ganado);
-		
-		ventanaWin.add(pWinN, BorderLayout.NORTH);
-		ventanaWin.add(pWinC, BorderLayout.CENTER);
-		ventanaWin.add(pWinS, BorderLayout.SOUTH);
-		pWinN.add(lWin);
-		pWinC.add(lMultiplicador);
-		pWinS.add(lGanado);
-		
-		pWinC.setBorder(new EmptyBorder(20, 0 , 0, 0));
-		pWinS.setBorder(new EmptyBorder(0, 0 , 20, 0));
-		pWinN.setBackground(VentanaPanelMenu.colorPanel);
-		pWinC.setBackground(VentanaPanelMenu.colorPanel);
-		pWinS.setBackground(VentanaPanelMenu.colorPanel);
-
-		lWin.setForeground(Color.GREEN);
-		lMultiplicador.setForeground(Color.WHITE);
-		lGanado.setForeground(Color.WHITE);
-
-		Font fuenteA = new Font(lWin.getFont().getName(), Font.BOLD, 30);
-		Font fuenteB = new Font(lApostado.getFont().getName(), Font.PLAIN, 25);
-		lWin.setFont(fuenteA);
-		lMultiplicador.setFont(fuenteB);
-		lGanado.setFont(fuenteB);
-	    
-        ActionListener cerrarVentana = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	ventanaWin.dispose();
-            	resetJuego();			        
-            }
-        };
-        Timer timer = new Timer(5000, cerrarVentana);
-        ventanaWin.addWindowListener(new WindowAdapter() {
-        	@Override
-        	public void windowOpened(WindowEvent e) {
-                timer.start();
-            	bSacar.setEnabled(false);
-        	}
-        	@Override
-        	public void windowClosing(WindowEvent e) {
-            	ventanaWin.dispose();
-        		resetJuego();
-	        	timer.stop();
-        	}
-		});
-        timer.setRepeats(false);        
-    }
-    private void ventanaLose() {
-        JFrame ventanaLose = new JFrame();
-        ventanaLose.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaLose.setSize(300, 250);
-		// Centra la ventana en el centro de la pantlla
-        ventanaLose.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 350) / 2),  
-									(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350) / 2));
-        ventanaLose.setVisible(true);
-        ventanaLose.setIconImage(new ImageIcon("foto/iconos/favicon.png").getImage());
-        
-        
-        JPanel pLoseN = new JPanel();
-		JPanel pLoseC = new JPanel();
-		JPanel pLoseS = new JPanel();
-		
-		JLabel lLose = new JLabel("LOSE");
-		JLabel lMultiplicador = new JLabel("x" + numeroFinal);
-		JLabel lApostado = new JLabel("- " + VentanaPanelMenu.apuesta);
-
-		ventanaLose.add(pLoseN, BorderLayout.NORTH);
-		ventanaLose.add(pLoseC, BorderLayout.CENTER);
-		ventanaLose.add(pLoseS, BorderLayout.SOUTH);
-		pLoseN.add(lLose);
-		pLoseC.add(lMultiplicador);
-		pLoseS.add(lApostado);
-		
-		pLoseC.setBorder(new EmptyBorder(20, 0 , 0, 0));
-		pLoseS.setBorder(new EmptyBorder(0, 0 , 20, 0));
-		pLoseN.setBackground(new Color(213, 48, 50));
-		pLoseC.setBackground(new Color(213, 48, 50));
-		pLoseS.setBackground(new Color(213, 48, 50));
-		
-		lLose.setForeground(Color.BLACK);
-		lApostado.setForeground(Color.BLACK);
-		lMultiplicador.setForeground(Color.BLACK);
-
-		Font fuenteA = new Font(lLose.getFont().getName(), Font.BOLD, 30);
-		Font fuenteB = new Font(lApostado.getFont().getName(), Font.PLAIN, 25);
-		lLose.setFont(fuenteA);
-		lMultiplicador.setFont(fuenteB);
-		lApostado.setFont(fuenteB);
-       
-        ActionListener cerrarVentana = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	ventanaLose.dispose();
-            	resetJuego();			        
-            }
-        };
-        Timer timer = new Timer(5000, cerrarVentana);
-        ventanaLose.addWindowListener(new WindowAdapter() {
-        	@Override
-        	public void windowOpened(WindowEvent e) {
-                timer.start();
-            	bSacar.setEnabled(false);
-        	}
-        	@Override
-        	public void windowClosing(WindowEvent e) {
-            	ventanaLose.dispose();
-        		resetJuego();
-	        	timer.stop();
-        	}
-		});
-        timer.setRepeats(false);
-    }
-    private void resetJuego() {
+    public void resetJuego() {
     	VentanaPanelMenu.bApostar.setEnabled(true);
     	progressBar.setValue(valor = 100);
     	progressBar.setString("x" + (numeroX = 1) + "." + (segundos = 0));
@@ -374,6 +238,7 @@ public class VentanaCrash extends JFrame{
         lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
         lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
     }
+	
 
 	public class MyRender extends JLabel implements TableCellRenderer {
 
@@ -397,18 +262,45 @@ public class VentanaCrash extends JFrame{
 	        return this; // Devuelve el propio JLabel modificado.
 	    }
 	}
-	
+	public void win() {
+		win = true;
+    	bSacar.setEnabled(false);
+		pintarDatosCrash();
+		JOptionPane.showMessageDialog(null, "WIN\n +" + ganado + "     x" + multiplicador);
+		resetJuego();
+	}
+	public void lose() {
+    	lose = true;
+    	bSacar.setEnabled(false);
+		pintarDatosCrash();
+		JOptionPane.showMessageDialog(null , "LOSE\n -" + VentanaPanelMenu.apuesta + "     x" + numeroCrono);
+		resetJuego(); 
+	}
 	public void pintarDatosCrash() {
 		if (win == true) {
-			Object[] jugadaWin = new Object[] {contadorApostar, "WIN", "x" + numeroX + "." + segundos, "+" + ganado};
+			Object[] jugadaWin = new Object[] {contadorApostar, "WIN", "x" + multiplicador, "+" + ganado};
 			dtmTabla.addRow(jugadaWin);
 		}
 		if(lose == true) {
-			Object[] jugadaLose = new Object[] {contadorApostar, "LOSE", "x" + numeroX + "." + segundos, "-" + VentanaPanelMenu.apuesta};
+			Object[] jugadaLose = new Object[] {contadorApostar, "LOSE", "x" + numeroCrono, "-" + VentanaPanelMenu.apuesta};
 			dtmTabla.addRow(jugadaLose);
 		}	
 	}
-
+	// Test
+	public static double calcularGanado(double multiplicador, double apuesta) {
+		return multiplicador * apuesta;
+	}
+	public static boolean obtenerResultado(boolean win, boolean lose, double multiplicador) {
+		if (multiplicador > 0.0) {
+			return win;
+		} else {
+			return lose;
+		}
+	}
+	public static double obtenerMultiplicador(int numeroX, int segundos) {
+		return numeroX + (segundos/100.0);
+	}
+	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -416,5 +308,5 @@ public class VentanaCrash extends JFrame{
 
 			}
 		});
-	}
+	}	
 }

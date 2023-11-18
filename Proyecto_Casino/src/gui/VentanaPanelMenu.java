@@ -481,29 +481,19 @@ public class VentanaPanelMenu {
 				logger.info("Has eliminado tu apuesta");
 			}
 		});
-//        bApostar.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-////				if (balance >= apuesta ) {
-////					balance -= apuesta;
-////					lBalance.setText("Balance: " + balance);
-////					lApuesta.setText("Apuesta: " + apuesta);
-////					logger.info("Has hecho tu apuesta");
-////				} else if (balance == 0 && apuesta == 0) {
-////					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-////				} else {
-////					JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-////				}
-//				if (balance >= apuesta) {
+        bApostar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (balance >= apuesta) {
 //		            balance -= apuesta;
-//		            lBalance.setText("Balance: " + balance);
-//		            lApuesta.setText("Apuesta: " + apuesta);
-//		            logger.info("Has hecho tu apuesta");
-//		        } else {
-//		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-//		        }
-//			}
-//		});
+		            lBalance.setText("Balance: " + balance);
+		            lApuesta.setText("Apuesta: " + apuesta);
+		            logger.info("Has hecho tu apuesta");
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
+		        }
+			}
+		});
     }
 }
