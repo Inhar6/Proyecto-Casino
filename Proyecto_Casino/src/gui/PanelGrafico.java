@@ -35,49 +35,48 @@ public class PanelGrafico extends JPanel {
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-		int padding = 50;
+	    int padding = 50;
 
-		int width = getWidth() - 2 * padding;
-		int height = getHeight() - 2 * padding;
+	    int width = getWidth() - 2 * padding;
+	    int height = getHeight() - 2 * padding;
 
-		int maxX = dataPoints.stream().mapToInt(Point::getX).max().orElse(0);
-		int maxY = dataPoints.stream().mapToInt(Point::getY).max().orElse(0);
+	    int maxX = dataPoints.stream().mapToInt(Point::getX).max().orElse(0);
+	    int maxY = dataPoints.stream().mapToInt(Point::getY).max().orElse(0);
 
-		double xScale = (double) width / maxX;
-		double yScale = (double) height / maxY;
+	    double xScale = (double) width / maxX;
+	    double yScale = (double) height / maxY;
 
-		// Dibujar ejes X e Y
-		g2d.drawLine(padding, getHeight() - padding, padding + width, getHeight() - padding); // eje X
-		g2d.drawLine(padding, getHeight() - padding, padding, getHeight() - padding - height); // eje Y
+	    // Dibujar ejes X e Y
+	    g2d.drawLine(padding, getHeight() - padding, padding + width, getHeight() - padding); // eje X
+	    g2d.drawLine(padding, getHeight() - padding, padding, getHeight() - padding - height); // eje Y
 
-		for (int i = 0; i <= maxX; i++) {
-			int x = (int) (i * xScale) + padding;
-			int y = getHeight() - padding;
-			g2d.drawLine(x, y - 5, x, y + 5);
-			g2d.drawString(Integer.toString(i), x - 5, y + 20);
-		}
+	    for (int i = 0; i <= maxX; i++) {
+	        int x = (int) (i * xScale) + padding;
+	        int y = getHeight() - padding;
+	        g2d.drawLine(x, y - 5, x, y + 5);
+	        g2d.drawString(Integer.toString(i), x - 5, y + 20);
+	    }
 
-		// Marcas y etiquetas en el eje Y
-		for (int i = 0; i <= maxY; i++) {
-			int x = padding;
-			int y = getHeight() - padding - (int) (i * yScale);
-			g2d.drawLine(x - 5, y, x + 5, y);
-			g2d.drawString(Integer.toString(i), x - 30, y + 5);
-		}
+	    // Marcas y etiquetas en el eje Y
+	    for (Point point : dataPoints) {
+	        int y = getHeight() - padding - (int) (point.getY() * yScale);
+	        g2d.drawLine(padding - 5, y, padding + 5, y);
+	        g2d.drawString(Integer.toString(point.getY()), padding - 30, y + 5);
+	    }
 
-		Point prevPoint = null;
-		for (Point point : dataPoints) {
-			int x = (int) (point.getX() * xScale) + padding;
-			int y = getHeight() - padding - (int) (point.getY() * yScale);
-			g2d.fillOval(x - 3, y - 3, 6, 6);
+	    Point prevPoint = null;
+	    for (Point point : dataPoints) {
+	        int x = (int) (point.getX() * xScale) + padding;
+	        int y = getHeight() - padding - (int) (point.getY() * yScale);
+	        g2d.fillOval(x - 3, y - 3, 6, 6);
 
-			if (prevPoint != null) {
-				int prevX = (int) (prevPoint.getX() * xScale) + padding;
-				int prevY = getHeight() - padding - (int) (prevPoint.getY() * yScale);
-				g2d.drawLine(prevX, prevY, x, y);
-			}
+	        if (prevPoint != null) {
+	            int prevX = (int) (prevPoint.getX() * xScale) + padding;
+	            int prevY = getHeight() - padding - (int) (prevPoint.getY() * yScale);
+	            g2d.drawLine(prevX, prevY, x, y);
+	        }
 
-			prevPoint = point;
+	        prevPoint = point;
 		}
 	}
 }
