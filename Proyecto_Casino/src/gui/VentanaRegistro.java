@@ -8,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
@@ -30,6 +27,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import domain.Usuario;
+import io.Fichero;
 
 public class VentanaRegistro extends JFrame{
 
@@ -232,7 +230,8 @@ public class VentanaRegistro extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Politica de privacidad abierta");
-				String datos = leerPoliticaDePrivacidad();
+				String rutaArchivo = "resources/data/PoliticaDePrivacidad.txt";
+				String datos = Fichero.leerFichero(rutaArchivo);
 				//Hacer que el tetxto aparezca en buenas condiciones
 				JTextArea area = new JTextArea(datos);
 				area.setEditable(false);
@@ -265,20 +264,6 @@ public class VentanaRegistro extends JFrame{
 			}
 		});
 	}
-	//Lee el fichero de politica de privacidad
-	public String leerPoliticaDePrivacidad() {
-		 String rutaArchivo = "resources/data/PoliticaDePrivacidad.txt";
-		 StringBuilder texto = new StringBuilder();
-	        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-	            String linea;
-	            while ((linea = br.readLine()) != null) {
-	            	texto.append(linea).append("\n");
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	       }
-	        return texto.toString();
-	   }
 	
 	public void validarFecha() {
         // Intentar analizar la fecha

@@ -7,9 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import domain.Point;
+import io.Fichero;
 
 public class VentanaAdminJuegos extends JFrame{
 
@@ -168,7 +167,8 @@ public class VentanaAdminJuegos extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String contenido =leerInforme();
+				String rutaArchivo = "resources/data/Informe.txt";
+				String contenido = Fichero.leerFichero(rutaArchivo);
 				//Hacer que el tetxto aparezca en buenas condiciones
 				JTextArea area = new JTextArea(contenido);
 				area.setEditable(false);
@@ -218,18 +218,5 @@ public class VentanaAdminJuegos extends JFrame{
 	        } catch (IOException e) {
 	        	logger.warning("Imposible crear informe");
 	        }
-	}
-	public String leerInforme() {
-		 String rutaArchivo = "resources/data/Informe.txt";
-		 StringBuilder texto = new StringBuilder();
-	        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-	            String linea;
-	            while ((linea = br.readLine()) != null) {
-	            	texto.append(linea).append("\n");
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	       }
-	        return texto.toString();
 	}
 }
