@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,8 +28,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -119,6 +119,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		
 		//Rellena la lista con usuarios de prueba
 		listaUsuarios = rellenarListaEjemplo();
+		Collections.sort(listaUsuarios, new MyComparator());
 		dlmUsuarios.addAll(listaUsuarios);
 		
 		JPanel pBuscador = new JPanel(new FlowLayout());
@@ -365,6 +366,14 @@ public class VentanaAdminUsuarios extends JFrame{
 				setBackground(Color.WHITE);
 			}
 			return this;
+		}
+		
+	}
+	class MyComparator implements Comparator<Usuario>{
+
+		@Override
+		public int compare(Usuario o1, Usuario o2) {
+			return (int) (o2.getSaldo()-o1.getSaldo());
 		}
 		
 	}
