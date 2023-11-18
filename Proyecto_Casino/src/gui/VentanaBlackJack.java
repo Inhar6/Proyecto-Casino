@@ -38,7 +38,7 @@ public class VentanaBlackJack extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger("VentanaBlackJack");
 	//Atributos
-	private List<Carta> listaCartas = crearBarajaCartas(crearBaraja());
+	private List<Carta> listaCartas = crearBarajaCartas(crearMapaBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
 	private static final int limitePulsaciones = 3;
@@ -237,7 +237,7 @@ public class VentanaBlackJack extends JFrame {
 	}
 	
     //Metodo crear la baraja
-    public Map<String,List<String>> crearBaraja() {
+    public Map<String,List<String>> crearMapaBaraja() {
     	Map<String,List<String>> mapaCartas = new HashMap<>();
     	 List<Carta> baraja = new ArrayList<>();
     	 String[] numeros = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
@@ -291,7 +291,7 @@ public class VentanaBlackJack extends JFrame {
     public Carta RepartirCarta(List<Carta> listaCartasBarajeada){
     	Random random = new Random();
     	int numeroRandom = random.nextInt(listaCartasBarajeada.size());
-    	Carta cartaDevolver = listaCartas.get(numeroRandom);
+    	Carta cartaDevolver = listaCartasBarajeada.get(numeroRandom);
     	listaCartasBarajeada.remove(numeroRandom);
     	return cartaDevolver;
     	
