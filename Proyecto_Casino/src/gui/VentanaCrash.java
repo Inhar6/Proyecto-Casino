@@ -66,7 +66,7 @@ public class VentanaCrash extends JFrame{
 	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");
 	private JLabel lMultiplicador = new JLabel("Numero final: " + multiplicador);
-	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
+//	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
 	
 	private JButton bSacar = new JButton("Sacar");
 	
@@ -151,7 +151,7 @@ public class VentanaCrash extends JFrame{
         bSacar.setEnabled(false);
         pSacar.add(lGanado);
         pSacar.add(lMultiplicador);
-        pSacar.add(lNumeroCrono);
+//        pSacar.add(lNumeroCrono);
         
         VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			
@@ -236,7 +236,7 @@ public class VentanaCrash extends JFrame{
     }
 	private void actualizarEtiquetaTiempo() {
         lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
-        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
+//        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
     }
 	
 
@@ -300,13 +300,4 @@ public class VentanaCrash extends JFrame{
 	public static double obtenerMultiplicador(int numeroX, int segundos) {
 		return numeroX + (segundos/100.0);
 	}
-	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new VentanaCrash();
-
-			}
-		});
-	}	
 }
