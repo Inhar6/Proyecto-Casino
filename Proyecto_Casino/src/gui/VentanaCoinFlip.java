@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -64,6 +66,13 @@ public class VentanaCoinFlip extends JFrame{
 		setTitle("Coin-Flip");
 		// Centra la ventana en el centro de la pantlla
 		setLocationRelativeTo(null);
+        // Contador ventanas abiertas
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                VentanaPanelMenu.contadorVentanaJuego = 0; // Reiniciar el contador
+            }
+        });
 		setVisible(true);
 			
 		JMenuBar menuBar1 = new JMenuBar();
