@@ -98,6 +98,7 @@ public class VentanaCoinFlip extends JFrame{
       	JList<String> lstHistorial = new JList<>(dlmHistorial);
       	JScrollPane scroll = new JScrollPane(lstHistorial);
       	 
+      	/////
 		contentPane = new JPanel();
 
 		setContentPane(contentPane);
@@ -280,8 +281,45 @@ public class VentanaCoinFlip extends JFrame{
 				
 			}
 		}); 
- 
+        
 	}
+	 
+  	public static Boolean obtenerCara(String resultado) {
+  		
+  		if (resultado == "Cara") {
+  			return true;
+  		}else {
+  			return false;
+  	  	}
+  	}
+  			
+  	
+  	public static boolean obtenerCruz(String resultado) {
+  		
+  		if (resultado == "Cruz") {
+  			return true;
+  		}else {
+  			return false;
+  		}	
+  	}
+  	
+  	public static boolean obtenerEnabledCara(boolean getEnabled) {
+  		
+  		if (getEnabled == true) {
+  			return true;
+  		}else {
+  			return false;
+  		}
+  	}
+  	
+  	public static boolean obtenerEnabledCruz(boolean getEnabled) {
+  		
+  		if (getEnabled == true) {
+  			return true;
+  		}else {
+  			return false;
+  		}
+  	}
 
 }
 	
