@@ -44,6 +44,8 @@ public class VentanaBlackJack extends JFrame {
 	private double nuevoBalance;
 	private double ganado;
 	private static final int limitePulsaciones = 3;
+	//Apuesta
+	private double ap = 0.0;
 
 
 	public VentanaBlackJack() {
@@ -192,7 +194,9 @@ public class VentanaBlackJack extends JFrame {
 					textoActualCrupier = textAreaCrupier.getText();
 				}
 				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
-				saberGanador(puntuacionCrupier,puntuacionJugador);
+				double ganancia =saberGanador(puntuacionCrupier,puntuacionJugador);
+				VentanaPanelMenu.balance +=ganancia;
+				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 			}
 		});
         
@@ -226,6 +230,7 @@ public class VentanaBlackJack extends JFrame {
 			if(VentanaPanelMenu.apuesta == 0 ) {
 				JOptionPane.showMessageDialog(null, "Debes introducir una cantidad para apostar", "Apuesta",JOptionPane.INFORMATION_MESSAGE);
 			}else {
+				ap = VentanaPanelMenu.apuesta;
 				VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
 
 				reiniciarJuego( botonPlantarse, botonPedirCarta, botonDoblar, textAreaCrupier, textAreaJugador);
@@ -392,42 +397,54 @@ public class VentanaBlackJack extends JFrame {
     
     
     
-    public void saberGanador(int puntuacionCrupier, int puntuacionJugador) {
+    public Double saberGanador(int puntuacionCrupier, int puntuacionJugador) {
     	if(puntuacionCrupier>21 & puntuacionJugador>21) {
     		JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    		 ganado =   VentanaPanelMenu.apuesta;
+    		/* 
+    		ganado =   VentanaPanelMenu.apuesta;
  			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
  			 VentanaPanelMenu.balance = nuevoBalance;
- 			 
+ 			 */
+    		return ap;
     		
     	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
     		JOptionPane.showMessageDialog(null, "Has ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-			ganado =   VentanaPanelMenu.apuesta*2;
+			/*
+    		ganado =   VentanaPanelMenu.apuesta*2;
 			nuevoBalance = VentanaPanelMenu.balance + ganado ;
 			VentanaPanelMenu.balance = nuevoBalance;
-
+			*/
+			return ap *2;
     		
     	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
     		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    	}else {
+    		return 0.0;
+    	}
+    	else {
     		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
     		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
     			 JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    			 /*
     			 ganado =   VentanaPanelMenu.apuesta;
      			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
      			 VentanaPanelMenu.balance = nuevoBalance;
-    			 
+     			 */
+    			 return ap;
              }else if(jugadorGanador == 1) {
             	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+            	 return 0.0;
              }else if(jugadorGanador == 2) {
             	 
             	 JOptionPane.showMessageDialog(null, "Has Ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+            	 /*
             	 ganado =   VentanaPanelMenu.apuesta*2;
      			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
      			 VentanaPanelMenu.balance = nuevoBalance;  
-
+				*/
+            	 return ap *2;
              }
     	}
+    	return ap;
     }
     
     public void reiniciarJuego(JButton botonPlantarse, JButton botonPedirCarta, JButton botonDoblar, JTextArea textAreaCrupier, JTextArea textAreaJugador) {
