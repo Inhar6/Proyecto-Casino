@@ -11,7 +11,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -25,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import domain.Point;
+import domain.Usuario;
 import io.Fichero;
 
 public class VentanaAdminJuegos extends JFrame{
@@ -219,4 +223,47 @@ public class VentanaAdminJuegos extends JFrame{
 	        	logger.warning("Imposible crear informe");
 	        }
 	}
+	
+	/*
+	 * RULETA
+	 */
+	//Funcion divide la lista de usuarios en un mapa <Usuario:Totalganancaias>
+	public Map<Usuario, Double> obtenerMapaGananciasPorUsuarios(List<Usuario> usuarios){
+		Map<Usuario, Double> mapa = new HashMap<>();
+		for(Usuario user: usuarios) {
+			mapa.putIfAbsent(user, 0.0);
+			Map<Integer, Map<Integer, Double>> mapaRuleta = user.getMapaRuleta();
+			for(Map<Integer, Double> apuesta : mapaRuleta.values()) {
+				for(Double n : apuesta.values()) {
+					mapa.put(user, mapa.get(user)+n);
+				}
+			}
+		}
+		return mapa;
+	}
+	//Funcion Usuario con mayor numero de tiradas
+	public Usuario obtenerUsuarioConMayorNumeroDeTiradas(List<Usuario> usuarios) {
+		Usuario usuario = new Usuario();
+		int tamaño = 0;
+		for(Usuario user : usuarios) {
+			Map<Integer, Map<Integer, Double>> mapa = user.getMapaRuleta();
+			int tiradas = mapa.size();
+			if(tiradas > tamaño) {
+				usuario = user;
+				tamaño = tiradas;
+			}
+		}
+		return usuario;
+	}
+	//Total ganancias/perdidas
+	public Double obtenerTotalGanancias(List<Usuario> usuarios) {
+		double total= 0;
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuarios(usuarios);
+		for(Double t : mapaUsuarios.values()) {
+			total += t;
+		}
+		return total;
+		
+	}
+	
 }
