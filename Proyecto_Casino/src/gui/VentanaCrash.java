@@ -63,9 +63,9 @@ public class VentanaCrash extends JFrame{
 	
 	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
 	private JLabel lApostado = new JLabel("Apostado: ");
-	private JLabel lNumeroRandom = new JLabel("Numero random: ");
+//	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");
-	private JLabel lMultiplicador = new JLabel("Numero final: " + multiplicador);
+	private JLabel lMultiplicador = new JLabel("Multiplicador: " + multiplicador);
 //	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
 	
 	private JButton bSacar = new JButton("Sacar");
@@ -192,7 +192,7 @@ public class VentanaCrash extends JFrame{
 //			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
 //			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
-			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
+//			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
 		        } else {
 		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
 		        	contadorApostar--;
@@ -286,7 +286,7 @@ public class VentanaCrash extends JFrame{
 			dtmTabla.addRow(jugadaLose);
 		}	
 	}
-	// Test
+	//
 	public static double calcularGanado(double multiplicador, double apuesta) {
 		return multiplicador * apuesta;
 	}
