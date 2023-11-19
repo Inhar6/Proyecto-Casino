@@ -82,7 +82,7 @@ public class VentanaBlackJack extends JFrame {
         JPanel paneldecartas = new JPanel((new GridLayout(2,1)));
         JPanel panelCrupier = new JPanel(new GridLayout(2,1));
         JPanel panelJugador = new JPanel(new GridLayout(2,1));
-        JPanel panelBotones = new JPanel(new GridLayout(1,4));
+        JPanel panelBotones = new JPanel(new GridLayout(1,3));
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
         
      
@@ -109,7 +109,7 @@ public class VentanaBlackJack extends JFrame {
         panelJugador.add(textAreaJugador);
         
      
-        JButton botonJugar = new JButton("Jugar");
+       
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
@@ -120,7 +120,7 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
         
-        panelBotones.add(botonJugar);
+       
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
@@ -134,26 +134,11 @@ public class VentanaBlackJack extends JFrame {
         
         
         
-        
         botonPedirCarta.setEnabled(false);
         botonPlantarse.setEnabled(false);
         botonDoblar.setEnabled(false);
         
-        botonJugar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				  botonPedirCarta.setEnabled(true);
-			      botonPlantarse.setEnabled(true);
-			      botonDoblar.setEnabled(true);
-			      ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
-			      ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
-			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
-			      ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
-			      botonJugar.setEnabled(false);
-				
-			}
-		});
+       
         
         
         botonAyuda.addActionListener(new ActionListener() {
@@ -231,8 +216,25 @@ public class VentanaBlackJack extends JFrame {
 				
 			}
 		});
-       
-     
+
+     VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			reiniciarJuego( botonPlantarse, botonPedirCarta, botonDoblar, textAreaCrupier, textAreaJugador);
+			ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+			ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+			ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+			ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+			
+			botonPedirCarta.setEnabled(true);
+			botonPlantarse.setEnabled(true);
+			botonDoblar.setEnabled(true);
+	
+			
+		}
+	});
+
         
 	}
 	
@@ -401,6 +403,19 @@ public class VentanaBlackJack extends JFrame {
              }
     	}
     }
+    
+    public void reiniciarJuego(JButton botonPlantarse, JButton botonPedirCarta, JButton botonDoblar, JTextArea textAreaCrupier, JTextArea textAreaJugador) {
+    	contadorBoton = 0;
+    	
+    	botonPlantarse.setEnabled(false);
+		botonPedirCarta.setEnabled(false);
+		botonDoblar.setEnabled(false);
+		
+		textAreaCrupier.setText("");
+		textAreaJugador.setText("");
+		
+		
+		  }
     
     
     
