@@ -13,7 +13,7 @@ public class VentanaCoinFlipTest {
 	
 	@Test
 	public void testObtenerCruz(){
-		assertEquals(true, VentanaCoinFlip.obtenerCara("Cruz"));
+		assertEquals(true, VentanaCoinFlip.obtenerCruz("Cruz"));
 	}
 	
 	@Test
