@@ -241,6 +241,19 @@ public class VentanaAdminJuegos extends JFrame{
 		}
 		return mapa;
 	}
+	//Funcion usuario con mayor ganancia
+	public Usuario obtenerUsuarioConMayorGanancia(List<Usuario> usuarios) {
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuarios(usuarios);
+		double ganancia = 0;
+		Usuario u = new Usuario();
+		for(Entry<Usuario, Double> entry : mapaUsuarios.entrySet()) {
+			if(entry.getValue()>ganancia) {
+				ganancia = entry.getValue();
+				u = entry.getKey();
+			}
+		}
+		return u;
+	}
 	//Funcion Usuario con mayor numero de tiradas
 	public Usuario obtenerUsuarioConMayorNumeroDeTiradas(List<Usuario> usuarios) {
 		Usuario usuario = new Usuario();
