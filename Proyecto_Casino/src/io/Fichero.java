@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 public class Fichero {
 	
 	private static final Logger logger = Logger.getLogger("Ventana Administrador Juegos");
@@ -20,6 +22,7 @@ public class Fichero {
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            logger.info("Fallo en la lectura del fichero");
+	            JOptionPane.showMessageDialog(null, "Imposible acceder al fichero seleccionado");
 	       }
 	        return texto.toString();
 	}
