@@ -1,6 +1,8 @@
 package gui;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,10 +28,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Carta;
+import gui.VentanaCrash.MyRender;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -41,11 +51,14 @@ public class VentanaBlackJack extends JFrame {
 	private List<Carta> listaCartas = crearBarajaCartas(crearMapaBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
-	private double nuevoBalance;
-	private double ganado;
 	private static final int limitePulsaciones = 3;
 	//Apuesta
 	private double ap = 0.0;
+	
+	//Tabla Historial
+	private JTable tabla;
+	private DefaultTableModel dtmTabla;
+	private JScrollPane scroll;
 
 
 	public VentanaBlackJack() {
@@ -99,6 +112,7 @@ public class VentanaBlackJack extends JFrame {
         paneldecartas.add(panelJugador);
         
         JLabel labelTitulo = new JLabel("BLACKJACK");
+        JPanel panelHistorial = new JPanel();
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
         
@@ -111,9 +125,10 @@ public class VentanaBlackJack extends JFrame {
         panelCrupier.add(textAreaCrupier);
         panelJugador.add(labelJugador);
         panelJugador.add(textAreaJugador);
-        
-     
        
+  
+        
+        
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
@@ -123,6 +138,11 @@ public class VentanaBlackJack extends JFrame {
         
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
+        
+        panelTitulo.add(panelHistorial);
+        panelHistorial.add(tabla);
+        
+        
         
        
         panelBotones.add(botonPedirCarta);
@@ -250,6 +270,10 @@ public class VentanaBlackJack extends JFrame {
 
         
 	}
+	
+	
+	
+	
 	
     //Metodo crear la baraja
     public Map<String,List<String>> crearMapaBaraja() {
@@ -400,20 +424,12 @@ public class VentanaBlackJack extends JFrame {
     public Double saberGanador(int puntuacionCrupier, int puntuacionJugador) {
     	if(puntuacionCrupier>21 & puntuacionJugador>21) {
     		JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    		/* 
-    		ganado =   VentanaPanelMenu.apuesta;
- 			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
- 			 VentanaPanelMenu.balance = nuevoBalance;
- 			 */
+    	
     		return ap;
     		
     	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
     		JOptionPane.showMessageDialog(null, "Has ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-			/*
-    		ganado =   VentanaPanelMenu.apuesta*2;
-			nuevoBalance = VentanaPanelMenu.balance + ganado ;
-			VentanaPanelMenu.balance = nuevoBalance;
-			*/
+			
 			return ap *2;
     		
     	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
@@ -424,11 +440,7 @@ public class VentanaBlackJack extends JFrame {
     		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
     		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
     			 JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    			 /*
-    			 ganado =   VentanaPanelMenu.apuesta;
-     			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
-     			 VentanaPanelMenu.balance = nuevoBalance;
-     			 */
+    			
     			 return ap;
              }else if(jugadorGanador == 1) {
             	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
@@ -436,11 +448,7 @@ public class VentanaBlackJack extends JFrame {
              }else if(jugadorGanador == 2) {
             	 
             	 JOptionPane.showMessageDialog(null, "Has Ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-            	 /*
-            	 ganado =   VentanaPanelMenu.apuesta*2;
-     			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
-     			 VentanaPanelMenu.balance = nuevoBalance;  
-				*/
+            	
             	 return ap *2;
              }
     	}
