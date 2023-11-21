@@ -55,10 +55,7 @@ public class VentanaBlackJack extends JFrame {
 	//Apuesta
 	private double ap = 0.0;
 	
-	//Tabla Historial
-	private JTable tabla;
-	private DefaultTableModel dtmTabla;
-	private JScrollPane scroll;
+
 
 
 	public VentanaBlackJack() {
@@ -92,75 +89,68 @@ public class VentanaBlackJack extends JFrame {
             }
         });
         
-       
+       //Paneles
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelTitulo = new JPanel(new GridLayout(1,3));
-        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel panelTitulo = new JPanel(new GridLayout(1,2));
         JPanel paneldecartas = new JPanel((new GridLayout(2,1)));
         JPanel panelCrupier = new JPanel(new GridLayout(2,1));
         JPanel panelJugador = new JPanel(new GridLayout(2,1));
-        JPanel panelBotones = new JPanel(new GridLayout(1,3));
-        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
-        
-     
-        add(panelPrincipal);
-        panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
-        panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
-        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
-        
-        paneldecartas.add(panelCrupier);
-        paneldecartas.add(panelJugador);
-        
-        JLabel labelTitulo = new JLabel("BLACKJACK");
+        JPanel panelBotones = new JPanel(new GridLayout(1,4));
         JPanel panelHistorial = new JPanel();
+        panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
+        
+        //LabelTitulo
+        JLabel labelTitulo = new JLabel("BLACKJACK");
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
         
+        //Label y TextAreas Crupier y Jugador
         JLabel labelCrupier = new JLabel("CRUPIER");
         JTextArea textAreaCrupier = new JTextArea();
         JLabel labelJugador = new JLabel("JUGADOR");
         JTextArea textAreaJugador = new JTextArea();
         
-        panelCrupier.add(labelCrupier);
-        panelCrupier.add(textAreaCrupier);
-        panelJugador.add(labelJugador);
-        panelJugador.add(textAreaJugador);
-       
-  
-        
-        
+        //Botones
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
-        
         JButton botonAyuda = new JButton(new ImageIcon("resources/images/iconos/favicon.png"));
         botonAyuda.setPreferredSize(new Dimension (30,30));
+        JButton botonHistorial = new JButton("Historial");
         
+        //Añadir al panel Principal
+        add(panelPrincipal);
+        panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
+        panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
+        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
+        
+        //Añadir al panel de cartas
+        paneldecartas.add(panelCrupier);
+        paneldecartas.add(panelJugador);
+       
+        //Añadir al panelCrupier
+        panelCrupier.add(labelCrupier);
+        panelCrupier.add(textAreaCrupier);
+        
+        //Añadir al panelJugador
+        panelJugador.add(labelJugador);
+        panelJugador.add(textAreaJugador);
+        
+        //Añadir al panel Titulo
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
-        
         panelTitulo.add(panelHistorial);
-        panelHistorial.add(tabla);
+      
         
-        //JTable - Historial
-      	dtmTabla= new DefaultTableModel();
-      	tabla = new JTable(dtmTabla);
-      	tabla.setEnabled(false);
-      	tabla.setDefaultRenderer(Object.class, new MyRender());
-      	scroll = new JScrollPane(tabla);
-      	
-      	Border lineaHistorial = BorderFactory.createLineBorder(VentanaPanelMenu.colorPanel);
-      	Border tituloHistorial = BorderFactory.createTitledBorder(lineaHistorial,"Historial");
-      	
-    	panelHistorial.setBorder(tituloHistorial);
-    	dtmTabla.addColumn("Tirada");
-		dtmTabla.addColumn("Resultado");
-		dtmTabla.addColumn("Ganancia/Perdida");
-        
-       
+ 
+		
+		
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
+        panelBotones.add(botonHistorial);
+        
         
         String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
         		+ "1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)\n\n"
@@ -286,23 +276,7 @@ public class VentanaBlackJack extends JFrame {
 	
 	
 	
-	public class MyRender extends JLabel implements TableCellRenderer {
 
-	    private static final long serialVersionUID = 1L;
-
-	    public MyRender() {
-	        setOpaque(true);
-	        setFont(new Font("Bold", Font.BOLD, 10));
-	    }
-
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	  
-	}
 	
     //Metodo crear la baraja
     public Map<String,List<String>> crearMapaBaraja() {
