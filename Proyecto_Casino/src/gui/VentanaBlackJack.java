@@ -142,7 +142,20 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(panelHistorial);
         panelHistorial.add(tabla);
         
-        
+        //JTable - Historial
+      	dtmTabla= new DefaultTableModel();
+      	tabla = new JTable(dtmTabla);
+      	tabla.setEnabled(false);
+      	tabla.setDefaultRenderer(Object.class, new MyRender());
+      	scroll = new JScrollPane(tabla);
+      	
+      	Border lineaHistorial = BorderFactory.createLineBorder(VentanaPanelMenu.colorPanel);
+      	Border tituloHistorial = BorderFactory.createTitledBorder(lineaHistorial,"Historial");
+      	
+    	panelHistorial.setBorder(tituloHistorial);
+    	dtmTabla.addColumn("Tirada");
+		dtmTabla.addColumn("Resultado");
+		dtmTabla.addColumn("Ganancia/Perdida");
         
        
         panelBotones.add(botonPedirCarta);
@@ -273,7 +286,23 @@ public class VentanaBlackJack extends JFrame {
 	
 	
 	
-	
+	public class MyRender extends JLabel implements TableCellRenderer {
+
+	    private static final long serialVersionUID = 1L;
+
+	    public MyRender() {
+	        setOpaque(true);
+	        setFont(new Font("Bold", Font.BOLD, 10));
+	    }
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	  
+	}
 	
     //Metodo crear la baraja
     public Map<String,List<String>> crearMapaBaraja() {
