@@ -52,6 +52,11 @@ public class VentanaBlackJack extends JFrame {
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
 	private static final int limitePulsaciones = 3;
+	
+	private JTable tabla;
+	private DefaultTableModel defaultTableModel;
+	private JScrollPane scrollPane;
+	
 	//Apuesta
 	private double ap = 0.0;
 	
@@ -141,6 +146,25 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
         panelTitulo.add(panelHistorial);
+        
+        //Historial JTextArea
+        JTextArea historialTextArea = new JTextArea();
+        
+      //Tabla historial
+        defaultTableModel= new DefaultTableModel();
+      	tabla = new JTable(defaultTableModel);
+      	tabla.setEnabled(true);
+      	scrollPane = new JScrollPane(tabla);
+      	
+    	defaultTableModel.addColumn("Partida");
+    	defaultTableModel.addColumn("Resultado");
+    	defaultTableModel.addColumn("Ganancia/Perdida");
+    	
+    	
+    	defaultTableModel.addRow(new Object[] {"1","Jugador","Ganancia"});
+    	defaultTableModel.addRow(new Object[] {"2","Crupier","Perdida"});
+    	defaultTableModel.addRow(new Object[] {"3","Jugador","Ganancia"});
+    	defaultTableModel.addRow(new Object[] {"4","Crupier","Perdida"});
       
         
  
@@ -270,11 +294,28 @@ public class VentanaBlackJack extends JFrame {
 			
 		}
 	});
+     
+     botonHistorial.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mostrarTabla();
+		
+			
+		}
+	});
 
         
 	}
 	
 	
+
+	
+	
+	public void mostrarTabla() {
+		JOptionPane.showMessageDialog(null, scrollPane, "Tabla", JOptionPane.PLAIN_MESSAGE);
+		
+	}
 	
 
 	
