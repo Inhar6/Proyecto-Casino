@@ -17,9 +17,9 @@ public class Usuario implements Comparable<Usuario>{
 	private int numeroCuenta;
 	private double saldo;
 	//Mapas de historiales
-	private Map<Integer, Map<Integer, Double>> mapaRuleta ;
+	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
 	//Lista balance
-	private List<Point> lstBalance;
+	private List<Point> lstBalance = new ArrayList<>();
 	
 	
 	//Constructores
