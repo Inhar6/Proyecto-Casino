@@ -13,9 +13,10 @@ import domain.Usuario;
 
 public class DBManager {
 	
-	private Connection conn = null;
+	private static Connection conn = null;
 	public static final String URL = "resources/db/NoEscasino.db";
-	public void connect(String dbPath) {
+	
+	public static void connect(String dbPath) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:"+dbPath);
@@ -26,7 +27,7 @@ public class DBManager {
 		}
 	}
 	
-	public void disconnect() {
+	public static void disconnect() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -34,20 +35,24 @@ public class DBManager {
 		}
 	}
 	
-	public List<Usuario> obtenerTodosLosUsuarios(){
+	public static List<Usuario> obtenerTodosLosUsuarios(){
 		List<Usuario> lstUsuarios = new ArrayList<>();
 		try(Statement stmt = conn.createStatement()){
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuarios");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario ");
 			
 			while(rs.next()) {
 				Usuario user = new Usuario();
+				//Usuario
 				user.setNombre(rs.getString("nombre"));
-				user.setApellidos(rs.getString("apellido"));
+				user.setApellidos(rs.getString("apellidos"));
 				user.setDNI(rs.getString("dni"));
-				user.setNombreUsuario(rs.getString("nombreU"));
-				user.setContraseña(rs.getString("contraseña"));
+				user.setNombreUsuario(rs.getString("nombre_usuario"));
+				user.setContraseña(rs.getString("contrasena"));
 				user.setSaldo(rs.getDouble("saldo"));
-				user.setNumeroCuenta(rs.getInt("NCuenta"));
+				user.setNumeroCuenta(rs.getInt("numero_cuenta"));
+				//Ruleta
+				user.addMapaRuleta(rs.getInt("tirada"), rs.getInt("numero"), rs.getDouble("ganancia"));
+				//Añadir a la lista el usuario
 				lstUsuarios.add(user);
 			}
 			return lstUsuarios;
@@ -57,7 +62,22 @@ public class DBManager {
 		return lstUsuarios;
 	}
 	
-	public void crearTablaUsuario() {
+	public static void añadirUsuario(Usuario user) {
+		String sql = "INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES (?, ?, ?, 0, 0, ?, ?);";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, user.getNombre());
+			pstmt.setString(2, user.getApellidos());
+			pstmt.setString(3, user.getDNI());
+			pstmt.setString(4, user.getContraseña());
+			pstmt.setString(5, user.getNombreUsuario());
+			pstmt.executeUpdate();
+			System.out.println("Registro exitoso");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void crearTablaUsuario() {
 		try(Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Usuario (\n"
 					+ "    	nombre VARCHAR(255),\n"
@@ -72,7 +92,7 @@ public class DBManager {
 		}
 	}
 	
-	public void añadirUsuariosEjemplo() {
+	public static void añadirUsuariosEjemplo() {
 		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES\r\n"
 				+ "    		('Nombre1', 'Apellido1', '11111111A', 1000.0, 12345, 'contrasena1', 'usuario1'),\r\n"
 				+ "    		('Nombre2', 'Apellido2', '22222222B', 1500.0, 67890, 'contrasena2', 'usuario2'),\r\n"
@@ -95,7 +115,7 @@ public class DBManager {
 		}
 	}
 	
-	public void crearTablaRuleta() {
+	public static void crearTablaRuleta() {
 		try (Statement stmt = conn.createStatement()){
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Ruleta (\n"
 					+ "    	numero INTEGER,\n"
@@ -107,7 +127,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	public void añadirRuletaEjemplo() {
+	public static void añadirRuletaEjemplo() {
 		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 100.0, 10, 'usuario1'),\r\n"
 				+ "	    (2, 150.0, 15, 'usuario2'),\r\n"
