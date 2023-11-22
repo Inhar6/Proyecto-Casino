@@ -166,7 +166,7 @@ public class VentanaBlackJack extends JFrame {
     	defaultTableModel.addRow(new Object[] {"3","Jugador","Ganancia"});
     	defaultTableModel.addRow(new Object[] {"4","Crupier","Perdida"});
       
-        
+      	tabla.setDefaultRenderer(Object.class, new MyRender());
  
 		
 		
@@ -317,6 +317,38 @@ public class VentanaBlackJack extends JFrame {
 		
 	}
 	
+	public class MyRender extends JLabel implements TableCellRenderer {
+
+	    private static final long serialVersionUID = 1L;
+	    
+	    
+	    public MyRender(){
+	    	
+	    }
+	    
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+				
+		setText(value.toString());
+		setOpaque(false);
+			
+		if("Jugador".equals(value) && column==1) {
+			setBackground(Color.GREEN);
+			setOpaque(true);
+		}else if ("Crupier".equals(value)&& column == 1) {
+			setBackground(Color.red);
+			setOpaque(true);
+				
+		}else {
+			setBackground(table.getBackground());
+			}
+			
+			return this;
+		}
+
+
+	    }
 
 	
     //Metodo crear la baraja
@@ -529,4 +561,6 @@ public class VentanaBlackJack extends JFrame {
         
         
 	}
+
+
 }
