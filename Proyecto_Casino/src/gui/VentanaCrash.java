@@ -174,7 +174,7 @@ public class VentanaCrash extends JFrame{
 		                    	valor++;
 		                        progressBar.setString("x" + numeroX + "." + segundos);
 		                      	progressBar.setValue(valor);
-		                        actualizarEtiquetaTiempo();
+//		                        actualizarEtiquetaTiempo();
 		                        if(segundos == 99) {
 		                        	segundos = 0;
 		                        	numeroX++;
@@ -234,10 +234,10 @@ public class VentanaCrash extends JFrame{
     	lose = false;
     	logger.info("Se ha reseteado el juego (Crash)");
     }
-	private void actualizarEtiquetaTiempo() {
-        lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
-//        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
-    }
+//	private void actualizarEtiquetaTiempo() {
+////        lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
+////        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
+//    }
 	
 
 	public class MyRender extends JLabel implements TableCellRenderer {
