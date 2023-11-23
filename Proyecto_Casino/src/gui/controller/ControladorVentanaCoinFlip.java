@@ -6,7 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import gui.VentanaCoinFlip;
-import io.PropiedadesCoinFlip;
+import io.Propiedades;
 
 public class ControladorVentanaCoinFlip extends WindowAdapter implements ActionListener {
 
@@ -15,7 +15,7 @@ public class ControladorVentanaCoinFlip extends WindowAdapter implements ActionL
 
 		VentanaCoinFlip v = (VentanaCoinFlip) e.getWindow();
 
-		PropiedadesCoinFlip x = v.getPropiedades();
+		Propiedades x = v.getPropiedades();
 
 		x.guardar();
 

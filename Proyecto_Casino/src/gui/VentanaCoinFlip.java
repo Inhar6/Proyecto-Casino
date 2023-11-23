@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import io.PropiedadesCoinFlip;
+import io.Propiedades;
 
 import javax.swing.SwingUtilities;
 
@@ -66,15 +66,15 @@ public class VentanaCoinFlip extends JFrame {
 
 	private ControladorVentanaCoinFlip controladorVentana;
 	
-	private PropiedadesCoinFlip propiedades;
+	private Propiedades propiedades;
 
-	public PropiedadesCoinFlip getPropiedades()
+	public Propiedades getPropiedades()
 	{
 		return propiedades;
 	}
 	public VentanaCoinFlip() {
 
-		propiedades = new PropiedadesCoinFlip();
+		propiedades = new Propiedades();
 		propiedades.cargar();
 
 		controladorVentana = new ControladorVentanaCoinFlip()	;	

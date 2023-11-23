@@ -5,11 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class PropiedadesCoinFlip extends Properties {
+public class Propiedades extends Properties {
 
 	private static final long serialVersionUID = 1L;
 
-	public PropiedadesCoinFlip() {
+	public Propiedades() {
 
 		super();
 
