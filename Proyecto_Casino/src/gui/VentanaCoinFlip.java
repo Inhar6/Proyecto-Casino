@@ -261,13 +261,16 @@ public class VentanaCoinFlip extends JFrame {
 								public void run() {
 									switch (estado) {
 									case 0:
-										lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cara.png"));
+										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cara.png"));
+										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cara")));
 										break;
 									case 1:
-										lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cruz.png"));
+										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cruz.png"));
+										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
 										break;
 									case 2:
-										lFotos.setIcon(new ImageIcon("resources/images/caraCruz/canto.png"));
+										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/canto.png"));
+										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("canto")));
 										break;
 									}
 								}
@@ -283,10 +286,12 @@ public class VentanaCoinFlip extends JFrame {
 
 										if (i == 0) {
 											resultado = "Cara";
-											lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cara.png"));
+											//lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cara.png"));
+											lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cara")));
 										} else {
 											resultado = "Cruz";
-											lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cruz.png"));
+											//lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cruz.png"));
+											lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
 										}
 									}
 								} else if (cont == 2) {
