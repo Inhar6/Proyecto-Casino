@@ -245,6 +245,19 @@ public class VentanaBlackJack extends JFrame {
 				double ganancia =saberGanador(puntuacionCrupier,puntuacionJugador);
 				VentanaPanelMenu.balance +=ganancia;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+				
+				
+				saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+				
+				if(Crupier) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","-"+ap});
+				}else if(Jugador) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador","+"+ap});
+				}else if(Empate){
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
+				}
+				
+				contadorPartida++;
 			}
 		});
         
@@ -260,37 +273,14 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
         
-        botonPlantarse.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				String textoActualCrupier = textAreaCrupier.getText();
-				String textoActualJugador = textAreaJugador.getText();
-				
-				int puntuacionCrupier = ContadorPuntuacionCrupier(textoActualCrupier);
-				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
-				
-				saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
-				
-				if(Crupier) {
-					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","Ganancia"});
-				}else if(Jugador) {
-					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador","Ganancia"});
-				}else {
-					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
-				}
-				
-				contadorPartida++;
-				
-			}
-		});
+       
         
         botonDoblar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has doblado la apuesta");
+		
 				
 				
 				
@@ -551,7 +541,7 @@ public class VentanaBlackJack extends JFrame {
     			 return ap;
              }else if(jugadorGanador == 1) {
             	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-            	 Crupier = true;
+            	 
             	 return 0.0;
              }else if(jugadorGanador == 2) {
             	 
