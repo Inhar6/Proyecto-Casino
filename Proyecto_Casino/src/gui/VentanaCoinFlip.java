@@ -26,7 +26,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import io.PropiedadesCoinFlip;
+
 import javax.swing.SwingUtilities;
+
+import gui.controller.ControladorVentanaCoinFlip;
 
 public class VentanaCoinFlip extends JFrame {
 
@@ -59,9 +64,23 @@ public class VentanaCoinFlip extends JFrame {
 
 	private JPanel contentPane;
 
+	private ControladorVentanaCoinFlip controladorVentana;
+	
+	private PropiedadesCoinFlip propiedades;
+
+	public PropiedadesCoinFlip getPropiedades()
+	{
+		return propiedades;
+	}
 	public VentanaCoinFlip() {
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		propiedades = new PropiedadesCoinFlip();
+		propiedades.cargar();
+
+		controladorVentana = new ControladorVentanaCoinFlip()	;	
+		addWindowListener(controladorVentana);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Coin-Flip");
 		// Centra la ventana en el centro de la pantlla
@@ -81,18 +100,35 @@ public class VentanaCoinFlip extends JFrame {
 		setJMenuBar(menuBar1);
 
 		// botones
+		
+		//Cara
 		bCara = new JButton("Cara");
+		bCara.setActionCommand("Cara");
+		
+		bCara.addActionListener(controladorVentana);
+		
 		bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCara.setMargin(new Insets(10, 30, 10, 20));
-
+		
+		//Cruz
 		bCruz = new JButton("Cruz");
+		bCruz.setActionCommand("Cruz");
+		
+		bCara.addActionListener(controladorVentana);
+		
 		bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCruz.setMargin(new Insets(10, 30, 10, 20));
 
+		//BorrarSelec
 		bBorrarSelec = new JButton("Borrar seleccion");
+		bBorrarSelec.setActionCommand("Borrar seleccion");
+		
+		bBorrarSelec.addActionListener(controladorVentana);
+		
 		bBorrarSelec.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bBorrarSelec.setMargin(new Insets(10, 30, 10, 20));
 
+		
 		// lista
 		DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
 		JList<String> lstHistorial = new JList<>(dlmHistorial);
@@ -127,7 +163,12 @@ public class VentanaCoinFlip extends JFrame {
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 
 		JPanel panelMoneda = new JPanel();
-		lFotos = new JLabel(new ImageIcon("resources/images/caraCruz/cara.png"));
+		//lFotos = new JLabel(new ImageIcon( "resources/images/caraCruz/cara.png") );
+		
+		lFotos = new JLabel(new ImageIcon( getPropiedades().getProperty("cara") ) );
+		
+		
+		
 		panelMoneda.setBackground(Color.white);
 		panelMoneda.add(lFotos);
 		// panelMoneda.add(new JLabel(new
