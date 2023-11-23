@@ -18,12 +18,19 @@ public class Propiedades extends Properties {
 	public void guardar() {
 
 		// TODAS LAS PROPIEDADES AQUI
+		//coinflip 
 		setProperty("cara", "resources/images/caraCruz/cara.png");
 
 		setProperty("cruz", "resources/images/caraCruz/cruz.png");
 		
 		setProperty("canto", "resources/images/caraCruz/canto.png");
-
+		
+		//ruleta
+		
+		//blackJack
+		
+		//Menus
+		
 		// ...
 
 		try (FileOutputStream output = new FileOutputStream("config.properties")) {
