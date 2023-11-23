@@ -57,6 +57,12 @@ public class VentanaBlackJack extends JFrame {
 	private DefaultTableModel defaultTableModel;
 	private JScrollPane scrollPane;
 	
+	private boolean Crupier = false;
+	private boolean Jugador = false;
+	private boolean Empate = false;
+	
+	private int contadorPartida = 1;
+	
 	//Apuesta
 	private double ap = 0.0;
 	
@@ -160,12 +166,7 @@ public class VentanaBlackJack extends JFrame {
     	defaultTableModel.addColumn("Resultado");
     	defaultTableModel.addColumn("Ganancia/Perdida");
     	
-    	
-    	defaultTableModel.addRow(new Object[] {"1","Jugador","Ganancia"});
-    	defaultTableModel.addRow(new Object[] {"2","Crupier","Perdida"});
-    	defaultTableModel.addRow(new Object[] {"3","Jugador","Ganancia"});
-    	defaultTableModel.addRow(new Object[] {"4","Crupier","Perdida"});
-      
+
       	tabla.setDefaultRenderer(Object.class, new MyRender());
  
 		
@@ -259,6 +260,32 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
         
+        botonPlantarse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String textoActualCrupier = textAreaCrupier.getText();
+				String textoActualJugador = textAreaJugador.getText();
+				
+				int puntuacionCrupier = ContadorPuntuacionCrupier(textoActualCrupier);
+				int puntuacionJugador = ContadorPuntuacionJugador(textoActualJugador);
+				
+				saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+				
+				if(Crupier) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","Ganancia"});
+				}else if(Jugador) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador","Ganancia"});
+				}else {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
+				}
+				
+				contadorPartida++;
+				
+			}
+		});
+        
         botonDoblar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -299,6 +326,7 @@ public class VentanaBlackJack extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			mostrarTabla();
 		
 			
@@ -316,6 +344,7 @@ public class VentanaBlackJack extends JFrame {
 		JOptionPane.showMessageDialog(null, scrollPane, "Tabla", JOptionPane.PLAIN_MESSAGE);
 		
 	}
+
 	
 	public class MyRender extends JLabel implements TableCellRenderer {
 
@@ -496,10 +525,11 @@ public class VentanaBlackJack extends JFrame {
     }
     
     
-    
+    //Saber ganador para que aparezca el JoptionPane y para saber si sumarle o restarle a el saldo del jugador la apuesta hecha
     public Double saberGanador(int puntuacionCrupier, int puntuacionJugador) {
     	if(puntuacionCrupier>21 & puntuacionJugador>21) {
     		JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    		
     	
     		return ap;
     		
@@ -510,6 +540,7 @@ public class VentanaBlackJack extends JFrame {
     		
     	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
     		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+    		
     		return 0.0;
     	}
     	else {
@@ -520,15 +551,45 @@ public class VentanaBlackJack extends JFrame {
     			 return ap;
              }else if(jugadorGanador == 1) {
             	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+            	 Crupier = true;
             	 return 0.0;
              }else if(jugadorGanador == 2) {
             	 
             	 JOptionPane.showMessageDialog(null, "Has Ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+            	 
             	
             	 return ap *2;
              }
     	}
     	return ap;
+    }
+    //Saber quien ha ganado para actualizar la tabla
+    public void saberGanadorActualizarTabla(int puntuacionCrupier, int puntuacionJugador) {
+    	
+    	if(puntuacionCrupier>21 & puntuacionJugador>21) {
+    		Empate = true;
+    		
+    	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
+			Jugador = true;
+			
+    		
+    	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
+    		Crupier = true;
+    	}
+    	else {
+    		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
+    		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
+    			Empate=true;
+    			
+             }else if(jugadorGanador == 1) {
+            	 Crupier = true;
+            
+             }else if(jugadorGanador == 2) {
+            	 Jugador= true;
+            
+             }
+    	}
+    	
     }
     
     public void reiniciarJuego(JButton botonPlantarse, JButton botonPedirCarta, JButton botonDoblar, JTextArea textAreaCrupier, JTextArea textAreaJugador) {
