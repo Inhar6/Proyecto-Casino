@@ -127,10 +127,10 @@ public class VentanaCoinFlip extends JFrame{
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 			
 		JPanel panelMoneda = new JPanel();
-		lFotos = new JLabel();
+		lFotos = new JLabel( new ImageIcon("resources/images/caraCruz/cara.png") );
 		panelMoneda.setBackground(Color.white);
 		panelMoneda.add(lFotos);
-		panelMoneda.add(new JLabel(new ImageIcon("resources/images/caraCruz/cara.png")));
+		//panelMoneda.add(new JLabel(new ImageIcon("resources/images/caraCruz/cara.png")));
 			
 		JPanel panelHistorico = new JPanel();
 		panelHistorico.setLayout(new GridLayout(2, 1));
