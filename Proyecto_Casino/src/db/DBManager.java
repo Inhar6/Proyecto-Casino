@@ -61,8 +61,9 @@ public class DBManager {
 		}
 		return lstUsuarios;
 	}
-	
+		
 	public static void añadirUsuario(Usuario user) {
+		//Añadir un existe usuario
 		String sql = "INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES (?, ?, ?, 0, 0, ?, ?);";
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, user.getNombre());
@@ -72,6 +73,30 @@ public class DBManager {
 			pstmt.setString(5, user.getNombreUsuario());
 			pstmt.executeUpdate();
 			System.out.println("Registro exitoso");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	//Eliminar un usuario
+	public static void eliminarUsuario(Usuario user) {
+		String sql = "DELETE FROM Usuario WHERE nombre_usuario = ?;";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, user.getNombreUsuario());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	//Edita el nombre y la contraseña
+	public static void editarUsuario(Usuario user) {
+		String sql = "UPDATE Usuario SET nombre = ?, contrasena = ? WHERE nombre_usuario = ?;";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, user.getNombre());
+			pstmt.setString(2, user.getContraseña());
+			pstmt.setString(3, user.getNombreUsuario());
+			
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +117,22 @@ public class DBManager {
 		}
 	}
 	
+	public static void crearTablaRuleta() {
+		try (Statement stmt = conn.createStatement()){
+			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Ruleta (\n"
+					+ "    	numero INTEGER,\n"
+					+ "    	ganancia DOUBLE,\n"
+					+ "    	tirada INTEGER,\n"
+					+ "    	nombre_usuario VARCHAR(50),\n"
+					+ "    FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * AÑADIR DATOS DE EJEMPLO
+	 */
 	public static void añadirUsuariosEjemplo() {
 		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES\r\n"
 				+ "    		('Nombre1', 'Apellido1', '11111111A', 1000.0, 12345, 'contrasena1', 'usuario1'),\r\n"
@@ -115,18 +156,6 @@ public class DBManager {
 		}
 	}
 	
-	public static void crearTablaRuleta() {
-		try (Statement stmt = conn.createStatement()){
-			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Ruleta (\n"
-					+ "    	numero INTEGER,\n"
-					+ "    	ganancia DOUBLE,\n"
-					+ "    	tirada INTEGER,\n"
-					+ "    	nombre_usuario VARCHAR(50),\n"
-					+ "    FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	public static void añadirRuletaEjemplo() {
 		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 100.0, 10, 'usuario1'),\r\n"
