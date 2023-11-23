@@ -30,6 +30,7 @@ import javax.swing.border.Border;
 import domain.Point;
 import domain.Usuario;
 import io.Fichero;
+import main.Main;
 
 public class VentanaAdminJuegos extends JFrame{
 
@@ -42,6 +43,7 @@ public class VentanaAdminJuegos extends JFrame{
 	//Color del panel
 	private Color colorPanel = new Color(71, 113, 72);
 	//Elementos
+	private List<Usuario> lstUsuarios = new ArrayList<>(); 
 	private JLabel sup;
 	private JButton btn;
 	private JButton btnInformes;
@@ -74,25 +76,31 @@ public class VentanaAdminJuegos extends JFrame{
 		btn = new JButton("Leer Informe");
 		btnInformes = new JButton("Crear Informe");
 		
+		//LLenar la lista
+		lstUsuarios = Main.DBlstUsuarios;
+		
 		//Ruleta
 		Border lineaRuleta = BorderFactory.createLineBorder(Color.RED);
 		Border tituloRuleta = BorderFactory.createTitledBorder(lineaRuleta,"Ruleta");
 		puntosRuleta=puntosPrueba();
 		PanelGrafico grfRuleta = new PanelGrafico(puntosRuleta);
 		usuario = new JLabel("Usuario con mayor ganacia: ");
-		txtUsuario= new JLabel("Manolo");
+		Usuario a = obtenerUsuarioConMayorGanancia(lstUsuarios);
+		txtUsuario= new JLabel(""+ a.getNombreUsuario());
 		txtUsuario.setForeground(Color.GRAY);
 		numero= new JLabel("Numero mas repetido: ");
-		txtNumero= new JLabel("21");
+		txtNumero= new JLabel("23");
 		txtNumero.setForeground(Color.GRAY);
 		ganancia= new JLabel("Mayor ganancia en una tirada: ");
-		txtGanancia= new JLabel("30.000");
+		Usuario c = obtenerUsuarioConMayorGanancia(lstUsuarios);
+		txtGanancia= new JLabel(""+ c.getNombreUsuario());
 		txtGanancia.setForeground(Color.GRAY);
 		uso= new JLabel("Usuario con mayor numero de tiradas: ");
-		txtUso= new JLabel("Manolo");
+		Usuario d = obtenerUsuarioConMayorNumeroDeTiradas(lstUsuarios);
+		txtUso= new JLabel(""+ d.getNombreUsuario());
 		txtUso.setForeground(Color.GRAY);
 		totalGanancias= new JLabel("Total ganancias/perdidas: ");
-		txtTotalGanancias= new JLabel("100.000");
+		txtTotalGanancias= new JLabel(""+obtenerTotalGanancias(lstUsuarios));
 		txtTotalGanancias.setForeground(Color.GRAY);
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);

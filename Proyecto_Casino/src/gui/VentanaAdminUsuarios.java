@@ -33,8 +33,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import db.DBCreator;
 import domain.Point;
 import domain.Usuario;
+import main.Main;
 
 public class VentanaAdminUsuarios extends JFrame{
 
@@ -118,7 +120,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		grfBalance = new PanelGrafico(lstBalance);
 		
 		//Rellena la lista con usuarios de prueba
-		listaUsuarios = rellenarListaEjemplo();
+		listaUsuarios = Main.DBlstUsuarios;
 		Collections.sort(listaUsuarios, new MyComparator());
 		dlmUsuarios.addAll(listaUsuarios);
 		
