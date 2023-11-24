@@ -20,6 +20,8 @@ public class DBCreator {
 		System.out.println("Creando tabla Ruleta");
 		DBManager.crearTablaRuleta();
 		
+		System.out.println("Creando tabla Crash");
+		DBManager.crearTablaCrash();
 		/*
 		System.out.println("Añadiendo Datos de ejemplo en ruleta");
 		db.añadirRuletaEjemplo();

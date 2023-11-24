@@ -105,6 +105,7 @@ public class VentanaAdminJuegos extends JFrame{
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCrash = BorderFactory.createTitledBorder(lineaCrash,"Crash");
+		
 		//CoinFlip
 		Border lineaCoinFlip = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCoinFlip = BorderFactory.createTitledBorder(lineaCoinFlip,"CoinFlip");
