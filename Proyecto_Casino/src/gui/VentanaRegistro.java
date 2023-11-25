@@ -26,8 +26,10 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import db.DBManager;
 import domain.Usuario;
 import io.Fichero;
+import main.Main;
 
 public class VentanaRegistro extends JFrame{
 
@@ -253,7 +255,8 @@ public class VentanaRegistro extends JFrame{
 				if (camposCompletos()) {
 					Usuario u = new Usuario(txtNombre.getText(), txtApellido.getText(), txtDNI.getText(),
 							txtUsuario.getText(), txtContraseña.getText(), 0, 0);
-					VentanaAdminUsuarios.listaUsuarios.add(u);
+					Main.DBlstUsuarios.add(u);
+					DBManager.añadirUsuario(u);
 					logger.info("Nuevo usuario creado");
 					dispose();
 				} else {
