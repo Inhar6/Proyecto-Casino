@@ -61,7 +61,15 @@ public class VentanaAdminJuegos extends JFrame{
 	private JLabel totalGanancias;
 	private JLabel txtTotalGanancias;
 	//Estadisticas-->Crash
-	
+	private List<Point> puntosCrash;
+	private JLabel usuarioCrash;
+	private JLabel txtUsuarioCrash;
+	private JLabel gananciaCrash;
+	private JLabel txtGananciaCrash;
+	private JLabel usoCrash;
+	private JLabel txtUsoCrash;
+	private JLabel totalGananciasCrash;
+	private JLabel txtTotalGananciasCrash;
 	//Estadisticas-->CoinFlip
 	
 	//Estadisticas-->BlackJack
@@ -102,13 +110,32 @@ public class VentanaAdminJuegos extends JFrame{
 		totalGanancias= new JLabel("Total ganancias/perdidas: ");
 		txtTotalGanancias= new JLabel(""+obtenerTotalGanancias(lstUsuarios));
 		txtTotalGanancias.setForeground(Color.GRAY);
+		
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCrash = BorderFactory.createTitledBorder(lineaCrash,"Crash");
+		puntosCrash = puntosPrueba();
+		PanelGrafico grfCrash = new PanelGrafico(puntosCrash);
+		usuarioCrash = new JLabel("Usuario con mayor ganacia: ");
+		Usuario crash0 = obtenerUsuarioConMayorGananciaCrash(lstUsuarios);
+		txtUsuarioCrash= new JLabel(""+ crash0.getNombreUsuario());
+		txtUsuarioCrash.setForeground(Color.GRAY);
+		gananciaCrash= new JLabel("Mayor ganancia en una tirada: ");
+		Usuario crash1 = obtenerUsuarioConMayorGananciaCrash(lstUsuarios);
+		txtGananciaCrash= new JLabel(""+ crash1.getNombreUsuario());
+		txtGananciaCrash.setForeground(Color.GRAY);
+		usoCrash= new JLabel("Usuario con mayor numero de tiradas: ");
+		Usuario crash2 = obtenerUsuarioConMayorNumeroDeTiradasCrash(lstUsuarios);
+		txtUsoCrash= new JLabel(""+ crash2.getNombreUsuario());
+		txtUsoCrash.setForeground(Color.GRAY);
+		totalGananciasCrash= new JLabel("Total ganancias/perdidas: ");
+		txtTotalGananciasCrash= new JLabel(""+obtenerTotalGananciasCrash(lstUsuarios));
+		txtTotalGananciasCrash.setForeground(Color.GRAY);
 		
 		//CoinFlip
 		Border lineaCoinFlip = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCoinFlip = BorderFactory.createTitledBorder(lineaCoinFlip,"CoinFlip");
+		
 		//BlackJack
 		Border lineaBlackJack = BorderFactory.createLineBorder(Color.RED);
 		Border tituloBlackJack = BorderFactory.createTitledBorder(lineaBlackJack,"BlackJack");
@@ -127,7 +154,12 @@ public class VentanaAdminJuegos extends JFrame{
 				JPanel pGananciaRuleta = new JPanel(new FlowLayout());
 				JPanel pUsoRuleta = new JPanel(new FlowLayout());
 				JPanel pTotalGananciasRuleta = new JPanel(new FlowLayout());
-			JPanel pCrash = new JPanel();
+			JPanel pCrash = new JPanel(new GridLayout(2,1));
+				JPanel pUsuarioCrash = new JPanel(new FlowLayout());
+				//
+				JPanel pGananciaCrash = new JPanel(new FlowLayout());
+				JPanel pUsoCrash = new JPanel(new FlowLayout());
+				JPanel pTotalGananciasCrash = new JPanel(new FlowLayout());
 			JPanel pCoinFlip = new JPanel();
 			JPanel pBlackJack = new JPanel();
 		
@@ -155,8 +187,26 @@ public class VentanaAdminJuegos extends JFrame{
 		pEstadisticasRuleta.add(pTotalGananciasRuleta);
 		pEstadisticasRuleta.add(new JPanel());
 		pRuleta.add(pEstadisticasRuleta);
+		//Panel Crash
+		pUsuarioCrash.add(usuarioCrash);
+		pUsuarioCrash.add(txtUsuarioCrash);
+		//	Añadir otro datos de crash
+		//	Añadir otro datos de crash
+		pGananciaCrash.add(gananciaCrash);
+		pGananciaCrash.add(txtGananciaCrash);
+		pUsoCrash.add(usoCrash);
+		pUsoCrash.add(txtUsoCrash);
+		pTotalGananciasCrash.add(totalGananciasCrash);
+		pTotalGananciasCrash.add(txtTotalGananciasCrash);
+		JPanel pEstadicticasCrash = new JPanel(new GridLayout(3,2));
+		pEstadicticasCrash.add(pUsuarioCrash);
+		pEstadicticasCrash.add(pGananciaCrash);
+		pEstadicticasCrash.add(pUsoCrash);
+		pEstadicticasCrash.add(pTotalGananciasCrash);
+		pCrash.add(pEstadicticasCrash);
 		//Grafico
 		pRuleta.add(grfRuleta);
+		pCrash.add(grfCrash);
 		
 		pJuegos.add(pRuleta);	
 		pJuegos.add(pCrash);	
@@ -215,6 +265,12 @@ public class VentanaAdminJuegos extends JFrame{
 	            writer.write("RULETA: \n"
 	            		+ "\t Usuario con mayor ganancia: "+txtUsuario.getText()+"\n"
 	            		+ "\t Numero mas repetido: "+txtNumero.getText()+"\n"
+	            		+ "\t Mayor ganacia en una tirada: "+ txtGanancia.getText()+"\n"
+	            		+ "\t Usuario con mayor numero de tiradas: "+txtUso.getText()+"\n"
+	            		+ "\t Total de ganancias/perdidas: "+txtTotalGanancias.getText()+"\n");
+	            writer.write("CRASH: \n"
+	            		+ "\t Usuario con mayor ganancia: "+txtUsuario.getText()+"\n"
+//	            		+ "\t Numero mas repetido: "+txtNumero.getText()+"\n"
 	            		+ "\t Mayor ganacia en una tirada: "+ txtGanancia.getText()+"\n"
 	            		+ "\t Usuario con mayor numero de tiradas: "+txtUso.getText()+"\n"
 	            		+ "\t Total de ganancias/perdidas: "+txtTotalGanancias.getText()+"\n");
@@ -287,5 +343,68 @@ public class VentanaAdminJuegos extends JFrame{
 		return total;
 		
 	}
+	/*
+	 * CRASH
+	 */
+	//Funcion divide la lista de usuarios en un mapa <Usuario:Totalganancaias>
+	public Map<Usuario, Double> obtenerMapaGananciasPorUsuariosCrash(List<Usuario> usuarios){
+		Map<Usuario, Double> mapa = new HashMap<>();
+		for(Usuario user: usuarios) {
+			mapa.putIfAbsent(user, 0.0);
+			Map<Integer, Map<String, Map<Double, Double>>> mapaCrash = user.getMapaCrash();
+			for(Map<String, Map<Double, Double>> apuesta : mapaCrash.values()) {
+				for(Map<Double, Double> apuesta1 : apuesta.values()) {
+					for(Double c: apuesta1.values()) {
+						mapa.put(user, mapa.get(user) + c) ;
+					}
+				}
+			}
+		}
+		return mapa;
+	}
+	//Funcion usuario con mayor ganancia
+	public Usuario obtenerUsuarioConMayorGananciaCrash(List<Usuario> usuarios) {
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuariosCrash(usuarios);
+		double ganancia = 0;
+		Usuario u = new Usuario();
+		for(Entry<Usuario, Double> entry : mapaUsuarios.entrySet()) {
+			if(entry.getValue()>ganancia) {
+				ganancia = entry.getValue();
+				u = entry.getKey();
+			}
+		}
+		return u;
+	}
+	//Funcion Usuario con mayor numero de tiradas
+	public Usuario obtenerUsuarioConMayorNumeroDeTiradasCrash(List<Usuario> usuarios) {
+		Usuario usuario = new Usuario();
+		int tamaño = 0;
+		for(Usuario user : usuarios) {
+			Map<Integer, Map<String, Map<Double, Double>>> mapa = user.getMapaCrash();
+			int tiradas = mapa.size();
+			if(tiradas > tamaño) {
+				usuario = user;
+				tamaño = tiradas;
+			}
+		}
+		return usuario;
+	}
+	//Total ganancias/perdidas
+	public Double obtenerTotalGananciasCrash(List<Usuario> usuarios) {
+		double total= 0;
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuariosCrash(usuarios);
+		for(Double t : mapaUsuarios.values()) {
+			total += t;
+		}
+		return total;
+		
+	}
+	/*
+	 * RULETA
+	 */
 	
+	
+	/*
+	 * COIN-FLIP
+	 */
 }
