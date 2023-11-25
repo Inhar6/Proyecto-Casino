@@ -38,7 +38,7 @@ public class DBManager {
 	public static List<Usuario> obtenerTodosLosUsuarios(){
 		List<Usuario> lstUsuarios = new ArrayList<>();
 		try(Statement stmt = conn.createStatement()){
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario ");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario");
 			while(rs.next()) {
 				Usuario user = new Usuario();
 				//Usuario
@@ -56,19 +56,12 @@ public class DBManager {
 			}
 			ResultSet rsCrash = stmt.executeQuery("SELECT * FROM Usuario u, Crash c WHERE u.nombre_usuario = c.nombre_usuario ");
 			while(rsCrash.next()) {
-				Usuario user = new Usuario();
-				//Usuario
-				user.setNombre(rsCrash.getString("nombre"));
-				user.setApellidos(rsCrash.getString("apellidos"));
-				user.setDNI(rsCrash.getString("dni"));
-				user.setNombreUsuario(rsCrash.getString("nombre_usuario"));
-				user.setContraseña(rsCrash.getString("contrasena"));
-				user.setSaldo(rsCrash.getDouble("saldo"));
-				user.setNumeroCuenta(rsCrash.getInt("numero_cuenta"));
-				//Crash
-				user.addMapaCrash(rsCrash.getInt("tirada"), rsCrash.getBoolean("resulatado"), rsCrash.getDouble("multiplicador"), rsCrash.getDouble("ganancia"));
-				//Añadir a la lista el usuario
-				lstUsuarios.add(user);
+				for(Usuario user :lstUsuarios) {
+					if(user.getNombreUsuario()==rsCrash.getString("nombre_usuario")) {
+						user.addMapaCrash(rsCrash.getInt("tirada"), rsCrash.getString("resultado"), rsCrash.getDouble("multiplicador"), rsCrash.getDouble("ganancia"));
+					}
+				}
+				
 			}
 			return lstUsuarios;
 		} catch (SQLException e) {
