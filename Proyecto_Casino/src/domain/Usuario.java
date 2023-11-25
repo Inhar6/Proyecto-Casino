@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import gui.VentanaPanelMenu;
 
 public class Usuario implements Comparable<Usuario>{
 	
@@ -125,9 +124,9 @@ public class Usuario implements Comparable<Usuario>{
 	
 	public void addMapaCrash(int tirada, String resultado,  double multiplicador, double ganado) {
 		Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
-		detallesTirada.put(resultado, new HashMap<>());
+		detallesTirada.putIfAbsent(resultado, new HashMap<>());
 		detallesTirada.get(resultado).put(multiplicador, ganado);
-		mapaCrash.put(tirada, detallesTirada);
+		mapaCrash.putIfAbsent(tirada, detallesTirada);
 	}
 	
 	public List<Point> getLstBalance() {
