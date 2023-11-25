@@ -14,8 +14,8 @@ import domain.Usuario;
 public class DBManager {
 	
 	private static Connection conn = null;
-	public static final String URL = "resources/db/NoEscasino.db";
-	
+	//public static final String URL = "resources/db/NoEscasino.db";
+	/*
 	public static void connect(String dbPath) {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -34,10 +34,28 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
+	 private static final String URL = "jdbc:sqlite:resources/db/NoEscasino.db";
+
+	    // Método para obtener una conexión a la base de datos
+	    public static Connection obtenerConexion() throws SQLException {
+	        return DriverManager.getConnection(URL);
+	    }
+
+	    // Método para cerrar una conexión
+	    public static void cerrarConexion(Connection conexion) {
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 	public static List<Usuario> obtenerTodosLosUsuarios(){
 		List<Usuario> lstUsuarios = new ArrayList<>();
-		try(Statement stmt = conn.createStatement()){
+		try(Connection conn = obtenerConexion();
+			Statement stmt = conn.createStatement()){
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario");
 			while(rs.next()) {
 				Usuario user = new Usuario();
@@ -71,7 +89,8 @@ public class DBManager {
 	
 	public static boolean existeUsuario(String nombreU) {
 		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ?";
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, nombreU);
 			ResultSet rs = pstmt.executeQuery();
 			return rs.next();
@@ -82,24 +101,31 @@ public class DBManager {
 	}
 	//Añdir usuario
 	public static void añadirUsuario(Usuario user) {
-		//Añadir un existe usuario
-		String sql = "INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES (?, ?, ?, 0, 0, ?, ?);";
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setString(1, user.getNombre());
-			pstmt.setString(2, user.getApellidos());
-			pstmt.setString(3, user.getDNI());
-			pstmt.setString(4, user.getContraseña());
-			pstmt.setString(5, user.getNombreUsuario());
-			pstmt.executeUpdate();
-			System.out.println("Registro exitoso");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(!existeUsuario(user.getNombreUsuario())) {
+			//Añadir un existe usuario
+			String sql = "INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES (?, ?, ?, 0, 0, ?, ?);";
+			try (Connection conn = obtenerConexion();
+					PreparedStatement pstmt = conn.prepareStatement(sql)){
+				pstmt.setString(1, user.getNombre());
+				pstmt.setString(2, user.getApellidos());
+				pstmt.setString(3, user.getDNI());
+				pstmt.setString(4, user.getContraseña());
+				pstmt.setString(5, user.getNombreUsuario());
+				pstmt.executeUpdate();
+				System.out.println("Registro exitoso");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("El usuario ya existe. No se puede añadir.");
 		}
+		
 	}
 	//Eliminar un usuario
 	public static void eliminarUsuario(Usuario user) {
 		String sql = "DELETE FROM Usuario WHERE nombre_usuario = ?;";
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, user.getNombreUsuario());
 			
 			pstmt.executeUpdate();
@@ -110,7 +136,8 @@ public class DBManager {
 	//Edita el nombre y la contraseña
 	public static void editarUsuario(Usuario user) {
 		String sql = "UPDATE Usuario SET nombre = ?, contrasena = ? WHERE nombre_usuario = ?;";
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, user.getNombre());
 			pstmt.setString(2, user.getContraseña());
 			pstmt.setString(3, user.getNombreUsuario());
@@ -122,7 +149,8 @@ public class DBManager {
 	}
 	
 	public static void crearTablaUsuario() {
-		try(Statement stmt = conn.createStatement()) {
+		try(Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Usuario (\n"
 					+ "    	nombre VARCHAR(255),\n"
 					+ "    	apellidos VARCHAR(255),\n"
@@ -137,7 +165,8 @@ public class DBManager {
 	}
 	
 	public static void crearTablaRuleta() {
-		try (Statement stmt = conn.createStatement()){
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()){
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Ruleta (\n"
 					+ "    	numero INTEGER,\n"
 					+ "    	ganancia DOUBLE,\n"
@@ -149,7 +178,8 @@ public class DBManager {
 		}
 	}
 	public static void crearTablaCrash() {
-		try (Statement stmt = conn.createStatement()) {
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Crash (\n"
 					+ "		tirada INTEGER,\n"
 					+ "		resultado VARCHAR(10),\n"
@@ -163,7 +193,8 @@ public class DBManager {
 	}
 	
 	public static void crearTablaBlackJack() {
-		try (Statement stmt = conn.createStatement()) {
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS BlackJack (\n"
 					+ "		partida INTEGER,\n"
 					+ "		ganador VARCHAR(10),\n"
@@ -180,7 +211,8 @@ public class DBManager {
 	 * AÑADIR DATOS DE EJEMPLO
 	 */
 	public static void añadirUsuariosEjemplo() {
-		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES\r\n"
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES\r\n"
 				+ "    		('Nombre1', 'Apellido1', '11111111A', 1000.0, 12345, 'contrasena1', 'usuario1'),\r\n"
 				+ "    		('Nombre2', 'Apellido2', '22222222B', 1500.0, 67890, 'contrasena2', 'usuario2'),\r\n"
 				+ "			('Nombre3', 'Apellido3', '33333333C', 75000.0, 54321, 'contrasena3', 'usuario3'),\r\n"
@@ -203,7 +235,8 @@ public class DBManager {
 	}
 	
 	public static void añadirRuletaEjemplo() {
-		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES\r\n"
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 100.0, 10, 'usuario1'),\r\n"
 				+ "	    (2, 150.0, 15, 'usuario2'),\r\n"
 				+ "	    (3, 80.0, 8, 'usuario3'),\r\n"
@@ -249,7 +282,8 @@ public class DBManager {
 	
 	
 	public static void añadirBlackJackEjemplo() {
-		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlackJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlackJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 'Crupier', 20 , 1123.0 ,'usuario1'),\r\n"
 				+ "	    (2, 'Jugador', 18, 9954.0 ,'usuario2'),\r\n"
 				+ "	    (3, 'Jugador', 21, 2345.0 ,'usuario3'),\r\n"
