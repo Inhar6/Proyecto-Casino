@@ -153,9 +153,9 @@ public class DBManager {
 	public static void crearTablaBlackJack() {
 		try (Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS BlackJack (\n"
-					+ "		Partida INTEGER,\n"
-					+ "		Ganador VARCHAR(10),\n"
-					+ "		Puntuacion DOUBLE,\n"
+					+ "		partida INTEGER,\n"
+					+ "		ganador VARCHAR(10),\n"
+					+ "		puntuacion DOUBLE,\n"
 					+ "		ganancia DOUBLE,\n"
 					+ "		nombre_usuario VARCHAR(50),\n"
 					+ " 	FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
@@ -234,6 +234,30 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void añadirBlackJackEjemplo() {
+		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlacJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
+				+ "	    (1, 'Crupier', 20 , 1123.0 ,'usuario1'),\r\n"
+				+ "	    (2, 'Jugador', 18, 9954.0 ,'usuario2'),\r\n"
+				+ "	    (3, 'Jugador', 21, 2345.0 ,'usuario3'),\r\n"
+				+ "	    (4, 'Crupier', 17, 1245.0 ,'usuario4'),\r\n"
+				+ "	    (5, 'Jugador', 19, 854.0 ,'usuario5'),\r\n"
+				+ "	    (6, 'Crupier', 20, 3567.0 ,'usuario6'),\r\n"
+				+ "	    (7, 'Crupier', 21, 346.0 ,'usuario7'),\r\n"
+				+ "	    (8, 'Crupier', 17, 3467.0 ,'usuario8'),\r\n"
+				+ "	    (9, 'Jugador', 18, 4576.0 ,'usuario9'),\r\n"
+				+ "	    (10, 'Jugador', 19, 1123.0 ,'usuario10'),\r\n"
+				+ "	    (11, 'Jugador', 21, 453.0 ,'usuario11'),\r\n"
+				+ "	    (12, 'Jugador', 21, 5688.0 ,'usuario12'),\r\n"
+				+ "	    (13, 'Crupier', 20, 2355.0 ,'usuario13'),\r\n"
+				+ "	    (14, 'Crupier', 19, 1245.0 ,'usuario14'),\r\n"
+				+ "	    (15, 'Jugador', 21, 8775.0 ,'usuario15');")){
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+}
 	/*
 	 * TABLA USUARIOS
 	CREATE TABLE IF NOT EXISTS Usuario (
