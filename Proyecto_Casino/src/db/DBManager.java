@@ -56,7 +56,7 @@ public class DBManager {
 		List<Usuario> lstUsuarios = new ArrayList<>();
 		try(Connection conn = obtenerConexion();
 			Statement stmt = conn.createStatement()){
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario");
 			while(rs.next()) {
 				Usuario user = new Usuario();
 				//Usuario
@@ -67,11 +67,19 @@ public class DBManager {
 				user.setContraseña(rs.getString("contrasena"));
 				user.setSaldo(rs.getDouble("saldo"));
 				user.setNumeroCuenta(rs.getInt("numero_cuenta"));
-				//Ruleta
-				user.addMapaRuleta(rs.getInt("tirada"), rs.getInt("numero"), rs.getDouble("ganancia"));
 				//Añadir a la lista el usuario
 				lstUsuarios.add(user);
 			}
+			//Añadir la tabla Ruleta al usuario
+			ResultSet rsRuleta = stmt.executeQuery("SELECT * FROM Usuario u, Ruleta r WHERE u.nombre_usuario = r.nombre_usuario");
+			while(rsRuleta.next()) {
+				for(Usuario user: lstUsuarios) {
+					if(user.getNombreUsuario().equals(rsRuleta.getString("nombre_usuario"))) {
+						user.addMapaRuleta(rs.getInt("tirada"), rs.getInt("numero"), rs.getDouble("ganancia"));
+					}
+				}
+			}
+			//Añadir la tabla Crash al usuario
 			ResultSet rsCrash = stmt.executeQuery("SELECT * FROM Usuario u, Crash c WHERE u.nombre_usuario = c.nombre_usuario ");
 			while(rsCrash.next()) {
 				for(Usuario user :lstUsuarios) {
