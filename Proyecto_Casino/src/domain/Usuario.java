@@ -20,7 +20,7 @@ public class Usuario implements Comparable<Usuario>{
 	private double saldo;
 	//Mapas de historiales
 	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
-	private Map<Integer,Map<Boolean, Map<Double, Double>>> mapaCrash = new HashMap<>();
+	private Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
 	//Lista balance
 	private List<Point> lstBalance = new ArrayList<>();
 	
@@ -115,16 +115,16 @@ public class Usuario implements Comparable<Usuario>{
 		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
 		mapaRuleta.get(tirada).put(resultado, ganancia);
 	}
-	public Map<Integer, Map<Boolean, Map<Double, Double>>> getMapaCrash() {
+	public Map<Integer, Map<String, Map<Double, Double>>> getMapaCrash() {
 		return mapaCrash;
 	}
 
-	public void setMapaCrash(Map<Integer, Map<Boolean, Map<Double, Double>>> mapaCrash) {
+	public void setMapaCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
 		this.mapaCrash = mapaCrash;
 	}
 	
-	public void addMapaCrash(int tirada, boolean resultado,  double multiplicador, double ganado) {
-		Map<Boolean, Map<Double, Double>> detallesTirada = new HashMap<>();
+	public void addMapaCrash(int tirada, String resultado,  double multiplicador, double ganado) {
+		Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
 		detallesTirada.put(resultado, new HashMap<>());
 		detallesTirada.get(resultado).put(multiplicador, ganado);
 		mapaCrash.put(tirada, detallesTirada);

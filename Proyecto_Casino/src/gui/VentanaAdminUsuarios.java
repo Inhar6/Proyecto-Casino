@@ -272,16 +272,16 @@ public class VentanaAdminUsuarios extends JFrame{
 	public void pintadoCoinFlip() {
 			
 	}
-	public void pintadoCrash(Map<Integer, Map<Boolean, Map<Double, Double>>> mapaCrash) {
+	public void pintadoCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
 		dtmJuegos.addColumn("Tirada");
 		dtmJuegos.addColumn("Resultado");
 		dtmJuegos.addColumn("Multiplicador");
 		dtmJuegos.addColumn("Ganancia");
-		for(Entry<Integer,Map<Boolean, Map<Double, Double>>> entry: mapaCrash.entrySet()) {
+		for(Entry<Integer,Map<String, Map<Double, Double>>> entry: mapaCrash.entrySet()) {
 			int tirada = entry.getKey();
-			Map<Boolean, Map<Double, Double>> detallesTirada = new HashMap<>();
-			for(Entry<Boolean, Map<Double, Double>> entry2: detallesTirada.entrySet()) {
-				boolean resultado = entry2.getKey();
+			Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
+			for(Entry<String, Map<Double, Double>> entry2: detallesTirada.entrySet()) {
+				String resultado = entry2.getKey();
 				for(Double i: entry2.getValue().keySet()) {
 					double muliplicador = i;
 					double ganancia = entry2.getValue().get(i);
