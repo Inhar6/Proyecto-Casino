@@ -279,7 +279,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		dtmJuegos.addColumn("Ganancia");
 		for(Entry<Integer,Map<String, Map<Double, Double>>> entry: mapaCrash.entrySet()) {
 			int tirada = entry.getKey();
-			Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
+			Map<String, Map<Double, Double>> detallesTirada = entry.getValue();
 			for(Entry<String, Map<Double, Double>> entry2: detallesTirada.entrySet()) {
 				String resultado = entry2.getKey();
 				for(Double i: entry2.getValue().keySet()) {
