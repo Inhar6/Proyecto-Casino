@@ -280,6 +280,7 @@ public class VentanaBlackJack extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has doblado la apuesta");
+				ap = VentanaPanelMenu.apuesta *2;
 		
 				
 				
