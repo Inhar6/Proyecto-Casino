@@ -16,7 +16,6 @@ public class Main {
 	public static void main(String[] args) {
 		
 		
-		DBManager.connect(DBManager.URL);
 		
 		System.out.println("Rellenando la lista de usuarios");
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
@@ -26,6 +25,12 @@ public class Main {
 		}
 		
 		System.out.println(DBlstUsuarios);
+		for(Usuario user:DBlstUsuarios) {
+			System.out.println(user.getMapaRuleta());
+		}
+		for(Usuario user: DBlstUsuarios) {
+			System.out.println(user.getMapaCrash());
+		}
         SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -35,6 +40,6 @@ public class Main {
 			}
         });
         
-        DBManager.disconnect();
+        System.out.println("Final del programa");
 	}
 }
