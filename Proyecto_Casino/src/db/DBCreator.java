@@ -30,6 +30,11 @@ public class DBCreator {
 		System.out.println("Añadiendo Datos de ejemplo en Crash");
 		DBManager.añadirCrashEjemplo();
 		*/
+		System.out.println("Creando tabla Black Jack");
+		DBManager.crearTablaBlackJack();
+		
+		System.out.println("Añadiendo Datos de ejemplo en Black Jack");
+		DBManager.añadirBlackJackEjemplo();
 		
 		System.out.println("Cerrando conexion...");
 		DBManager.disconnect();
