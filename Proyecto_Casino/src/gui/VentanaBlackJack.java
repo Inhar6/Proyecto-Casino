@@ -165,6 +165,7 @@ public class VentanaBlackJack extends JFrame {
       	
     	defaultTableModel.addColumn("Partida");
     	defaultTableModel.addColumn("Resultado");
+    	defaultTableModel.addColumn("Puntuacion");
     	defaultTableModel.addColumn("Ganancia/Perdida");
     	
 
@@ -254,9 +255,9 @@ public class VentanaBlackJack extends JFrame {
 				
 				
 				if(Crupier) {
-					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","-"+ap});
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier",puntuacionCrupier,"-"+ap});
 				}else if(Jugador) {
-					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador","+"+ap});
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador",puntuacionJugador,"+"+ap});
 				}else if(Empate){
 					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
 				}
