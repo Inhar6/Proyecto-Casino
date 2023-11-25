@@ -35,6 +35,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import db.DBCreator;
+import db.DBManager;
 import domain.Point;
 import domain.Usuario;
 import main.Main;
@@ -213,6 +214,7 @@ public class VentanaAdminUsuarios extends JFrame{
 				if(user != null) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quieres dar de baja al usuario [" + user + "]");
 					if(opcion == JOptionPane.YES_OPTION) {
+						DBManager.eliminarUsuario(user);
 						listaUsuarios.remove(user);
 						dlmUsuarios.removeAllElements();
 						dlmUsuarios.addAll(listaUsuarios);
