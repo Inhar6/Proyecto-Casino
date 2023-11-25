@@ -68,7 +68,19 @@ public class DBManager {
 		}
 		return lstUsuarios;
 	}
-		
+	
+	public static boolean existeUsuario(String nombreU) {
+		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, nombreU);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	//Añdir usuario
 	public static void añadirUsuario(Usuario user) {
 		//Añadir un existe usuario
 		String sql = "INSERT INTO Usuario (nombre, apellidos, dni, saldo, numero_cuenta, contrasena, nombre_usuario) VALUES (?, ?, ?, 0, 0, ?, ?);";
@@ -237,7 +249,7 @@ public class DBManager {
 	
 	
 	public static void añadirBlackJackEjemplo() {
-		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlacJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
+		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlackJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 'Crupier', 20 , 1123.0 ,'usuario1'),\r\n"
 				+ "	    (2, 'Jugador', 18, 9954.0 ,'usuario2'),\r\n"
 				+ "	    (3, 'Jugador', 21, 2345.0 ,'usuario3'),\r\n"
