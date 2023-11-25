@@ -150,6 +150,20 @@ public class DBManager {
 		}
 	}
 	
+	public static void crearTablaBlackJack() {
+		try (Statement stmt = conn.createStatement()) {
+			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS BlackJack (\n"
+					+ "		Partida INTEGER,\n"
+					+ "		Ganador VARCHAR(10),\n"
+					+ "		Puntuacion DOUBLE,\n"
+					+ "		ganancia DOUBLE,\n"
+					+ "		nombre_usuario VARCHAR(50),\n"
+					+ " 	FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * AÑADIR DATOS DE EJEMPLO
 	 */
