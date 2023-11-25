@@ -27,6 +27,9 @@ public class DBCreator {
 		db.añadirRuletaEjemplo();
 		*/
 		
+		System.out.println("Añadiendo Datos de ejemplo en Crash");
+		DBManager.añadirCrashEjemplo();
+		
 		System.out.println("Cerrando conexion...");
 		DBManager.disconnect();
 		

@@ -148,7 +148,7 @@ public class DBManager {
 		try (Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Crash (\n"
 					+ "		tirada INTEGER,\n"
-					+ "		resultado BOOLEAN,\n"
+					+ "		resultado VARCHAR(10),\n"
 					+ "		multiplicador DOUBLE,\n"
 					+ "		ganancia DOUBLE,\n"
 					+ "		nombre_usuario VARCHAR(50),\n"
@@ -208,21 +208,21 @@ public class DBManager {
 	}
 	public static void añadirCrashEjemplo() {
 		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Crash (tirada, resultado, multiplicador, ganancia, nombre_usuario) VALUES\r\n"
-				+ "	    (1, WIN, 1.13, 1123.0 ,'usuario1'),\r\n"
-				+ "	    (2, WIN, 1.45, 9954.0 ,'usuario2'),\r\n"
-				+ "	    (3, LOSE, 2.13, 2345.0 ,'usuario3'),\r\n"
-				+ "	    (4, LOSE, 3.23, 1245.0 ,'usuario4'),\r\n"
-				+ "	    (5, WIN, 1.23, 854.0 ,'usuario5'),\r\n"
-				+ "	    (6, LOSE, 1.65, 3567.0 ,'usuario6'),\r\n"
-				+ "	    (7, WIN, 4.12, 346.0 ,'usuario7'),\r\n"
-				+ "	    (8, LOSE, 4.13, 3467.0 ,'usuario8'),\r\n"
-				+ "	    (9, WIN, 1.65, 4576.0 ,'usuario9'),\r\n"
-				+ "	    (10, WIN, 1.34, 1123.0 ,'usuario10'),\r\n"
-				+ "	    (11, LOSE, 2.45, 453.0 ,'usuario11'),\r\n"
-				+ "	    (12, LOSE, 5.13, 5688.0 ,'usuario12'),\r\n"
-				+ "	    (13, WIN, 4.13, 2355.0 ,'usuario13'),\r\n"
-				+ "	    (14, LOSE, 2.23, 1245.0 ,'usuario14'),\r\n"
-				+ "	    (15, WIN, 5.34, 8775.0 ,'usuario15'),\r\n")){
+				+ "	    (1, 'WIN', 1.13, 1123.0 ,'usuario1'),\r\n"
+				+ "	    (2, 'WIN', 1.45, 9954.0 ,'usuario2'),\r\n"
+				+ "	    (3, 'LOSE', 2.13, 2345.0 ,'usuario3'),\r\n"
+				+ "	    (4, 'LOSE', 3.23, 1245.0 ,'usuario4'),\r\n"
+				+ "	    (5, 'WIN', 1.23, 854.0 ,'usuario5'),\r\n"
+				+ "	    (6, 'LOSE', 1.65, 3567.0 ,'usuario6'),\r\n"
+				+ "	    (7, 'WIN', 4.12, 346.0 ,'usuario7'),\r\n"
+				+ "	    (8, 'LOSE', 4.13, 3467.0 ,'usuario8'),\r\n"
+				+ "	    (9, 'WIN', 1.65, 4576.0 ,'usuario9'),\r\n"
+				+ "	    (10, 'WIN', 1.34, 1123.0 ,'usuario10'),\r\n"
+				+ "	    (11, 'LOSE', 2.45, 453.0 ,'usuario11'),\r\n"
+				+ "	    (12, 'LOSE', 5.13, 5688.0 ,'usuario12'),\r\n"
+				+ "	    (13, 'WIN', 4.13, 2355.0 ,'usuario13'),\r\n"
+				+ "	    (14, 'LOSE', 2.23, 1245.0 ,'usuario14'),\r\n"
+				+ "	    (15, 'WIN', 5.34, 8775.0 ,'usuario15');")){
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
