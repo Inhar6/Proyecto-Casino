@@ -20,6 +20,7 @@ public class Usuario implements Comparable<Usuario>{
 	//Mapas de historiales
 	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
 	private Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
+	private Map<Integer,Map<String,Map<Integer,Double>>> mapaBlackJack = new HashMap<>();
 	//Lista balance
 	private List<Point> lstBalance = new ArrayList<>();
 	
@@ -36,6 +37,7 @@ public class Usuario implements Comparable<Usuario>{
 		this.saldo = saldo;
 		this.mapaRuleta = new HashMap<>();
 		this.mapaCrash = new HashMap<>();
+		this.mapaBlackJack = new HashMap<>();
 		this.lstBalance = new ArrayList<>();
 	}
 	
@@ -129,6 +131,23 @@ public class Usuario implements Comparable<Usuario>{
 		mapaCrash.putIfAbsent(tirada, detallesTirada);
 	}
 	
+	
+	public Map<Integer, Map<String, Map<Integer, Double>>> getMapaBlackJack() {
+		return mapaBlackJack;
+	}
+
+	public void setMapaBlackJack(Map<Integer, Map<String, Map<Integer, Double>>> mapaBlackJack) {
+		this.mapaBlackJack = mapaBlackJack;
+	}
+	
+	public void addMapaBlackJack(int partida,String ganador,int puntuacion, double ganancia) {
+		mapaBlackJack.putIfAbsent(partida, new HashMap<>());
+		mapaBlackJack.get(partida).put(ganador,new HashMap<>());
+		mapaBlackJack.get(partida).get(ganador).put(puntuacion,ganancia);
+		
+	}
+	
+
 	public List<Point> getLstBalance() {
 		return lstBalance;
 	}
@@ -167,6 +186,7 @@ public class Usuario implements Comparable<Usuario>{
 				&& Objects.equals(contraseña, other.contraseña) && Objects.equals(lstBalance, other.lstBalance)
 				&& Objects.equals(mapaRuleta, other.mapaRuleta) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(mapaCrash, other.mapaCrash) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(mapaBlackJack, other.mapaBlackJack) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(nombreUsuario, other.nombreUsuario) && numeroCuenta == other.numeroCuenta
 				&& Double.doubleToLongBits(saldo) == Double.doubleToLongBits(other.saldo);
 	}
