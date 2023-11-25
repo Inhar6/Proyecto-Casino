@@ -57,11 +57,10 @@ public class DBManager {
 			ResultSet rsCrash = stmt.executeQuery("SELECT * FROM Usuario u, Crash c WHERE u.nombre_usuario = c.nombre_usuario ");
 			while(rsCrash.next()) {
 				for(Usuario user :lstUsuarios) {
-					if(user.getNombreUsuario()==rsCrash.getString("nombre_usuario")) {
+					if(user.getNombreUsuario().equals(rsCrash.getString("nombre_usuario"))) {
 						user.addMapaCrash(rsCrash.getInt("tirada"), rsCrash.getString("resultado"), rsCrash.getDouble("multiplicador"), rsCrash.getDouble("ganancia"));
 					}
-				}
-				
+				}	
 			}
 			return lstUsuarios;
 		} catch (SQLException e) {
