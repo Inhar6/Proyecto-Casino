@@ -37,7 +37,7 @@ public class CartaTest {
 	
 	@Test
 	public void testtoString() {
-		assertEquals(String.format("%s-%s",c.getPalo(),c.getNumero()), c.toString());
+		assertEquals(String.format("%s-%s", c.getNumero(),c.getPalo()), c.toString());
 	}
 
 }

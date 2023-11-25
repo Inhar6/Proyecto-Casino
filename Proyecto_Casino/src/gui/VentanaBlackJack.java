@@ -1,6 +1,8 @@
 package gui;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -17,6 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,10 +28,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import domain.Carta;
+import gui.VentanaCrash.MyRender;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -41,9 +51,22 @@ public class VentanaBlackJack extends JFrame {
 	private List<Carta> listaCartas = crearBarajaCartas(crearMapaBaraja());
 	private List<Carta> listaCartasBarajeada = BarajarCartas(listaCartas);
 	private int contadorBoton = 0;
-	private double nuevoBalance;
-	private double ganado;
 	private static final int limitePulsaciones = 3;
+	
+	private JTable tabla;
+	private DefaultTableModel defaultTableModel;
+	private JScrollPane scrollPane;
+	
+	private boolean Crupier = false;
+	private boolean Jugador = false;
+	private boolean Empate = false;
+	
+	private int contadorPartida = 1;
+	
+	//Apuesta
+	private double ap = 0.0;
+	
+
 
 
 	public VentanaBlackJack() {
@@ -77,55 +100,82 @@ public class VentanaBlackJack extends JFrame {
             }
         });
         
-       
+       //Paneles
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelTitulo = new JPanel(new GridLayout(1,3));
-        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel panelTitulo = new JPanel(new GridLayout(1,2));
         JPanel paneldecartas = new JPanel((new GridLayout(2,1)));
         JPanel panelCrupier = new JPanel(new GridLayout(2,1));
         JPanel panelJugador = new JPanel(new GridLayout(2,1));
-        JPanel panelBotones = new JPanel(new GridLayout(1,3));
+        JPanel panelBotones = new JPanel(new GridLayout(1,4));
+        JPanel panelHistorial = new JPanel();
         panelBotones.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
         
-     
-        add(panelPrincipal);
-        panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
-        panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
-        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
-        
-        paneldecartas.add(panelCrupier);
-        paneldecartas.add(panelJugador);
-        
+        //LabelTitulo
         JLabel labelTitulo = new JLabel("BLACKJACK");
         Font fuente = new Font("Arial",Font.BOLD,40);
         labelTitulo.setFont(fuente);
         
+        //Label y TextAreas Crupier y Jugador
         JLabel labelCrupier = new JLabel("CRUPIER");
         JTextArea textAreaCrupier = new JTextArea();
         JLabel labelJugador = new JLabel("JUGADOR");
         JTextArea textAreaJugador = new JTextArea();
         
-        panelCrupier.add(labelCrupier);
-        panelCrupier.add(textAreaCrupier);
-        panelJugador.add(labelJugador);
-        panelJugador.add(textAreaJugador);
-        
-     
-       
+        //Botones
         JButton botonPedirCarta = new JButton("Pedir una carta");
         JButton botonPlantarse = new JButton("Plantarse");
         JButton botonDoblar = new JButton("Doblar");
-        
         JButton botonAyuda = new JButton(new ImageIcon("resources/images/iconos/favicon.png"));
         botonAyuda.setPreferredSize(new Dimension (30,30));
+        JButton botonHistorial = new JButton("Historial");
         
+        //Añadir al panel Principal
+        add(panelPrincipal);
+        panelPrincipal.add(panelTitulo,BorderLayout.NORTH);
+        panelPrincipal.add(paneldecartas,BorderLayout.CENTER);
+        panelPrincipal.add(panelBotones,BorderLayout.SOUTH);
+        
+        //Añadir al panel de cartas
+        paneldecartas.add(panelCrupier);
+        paneldecartas.add(panelJugador);
+       
+        //Añadir al panelCrupier
+        panelCrupier.add(labelCrupier);
+        panelCrupier.add(textAreaCrupier);
+        
+        //Añadir al panelJugador
+        panelJugador.add(labelJugador);
+        panelJugador.add(textAreaJugador);
+        
+        //Añadir al panel Titulo
         panelTitulo.add(botonAyuda);
         panelTitulo.add(labelTitulo);
+        panelTitulo.add(panelHistorial);
         
-       
+        //Historial JTextArea
+        JTextArea historialTextArea = new JTextArea();
+        
+      //Tabla historial
+        defaultTableModel= new DefaultTableModel();
+      	tabla = new JTable(defaultTableModel);
+      	tabla.setEnabled(true);
+      	scrollPane = new JScrollPane(tabla);
+      	
+    	defaultTableModel.addColumn("Partida");
+    	defaultTableModel.addColumn("Resultado");
+    	defaultTableModel.addColumn("Ganancia/Perdida");
+    	
+
+      	tabla.setDefaultRenderer(Object.class, new MyRender());
+ 
+		
+		
         panelBotones.add(botonPedirCarta);
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
+        panelBotones.add(botonHistorial);
+        
         
         String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
         		+ "1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)\n\n"
@@ -192,7 +242,22 @@ public class VentanaBlackJack extends JFrame {
 					textoActualCrupier = textAreaCrupier.getText();
 				}
 				textAreaCrupier.setText(textoActualCrupier+ "\n"+ "Puntuacion:" + puntuacionCrupier);
-				saberGanador(puntuacionCrupier,puntuacionJugador);
+				double ganancia =saberGanador(puntuacionCrupier,puntuacionJugador);
+				VentanaPanelMenu.balance +=ganancia;
+				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+				
+				
+				saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+				
+				if(Crupier) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","-"+ap});
+				}else if(Jugador) {
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador","+"+ap});
+				}else if(Empate){
+					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
+				}
+				
+				contadorPartida++;
 			}
 		});
         
@@ -208,11 +273,14 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
         
+       
+        
         botonDoblar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.info("Has doblado la apuesta");
+		
 				
 				
 				
@@ -226,6 +294,7 @@ public class VentanaBlackJack extends JFrame {
 			if(VentanaPanelMenu.apuesta == 0 ) {
 				JOptionPane.showMessageDialog(null, "Debes introducir una cantidad para apostar", "Apuesta",JOptionPane.INFORMATION_MESSAGE);
 			}else {
+				ap = VentanaPanelMenu.apuesta;
 				VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
 
 				reiniciarJuego( botonPlantarse, botonPedirCarta, botonDoblar, textAreaCrupier, textAreaJugador);
@@ -242,9 +311,64 @@ public class VentanaBlackJack extends JFrame {
 			
 		}
 	});
+     
+     botonHistorial.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			mostrarTabla();
+		
+			
+		}
+	});
 
         
 	}
+	
+	
+
+	
+	
+	public void mostrarTabla() {
+		JOptionPane.showMessageDialog(null, scrollPane, "Tabla", JOptionPane.PLAIN_MESSAGE);
+		
+	}
+
+	
+	public class MyRender extends JLabel implements TableCellRenderer {
+
+	    private static final long serialVersionUID = 1L;
+	    
+	    
+	    public MyRender(){
+	    	
+	    }
+	    
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+				
+		setText(value.toString());
+		setOpaque(false);
+			
+		if("Jugador".equals(value) && column==1) {
+			setBackground(Color.GREEN);
+			setOpaque(true);
+		}else if ("Crupier".equals(value)&& column == 1) {
+			setBackground(Color.red);
+			setOpaque(true);
+				
+		}else {
+			setBackground(table.getBackground());
+			}
+			
+			return this;
+		}
+
+
+	    }
+
 	
     //Metodo crear la baraja
     public Map<String,List<String>> crearMapaBaraja() {
@@ -391,43 +515,71 @@ public class VentanaBlackJack extends JFrame {
     }
     
     
-    
-    public void saberGanador(int puntuacionCrupier, int puntuacionJugador) {
+    //Saber ganador para que aparezca el JoptionPane y para saber si sumarle o restarle a el saldo del jugador la apuesta hecha
+    public Double saberGanador(int puntuacionCrupier, int puntuacionJugador) {
     	if(puntuacionCrupier>21 & puntuacionJugador>21) {
     		JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    		 ganado =   VentanaPanelMenu.apuesta;
- 			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
- 			 VentanaPanelMenu.balance = nuevoBalance;
- 			 
+    		
+    	
+    		return ap;
     		
     	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
     		JOptionPane.showMessageDialog(null, "Has ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-			ganado =   VentanaPanelMenu.apuesta*2;
-			nuevoBalance = VentanaPanelMenu.balance + ganado ;
-			VentanaPanelMenu.balance = nuevoBalance;
-
+			
+			return ap *2;
     		
     	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
     		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    	}else {
+    		
+    		return 0.0;
+    	}
+    	else {
     		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
     		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
     			 JOptionPane.showMessageDialog(null, "Has empatado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-    			 ganado =   VentanaPanelMenu.apuesta;
-     			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
-     			 VentanaPanelMenu.balance = nuevoBalance;
-    			 
+    			
+    			 return ap;
              }else if(jugadorGanador == 1) {
             	 JOptionPane.showMessageDialog(null, "Has perdido", "Resultado",JOptionPane.INFORMATION_MESSAGE);
+            	 
+            	 return 0.0;
              }else if(jugadorGanador == 2) {
             	 
             	 JOptionPane.showMessageDialog(null, "Has Ganado", "Resultado",JOptionPane.INFORMATION_MESSAGE);
-            	 ganado =   VentanaPanelMenu.apuesta*2;
-     			 nuevoBalance = VentanaPanelMenu.balance + ganado ;
-     			 VentanaPanelMenu.balance = nuevoBalance;  
-
+            	 
+            	
+            	 return ap *2;
              }
     	}
+    	return ap;
+    }
+    //Saber quien ha ganado para actualizar la tabla
+    public void saberGanadorActualizarTabla(int puntuacionCrupier, int puntuacionJugador) {
+    	
+    	if(puntuacionCrupier>21 & puntuacionJugador>21) {
+    		Empate = true;
+    		
+    	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
+			Jugador = true;
+			
+    		
+    	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
+    		Crupier = true;
+    	}
+    	else {
+    		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
+    		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
+    			Empate=true;
+    			
+             }else if(jugadorGanador == 1) {
+            	 Crupier = true;
+            
+             }else if(jugadorGanador == 2) {
+            	 Jugador= true;
+            
+             }
+    	}
+    	
     }
     
     public void reiniciarJuego(JButton botonPlantarse, JButton botonPedirCarta, JButton botonDoblar, JTextArea textAreaCrupier, JTextArea textAreaJugador) {
@@ -460,4 +612,6 @@ public class VentanaBlackJack extends JFrame {
         
         
 	}
+
+
 }

@@ -10,7 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -48,9 +52,9 @@ public class VentanaCrash extends JFrame{
 	private JPanel pBar = new JPanel(new BorderLayout());
 	private JPanel pSacar = new JPanel(new GridLayout());
 	
-	
-	private boolean win;
-	private boolean lose;
+	private boolean resultado;
+//	private boolean win;
+//	private boolean lose;
 	private int segundos; // numero decimal
 	private int numeroX = 1; // numero entero ej: X.324423
 	private double multiplicador; // numero final que saca el usuario
@@ -61,11 +65,11 @@ public class VentanaCrash extends JFrame{
 	private Random random = new Random();
 	
 	
-	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
+//	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
 	private JLabel lApostado = new JLabel("Apostado: ");
-	private JLabel lNumeroRandom = new JLabel("Numero random: ");
+//	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");
-	private JLabel lMultiplicador = new JLabel("Numero final: " + multiplicador);
+	private JLabel lMultiplicador = new JLabel("Multiplicador: " + multiplicador);
 //	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
 	
 	private JButton bSacar = new JButton("Sacar");
@@ -75,11 +79,12 @@ public class VentanaCrash extends JFrame{
 	private JTable tabla;
 	private DefaultTableModel dtmTabla;
 	private JScrollPane scroll;
+	public static Map<Integer,Map<Boolean, Map<Double, Double>>> mapaTiradaCrash = new TreeMap<>();
 	
 	// PorgressBar
 	private JProgressBar progressBar = new JProgressBar(100, 500);
 	private int valor = 100;
-    private int contadorApostar;
+    private int tirada;
     private int numeroRangoProb;
 
     public VentanaCrash() {
@@ -151,7 +156,7 @@ public class VentanaCrash extends JFrame{
         bSacar.setEnabled(false);
         pSacar.add(lGanado);
         pSacar.add(lMultiplicador);
-//        pSacar.add(lNumeroCrono);
+//      pSacar.add(lNumeroCrono);
         
         VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			
@@ -174,7 +179,7 @@ public class VentanaCrash extends JFrame{
 		                    	valor++;
 		                        progressBar.setString("x" + numeroX + "." + segundos);
 		                      	progressBar.setValue(valor);
-		                        actualizarEtiquetaTiempo();
+//		                        actualizarEtiquetaTiempo();
 		                        if(segundos == 99) {
 		                        	segundos = 0;
 		                        	numeroX++;
@@ -188,14 +193,14 @@ public class VentanaCrash extends JFrame{
 		        	timer.start();
 			        bSacar.setEnabled(true);
 			        VentanaPanelMenu.bApostar.setEnabled(false);
-			        contadorApostar++;
+			        tirada++;
 //			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
 //			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
-			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
+//			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
 		        } else {
 		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
-		        	contadorApostar--;
+		        	tirada--;
 		        }
 			}
 		});
@@ -230,14 +235,13 @@ public class VentanaCrash extends JFrame{
     	lGanado.setText("Ganado: " + (ganado = 0));
     	lApostado.setText("Apostado: " + (VentanaPanelMenu.apuesta = 0));
     	VentanaPanelMenu.lApuesta.setText("Apuesta: " + (VentanaPanelMenu.apuesta = 0));
-    	win = false;
-    	lose = false;
+//    	resultado = false;
     	logger.info("Se ha reseteado el juego (Crash)");
     }
-	private void actualizarEtiquetaTiempo() {
-        lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
-//        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
-    }
+//	private void actualizarEtiquetaTiempo() {
+////        lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
+////        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
+//    }
 	
 
 	public class MyRender extends JLabel implements TableCellRenderer {
@@ -263,30 +267,47 @@ public class VentanaCrash extends JFrame{
 	    }
 	}
 	public void win() {
-		win = true;
+		resultado = true;
     	bSacar.setEnabled(false);
-		pintarDatosCrash();
 		JOptionPane.showMessageDialog(null, "WIN\n +" + ganado + "     x" + multiplicador);
+        jugadaCrash(mapaTiradaCrash);
+		pintarDatosCrash(mapaTiradaCrash);
+	    System.out.println(mapaTiradaCrash);
 		resetJuego();
 	}
 	public void lose() {
-    	lose = true;
+		resultado = false;
     	bSacar.setEnabled(false);
-		pintarDatosCrash();
 		JOptionPane.showMessageDialog(null , "LOSE\n -" + VentanaPanelMenu.apuesta + "     x" + numeroCrono);
+        jugadaCrash(mapaTiradaCrash);
+		pintarDatosCrash(mapaTiradaCrash);
+	    System.out.println(mapaTiradaCrash);
 		resetJuego(); 
 	}
-	public void pintarDatosCrash() {
-		if (win == true) {
-			Object[] jugadaWin = new Object[] {contadorApostar, "WIN", "x" + multiplicador, "+" + ganado};
+	public void pintarDatosCrash(Map<Integer,Map<Boolean, Map<Double, Double>>> mapa) {
+		if (resultado == true) {
+			Object[] jugadaWin = new Object[] {tirada, "WIN", "x" + multiplicador, "+" + ganado};
 			dtmTabla.addRow(jugadaWin);
 		}
-		if(lose == true) {
-			Object[] jugadaLose = new Object[] {contadorApostar, "LOSE", "x" + numeroCrono, "-" + VentanaPanelMenu.apuesta};
+		if(resultado == false) {
+			Object[] jugadaLose = new Object[] {tirada, "LOSE", "x" + numeroCrono, "-" + VentanaPanelMenu.apuesta};
 			dtmTabla.addRow(jugadaLose);
 		}	
 	}
-	// Test
+	
+	public void jugadaCrash(Map<Integer,Map<Boolean, Map<Double, Double>>> map) {
+	    Map<Boolean, Map<Double, Double>> detallesTirada = new HashMap<>();
+	    if (resultado == true) {
+		    detallesTirada.put(resultado, new HashMap<>());
+		    detallesTirada.get(resultado).put(multiplicador, ganado);
+		    mapaTiradaCrash.put(tirada, detallesTirada);
+	    } else {
+		    detallesTirada.put(resultado, new HashMap<>());
+		    detallesTirada.get(resultado).put(numeroCrono, VentanaPanelMenu.apuesta);
+		    mapaTiradaCrash.put(tirada, detallesTirada);
+	    }
+	}
+	//
 	public static double calcularGanado(double multiplicador, double apuesta) {
 		return multiplicador * apuesta;
 	}
@@ -300,4 +321,5 @@ public class VentanaCrash extends JFrame{
 	public static double obtenerMultiplicador(int numeroX, int segundos) {
 		return numeroX + (segundos/100.0);
 	}
+	
 }

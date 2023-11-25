@@ -326,7 +326,7 @@ public class VentanaPanelMenu {
 	private JPanel p100 = new JPanel(new BorderLayout());
 	private JPanel p1000 = new JPanel(new BorderLayout());
 
-	static double apuesta;
+	public static double apuesta;
 	static JLabel lApuesta = new JLabel("Apuesta: " +  apuesta);
     static JButton bApostar = new JButton("Apostar");
     private JButton bEliminarApuesta = new JButton("Eliminar apuesta");

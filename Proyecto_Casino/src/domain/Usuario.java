@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import gui.VentanaPanelMenu;
+
 public class Usuario implements Comparable<Usuario>{
 	
 	//Atributos
@@ -17,9 +19,10 @@ public class Usuario implements Comparable<Usuario>{
 	private int numeroCuenta;
 	private double saldo;
 	//Mapas de historiales
-	private Map<Integer, Map<Integer, Double>> mapaRuleta ;
+	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
+	private Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
 	//Lista balance
-	private List<Point> lstBalance;
+	private List<Point> lstBalance = new ArrayList<>();
 	
 	
 	//Constructores
@@ -33,6 +36,7 @@ public class Usuario implements Comparable<Usuario>{
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
 		this.mapaRuleta = new HashMap<>();
+		this.mapaCrash = new HashMap<>();
 		this.lstBalance = new ArrayList<>();
 	}
 	
@@ -111,6 +115,21 @@ public class Usuario implements Comparable<Usuario>{
 		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
 		mapaRuleta.get(tirada).put(resultado, ganancia);
 	}
+	public Map<Integer, Map<String, Map<Double, Double>>> getMapaCrash() {
+		return mapaCrash;
+	}
+
+	public void setMapaCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
+		this.mapaCrash = mapaCrash;
+	}
+	
+	public void addMapaCrash(int tirada, String resultado,  double multiplicador, double ganado) {
+		Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
+		detallesTirada.put(resultado, new HashMap<>());
+		detallesTirada.get(resultado).put(multiplicador, ganado);
+		mapaCrash.put(tirada, detallesTirada);
+	}
+	
 	public List<Point> getLstBalance() {
 		return lstBalance;
 	}
@@ -133,7 +152,7 @@ public class Usuario implements Comparable<Usuario>{
 	//HashCode
 	@Override
 	public int hashCode() {
-		return Objects.hash(DNI, apellidos, contraseña, lstBalance, mapaRuleta, nombre, nombreUsuario, numeroCuenta,
+		return Objects.hash(DNI, apellidos, contraseña, lstBalance, mapaRuleta, mapaCrash, nombre, nombreUsuario, numeroCuenta,
 				saldo);
 	}
 	
@@ -148,6 +167,7 @@ public class Usuario implements Comparable<Usuario>{
 		return Objects.equals(DNI, other.DNI) && Objects.equals(apellidos, other.apellidos)
 				&& Objects.equals(contraseña, other.contraseña) && Objects.equals(lstBalance, other.lstBalance)
 				&& Objects.equals(mapaRuleta, other.mapaRuleta) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(mapaCrash, other.mapaCrash) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(nombreUsuario, other.nombreUsuario) && numeroCuenta == other.numeroCuenta
 				&& Double.doubleToLongBits(saldo) == Double.doubleToLongBits(other.saldo);
 	}
@@ -157,7 +177,4 @@ public class Usuario implements Comparable<Usuario>{
 	public int compareTo(Usuario o) {
 		return this.nombre.compareTo(o.nombre);
 	}
-	
-	
-	
 }

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -33,8 +34,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import db.DBCreator;
 import domain.Point;
 import domain.Usuario;
+import main.Main;
 
 public class VentanaAdminUsuarios extends JFrame{
 
@@ -118,7 +121,7 @@ public class VentanaAdminUsuarios extends JFrame{
 		grfBalance = new PanelGrafico(lstBalance);
 		
 		//Rellena la lista con usuarios de prueba
-		listaUsuarios = rellenarListaEjemplo();
+		listaUsuarios = Main.DBlstUsuarios;
 		Collections.sort(listaUsuarios, new MyComparator());
 		dlmUsuarios.addAll(listaUsuarios);
 		
@@ -184,7 +187,7 @@ public class VentanaAdminUsuarios extends JFrame{
 			                    pintadoRuleta(user.getMapaRuleta());
 			                } else if ("Crash".equals(jcbJuegos.getSelectedItem())) {
 			                    limpiarTabla();
-			                    pintadoCrash();
+			                    pintadoCrash(user.getMapaCrash());
 			                } else if ("Coin Flip".equals(jcbJuegos.getSelectedItem())) {
 			                    limpiarTabla();
 			                    pintadoCoinFlip();
@@ -269,8 +272,23 @@ public class VentanaAdminUsuarios extends JFrame{
 	public void pintadoCoinFlip() {
 			
 	}
-	public void pintadoCrash() {
-		
+	public void pintadoCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
+		dtmJuegos.addColumn("Tirada");
+		dtmJuegos.addColumn("Resultado");
+		dtmJuegos.addColumn("Multiplicador");
+		dtmJuegos.addColumn("Ganancia");
+		for(Entry<Integer,Map<String, Map<Double, Double>>> entry: mapaCrash.entrySet()) {
+			int tirada = entry.getKey();
+			Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
+			for(Entry<String, Map<Double, Double>> entry2: detallesTirada.entrySet()) {
+				String resultado = entry2.getKey();
+				for(Double i: entry2.getValue().keySet()) {
+					double muliplicador = i;
+					double ganancia = entry2.getValue().get(i);
+					dtmJuegos.addRow(new Object[] {tirada, resultado, muliplicador, ganancia});
+				}
+			}
+		}
 	}
 	public void pintadoBlackJack() {
 		
