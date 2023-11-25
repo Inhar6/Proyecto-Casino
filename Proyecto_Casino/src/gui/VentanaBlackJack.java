@@ -57,6 +57,7 @@ public class VentanaBlackJack extends JFrame {
 	private DefaultTableModel defaultTableModel;
 	private JScrollPane scrollPane;
 	
+	private Map<Integer,Map<String,Map<Integer,Double>>> mapaBlackJack = new HashMap<>();
 	private boolean Crupier = false;
 	private boolean Jugador = false;
 	private boolean Empate = false;
@@ -248,6 +249,9 @@ public class VentanaBlackJack extends JFrame {
 				
 				
 				saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+				mapaHistorial(mapaBlackJack, puntuacionCrupier, puntuacionJugador);
+				System.out.println(mapaBlackJack);
+				
 				
 				if(Crupier) {
 					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier","-"+ap});
@@ -369,6 +373,24 @@ public class VentanaBlackJack extends JFrame {
 
 
 	    }
+	public void mapaHistorial(Map<Integer,Map<String,Map<Integer,Double>>> mapaHistorial ,int puntuacionCrupier, int puntuacionJugador){
+		saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+		if (Crupier) {
+		    mapaHistorial.put(contadorPartida, new HashMap<>());
+		    mapaHistorial.get(contadorPartida).put("Crupier",new HashMap<>());
+		    mapaHistorial.get(contadorPartida).get("Crupier").put(puntuacionCrupier, -ap);
+	    } else if(Jugador){
+	        mapaHistorial.put(contadorPartida, new HashMap<>());
+		    mapaHistorial.get(contadorPartida).put("Jugador",new HashMap<>());
+		    mapaHistorial.get(contadorPartida).get("Jugador").put(puntuacionJugador, ap);
+	    }else {
+	        mapaHistorial.put(contadorPartida, new HashMap<>());
+		    mapaHistorial.get(contadorPartida).put("Empate",new HashMap<>());
+		    mapaHistorial.get(contadorPartida).get("Empate").put(0, 0.0);
+	    }
+		
+		
+	}  
 
 	
     //Metodo crear la baraja
