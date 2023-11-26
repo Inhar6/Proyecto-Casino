@@ -26,6 +26,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import db.DBManager;
 import domain.Usuario;
 
 public class VentanaPerfil extends JFrame{
@@ -197,11 +198,13 @@ public class VentanaPerfil extends JFrame{
 					txtNUsuario.setEditable(false);
 					btnGuardar.setEnabled(false);
 					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNUsuario.getText()+"-"+txtContraseña.getText());
-				}else {
-					//No hace nada, deberia de guardar los datos del usuario
 					user.setNombre(txtNombre.getText());
 					user.setNombreUsuario(txtNUsuario.getText());
 					user.setContraseña(txtContraseña.getText());
+					DBManager.editarUsuario(user);
+				}else {
+					//No hace nada, deberia de guardar los datos del usuario
+					
 				}
 				
 			}
