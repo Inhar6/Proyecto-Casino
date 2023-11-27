@@ -93,7 +93,7 @@ public class DBManager {
 			while(rsBlackJack.next()) {
 				for(Usuario user :lstUsuarios) {
 					if(user.getNombreUsuario().equals(rsBlackJack.getString("nombre_usuario"))) {
-						user.addMapaCrash(rsBlackJack.getInt("partida"), rsBlackJack.getString("resultado"), rsBlackJack.getInt("puntuacion"), rsBlackJack.getDouble("ganancia"));
+						user.addMapaBlackJack(rsBlackJack.getInt("partida"), rsBlackJack.getString("ganador"), rsBlackJack.getInt("puntuacion"), rsBlackJack.getDouble("ganancia"));
 					}
 				}	
 			}
