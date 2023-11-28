@@ -65,21 +65,21 @@ public class VentanaCoinFlip extends JFrame {
 	private JPanel contentPane;
 
 	private ControladorVentanaCoinFlip controladorVentana;
-	
+
 	private Propiedades propiedades;
 
-	public Propiedades getPropiedades()
-	{
+	public Propiedades getPropiedades() {
 		return propiedades;
 	}
+
 	public VentanaCoinFlip() {
 
 		propiedades = new Propiedades();
 		propiedades.cargar();
 
-		controladorVentana = new ControladorVentanaCoinFlip()	;	
+		controladorVentana = new ControladorVentanaCoinFlip();
 		addWindowListener(controladorVentana);
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Coin-Flip");
@@ -100,35 +100,34 @@ public class VentanaCoinFlip extends JFrame {
 		setJMenuBar(menuBar1);
 
 		// botones
-		
-		//Cara
+
+		// Cara
 		bCara = new JButton("Cara");
 		bCara.setActionCommand("Cara");
-		
+
 		bCara.addActionListener(controladorVentana);
-		
+
 		bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCara.setMargin(new Insets(10, 30, 10, 20));
-		
-		//Cruz
+
+		// Cruz
 		bCruz = new JButton("Cruz");
 		bCruz.setActionCommand("Cruz");
-		
+
 		bCara.addActionListener(controladorVentana);
-		
+
 		bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCruz.setMargin(new Insets(10, 30, 10, 20));
 
-		//BorrarSelec
+		// BorrarSelec
 		bBorrarSelec = new JButton("Borrar seleccion");
 		bBorrarSelec.setActionCommand("Borrar seleccion");
-		
+
 		bBorrarSelec.addActionListener(controladorVentana);
-		
+
 		bBorrarSelec.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bBorrarSelec.setMargin(new Insets(10, 30, 10, 20));
 
-		
 		// lista
 		DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
 		JList<String> lstHistorial = new JList<>(dlmHistorial);
@@ -163,12 +162,10 @@ public class VentanaCoinFlip extends JFrame {
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 
 		JPanel panelMoneda = new JPanel();
-		//lFotos = new JLabel(new ImageIcon( "resources/images/caraCruz/cara.png") );
-		
-		lFotos = new JLabel(new ImageIcon( getPropiedades().getProperty("cara") ) );
-		
-		
-		
+		// lFotos = new JLabel(new ImageIcon( "resources/images/caraCruz/cara.png") );
+
+		lFotos = new JLabel(new ImageIcon(getPropiedades().getProperty("cara")));
+
 		panelMoneda.setBackground(Color.white);
 		panelMoneda.add(lFotos);
 		// panelMoneda.add(new JLabel(new
@@ -244,85 +241,103 @@ public class VentanaCoinFlip extends JFrame {
 		VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (caraCruz == "Cruz" || caraCruz == "Cara") {
 
-				logger.info("Ha empezado la apuesta");
+					logger.info("Ha empezado la apuesta");
 
-				hilo = new Thread() {
-					public void run() {
-						for (int i = 1; i <= Math.random() * 10 + 10; i++) {
-							try {
-								Thread.sleep(100);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-
-							final int estado = cont % 3;
-							SwingUtilities.invokeLater(new Runnable() {
-								public void run() {
-									switch (estado) {
-									case 0:
-										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cara.png"));
-										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cara")));
-										break;
-									case 1:
-										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cruz.png"));
-										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
-										break;
-									case 2:
-										//lFotos.setIcon(new ImageIcon("resources/images/caraCruz/canto.png"));
-										lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("canto")));
-										break;
-									}
+					hilo = new Thread() {
+						public void run() {
+							for (int i = 1; i <= Math.random() * 10 + 10; i++) {
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
 								}
-							});
 
-							cont++;
-						}
-						SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-
-								if (cont == 1) {
-									for (int i = 0; i < Math.random() * 2; i++) {
-
-										if (i == 0) {
-											resultado = "Cara";
-											//lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cara.png"));
+								final int estado = cont % 3;
+								SwingUtilities.invokeLater(new Runnable() {
+									public void run() {
+										switch (estado) {
+										case 0:
+											// lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cara.png"));
 											lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cara")));
-										} else {
-											resultado = "Cruz";
-											//lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cruz.png"));
+											break;
+										case 1:
+											// lFotos.setIcon(new ImageIcon("resources/images/caraCruz/cruz.png"));
 											lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
+											break;
+										case 2:
+											// lFotos.setIcon(new ImageIcon("resources/images/caraCruz/canto.png"));
+											lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("canto")));
+											break;
 										}
 									}
-								} else if (cont == 2) {
-									resultado = "Cara";
-								} else {
-									resultado = "Cruz";
-								}
-								dlmHistorial.addElement(resultado);
-								logger.info("Ha salido" + resultado);
+								});
 
-								if (resultado == caraCruz) {
-									JOptionPane.showMessageDialog(null, resultado + " \n¡Has ganado! ¡Felicidades!",
-											"Resultado", JOptionPane.INFORMATION_MESSAGE);
-								} else {
-									JOptionPane.showMessageDialog(null,
-											resultado + ".\n Has perdido. Mejor suerte la próxima vez.", "Resultado",
-											JOptionPane.ERROR_MESSAGE);
-								}
-
-								// reiniciar botones
-								bCara.setEnabled(true);
-								bCruz.setEnabled(true);
+								cont++;
 							}
-						});
-						hilo.interrupt();
+							SwingUtilities.invokeLater(new Runnable() {
+								public void run() {
+
+									if (cont == 1) {
+										for (int i = 0; i < Math.random() * 2; i++) {
+
+											if (i == 0) {
+												resultado = "Cara";
+												// lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cara.png"));
+												lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cara")));
+											} else {
+												resultado = "Cruz";
+												// lFotos.setIcon(new ImageIcon("resources/caraCruz/images/cruz.png"));
+												lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
+											}
+										}
+									} else if (cont == 2) {
+										resultado = "Cara";
+									} else {
+										resultado = "Cruz";
+									}
+									dlmHistorial.addElement(resultado);
+									logger.info("Ha salido" + resultado);
+
+									if (resultado == caraCruz) {
+										JOptionPane.showMessageDialog(null, resultado + " \n¡Has ganado! ¡Felicidades!",
+												"Resultado", JOptionPane.INFORMATION_MESSAGE);
+									} else {
+										JOptionPane.showMessageDialog(null,
+												resultado + ".\n Has perdido. Mejor suerte la próxima vez.",
+												"Resultado", JOptionPane.ERROR_MESSAGE);
+									}
+
+									// reiniciar botones
+									bCara.setEnabled(true);
+									bCruz.setEnabled(true);
+								}
+							});
+							hilo.interrupt();
+						}
+
+					};
+					if (resultado == caraCruz) {
+
+						VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
+
+						VentanaPanelMenu.apuesta = 0;
+
+					} else {
+
+						VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
+
+						VentanaPanelMenu.apuesta = 0;
+
 					}
 
-				};
+					hilo.start();
+				} else {
 
-				hilo.start();
+					JOptionPane.showMessageDialog(null, "Seleccione una opciona antes de apostar");
 
+				}
 			}
 		});
 
