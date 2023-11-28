@@ -60,7 +60,7 @@ public class VentanaCoinFlip extends JFrame {
 	private JLabel lFotos;
 
 	// Cara o Cruz boton clicado
-	private String caraCruz;
+	private String caraCruz = null;
 
 	private JPanel contentPane;
 
@@ -235,13 +235,14 @@ public class VentanaCoinFlip extends JFrame {
 				bCara.setEnabled(true);
 				bCruz.setEnabled(true);
 				logger.info("Has eliminado seleccionado");
+				caraCruz = null;
 			}
 		});
 
 		VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (caraCruz == "Cruz" || caraCruz == "Cara") {
+				if (caraCruz != null) {
 
 					logger.info("Ha empezado la apuesta");
 
@@ -319,15 +320,11 @@ public class VentanaCoinFlip extends JFrame {
 
 					};
 					if (resultado == caraCruz) {
-
 						VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
-
 						VentanaPanelMenu.apuesta = 0;
 
 					} else {
-
 						VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
-
 						VentanaPanelMenu.apuesta = 0;
 
 					}

@@ -32,6 +32,7 @@ public class ControladorVentanaCoinFlip extends WindowAdapter implements ActionL
 		// tienes que saber que actionCommand esta llegando
 		// hay que asignar el actionCommand a cada boton de la ventana
 		if (accion.equals("Cara")) {
+			//e.getSource(VentanaCoinFlip.bCara);
 			
 			System.out.println("salio cara");
 		}
