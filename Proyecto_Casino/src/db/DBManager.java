@@ -116,6 +116,19 @@ public class DBManager {
 			return false;
 		}
 	}
+	public static boolean existeUsuarioLogin(String nombreU, String contraseña) {
+		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ? AND contrasena = ?";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, nombreU);
+			pstmt.setString(2, contraseña);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	//Añdir usuario
 	public static void añadirUsuario(Usuario user) {
 		if(!existeUsuario(user.getNombreUsuario())) {
