@@ -11,10 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import db.DBManager;
 
 public class VentanaLogin extends JFrame{
 	
@@ -75,11 +77,19 @@ public class VentanaLogin extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String contra = new String(passContraseña.getPassword());
 				if("Admin".equals(tfUsuario.getText()) && "Admin".equals(new String(passContraseña.getPassword()))) {
 					new VentanaAdmin();
+					dispose();
+				}else if(DBManager.existeUsuarioLogin(tfUsuario.getText(), contra)) {
+					System.out.println("Registro exitoso");
+					//MAndar el usuario a las ventanas
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+				}
 				}
 				
-			}
 		});
 	}
 }
