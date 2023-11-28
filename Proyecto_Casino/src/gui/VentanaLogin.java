@@ -20,6 +20,8 @@ import db.DBManager;
 
 public class VentanaLogin extends JFrame{
 	
+	static boolean loged = false;
+	
 	private static final long serialVersionUID = 1L;
 	//Color del panel
 	private Color colorPanel = new Color(71, 113, 72);
@@ -80,10 +82,12 @@ public class VentanaLogin extends JFrame{
 				String contra = new String(passContraseña.getPassword());
 				if("Admin".equals(tfUsuario.getText()) && "Admin".equals(new String(passContraseña.getPassword()))) {
 					new VentanaAdmin();
+					loged = true;
 					dispose();
 				}else if(DBManager.existeUsuarioLogin(tfUsuario.getText(), contra)) {
 					System.out.println("Registro exitoso");
-					//MAndar el usuario a las ventanas
+					//Mandar el usuario a las ventanas
+					loged = true;
 					dispose();
 				}else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");

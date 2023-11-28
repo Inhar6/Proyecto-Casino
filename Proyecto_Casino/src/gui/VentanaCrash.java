@@ -53,8 +53,6 @@ public class VentanaCrash extends JFrame{
 	private JPanel pSacar = new JPanel(new GridLayout());
 	
 	private boolean resultado;
-//	private boolean win;
-//	private boolean lose;
 	private int segundos; // numero decimal
 	private int numeroX = 1; // numero entero ej: X.324423
 	private double multiplicador; // numero final que saca el usuario
@@ -64,8 +62,6 @@ public class VentanaCrash extends JFrame{
 	private Timer timer;
 	private Random random = new Random();
 	
-	
-//	private JLabel lEtiquetaTiempo = new JLabel("Tiempo: x1");
 	private JLabel lApostado = new JLabel("Apostado: ");
 //	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");

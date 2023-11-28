@@ -22,6 +22,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import io.Propiedades;
+
 public class VentanaPanelMenu {
 	
 	/**
@@ -46,16 +48,11 @@ public class VentanaPanelMenu {
 	private JPanel pMenuN = new JPanel (new BorderLayout());
 	private JPanel pMenuN2 = new JPanel (new BorderLayout());
 	private JPanel pMenuN3 = new JPanel(new BorderLayout());
-	
-	private JPanel pMenuN3Login = new JPanel(new BorderLayout());
-	private JPanel pMenuN3NoLogin = new JPanel(new BorderLayout());
-	
+	private JPanel pMenuBalanceLogin = new JPanel(new BorderLayout());
+	private JPanel pMenuUsuarioSingUp = new JPanel(new BorderLayout());
 	private JPanel pJuegos = new JPanel(new BorderLayout());
 	private JPanel pCasino = new JPanel(new BorderLayout());
-	private JPanel pInicio = new JPanel(new BorderLayout());
-	private JPanel pRegistro = new JPanel(new BorderLayout());
-	private JPanel pBalance = new JPanel(new BorderLayout());
-	private JPanel pUsuario = new JPanel(new BorderLayout());
+
 	// Barra de menus
 	private JMenuBar menuBar = new JMenuBar();
 	// Elementos JMenuJuegos
@@ -79,11 +76,20 @@ public class VentanaPanelMenu {
 
     static int limiteVentanas = 1; // Establece el límite deseado
 	
+    // Propiedades
+    private Propiedades propiedades;
+    private Propiedades getPropiedades() {
+    	return propiedades;
+    }
+    
     // Menu superior
 	public void enseñarMenu(JPanel panel, JMenu menu) {
 
 		panel.add(pMenu);
 
+		propiedades = new Propiedades();
+		propiedades.cargar();
+		
 		bCasino.setIcon(redimensionarIcono(logoCasinoNegro, 30, 30));
 		bCasino.setBorder(null);
 		bCasino.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -93,31 +99,18 @@ public class VentanaPanelMenu {
 		pMenuN.add(pMenuN3, BorderLayout.EAST);
 		pMenuN2.add(pJuegos, BorderLayout.EAST);
 		pMenuN2.add(pCasino, BorderLayout.WEST);
+		pMenuN3.add(pMenuUsuarioSingUp, BorderLayout.EAST);
+		pMenuN3.add(pMenuBalanceLogin, BorderLayout.WEST);
 		pJuegos.add(bJuegos);
 		pCasino.add(bCasino);
 		
-		pMenuN3.add(pMenuN3Login);
-		pMenuN3.add(pMenuN3NoLogin);
+		JPanel n = new JPanel();
+		pMenuN.add(n, BorderLayout.CENTER);
+		n.add(bUsuario);
+		n.add(lBalance);
 		
-		pMenuN3Login.add(pInicio, BorderLayout.EAST);
-		pMenuN3Login.add(pRegistro, BorderLayout.WEST);
-		pMenuN3NoLogin.add(pUsuario, BorderLayout.EAST);
-		pMenuN3NoLogin.add(pBalance, BorderLayout.WEST);
-		
-		pInicio.add(bLogin);
-		pRegistro.add(bSingUp);
-		pUsuario.add(bUsuario);
-		pBalance.add(lBalance);
-		
-		// Temporal hasta Añadir mas funciones : 
-		// Mostrar InicioRegistro / BalanceUsuario
-		JPanel mostrarBotones = new JPanel();
-		pMenuN.add(mostrarBotones, BorderLayout.CENTER);
-		mostrarBotones.add(bLogin);
-		mostrarBotones.add(bSingUp);
-		JButton mostrarLogin = new JButton();
-		JButton mostrarNoLogin = new JButton();		
-		
+		mostrarUsuarioLogin();
+
         // Color y espacios en el Menu superior
 		pMenuN.setBorder(new EmptyBorder(20, 25, 20, 25));
 		pMenuN.setBackground(colorPanel);
@@ -127,14 +120,11 @@ public class VentanaPanelMenu {
 		pJuegos.setBackground(colorPanel);
 		pCasino.setBorder(new EmptyBorder(0, 10, 0, 10));
 		pCasino.setBackground(colorPanel);
-		pInicio.setBorder(new EmptyBorder(0, 10, 0, 10));
-		pInicio.setBackground(colorPanel);
-		pRegistro.setBorder(new EmptyBorder(0, 10, 0, 10));
-		pRegistro.setBackground(colorPanel);
-		pBalance.setBorder(new EmptyBorder(0, 10, 0, 10));
-		pBalance.setBackground(colorPanel);
-		pUsuario.setBorder(new EmptyBorder(0, 10, 0, 10));
-		pUsuario.setBackground(colorPanel);	
+		pMenuBalanceLogin.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pMenuBalanceLogin.setBackground(colorPanel);
+		pMenuUsuarioSingUp.setBorder(new EmptyBorder(0, 10, 0, 10));
+		pMenuUsuarioSingUp.setBackground(colorPanel);
+
 		// Barra de menus
 		menuBar.setVisible(false); // Oculta la barra de menu, se abre con botones Juegos/Usuarios
 		// Configuración JMenuJuegos
@@ -164,7 +154,7 @@ public class VentanaPanelMenu {
 		menuUsuario.addSeparator();
 		menuUsuario.add(menuItemCerrarSesion);
 		menuItemCerrarSesion.setMnemonic(KeyEvent.VK_S);
-
+		
 		bLogin.addActionListener(new ActionListener() {
 
 			@Override
@@ -298,6 +288,15 @@ public class VentanaPanelMenu {
 				});
 	}
 
+	public void mostrarUsuarioLogin() {
+		if(VentanaLogin.loged == true) {
+			pMenuUsuarioSingUp.add(bUsuario);
+			pMenuBalanceLogin.add(lBalance);
+		} else {
+			pMenuUsuarioSingUp.add(bSingUp);
+			pMenuBalanceLogin.add(bLogin);
+		}
+	}
 	public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
 		Image image = imageIcon.getImage();
 		Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
@@ -341,27 +340,24 @@ public class VentanaPanelMenu {
     // Menu inferior de apuesta
     public void enseñarApostar(JPanel panel) {
     	Color colorPanel = new Color(71, 113, 72);
-
+    	
+    	propiedades = new Propiedades();
+    	propiedades.cargar();
+    	
     	// Imagenes fichas
-        ImageIcon logoFicha1 = new ImageIcon("resources/images/fichas/ficha1.png");
-        ImageIcon logoFicha10 = new ImageIcon("resources/images/fichas/ficha10.png");
-        ImageIcon logoFicha25 = new ImageIcon("resources/images/fichas/ficha25.png");
-        ImageIcon logoFicha50 = new ImageIcon("resources/images/fichas/ficha50.png");
-        ImageIcon logoFicha100 = new ImageIcon("resources/images/fichas/ficha100.png");
-        ImageIcon logoFicha1000 = new ImageIcon("resources/images/fichas/ficha1000.png");
-		bficha1.setIcon(redimensionarIcono(logoFicha1, 50, 50));
+		bficha1.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha1")), 50, 50));
+		bficha10.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha10")), 50, 50));
+		bficha25.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha25")), 50, 50));
+		bficha50.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha50")), 50, 50));
+		bficha100.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha100")), 50, 50));
+		bficha1000.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha1000")), 50, 50));
 		bficha1.setBorder(null);
-		bficha10.setIcon(redimensionarIcono(logoFicha10, 50, 50));
 		bficha10.setBorder(null);
-		bficha25.setIcon(redimensionarIcono(logoFicha25, 50, 50));
 		bficha25.setBorder(null);
-		bficha50.setIcon(redimensionarIcono(logoFicha50, 50, 50));
 		bficha50.setBorder(null);
-		bficha100.setIcon(redimensionarIcono(logoFicha100, 50, 50));
 		bficha100.setBorder(null);
-		bficha1000.setIcon(redimensionarIcono(logoFicha1000, 50, 50));
 		bficha1000.setBorder(null);
-		//
+		
 		pApostarW.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		
     	panel.add(pApostar);

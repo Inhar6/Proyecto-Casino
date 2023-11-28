@@ -16,23 +16,29 @@ public class Propiedades extends Properties {
 	}
 
 	public void guardar() {
-
-		// TODAS LAS PROPIEDADES AQUI
-		//coinflip 
-		setProperty("cara", "resources/images/caraCruz/cara.png");
-
-		setProperty("cruz", "resources/images/caraCruz/cruz.png");
 		
+		// COIN-FLIP 
+		setProperty("cara", "resources/images/caraCruz/cara.png");
+		setProperty("cruz", "resources/images/caraCruz/cruz.png");
 		setProperty("canto", "resources/images/caraCruz/canto.png");
 		
-		//ruleta
+		// RULETA
 		
-		//blackJack
+		// BLACK JACK
 		
-		//Menus
-		
-		// ...
+		// MENUS
+			// Iconos
+			setProperty("icono", "resources/images/iconos/logoNoEscasino.png");
+			setProperty ("favicon", "resources/images/iconos/favicon.png");
+			// Fichas
+			setProperty("ficha1", "resources/images/fichas/ficha1.png");
+			setProperty("ficha10", "resources/images/fichas/ficha10.png");
+			setProperty("ficha25", "resources/images/fichas/ficha25.png");
+			setProperty("ficha50", "resources/images/fichas/ficha50.png");
+			setProperty("ficha100", "resources/images/fichas/ficha100.png");
+			setProperty("ficha1000", "resources/images/fichas/ficha1000.png");
 
+			
 		try (FileOutputStream output = new FileOutputStream("config.properties")) {
 			store(output, "Configuración de la base de datos");
 		} catch (IOException io) {
