@@ -7,7 +7,6 @@ import javax.swing.SwingUtilities;
 
 import db.DBManager;
 import domain.CuentaBancaria;
-import domain.Point;
 import domain.Usuario;
 import gui.VentanaInicial;
 
@@ -22,13 +21,14 @@ public class Main {
 		
 		System.out.println("Rellenando la lista de usuarios");
 		System.out.println("Rellenando la lista de cuentas bancarias");
+		
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 		DBlstCuentaBancaria = DBManager.obtenerTodasLasCuentasBancarias();
-		System.out.println(DBManager.obtenerTodosLosUsuarios());
-		System.out.println(DBManager.obtenerTodasLasCuentasBancarias());
-		for(Usuario user : DBlstUsuarios) {
-			user.addListaBalance(new Point(2, 3));
-		}
+		
+		System.out.println(DBlstUsuarios);
+		System.out.println(DBlstCuentaBancaria);
+		
+
 		
 		
         SwingUtilities.invokeLater(new Runnable() {

@@ -139,8 +139,8 @@ public class Usuario implements Comparable<Usuario>{
 	//Añadirle cosas al mapa del usuario
 	public void addMapaCuentaBancaria(String titular, double saldo, int numeroCuenta, int cvc, int ano, int mes) {
 		Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>> saldoCB = new HashMap<>();
-		saldoCB.putIfAbsent(saldo, new HashMap<>());
 		Map<Integer, Map<Integer, Integer>> detallesCuentaBancaria = new HashMap<>();
+		saldoCB.putIfAbsent(saldo, new HashMap<>());
 		saldoCB.get(saldo).put(numeroCuenta, detallesCuentaBancaria);
 		detallesCuentaBancaria.putIfAbsent(cvc, new HashMap<>());
 		detallesCuentaBancaria.get(cvc).put(mes, ano);
