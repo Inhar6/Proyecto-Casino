@@ -20,9 +20,7 @@ public class Main {
 		System.out.println("Rellenando la lista de usuarios");
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 		
-		for(Usuario user : DBlstUsuarios) {
-			user.addListaBalance(new Point(2, 3));
-		}
+		
         SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
