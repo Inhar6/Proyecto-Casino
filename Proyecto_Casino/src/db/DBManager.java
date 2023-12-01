@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.CuentaBancaria;
+import domain.Point;
 import domain.Usuario;
 
 public class DBManager {
@@ -104,6 +105,15 @@ public class DBManager {
 				for(Usuario user: lstUsuarios) {
 					if(String.valueOf(user.getNumeroCuenta()).equals(rsCuentaBancaria.getString("numero_cuenta"))) {
 						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("saldo"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
+					}
+				}
+			}
+			//Añadir la lista Balance al usuario
+			ResultSet rsBalance = stmt.executeQuery("SELECT * FROM Usuario u, Balance b WHERE u.nombre_usuario = b.nombre_usuario");
+			while(rsBalance.next()) {
+				for(Usuario user : lstUsuarios) {
+					if(user.getNombreUsuario().equals(rsBalance.getString("nombre_usuario"))) {
+						user.addListaBalance(new Point(rsBalance.getInt("sesion"), (int) rsBalance.getDouble("saldo")));
 					}
 				}
 			}
@@ -342,6 +352,19 @@ public class DBManager {
 		}
 	}
 	
+	public static void crearTablaBalance() {
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()){
+			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Balance (\n"
+					+ "		sesion INTEGER,\n"
+					+ "		saldo DOUBLE,\n"
+					+ "		nombre_usuario VARCHAR(50),\n"
+					+ " 	FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * AÑADIR DATOS DE EJEMPLO
 	 */
@@ -491,6 +514,31 @@ public class DBManager {
 			e.printStackTrace();
 		}
 }
+
+	public static void añadirBalanceEjemplo() {
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Balance (sesion, saldo, nombre_usuario)\r\n"
+						+ "VALUES\n"
+						+ "    (1, 1500.0, 'usuario1'),\n"
+						+ "    (2, 2000.0, 'usuario2'),\n"
+						+ "    (3, 1000.0, 'usuario3'),\n"
+						+ "    (4, 2500.0, 'usuario4'),\n"
+						+ "    (5, 1800.0, 'usuario5'),\n"
+						+ "    (6, 3000.0, 'usuario6'),\n"
+						+ "    (7, 1200.0, 'usuario7'),\n"
+						+ "    (8, 2200.0, 'usuario8'),\n"
+						+ "    (9, 1700.0, 'usuario9'),\n"
+						+ "    (10, 2800.0, 'usuario10'),\n"
+						+ "    (11, 1900.0, 'usuario11'),\n"
+						+ "    (12, 2300.0, 'usuario12'),\n"
+						+ "    (13, 2700.0, 'usuario13'),\n"
+						+ "    (14, 1600.0, 'usuario14'),\n"
+						+ "    (15, 2100.0, 'usuario15');")){
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	/*
 	 * TABLA USUARIOS
 	CREATE TABLE IF NOT EXISTS Usuario (

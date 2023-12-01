@@ -40,8 +40,12 @@ public class DBCreator {
 		System.out.println("Añadiendo Datos de ejemplo en Black Jack");
 		DBManager.añadirBlackJackEjemplo();
 		*/
+		System.out.println("Creando tabla Balance");
+		DBManager.crearTablaBalance();
+		/*
+		System.out.println("Añadiendo Datos de ejemplo en Balance");
+		DBManager.añadirBalanceEjemplo();
+		*/
 		System.out.println("Cerrando conexion...");
-		
-		
 	}
 }

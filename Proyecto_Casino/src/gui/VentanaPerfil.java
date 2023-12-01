@@ -7,8 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -217,20 +215,20 @@ public class VentanaPerfil extends JFrame{
 				String juego = (String)jcbJuegos.getSelectedItem();
 				if(juego.equals("Ruleta")) {
 					logger.info("Muestra de datos en la tabla Ruleta");
-					limpiarTabla();
-					pintarDatosRuleta();
+					Tablas.limpiarTabla(dtmTabla);
+					Tablas.pintadoRuleta(dtmTabla, user.getMapaRuleta());
 				}else if(juego.equals("Coin Flip")) {
 					logger.info("Muestra de datos en la tabla Coin Flip");
-					limpiarTabla();
-					pintarDatosCoinFlip();
+					Tablas.limpiarTabla(dtmTabla);
+					Tablas.pintadoCoinFlip(dtmTabla);
 				}else if(juego.equals("Crash")) {
 					logger.info("Muestra de datos en la tabla Crash");
-					limpiarTabla();
-					pintarDatosCrash();
+					Tablas.limpiarTabla(dtmTabla);
+					Tablas.pintadoCrash(dtmTabla, user.getMapaCrash());
 				}else {
 					logger.info("Muestra de datos en la tabla Black Jack");
-					limpiarTabla();
-					pintarDatosBlackJack();
+					Tablas.limpiarTabla(dtmTabla);
+					Tablas.pintadoBlackJack(dtmTabla);
 				}
 			}
 		});
@@ -238,45 +236,6 @@ public class VentanaPerfil extends JFrame{
      
 		setVisible(true);
 		
-	}
-	public void limpiarTabla() {
-		dtmTabla.setRowCount(0);
-		dtmTabla.setColumnCount(0);
-	}
-	//Datos de prueba
-	public void pintarDatosRuleta() {
-		dtmTabla.addColumn("Tirada");
-		dtmTabla.addColumn("Resultado");
-		dtmTabla.addColumn("Ganancia");
-		for(Entry<Integer, Map<Integer, Double>> entry :VentanaRuleta.mapaTiradas.entrySet()) {
-			int tirada =entry.getKey();
-			for(Integer i : entry.getValue().keySet()) {
-				int resultado = i;
-				double ganancia = entry.getValue().get(i);
-				dtmTabla.addRow(new Object[] {tirada,resultado,ganancia});
-			}
-			
-		}
-	}
-	public void pintarDatosCoinFlip() {
-		dtmTabla.addColumn("Tirada");
-		dtmTabla.addColumn("Resultado");
-		dtmTabla.addColumn("Ganancia");
-		dtmTabla.addRow(new Object[] {1,"Cara",+20});
-		dtmTabla.addRow(new Object[] {2,"Cara",-30});
-		dtmTabla.addRow(new Object[] {3,"Cruz",+150});
-	}
-	public void pintarDatosCrash() {
-		dtmTabla.addColumn("Tirada");
-		dtmTabla.addColumn("Resultado");
-		dtmTabla.addColumn("Multiplicador");
-		dtmTabla.addColumn("Ganancia");
-		dtmTabla.addRow(new Object[] {1,"WIN","x3.46",+200});
-		dtmTabla.addRow(new Object[] {2,"LOSE","x0.0",-30});
-		dtmTabla.addRow(new Object[] {3,"WIN","x1.25",+150});
-	}
-	public void pintarDatosBlackJack() {
-
 	}
 	
 	class MyRender extends JLabel implements TableCellRenderer{

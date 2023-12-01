@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -182,17 +180,25 @@ public class VentanaAdminUsuarios extends JFrame{
 			            if (user != null) {
 			                // Actualizar la tabla
 			                if ("Ruleta".equals(jcbJuegos.getSelectedItem())) {
-			                    limpiarTabla();
+			                    /*
+			                	limpiarTabla();
 			                    pintadoRuleta(user.getMapaRuleta());
+			                    */
+			                	Tablas.limpiarTabla(dtmJuegos);
+			                	Tablas.pintadoRuleta(dtmJuegos, user.getMapaRuleta());
 			                } else if ("Crash".equals(jcbJuegos.getSelectedItem())) {
-			                    limpiarTabla();
+			                    /*
+			                	limpiarTabla();
 			                    pintadoCrash(user.getMapaCrash());
+			                	*/
+			                	Tablas.limpiarTabla(dtmJuegos);
+			                	Tablas.pintadoCrash(dtmJuegos, user.getMapaCrash());
 			                } else if ("Coin Flip".equals(jcbJuegos.getSelectedItem())) {
-			                    limpiarTabla();
-			                    pintadoCoinFlip();
+			                    Tablas.limpiarTabla(dtmJuegos);
+			                    Tablas.pintadoCoinFlip(dtmJuegos);
 			                } else {
-			                    limpiarTabla();
-			                    pintadoBlackJack();
+			                    Tablas.limpiarTabla(dtmJuegos);
+			                    Tablas.pintadoBlackJack(dtmJuegos);
 			                }
 
 			                // Actualizar el gráfico
@@ -229,70 +235,6 @@ public class VentanaAdminUsuarios extends JFrame{
 		setVisible(true);
 	}
 
-	
-	public List<Usuario> rellenarListaEjemplo() {
-		List<Usuario> listaDeUsuarios = new ArrayList<>();
-		listaDeUsuarios.add(Usuario1);
-        listaDeUsuarios.add(Usuario2);
-        listaDeUsuarios.add(new Usuario("Usuario3", "Apellido3", "33333333C", "user3","", 54321, 75000.0));
-        listaDeUsuarios.add(new Usuario("Usuario4", "Apellido4", "44444444D", "user4", "",98765, 20000.0));
-        listaDeUsuarios.add(new Usuario("Usuario5", "Apellido5", "55555555E", "user5","", 24680, 300.0));
-        listaDeUsuarios.add(new Usuario("Usuario6", "Apellido6", "66666666F", "user6", "",11223, 450000.0));
-        listaDeUsuarios.add(new Usuario("Usuario7", "Apellido7", "77777777G", "user7", "",33221, 55000.0));
-        listaDeUsuarios.add(new Usuario("Usuario8", "Apellido8", "88888888H", "user8", "",76543, 1200.0));
-        listaDeUsuarios.add(new Usuario("Usuario9", "Apellido9", "99999999I", "user9", "",19876, 800.0));
-        listaDeUsuarios.add(new Usuario("Usuario10", "Apellido10", "10101010J", "user10","", 23456, 2200.0));
-        listaDeUsuarios.add(new Usuario("Usuario11", "Apellido11", "11111111K", "user11", "",90876, 170000.0));
-        listaDeUsuarios.add(new Usuario("Usuario12", "Apellido12", "12121212L", "user12","", 65432, 1600.0));
-        listaDeUsuarios.add(new Usuario("Usuario13", "Apellido13", "13131313M", "user13","", 56789, 1800.0));
-        listaDeUsuarios.add(new Usuario("Usuario14", "Apellido14", "14141414N", "user14", "",11234, 4000.0));
-        listaDeUsuarios.add(new Usuario("User", "Apellido", "15151515O", "user15","", 98765, 300000.0));
-		return listaDeUsuarios;
-	}
-	
-	public void limpiarTabla() {
-		dtmJuegos.setRowCount(0);
-		dtmJuegos.setColumnCount(0);
-	}
-	
-	public void pintadoRuleta(Map<Integer, Map<Integer, Double>> mapa) {
-		dtmJuegos.addColumn("Tirada");
-		dtmJuegos.addColumn("Resultado");
-		dtmJuegos.addColumn("Ganancia");
-		for(Entry<Integer, Map<Integer, Double>> entry :mapa.entrySet()) {
-			int tirada =entry.getKey();
-			for(Integer i : entry.getValue().keySet()) {
-				int resultado = i;
-				double ganancia = entry.getValue().get(i);
-				dtmJuegos.addRow(new Object[] {tirada,resultado,ganancia});
-			}
-			
-		}
-	}
-	public void pintadoCoinFlip() {
-			
-	}
-	public void pintadoCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
-		dtmJuegos.addColumn("Tirada");
-		dtmJuegos.addColumn("Resultado");
-		dtmJuegos.addColumn("Multiplicador");
-		dtmJuegos.addColumn("Ganancia");
-		for(Entry<Integer,Map<String, Map<Double, Double>>> entry: mapaCrash.entrySet()) {
-			int tirada = entry.getKey();
-			Map<String, Map<Double, Double>> detallesTirada = entry.getValue();
-			for(Entry<String, Map<Double, Double>> entry2: detallesTirada.entrySet()) {
-				String resultado = entry2.getKey();
-				for(Double i: entry2.getValue().keySet()) {
-					double muliplicador = i;
-					double ganancia = entry2.getValue().get(i);
-					dtmJuegos.addRow(new Object[] {tirada, resultado, muliplicador, ganancia});
-				}
-			}
-		}
-	}
-	public void pintadoBlackJack() {
-		
-	}
 	public List<Point> puntosPrueba(){
 		List<Point> lista = new ArrayList<>();
 		lista.add(new Point(1, 2));
@@ -302,23 +244,6 @@ public class VentanaAdminUsuarios extends JFrame{
 		lista.add(new Point(5, 6));
 		return lista;
 	}
-	
-	/*
-	public void actualizarLista() {
-		String filtro = txtBuscador.getText().toLowerCase();
-		List<Usuario> lstFiltro = new ArrayList<>();
-		for(int i = 0; i<dlmUsuarios.size();i++ ) {
-			Usuario u = dlmUsuarios.getElementAt(i);
-			if(u.getNombre().toLowerCase().startsWith(filtro)) {
-				lstFiltro.add(u);
-			}
-		}
-		lstUsuarios.setModel(new DefaultListModel<>());
-		for(Usuario user:lstFiltro) {
-			((DefaultListModel<Usuario>)lstUsuarios.getModel()).addElement(user);
-		}
-	}
-	*/
 	//Render para la lista de arriba
 	class MyListCellRender extends JLabel implements ListCellRenderer<Usuario>{
 

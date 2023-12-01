@@ -29,6 +29,8 @@ public class Main {
 		for(Usuario user : DBlstUsuarios) {
 			user.addListaBalance(new Point(2, 3));
 		}
+		
+		
         SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
