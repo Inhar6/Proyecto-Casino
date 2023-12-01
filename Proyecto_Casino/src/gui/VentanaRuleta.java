@@ -106,6 +106,7 @@ public class VentanaRuleta extends JFrame{
 		setTitle("Ruleta");
 		setVisible(true);
 		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		//Propiedades
 		propiedades= new Propiedades();
