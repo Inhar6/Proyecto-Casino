@@ -33,6 +33,7 @@ import javax.swing.border.Border;
 
 import domain.ApuestaRuleta;
 import domain.Point;
+import io.Propiedades;
 
 
 public class VentanaRuleta extends JFrame{
@@ -91,10 +92,12 @@ public class VentanaRuleta extends JFrame{
 	//Lista Balance
 	public static List<Point> lstBalance = new ArrayList<>();
 	private int marca = 0;
-	
-	///IMAGEN
-	private String rutaImagen="resources/images/iconos/mesa-ruleta2.png";
-	private ImageIcon imagen;
+	//Propiedades
+	private Propiedades propiedades;
+	public Propiedades getPropiedades() {
+		return propiedades;
+	}
+	//Imagen
 	private JLabel etiquetaImagen;
 					
 	public VentanaRuleta() {
@@ -105,6 +108,10 @@ public class VentanaRuleta extends JFrame{
 		setLocationRelativeTo(null);
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+
 		//Botones
 		btnVerde = new JButton("Verde");
 			btnVerde.setBackground(Color.green);
@@ -150,9 +157,7 @@ public class VentanaRuleta extends JFrame{
 		mapaApuestas.put("Par", new HashMap<>());
 		mapaApuestas.put("Fila", new HashMap<>());
 		//IMAGEN
-		imagen= new ImageIcon(rutaImagen);
-		etiquetaImagen = new JLabel(imagen);
-		
+		etiquetaImagen = new JLabel(new ImageIcon(getPropiedades().getProperty("mesaRuleta")));
 		//Parte del Historial
 		dlmHistorial = new DefaultListModel<>();
 		lstHistorial = new JList<>(dlmHistorial);

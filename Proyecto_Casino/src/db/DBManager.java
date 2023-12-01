@@ -481,7 +481,8 @@ public class DBManager {
 		}
 	}
 	public static void añadirCrashEjemplo() {
-		try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Crash (tirada, resultado, multiplicador, ganancia, nombre_usuario) VALUES\r\n"
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Crash (tirada, resultado, multiplicador, ganancia, nombre_usuario) VALUES\r\n"
 				+ "	    (1, 'WIN', 1.13, 1123.0 ,'usuario1'),\r\n"
 				+ "	    (2, 'WIN', 1.45, 9954.0 ,'usuario2'),\r\n"
 				+ "	    (3, 'LOSE', 2.13, 2345.0 ,'usuario3'),\r\n"
