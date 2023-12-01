@@ -17,6 +17,8 @@ public class Usuario implements Comparable<Usuario>{
 	private String contraseña;
 	private int numeroCuenta;
 	private double saldo;
+	//Mapa de cuentas bancarias
+	private Map<String, Map<Double, Map<Integer, Map<Integer, Map<Integer,Integer>>>>> mapaCuentaBancaria = new HashMap<>();
 	//Mapas de historiales
 	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
 	private Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
@@ -103,18 +105,22 @@ public class Usuario implements Comparable<Usuario>{
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	
+
+	public Map<String, Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>>> getMapaCuentaBancaria() {
+		return mapaCuentaBancaria;
+	}
+
+	public void setMapaCuentaBancaria(
+			Map<String, Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>>> mapaCuentaBancaria) {
+		this.mapaCuentaBancaria = mapaCuentaBancaria;
+	}
+
 	public Map<Integer, Map<Integer, Double>> getMapaRuleta() {
 		return mapaRuleta;
 	}
 
 	public void setMapaRuleta(Map<Integer, Map<Integer, Double>> mapaRuleta) {
 		this.mapaRuleta = mapaRuleta;
-	}
-	//Añadirle cosas al mapa del usuario
-	public void addMapaRuleta(int tirada, int resultado, double ganancia) {
-		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
-		mapaRuleta.get(tirada).put(resultado, ganancia);
 	}
 	public Map<Integer, Map<String, Map<Double, Double>>> getMapaCrash() {
 		return mapaCrash;
@@ -123,15 +129,6 @@ public class Usuario implements Comparable<Usuario>{
 	public void setMapaCrash(Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
 		this.mapaCrash = mapaCrash;
 	}
-	
-	public void addMapaCrash(int tirada, String resultado,  double multiplicador, double ganado) {
-		Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
-		detallesTirada.putIfAbsent(resultado, new HashMap<>());
-		detallesTirada.get(resultado).put(multiplicador, ganado);
-		mapaCrash.putIfAbsent(tirada, detallesTirada);
-	}
-	
-	
 	public Map<Integer, Map<String, Map<Integer, Double>>> getMapaBlackJack() {
 		return mapaBlackJack;
 	}
@@ -139,12 +136,30 @@ public class Usuario implements Comparable<Usuario>{
 	public void setMapaBlackJack(Map<Integer, Map<String, Map<Integer, Double>>> mapaBlackJack) {
 		this.mapaBlackJack = mapaBlackJack;
 	}
-	
+	//Añadirle cosas al mapa del usuario
+	public void addMapaCuentaBancaria(String titular, double saldo, int numeroCuenta, int cvc, int ano, int mes) {
+		Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>> saldoCB = new HashMap<>();
+		saldoCB.putIfAbsent(saldo, new HashMap<>());
+		Map<Integer, Map<Integer, Integer>> detallesCuentaBancaria = new HashMap<>();
+		saldoCB.get(saldo).put(numeroCuenta, detallesCuentaBancaria);
+		detallesCuentaBancaria.putIfAbsent(cvc, new HashMap<>());
+		detallesCuentaBancaria.get(cvc).put(mes, ano);
+		mapaCuentaBancaria.put(titular, saldoCB);
+	}
+	public void addMapaRuleta(int tirada, int resultado, double ganancia) {
+		mapaRuleta.putIfAbsent(tirada, new HashMap<>());
+		mapaRuleta.get(tirada).put(resultado, ganancia);
+	}
+	public void addMapaCrash(int tirada, String resultado,  double multiplicador, double ganado) {
+		Map<String, Map<Double, Double>> detallesTirada = new HashMap<>();
+		detallesTirada.putIfAbsent(resultado, new HashMap<>());
+		detallesTirada.get(resultado).put(multiplicador, ganado);
+		mapaCrash.putIfAbsent(tirada, detallesTirada);
+	}
 	public void addMapaBlackJack(int partida,String ganador,int puntuacion, double ganancia) {
 		mapaBlackJack.putIfAbsent(partida, new HashMap<>());
 		mapaBlackJack.get(partida).put(ganador,new HashMap<>());
-		mapaBlackJack.get(partida).get(ganador).put(puntuacion,ganancia);
-		
+		mapaBlackJack.get(partida).get(ganador).put(puntuacion,ganancia);	
 	}
 	
 
@@ -184,6 +199,7 @@ public class Usuario implements Comparable<Usuario>{
 		Usuario other = (Usuario) obj;
 		return Objects.equals(DNI, other.DNI) && Objects.equals(apellidos, other.apellidos)
 				&& Objects.equals(contraseña, other.contraseña) && Objects.equals(lstBalance, other.lstBalance)
+				&& Objects.equals(mapaCuentaBancaria, other.mapaCuentaBancaria) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(mapaRuleta, other.mapaRuleta) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(mapaCrash, other.mapaCrash) && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(mapaBlackJack, other.mapaBlackJack) && Objects.equals(nombre, other.nombre)

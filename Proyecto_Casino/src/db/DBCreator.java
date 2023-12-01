@@ -17,6 +17,10 @@ public class DBCreator {
 		System.out.println("Añadiendo Usuarios de ejemplo");
 		db.añadirUsuariosEjemplo();
 		*/
+		
+		System.out.println("Creando tabla CuentaBancaria");
+		DBManager.crearTablaCuentaBancaria();
+		
 		System.out.println("Creando tabla Ruleta");
 		DBManager.crearTablaRuleta();
 		

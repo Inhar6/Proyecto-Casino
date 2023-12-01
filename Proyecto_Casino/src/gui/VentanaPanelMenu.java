@@ -286,6 +286,14 @@ public class VentanaPanelMenu {
 						
 					}
 				});
+		menuItemCerrarSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaLogin.loged = false;
+				logger.info("Se ha cerrado la sesión");
+			}
+		});
 	}
 
 	public void mostrarUsuarioLogin() {
