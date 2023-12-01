@@ -23,6 +23,7 @@ public class Propiedades extends Properties {
 		setProperty("canto", "resources/images/caraCruz/canto.png");
 		
 		// RULETA
+		setProperty("mesa-ruleta2", "resources/images/iconos/mesaRuleta.png");
 		
 		// BLACK JACK
 		
