@@ -137,11 +137,11 @@ public class Usuario implements Comparable<Usuario>{
 		this.mapaBlackJack = mapaBlackJack;
 	}
 	//Añadirle cosas al mapa del usuario
-	public void addMapaCuentaBancaria(String titular, double saldo, int numeroCuenta, int cvc, int ano, int mes) {
+	public void addMapaCuentaBancaria(String titular, double saldo, int numero_cuenta, int cvc, int ano, int mes) {
 		Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>> saldoCB = new HashMap<>();
 		Map<Integer, Map<Integer, Integer>> detallesCuentaBancaria = new HashMap<>();
 		saldoCB.putIfAbsent(saldo, new HashMap<>());
-		saldoCB.get(saldo).put(numeroCuenta, detallesCuentaBancaria);
+		saldoCB.get(saldo).put(numero_cuenta, detallesCuentaBancaria);
 		detallesCuentaBancaria.putIfAbsent(cvc, new HashMap<>());
 		detallesCuentaBancaria.get(cvc).put(mes, ano);
 		mapaCuentaBancaria.put(titular, saldoCB);

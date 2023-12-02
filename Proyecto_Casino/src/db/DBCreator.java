@@ -22,6 +22,8 @@ public class DBCreator {
 		System.out.println("Creando tabla CuentaBancaria");
 		DBManager.crearTablaCuentaBancaria();
 		
+//		DBManager.añadirCuentaBancariaEjemplo();
+		
 		System.out.println("Creando tabla Ruleta");
 		DBManager.crearTablaRuleta();
 		

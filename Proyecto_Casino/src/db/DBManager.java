@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -100,10 +101,10 @@ public class DBManager {
 				}	
 			}
 			//Añadir la tabla CuentaBancaria al usuario
-			ResultSet rsCuentaBancaria = stmt.executeQuery("SELECT * FROM Usuario u, CuentaBancaria cb WHERE u.numero_cuenta = cb.numero_cuenta");
+			ResultSet rsCuentaBancaria = stmt.executeQuery("SELECT * FROM Usuario u, CuentaBancaria c WHERE u.nombre_usuario = c.nombre_usuario");
 			while(rsCuentaBancaria.next()) {
 				for(Usuario user: lstUsuarios) {
-					if(String.valueOf(user.getNumeroCuenta()).equals(rsCuentaBancaria.getString("numero_cuenta"))) {
+					if(user.getNombreUsuario().equals(rsCuentaBancaria.getString("nombre_usuario"))) {
 						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("saldo"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
 					}
 				}
@@ -224,105 +225,22 @@ public class DBManager {
 			e.printStackTrace();
 		}	
 	}
-	public static List<CuentaBancaria> obtenerTodasLasCuentasBancarias() {
-	    List<CuentaBancaria> lstCuentaBancaria = new ArrayList<>();
-	    try (Connection conn = obtenerConexion();
-	        Statement stmt = conn.createStatement()){
-	        ResultSet rs = stmt.executeQuery("SELECT * FROM CuentaBancaria");
-	        while(rs.next()) {
-	            CuentaBancaria cuentaBancaria = new CuentaBancaria();
-	            cuentaBancaria.setTitular(rs.getString("titular"));
-	            cuentaBancaria.setNumero_cuenta(rs.getString("numero_cuenta"));
-	            cuentaBancaria.setCvc(rs.getInt("cvc"));
-	            cuentaBancaria.setMes(rs.getInt("mes"));
-	            cuentaBancaria.setAno(rs.getInt("ano"));
-	            cuentaBancaria.setSaldo(rs.getDouble("saldo"));
-	            lstCuentaBancaria.add(cuentaBancaria);
-	        }
-	        return lstCuentaBancaria;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return lstCuentaBancaria;
-	}
-
-	public static boolean existeCuentaBancaria(String titular, String string, int cvc) {
-		String sql = "SELECT * FROM CuentaBancaria WHERE titular = ? AND numero_cuenta = ? AND CVC = ?";
-		try (Connection conn = obtenerConexion();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, titular);
-			pstmt.setString(2, string);
-			pstmt.setDouble(3, cvc);
-			ResultSet rs = pstmt.executeQuery();
-			return rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	// Añadir cuentaBancaria
-	public static void añadirCuentaBancaria(CuentaBancaria cuentaBancaria) {
-		if(!existeCuentaBancaria(cuentaBancaria.getTitular(), cuentaBancaria.getNumero_cuenta(), cuentaBancaria.getCvc())) {
-			String sql = "INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano) VALUES (?, ?, ?, ?, ?, ?);";
-			try (Connection conn = obtenerConexion();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-				pstmt.setString(1, cuentaBancaria.getTitular());
-				pstmt.setDouble(2, cuentaBancaria.getSaldo());
-				pstmt.setString(3, cuentaBancaria.getNumero_cuenta());
-				pstmt.setInt(4, cuentaBancaria.getCvc());
-				pstmt.setInt(5, cuentaBancaria.getMes());
-				pstmt.setInt(6, cuentaBancaria.getAno());
-				pstmt.executeUpdate();
-				System.out.println("Registro de cuenta bancaria exitoso");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}		
-		} else {
-			System.out.println("La cuenta bancaria ya existe. No se puede añadir");
-		}
-	}
-	// Eliminar una cuentaBancaria
-	public static void eliminarCuentaBancaria(CuentaBancaria cuentaBancaria) {
-		String sql = "DELETE FROM CuentaBancaria WHERE numero_cuenta = ?;";
-		try (Connection conn = obtenerConexion();
-				PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setString(1, cuentaBancaria.getNumero_cuenta());
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	public static void crearTablaCuentaBancaria() {
 		try (Connection conn =  obtenerConexion();
 				Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS CuentaBancaria (\n"
-				    + "     titular VARCHAR(30) PRIMARY KEY,\n"
+				    + "     titular VARCHAR(30),\n"
 				    + "     saldo DOUBLE,\n"    
 				    + "     numero_cuenta VARCHAR(30),\n"
 				    + "     cvc VARCHAR(4),\n"
 				    + "     mes VARCHAR(4),\n"
 				    + "     ano VARCHAR(4),\n"
-				    + "     FOREIGN KEY (numero_cuenta) REFERENCES Usuario(numero_cuenta));");
-
+					+ "    	nombre_usuario VARCHAR(50),\n"
+					+ " 	FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-//	public static void crearTablaUsuario() {
-//		try(Connection conn = obtenerConexion();
-//				Statement stmt = conn.createStatement()) {
-//			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Usuario (\n"
-//					+ "    	nombre VARCHAR(255),\n"
-//					+ "    	apellidos VARCHAR(255),\n"
-//					+ "    	dni VARCHAR(20),\n"
-//					+ "    	saldo DOUBLE,\n"
-//					+ "    	numero_cuenta INT,\n"
-//					+ "    	contrasena VARCHAR(255),\n"
-//					+ "    	nombre_usuario VARCHAR(50) PRIMARY KEY ); ");
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}	
-//	}
 	public static void crearTablaRuleta() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()){
@@ -406,57 +324,27 @@ public class DBManager {
 	}
 	public static void añadirCuentaBancariaEjemplo() {
 		try (Connection conn = obtenerConexion();
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, numero_cuenta) VALUES\r \n"
-					+ "			('Titular1', 1500.0, '67890', '123', '01', '26', '67890'),\r\n"
-					+ "			('Titular2', 75000.0, '54321', '235', '07', '25', '54321'),\r\n"
-					+ "			('Titular3', 20000.0, '98765,' '345', '04', '27', '98765'),\r\n"
-					+ "			('Titular4', 300.0, '24680', '654,' '01', '27', '24680'),\r\n"
-					+ "			('Titular5', 450000.0, '11223', '436', '01', '24', '11223'),\r\n"
-					+ "			('Titular6', 55000.0, '33221', '875', '06', '28', '33221'),\r\n"
-					+ "			('Titular7', 80000, '76543', '013', '04', '30', '76543'),\r\n"
-					+ "			('Titular8', 1200.0, '19876', '356', '07', '24', '19876'),\r\n"
-					+ "			('Titular9', 2200.0, '23456', '786', '10', '27', '23456'),\r\n"
-					+ "			('Titular10', 2200.0, '23456', '894', '08, '26', '23456'),\r\n"
-					+ "			('Titular11', 170000.0, '90876', '845', '12', '25', '90876'),\r\n"
-					+ "			('Titular12', 1600.0, '65432', '023', '07', '27', '65432'),\r\n"
-					+ "			('Titular13', 1800.0, '56789', '237', '04', '25', '56789'),\r\n"
-					+ "			('Titular14', 4000.0, '11234','375', '03', '29', '11234'),\r\n"
-					+ "			('Titular15', 300000.0, '98765', '985', '04', 31', '98765'),\r\n")){
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES\r\n"
+					+ "			('Titular1', 1500.0, '12345', '123', '01', '26', 'usuario1'),\r\n"
+					+ "			('Titular2', 75000.0, '67890', '235', '07', '25', 'usuario2'),\r\n"
+					+ "			('Titular3', 20000.0, '54321', '345', '04', '27', 'usuario3'),\r\n"
+					+ "			('Titular4', 300.0, '98765', '654', '01', '27', 'usuario4'),\r\n"
+					+ "			('Titular5', 450000.0, '24680', '436', '01', '24', 'usuario5'),\r\n"
+					+ "			('Titular6', 55000.0, '11223', '875', '06', '28', 'usuario6'),\r\n"
+					+ "			('Titular7', 80000, '33221', '013', '04', '30', 'usuario7'),\r\n"
+					+ "			('Titular8', 1200.0, '76543', '356', '07', '24', 'usuario8'),\r\n"
+					+ "			('Titular9', 2200.0, '19876', '786', '10', '27', 'usuario9'),\r\n"
+					+ "			('Titular10', 2200.0, '23456', '894', '08', '26', 'usuario10'),\r\n"
+					+ "			('Titular11', 170000.0, '90876', '845', '12', '25', 'usuario11'),\r\n"
+					+ "			('Titular12', 1600.0, '65432', '023', '07', '27', 'usuario12'),\r\n"
+					+ "			('Titular13', 1800.0, '56789', '237', '04', '25', 'usuario13'),\r\n"
+					+ "			('Titular14', 4000.0, '11234', '375', '03', '29', 'usuario14'),\r\n"
+					+ "			('Titular15', 300000.0, '98765', '985', '04', '31', 'usuario15'); ")){
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-//	// Método para añadir cuentas bancarias de ejemplo
-//	public static void añadirCuentaBancariaEjemplo() {
-//	    try (Connection conn = obtenerConexion();
-//	         PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano) VALUES (?, ?, ?, ?, ?, ?);")) {
-//	        // Añadir cuentas bancarias
-//	        pstmt.setString(1, "Titular1");
-//	        pstmt.setDouble(2, 1500.0);
-//	        pstmt.setString(3, "67890");
-//	        pstmt.setInt(4, 123);
-//	        pstmt.setInt(5, 18);
-//	        pstmt.setInt(6, 26);
-//	        pstmt.addBatch();
-//
-//	        pstmt.setString(1, "Titular2");
-//	        pstmt.setDouble(2, 75000.0);
-//	        pstmt.setString(3, "54321");
-//	        pstmt.setInt(4, 235);
-//	        pstmt.setInt(5, 87);
-//	        pstmt.setInt(6, 25);
-//	        pstmt.addBatch();
-//
-//	        // Añadir más cuentas bancarias aquí...
-//
-//	        pstmt.executeBatch();
-//	        System.out.println("Registros de cuentas bancarias exitosos");
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	    }
-//	}
-	
 	public static void añadirRuletaEjemplo() {
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES\r\n"
