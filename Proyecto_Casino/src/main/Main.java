@@ -17,13 +17,9 @@ public class Main {
 		
 		
 		
-		System.out.println("Rellenando la lista de usuarios");
-		System.out.println("Rellenando la lista de cuentas bancarias");
-		
+		System.out.println("Rellenando la lista de usuarios");		
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 		System.out.println(DBlstUsuarios);
-		
-
 		
 		
         SwingUtilities.invokeLater(new Runnable() {

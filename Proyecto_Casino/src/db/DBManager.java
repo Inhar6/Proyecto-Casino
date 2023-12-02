@@ -325,21 +325,21 @@ public class DBManager {
 	public static void añadirCuentaBancariaEjemplo() {
 		try (Connection conn = obtenerConexion();
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES\r\n"
-					+ "			('Titular1', 1500.0, '12345', '123', '01', '26', 'usuario1'),\r\n"
-					+ "			('Titular2', 75000.0, '67890', '235', '07', '25', 'usuario2'),\r\n"
-					+ "			('Titular3', 20000.0, '54321', '345', '04', '27', 'usuario3'),\r\n"
-					+ "			('Titular4', 300.0, '98765', '654', '01', '27', 'usuario4'),\r\n"
-					+ "			('Titular5', 450000.0, '24680', '436', '01', '24', 'usuario5'),\r\n"
-					+ "			('Titular6', 55000.0, '11223', '875', '06', '28', 'usuario6'),\r\n"
-					+ "			('Titular7', 80000, '33221', '013', '04', '30', 'usuario7'),\r\n"
-					+ "			('Titular8', 1200.0, '76543', '356', '07', '24', 'usuario8'),\r\n"
-					+ "			('Titular9', 2200.0, '19876', '786', '10', '27', 'usuario9'),\r\n"
-					+ "			('Titular10', 2200.0, '23456', '894', '08', '26', 'usuario10'),\r\n"
-					+ "			('Titular11', 170000.0, '90876', '845', '12', '25', 'usuario11'),\r\n"
-					+ "			('Titular12', 1600.0, '65432', '023', '07', '27', 'usuario12'),\r\n"
-					+ "			('Titular13', 1800.0, '56789', '237', '04', '25', 'usuario13'),\r\n"
-					+ "			('Titular14', 4000.0, '11234', '375', '03', '29', 'usuario14'),\r\n"
-					+ "			('Titular15', 300000.0, '98765', '985', '04', '31', 'usuario15'); ")){
+					+ "			('Nombre1 Apellido1', 1500.0, '12345', '123', '01', '26', 'usuario1'),\r\n"
+					+ "			('Nombre2 Apellido2', 75000.0, '67890', '235', '07', '25', 'usuario2'),\r\n"
+					+ "			('Nombre3 Apellido3', 20000.0, '54321', '345', '04', '27', 'usuario3'),\r\n"
+					+ "			('Nombre4 Apellido4', 300.0, '98765', '654', '01', '27', 'usuario4'),\r\n"
+					+ "			('Nombre5 Apellido5', 450000.0, '24680', '436', '01', '24', 'usuario5'),\r\n"
+					+ "			('Nombre6 Apellido6', 55000.0, '11223', '875', '06', '28', 'usuario6'),\r\n"
+					+ "			('Nombre7 Apellido7', 80000, '33221', '013', '04', '30', 'usuario7'),\r\n"
+					+ "			('Nombre8 Apellido8', 1200.0, '76543', '356', '07', '24', 'usuario8'),\r\n"
+					+ "			('Nombre9 Apellido9', 2200.0, '19876', '786', '10', '27', 'usuario9'),\r\n"
+					+ "			('Nombre10 Apellido10', 2200.0, '23456', '894', '08', '26', 'usuario10'),\r\n"
+					+ "			('Nombre11 Apellido11', 170000.0, '90876', '845', '12', '25', 'usuario11'),\r\n"
+					+ "			('Nombre12 Apellido12', 1600.0, '65432', '023', '07', '27', 'usuario12'),\r\n"
+					+ "			('Nombre13 Apellido13', 1800.0, '56789', '237', '04', '25', 'usuario13'),\r\n"
+					+ "			('Nombre14 Apellido14', 4000.0, '11234', '375', '03', '29', 'usuario14'),\r\n"
+					+ "			('Nombre15 Apellido15', 300000.0, '98765', '985', '04', '31', 'usuario15'); ")){
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
