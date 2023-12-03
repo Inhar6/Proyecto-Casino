@@ -17,6 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import db.DBManager;
+import domain.Usuario;
+import main.Main;
 
 public class VentanaLogin extends JFrame{
 	
@@ -86,6 +88,13 @@ public class VentanaLogin extends JFrame{
 					dispose();
 				}else if(DBManager.existeUsuarioLogin(tfUsuario.getText(), contra)) {
 					System.out.println("Registro exitoso");
+					Usuario u = new Usuario();
+					for(Usuario user: Main.DBlstUsuarios) {
+						if(tfUsuario.getText().equals(user.getNombreUsuario())) {
+							u = user;
+						}
+					}
+					System.out.println(u);
 					//Mandar el usuario a las ventanas
 					loged = true;
 					dispose();
