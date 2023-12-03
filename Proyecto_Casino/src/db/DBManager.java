@@ -4,19 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.CuentaBancaria;
 import domain.Point;
 import domain.Usuario;
 
 public class DBManager {
 	
-	private static Connection conn = null;
+	//private static Connection conn = null;
 	//public static final String URL = "resources/db/NoEscasino.db";
 	/*
 	public static void connect(String dbPath) {
