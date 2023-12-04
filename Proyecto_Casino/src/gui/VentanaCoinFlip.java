@@ -54,13 +54,13 @@ public class VentanaCoinFlip extends JFrame {
 	private Thread hilo;
 
 	// resultado moneda
-	private String resultado;
+	private String resultado = "";
 
 	// label imagenes
 	private JLabel lFotos;
 
 	// Cara o Cruz boton clicado
-	private String caraCruz = null;
+	private String caraCruz = "";
 
 	private JPanel contentPane;
 
@@ -235,18 +235,20 @@ public class VentanaCoinFlip extends JFrame {
 				bCara.setEnabled(true);
 				bCruz.setEnabled(true);
 				logger.info("Has eliminado seleccionado");
-				caraCruz = null;
+				caraCruz = "";
 			}
 		});
 
 		VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (caraCruz != null) {
+				if (caraCruz.equals("Cruz") || caraCruz.equals("Cara")) {
 
 					logger.info("Ha empezado la apuesta");
 
 					hilo = new Thread() {
+						private int estado;
+						
 						public void run() {
 							for (int i = 1; i <= Math.random() * 10 + 10; i++) {
 								try {
@@ -255,7 +257,7 @@ public class VentanaCoinFlip extends JFrame {
 									e.printStackTrace();
 								}
 
-								final int estado = cont % 3;
+								estado = cont % 3;
 								SwingUtilities.invokeLater(new Runnable() {
 									public void run() {
 										switch (estado) {
@@ -280,7 +282,7 @@ public class VentanaCoinFlip extends JFrame {
 							SwingUtilities.invokeLater(new Runnable() {
 								public void run() {
 
-									if (cont == 1) {
+									if (estado == 2) {
 										for (int i = 0; i < Math.random() * 2; i++) {
 
 											if (i == 0) {
@@ -293,7 +295,7 @@ public class VentanaCoinFlip extends JFrame {
 												lFotos.setIcon(new ImageIcon(getPropiedades().getProperty("cruz")));
 											}
 										}
-									} else if (cont == 2) {
+									} else if (estado == 0) {
 										resultado = "Cara";
 									} else {
 										resultado = "Cruz";
@@ -319,8 +321,9 @@ public class VentanaCoinFlip extends JFrame {
 						}
 
 					};
-					if (resultado == caraCruz) {
+					if (resultado.equals(caraCruz)) {
 						VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
+						VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 						VentanaPanelMenu.apuesta = 0;
 
 					} else {
