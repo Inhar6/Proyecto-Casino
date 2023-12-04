@@ -33,6 +33,7 @@ import javax.swing.border.Border;
 
 import domain.ApuestaRuleta;
 import domain.Point;
+import domain.Usuario;
 import io.Propiedades;
 
 
@@ -100,7 +101,7 @@ public class VentanaRuleta extends JFrame{
 	//Imagen
 	private JLabel etiquetaImagen;
 					
-	public VentanaRuleta() {
+	public VentanaRuleta(Usuario user) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 700);
 		setTitle("Ruleta");
@@ -112,6 +113,7 @@ public class VentanaRuleta extends JFrame{
 		propiedades= new Propiedades();
 		propiedades.cargar();
 
+		System.out.println(user);
 		//Botones
 		btnVerde = new JButton("Verde");
 			btnVerde.setBackground(Color.green);
