@@ -1,9 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 public class VentanaInicial extends JFrame{
 	
@@ -122,7 +115,7 @@ public class VentanaInicial extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-					new VentanaRuleta();
+					new VentanaRuleta(VentanaPanelMenu.user);
 					VentanaPanelMenu.contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
