@@ -87,9 +87,11 @@ public class VentanaRuleta extends JFrame{
 	private JButton btnapuesta50;
 	private JButton btnapuesta100;
 	private JButton btnapuesta1k;
+	//Usuario
+	private Usuario u = new Usuario();
 	//Historial de balance
 	public static Map<Integer, Map<Integer, Double>> mapaTiradas = new HashMap<>();
-	private int tirada = 1;
+	private int tirada = u.getMapaRuleta().size() + 1;
 	//Lista Balance
 	public static List<Point> lstBalance = new ArrayList<>();
 	private int marca = 0;
@@ -112,8 +114,9 @@ public class VentanaRuleta extends JFrame{
 		//Propiedades
 		propiedades= new Propiedades();
 		propiedades.cargar();
-
-		System.out.println(user);
+		//Usuario
+		System.err.println(user);
+		u= user;
 		//Botones
 		btnVerde = new JButton("Verde");
 			btnVerde.setBackground(Color.green);
@@ -866,6 +869,8 @@ public class VentanaRuleta extends JFrame{
 		//Lista Balance
 		mapaTiradas.putIfAbsent(tirada, new HashMap<>());
 		mapaTiradas.get(tirada).put(num, ganancia - dineroApostadoTotal);
+		//Usuario
+		u.addMapaRuleta(tirada, num, ganancia);
 		System.out.println(mapaTiradas);
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
