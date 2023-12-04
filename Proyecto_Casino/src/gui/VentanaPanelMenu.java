@@ -264,7 +264,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(contadorVentanaPerfil < limiteVentanas) {
-					new VentanaPerfil();
+					new VentanaPerfil(user);
 					contadorVentanaPerfil++;
 					logger.info("Has abierto una ventana 'Perfil'");
 				}else {
