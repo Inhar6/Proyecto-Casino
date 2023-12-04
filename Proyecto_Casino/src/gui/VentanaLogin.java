@@ -96,6 +96,7 @@ public class VentanaLogin extends JFrame{
 					}
 					System.out.println(u);
 					//Mandar el usuario a las ventanas
+					VentanaPanelMenu.user = u;
 					loged = true;
 					dispose();
 				}else {
