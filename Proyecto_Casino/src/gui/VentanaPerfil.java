@@ -145,7 +145,7 @@ public class VentanaPerfil extends JFrame{
 		///
 		balance.setLayout(new FlowLayout());
 		//GRAFICO
-		user.setLstBalance(VentanaRuleta.lstBalance);
+		//user.setLstBalance(VentanaRuleta.lstBalance);
 		PanelGrafico chartPanel = new PanelGrafico(user.getLstBalance());
 		chartPanel.setBorder(tituloBalance);
 		///
