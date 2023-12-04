@@ -549,7 +549,8 @@ public class VentanaRuleta extends JFrame{
 				VentanaPanelMenu.balance+=dineroTotal;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 				//Añadido al grafico del balance
-				lstBalance.add(new Point(marca,(int)VentanaPanelMenu.balance/1000));
+				u.addListaBalance(new Point(marca,(int)VentanaPanelMenu.balance/1000));
+				//lstBalance.add(new Point(marca,(int)VentanaPanelMenu.balance/1000));
 				marca+=1;
 				dineroTotal = 0;
 				dineroTotalInicial = 0;
