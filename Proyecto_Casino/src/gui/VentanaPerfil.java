@@ -60,18 +60,19 @@ public class VentanaPerfil extends JFrame{
 	private JButton btnEditar;
 	private JButton btnGuardar;
 	//Usuario
-	private Usuario user;
+	private Usuario user = new Usuario();
 	
 	
 	
-	public VentanaPerfil() {
+	public VentanaPerfil(Usuario u) {
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		setTitle("Perfil del Usuario");
 		setSize(500,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		//Usuario
-		user = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","contraseña1", 12345, 1000.0);
+		//user = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","contraseña1", 12345, 1000.0);
+		user = u;
 		//JLabel
 		nombre = new JLabel("Nombre:               ");
 		nUsuario = new JLabel("Usuario:             ");
