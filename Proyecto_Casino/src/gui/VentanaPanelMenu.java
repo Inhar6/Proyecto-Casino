@@ -22,6 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import domain.Usuario;
 import io.Propiedades;
 
 public class VentanaPanelMenu {
@@ -29,9 +30,9 @@ public class VentanaPanelMenu {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger("VentanaPanelMenu");
-
+	public static Usuario user = new Usuario();
 	// Botones
 	private JButton bLogin = new JButton ("Login");
 	private JButton bSingUp = new JButton ("SingUp");
@@ -237,7 +238,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaJuego < limiteVentanas) {
-					new VentanaRuleta();
+					new VentanaRuleta(user);
 					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Ruleta'");
                 } else {
