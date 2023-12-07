@@ -208,6 +208,23 @@ public class DBManager {
 		}
 	}
 	
+	public static void addTiradaRuleta( int tirada, int numero, double ganancia, Usuario user) {
+		String sql = "INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES (?, ?, ?, ?);";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, numero);
+			pstmt.setDouble(2, ganancia);
+			pstmt.setInt(3, tirada);
+			pstmt.setString(4, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Creacion de Tablas
+	 */
 	public static void crearTablaUsuario() {
 		try(Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()) {
