@@ -31,6 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 
+import db.DBManager;
 import domain.ApuestaRuleta;
 import domain.Point;
 import domain.Usuario;
@@ -872,6 +873,7 @@ public class VentanaRuleta extends JFrame{
 		mapaTiradas.get(tirada).put(num, ganancia - dineroApostadoTotal);
 		//Usuario
 		u.addMapaRuleta(tirada, num, ganancia);
+		DBManager.addTiradaRuleta(tirada, num, ganancia, u);
 		System.out.println(mapaTiradas);
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
