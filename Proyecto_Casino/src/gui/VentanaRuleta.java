@@ -92,7 +92,7 @@ public class VentanaRuleta extends JFrame{
 	private Usuario u = new Usuario();
 	//Historial de balance
 	public static Map<Integer, Map<Integer, Double>> mapaTiradas = new HashMap<>();
-	private int tirada = u.getMapaRuleta().size() + 1;
+	private int tirada = 0;
 	//Lista Balance
 	public static List<Point> lstBalance = new ArrayList<>();
 	private int marca = 0;
@@ -156,6 +156,9 @@ public class VentanaRuleta extends JFrame{
 		btnapuesta1k= new JButton("1K");
 		Border lineaFichas = BorderFactory.createLineBorder(Color.black);
 		Border tituloFichas= BorderFactory.createTitledBorder(lineaFichas,"Fichas");
+		//Informacion de listas y mapas
+		tirada =  u.getMapaRuleta().size() + 1;
+		marca = u.getLstBalance().size() ; 
 		//Apuesta unica
 		mapaApuestas.put("Color", new HashMap<>());
 		mapaApuestas.put("Docena", new HashMap<>());
@@ -550,9 +553,9 @@ public class VentanaRuleta extends JFrame{
 				VentanaPanelMenu.balance+=dineroTotal;
 				VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 				//Añadido al grafico del balance
-				u.addListaBalance(new Point(marca,(int)VentanaPanelMenu.balance/1000));
+				//u.addListaBalance(new Point(marca,(int)VentanaPanelMenu.balance/1000));
 				//lstBalance.add(new Point(marca,(int)VentanaPanelMenu.balance/1000));
-				marca+=1;
+				//marca+=1;
 				dineroTotal = 0;
 				dineroTotalInicial = 0;
 				saldo.setText("---- " + dineroTotal + " ----");
@@ -872,13 +875,19 @@ public class VentanaRuleta extends JFrame{
 		mapaTiradas.putIfAbsent(tirada, new HashMap<>());
 		mapaTiradas.get(tirada).put(num, ganancia - dineroApostadoTotal);
 		//Usuario
+		//MapaRuleta
 		u.addMapaRuleta(tirada, num, ganancia);
 		DBManager.addTiradaRuleta(tirada, num, ganancia, u);
 		System.out.println(mapaTiradas);
+		//ListaBalance
+		int x = (int)(ganancia)/ 100;
+		DBManager.addPuntoBalance(marca, x, u);
+		u.addListaBalance(new Point(marca, x ));
 		saldo.setText("---- "+ dineroTotal +" ----");
 		dineroTotalInicial=dineroTotal + ganancia;
 		logger.info("Todas las acciones del juego terminadas");
 		tirada++;
+		marca++;
 		//Actualizar saldo
 		dineroTotal +=ganancia;
 		//Reiniciar
