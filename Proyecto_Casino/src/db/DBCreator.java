@@ -43,7 +43,7 @@ public class DBCreator {
 		
 		System.out.println("Añadiendo Datos de ejemplo en ruleta");
 		DBManager.añadirRuletaEjemplo();
-		
+
 		System.out.println("Añadiendo Datos de ejemplo en Balance");
 		DBManager.añadirBalanceEjemplo();
 		
