@@ -112,7 +112,7 @@ public class DBManager {
 			while(rsBalance.next()) {
 				for(Usuario user : lstUsuarios) {
 					if(user.getNombreUsuario().equals(rsBalance.getString("nombre_usuario"))) {
-						user.addListaBalance(new Point(rsBalance.getInt("sesion"), (int) rsBalance.getDouble("saldo")));
+						user.addListaBalance(new Point(rsBalance.getInt("sesion"), (int) rsBalance.getDouble("total")));
 					}
 				}
 			}
@@ -207,7 +207,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+	//Añadir tirada de la ruleta 
 	public static void addTiradaRuleta( int tirada, int numero, double ganancia, Usuario user) {
 		String sql = "INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES (?, ?, ?, ?);";
 		try (Connection conn = obtenerConexion();
@@ -216,6 +216,19 @@ public class DBManager {
 			pstmt.setDouble(2, ganancia);
 			pstmt.setInt(3, tirada);
 			pstmt.setString(4, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	//Añadir Puntos del balance
+	public static void addPuntoBalance(int sesion, double saldo, Usuario user) {
+		String sql = "INSERT INTO Balance (sesion, total, nombre_usuario) VALUES (?, ?, ?);";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, sesion);
+			pstmt.setDouble(2, saldo);
+			pstmt.setString(3, user.getNombreUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -283,7 +296,7 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void crearTablaBlackJack() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()) {
@@ -303,7 +316,7 @@ public class DBManager {
 				Statement stmt = conn.createStatement()){
 			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS Balance (\n"
 					+ "		sesion INTEGER,\n"
-					+ "		saldo DOUBLE,\n"
+					+ "		total DOUBLE,\n"
 					+ "		nombre_usuario VARCHAR(50),\n"
 					+ " 	FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
 		} catch (SQLException e) {
@@ -406,8 +419,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	public static void añadirBlackJackEjemplo() {
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO BlackJack (partida, ganador, puntuacion, ganancia, nombre_usuario) VALUES\r\n"
@@ -433,7 +444,7 @@ public class DBManager {
 	}
 	public static void añadirBalanceEjemplo() {
 		try (Connection conn = obtenerConexion();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Balance (sesion, saldo, nombre_usuario)\r\n"
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO Balance (sesion, total, nombre_usuario)\r\n"
 						+ "VALUES\n"
 						+ "    (1, 1500.0, 'usuario1'),\n"
 						+ "    (2, 2000.0, 'usuario2'),\n"
