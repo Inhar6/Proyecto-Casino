@@ -90,7 +90,9 @@ public class VentanaAdminJuegos extends JFrame{
 		//Ruleta
 		Border lineaRuleta = BorderFactory.createLineBorder(Color.RED);
 		Border tituloRuleta = BorderFactory.createTitledBorder(lineaRuleta,"Ruleta");
-		puntosRuleta=puntosPrueba();
+		Border lineaBalanceRuleta = BorderFactory.createLineBorder(Color.BLACK);
+		Border tituloBalanceRuleta = BorderFactory.createTitledBorder(lineaBalanceRuleta,"Balance");
+		puntosRuleta = obtenerUsuarioConMayorNumeroDeTiradas(lstUsuarios).getLstBalance();
 		PanelGrafico grfRuleta = new PanelGrafico(puntosRuleta);
 		usuario = new JLabel("Usuario con mayor ganacia: ");
 		Usuario a = obtenerUsuarioConMayorGanancia(lstUsuarios);
@@ -205,6 +207,7 @@ public class VentanaAdminJuegos extends JFrame{
 		pEstadicticasCrash.add(pTotalGananciasCrash);
 		pCrash.add(pEstadicticasCrash);
 		//Grafico
+		grfRuleta.setBorder(tituloBalanceRuleta);
 		pRuleta.add(grfRuleta);
 		pCrash.add(grfCrash);
 		
