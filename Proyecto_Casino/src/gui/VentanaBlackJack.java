@@ -381,20 +381,39 @@ public class VentanaBlackJack extends JFrame {
 	    }
 	public void mapaHistorial(Map<Integer,Map<String,Map<Integer,Double>>> mapaHistorial ,int puntuacionCrupier, int puntuacionJugador){
 		saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
+		
+		int contador = contadorPartida ;
+		String nombre = "";
+		int a = 0;
+		double b = 0.0;
+		
 		if (ganador == "Crupier") {
 		    mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Crupier",new HashMap<>());
+		    nombre = "Crupier";
 		    mapaHistorial.get(contadorPartida).get("Crupier").put(puntuacionCrupier, -ap);
+		    a = puntuacionCrupier;
+		    b = -ap;
+		    
+		    
 	    } else if(ganador == "Jugador"){
 	        mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Jugador",new HashMap<>());
+		    nombre = "Jugador";
 		    mapaHistorial.get(contadorPartida).get("Jugador").put(puntuacionJugador, ap);
+		    a = puntuacionJugador;
+		    b = ap;
 	    }else if (ganador =="Empate") {
 	        mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Empate",new HashMap<>());
+		    nombre = "Empate";
 		    mapaHistorial.get(contadorPartida).get("Empate").put(0, 0.0);
+		    a = 0;
+		    b = 0.0;
 	    }
 		
+		user.addMapaBlackJack(contador, nombre, a, b);
+		System.out.println(user.getMapaBlackJack());
 		
 	}  
 

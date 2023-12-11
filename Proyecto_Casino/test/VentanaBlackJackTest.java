@@ -7,14 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.Carta;
+import domain.Usuario;
 import gui.VentanaBlackJack;
 
 public class VentanaBlackJackTest {
 	private VentanaBlackJack vBlack;
+	private Usuario user = new Usuario();
 
 	@Before
 	public void setUp(){
-		vBlack = new VentanaBlackJack();
+		vBlack = new VentanaBlackJack(user);
 		
 	}
 	
