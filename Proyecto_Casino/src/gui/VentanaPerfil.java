@@ -229,7 +229,7 @@ public class VentanaPerfil extends JFrame{
 				}else {
 					logger.info("Muestra de datos en la tabla Black Jack");
 					Tablas.limpiarTabla(dtmTabla);
-					Tablas.pintadoBlackJack(dtmTabla);
+					Tablas.pintadoBlackJack(dtmTabla,user.getMapaBlackJack());
 				}
 			}
 		});

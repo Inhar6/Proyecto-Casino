@@ -51,7 +51,23 @@ public class Tablas {
 		}
 	}
 	//Pintado de tabla BlackJack
-	public static void pintadoBlackJack(DefaultTableModel dtmJuegos) {
-		
+	public static void pintadoBlackJack(DefaultTableModel dtmJuegos,Map<Integer, Map<String, Map<Integer, Double>>> mapaBlackJack) {
+		dtmJuegos.addColumn("Partida");
+		dtmJuegos.addColumn("Resultado");
+		dtmJuegos.addColumn("Puntuacion");
+		dtmJuegos.addColumn("Ganancia");
+		for(Entry<Integer,Map<String, Map<Integer, Double>>> entry: mapaBlackJack.entrySet()) {
+			int tirada = entry.getKey();
+			Map<String, Map<Integer, Double>> detallesTirada = entry.getValue();
+			for(Entry<String, Map<Integer, Double>> entry2: detallesTirada.entrySet()) {
+				String resultado = entry2.getKey();
+				for(int i: entry2.getValue().keySet()) {
+					int muliplicador = i;
+					double ganancia = entry2.getValue().get(i);
+					dtmJuegos.addRow(new Object[] {tirada, resultado, muliplicador, ganancia});
+				}
+			}
+		}
 	}
+	
 }

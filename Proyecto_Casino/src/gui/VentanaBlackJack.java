@@ -175,7 +175,7 @@ public class VentanaBlackJack extends JFrame {
     	defaultTableModel.addColumn("Ganancia/Perdida");
     	
 
-      	tabla.setDefaultRenderer(Object.class, new MyRender());
+      //	tabla.setDefaultRenderer(Object.class, new MyRender());
  
 		
 		

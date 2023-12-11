@@ -198,7 +198,7 @@ public class VentanaAdminUsuarios extends JFrame{
 			                    Tablas.pintadoCoinFlip(dtmJuegos);
 			                } else {
 			                    Tablas.limpiarTabla(dtmJuegos);
-			                    Tablas.pintadoBlackJack(dtmJuegos);
+			                    Tablas.pintadoBlackJack(dtmJuegos,user.getMapaBlackJack());
 			                }
 
 			                // Actualizar el gráfico
