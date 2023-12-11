@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Carta;
+import domain.Usuario;
 import gui.VentanaCrash.MyRender;
 
 public class VentanaBlackJack extends JFrame {
@@ -67,11 +68,14 @@ public class VentanaBlackJack extends JFrame {
 	//Apuesta
 	private double ap = 0.0;
 	
+	// 
+	private Usuario user = new Usuario();
+	
 	
 
 
 
-	public VentanaBlackJack() {
+	public VentanaBlackJack(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Black Jack");
@@ -81,6 +85,7 @@ public class VentanaBlackJack extends JFrame {
 		setVisible(true);
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
+		user = u;
 		// Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
@@ -625,17 +630,8 @@ public class VentanaBlackJack extends JFrame {
     
 	
 
-	public static void main(String[] args) {            
-        SwingUtilities.invokeLater(new Runnable() {
 
-			@Override
-			public void run() {
-				new VentanaBlackJack();				
-			}
-        });
         
-        
-	}
-
-
 }
+
+

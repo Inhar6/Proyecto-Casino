@@ -212,7 +212,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaJuego < limiteVentanas) {
-                    new VentanaBlackJack();
+                    new VentanaBlackJack(user);
                     contadorVentanaJuego++;
                     logger.info("Has abierto una ventana 'Black Jack'");
                 } else {
