@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -49,6 +51,8 @@ public class VentanaCoinFlip extends JFrame {
 
 	// contador
 	private int cont = 0;
+	
+	private int tirada = 0;
 
 	// hilo
 	private Thread hilo;
@@ -58,7 +62,9 @@ public class VentanaCoinFlip extends JFrame {
 
 	// label imagenes
 	private JLabel lFotos;
-
+	
+	public static Map<Integer, Map<Integer, Double>> mapaCoin = new HashMap<>();
+	
 	// Cara o Cruz boton clicado
 	private String caraCruz = "";
 
@@ -66,6 +72,7 @@ public class VentanaCoinFlip extends JFrame {
 
 	private ControladorVentanaCoinFlip controladorVentana;
 
+	//properties
 	private Propiedades propiedades;
 
 	public Propiedades getPropiedades() {
@@ -243,9 +250,10 @@ public class VentanaCoinFlip extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (caraCruz.equals("Cruz") || caraCruz.equals("Cara")) {
-
+					
 					logger.info("Ha empezado la apuesta");
-
+					tirada++;
+					
 					hilo = new Thread() {
 						private int estado;
 						
@@ -306,15 +314,18 @@ public class VentanaCoinFlip extends JFrame {
 									if (resultado == caraCruz) {
 										JOptionPane.showMessageDialog(null, resultado + " \n¡Has ganado! ¡Felicidades!",
 												"Resultado", JOptionPane.INFORMATION_MESSAGE);
+										System.out.println(tirada);
 									} else {
 										JOptionPane.showMessageDialog(null,
 												resultado + ".\n Has perdido. Mejor suerte la próxima vez.",
 												"Resultado", JOptionPane.ERROR_MESSAGE);
+										System.out.println(tirada);
 									}
 
 									// reiniciar botones
 									bCara.setEnabled(true);
 									bCruz.setEnabled(true);
+									caraCruz = "";
 								}
 							});
 							hilo.interrupt();
@@ -328,6 +339,7 @@ public class VentanaCoinFlip extends JFrame {
 
 					} else {
 						VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
+						VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 						VentanaPanelMenu.apuesta = 0;
 
 					}
