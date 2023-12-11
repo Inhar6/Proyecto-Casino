@@ -58,14 +58,15 @@ public class VentanaBlackJack extends JFrame {
 	private JScrollPane scrollPane;
 	
 	private Map<Integer,Map<String,Map<Integer,Double>>> mapaBlackJack = new HashMap<>();
-	private boolean Crupier = false;
-	private boolean Jugador = false;
-	private boolean Empate = false;
+	
+	
+	private String ganador = "";
 	
 	private int contadorPartida = 1;
 	
 	//Apuesta
 	private double ap = 0.0;
+	
 	
 
 
@@ -253,12 +254,11 @@ public class VentanaBlackJack extends JFrame {
 				mapaHistorial(mapaBlackJack, puntuacionCrupier, puntuacionJugador);
 				System.out.println(mapaBlackJack);
 				
-				
-				if(Crupier) {
+				if(ganador == "Crupier") {
 					defaultTableModel.addRow(new Object[] {contadorPartida,"Crupier",puntuacionCrupier,"-"+ap});
-				}else if(Jugador) {
+				}else if(ganador == "Jugador") {
 					defaultTableModel.addRow(new Object[] {contadorPartida,"Jugador",puntuacionJugador,"+"+ap});
-				}else if(Empate){
+				}else if(ganador == "Empate"){
 					defaultTableModel.addRow(new Object[] {contadorPartida,"Empate","0"});
 				}
 				
@@ -376,15 +376,15 @@ public class VentanaBlackJack extends JFrame {
 	    }
 	public void mapaHistorial(Map<Integer,Map<String,Map<Integer,Double>>> mapaHistorial ,int puntuacionCrupier, int puntuacionJugador){
 		saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
-		if (Crupier) {
+		if (ganador == "Crupier") {
 		    mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Crupier",new HashMap<>());
 		    mapaHistorial.get(contadorPartida).get("Crupier").put(puntuacionCrupier, -ap);
-	    } else if(Jugador){
+	    } else if(ganador == "Jugador"){
 	        mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Jugador",new HashMap<>());
 		    mapaHistorial.get(contadorPartida).get("Jugador").put(puntuacionJugador, ap);
-	    }else {
+	    }else if (ganador =="Empate") {
 	        mapaHistorial.put(contadorPartida, new HashMap<>());
 		    mapaHistorial.get(contadorPartida).put("Empate",new HashMap<>());
 		    mapaHistorial.get(contadorPartida).get("Empate").put(0, 0.0);
@@ -581,25 +581,25 @@ public class VentanaBlackJack extends JFrame {
     public void saberGanadorActualizarTabla(int puntuacionCrupier, int puntuacionJugador) {
     	
     	if(puntuacionCrupier>21 & puntuacionJugador>21) {
-    		Empate = true;
+    		ganador = "Empate";
     		
     	}else if(puntuacionCrupier>21 && puntuacionJugador<=21) {
-			Jugador = true;
+			ganador = "Jugador";
 			
     		
     	}else if(puntuacionCrupier<=21 && puntuacionJugador>21){
-    		Crupier = true;
+    		ganador = "Crupier";
     	}
     	else {
     		int jugadorGanador = (Math.abs(21-puntuacionCrupier)<Math.abs(21-puntuacionJugador))?1:2;
     		 if (Math.abs(21 - puntuacionCrupier) == Math.abs(21 - puntuacionJugador)) {
-    			Empate=true;
+    			ganador = "Empate";
     			
              }else if(jugadorGanador == 1) {
-            	 Crupier = true;
+            	ganador = "Crupier";
             
              }else if(jugadorGanador == 2) {
-            	 Jugador= true;
+            	ganador = "Jugador";
             
              }
     	}
