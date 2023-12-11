@@ -195,7 +195,7 @@ public class VentanaAdminUsuarios extends JFrame{
 			                	Tablas.pintadoCrash(dtmJuegos, user.getMapaCrash());
 			                } else if ("Coin Flip".equals(jcbJuegos.getSelectedItem())) {
 			                    Tablas.limpiarTabla(dtmJuegos);
-			                    Tablas.pintadoCoinFlip(dtmJuegos);
+			                    Tablas.pintadoCoinFlip(dtmJuegos, user.getMapaCoinFlip());
 			                } else {
 			                    Tablas.limpiarTabla(dtmJuegos);
 			                    Tablas.pintadoBlackJack(dtmJuegos,user.getMapaBlackJack());

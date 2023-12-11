@@ -23,6 +23,7 @@ public class Usuario implements Comparable<Usuario>{
 	private Map<Integer, Map<Integer, Double>> mapaRuleta = new HashMap<>() ;
 	private Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
 	private Map<Integer,Map<String,Map<Integer,Double>>> mapaBlackJack = new HashMap<>();
+	private Map<Integer, Map<String, String >> mapaCoinFlip = new HashMap<>();
 	//Lista balance
 	private List<Point> lstBalance = new ArrayList<>();
 	
@@ -40,6 +41,7 @@ public class Usuario implements Comparable<Usuario>{
 		this.mapaRuleta = new HashMap<>();
 		this.mapaCrash = new HashMap<>();
 		this.mapaBlackJack = new HashMap<>();
+		this.mapaCoinFlip = new HashMap<>();
 		this.lstBalance = new ArrayList<>();
 	}
 	
@@ -136,6 +138,14 @@ public class Usuario implements Comparable<Usuario>{
 	public void setMapaBlackJack(Map<Integer, Map<String, Map<Integer, Double>>> mapaBlackJack) {
 		this.mapaBlackJack = mapaBlackJack;
 	}
+	public Map<Integer, Map<String, String>> getMapaCoinFlip() {
+		return mapaCoinFlip;
+	}
+
+	public void setMapaCoinFlip(Map<Integer, Map<String, String>> mapaCoinFlip) {
+		this.mapaCoinFlip = mapaCoinFlip;
+	}
+	
 	//Añadirle cosas al mapa del usuario
 	public void addMapaCuentaBancaria(String titular, double saldo, int numero_cuenta, int cvc, int ano, int mes) {
 		Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>> saldoCB = new HashMap<>();
@@ -161,7 +171,11 @@ public class Usuario implements Comparable<Usuario>{
 		mapaBlackJack.get(partida).put(ganador,new HashMap<>());
 		mapaBlackJack.get(partida).get(ganador).put(puntuacion,ganancia);	
 	}
-	
+	public void addMapaCoinFlip(int tirada,String apuesta,String resultado) {
+		mapaCoinFlip.putIfAbsent(tirada, new HashMap<>());
+		mapaCoinFlip.get(tirada).put(apuesta , resultado);
+			
+	}
 
 	public List<Point> getLstBalance() {
 		return lstBalance;

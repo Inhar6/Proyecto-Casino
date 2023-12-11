@@ -63,10 +63,12 @@ public class VentanaCoinFlip extends JFrame {
 	// label imagenes
 	private JLabel lFotos;
 	
-	public static Map<Integer, Map<Integer, Double>> mapaCoin = new HashMap<>();
+	private static Map<Integer, Map<String, String >> mapaCoinFlip = new HashMap<>();
 	
 	// Cara o Cruz boton clicado
 	private String caraCruz = "";
+	
+	private String winLose = "";
 
 	private JPanel contentPane;
 
@@ -308,24 +310,34 @@ public class VentanaCoinFlip extends JFrame {
 									} else {
 										resultado = "Cruz";
 									}
+								
+									mapaCoinFlip.putIfAbsent(tirada, new HashMap<>());
+									mapaCoinFlip.get(tirada).put(caraCruz, winLose);
+									System.out.println(mapaCoinFlip);
+									
+								
 									dlmHistorial.addElement(resultado);
 									logger.info("Ha salido" + resultado);
 
 									if (resultado == caraCruz) {
 										JOptionPane.showMessageDialog(null, resultado + " \n¡Has ganado! ¡Felicidades!",
 												"Resultado", JOptionPane.INFORMATION_MESSAGE);
+										winLose = "Win";
 										System.out.println(tirada);
 									} else {
 										JOptionPane.showMessageDialog(null,
 												resultado + ".\n Has perdido. Mejor suerte la próxima vez.",
 												"Resultado", JOptionPane.ERROR_MESSAGE);
+										winLose = "Lose";
 										System.out.println(tirada);
 									}
-
+									
 									// reiniciar botones
 									bCara.setEnabled(true);
 									bCruz.setEnabled(true);
+									winLose = "";
 									caraCruz = "";
+									
 								}
 							});
 							hilo.interrupt();

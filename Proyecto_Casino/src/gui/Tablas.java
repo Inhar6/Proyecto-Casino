@@ -28,7 +28,18 @@ public class Tablas {
 		}
 	}
 	//Pintado de tabla Coin-flip
-	public static void pintadoCoinFlip(DefaultTableModel dtmJuegos ) {
+	public static void pintadoCoinFlip(DefaultTableModel dtmJuegos, Map<Integer, Map<String, String >> mapaCoinFlip ) {
+		dtmJuegos.addColumn("Tirada");
+		dtmJuegos.addColumn("Apuesta");
+		dtmJuegos.addColumn("Resultado");
+		for(Entry<Integer, Map<String, String>> entry : mapaCoinFlip.entrySet()) {
+			int tirada = entry.getKey();
+			for(String i: entry.getValue().keySet()) {
+				String resultado = i;
+				String apuesta = entry.getValue().get(i);
+				dtmJuegos.addRow(new Object[] {tirada, apuesta ,resultado});
+			}
+		}
 		
 	}
 	//Pintado de tabla BlackJack

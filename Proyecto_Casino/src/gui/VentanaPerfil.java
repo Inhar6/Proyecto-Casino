@@ -221,7 +221,7 @@ public class VentanaPerfil extends JFrame{
 				}else if(juego.equals("Coin Flip")) {
 					logger.info("Muestra de datos en la tabla Coin Flip");
 					Tablas.limpiarTabla(dtmTabla);
-					Tablas.pintadoCoinFlip(dtmTabla);
+					Tablas.pintadoCoinFlip(dtmTabla, user.getMapaCoinFlip());
 				}else if(juego.equals("Crash")) {
 					logger.info("Muestra de datos en la tabla Crash");
 					Tablas.limpiarTabla(dtmTabla);
