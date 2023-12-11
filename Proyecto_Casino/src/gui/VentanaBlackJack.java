@@ -37,6 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import db.DBManager;
 import domain.Carta;
 import domain.Usuario;
 import gui.VentanaCrash.MyRender;
@@ -161,7 +162,7 @@ public class VentanaBlackJack extends JFrame {
         panelTitulo.add(panelHistorial);
         
         //Historial JTextArea
-        JTextArea historialTextArea = new JTextArea();
+
         
       //Tabla historial
         defaultTableModel= new DefaultTableModel();
@@ -414,6 +415,7 @@ public class VentanaBlackJack extends JFrame {
 		
 		user.addMapaBlackJack(contador, nombre, a, b);
 		System.out.println(user.getMapaBlackJack());
+		DBManager.addTiradaBlackJack(contador, nombre, a, b, user);
 		
 	}  
 

@@ -230,6 +230,23 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	
+	//Añadir tirada de BlackJack
+	public static void addTiradaBlackJack( int partida, String ganador,int resultado ,double ganancia, Usuario user) {
+		String sql = "INSERT INTO BlackJack(partida, ganador, puntuacion,ganancia, nombre_usuario) VALUES (?, ?, ?, ?, ?);";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, partida);
+			pstmt.setString(2, ganador);
+			pstmt.setInt(3, resultado);
+			pstmt.setDouble(4, ganancia);
+			pstmt.setString(5, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	//Añadir Puntos del balance
 	public static void addPuntoBalance(int sesion, double saldo, Usuario user) {
 		String sql = "INSERT INTO Balance (sesion, total, nombre_usuario) VALUES (?, ?, ?);";
