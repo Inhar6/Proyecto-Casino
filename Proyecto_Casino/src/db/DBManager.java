@@ -308,6 +308,19 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	public static void crearTablaCoinFlip() {
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement()){
+			stmt.executeUpdate(" CREATE TABLE IF NOT EXISTS CoinFLip (\n"
+					+ "    	tirada INTEGER,\n"
+					+ "    	apuesta VARCHAR,\n"
+					+ "    	resultado VARCHAR,\n"
+					+ "    	nombre_usuario VARCHAR(50),\n"
+					+ "     FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nombre_usuario));");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public static void crearTablaCrash() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()) {

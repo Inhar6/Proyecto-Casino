@@ -37,7 +37,7 @@ public class DBCreator {
 		DBManager.crearTablaBalance();
 		
 		System.out.println("Creando tabla Coin Flip");
-		DBManager.crearTablaBalance();
+		DBManager.crearTablaCoinFlip();
 		
 		/*
 		//Agregacion de datos de prueba a las tablas
