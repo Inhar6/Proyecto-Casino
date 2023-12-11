@@ -98,6 +98,15 @@ public class DBManager {
 					}
 				}	
 			}
+			//Añadir la tabla CoinFlip al usuario
+			ResultSet rsCoinFlip = stmt.executeQuery("SELECT * FROM Usuario u, CoinFLip cf WHERE u.nombre_usuario = cf.nombre_usuario");
+			while(rsCoinFlip.next()) {
+				for(Usuario user: lstUsuarios) {
+					if(user.getNombreUsuario().equals(rsRuleta.getString("nombre_usuario"))) {
+						user.addMapaCoinFlip(rs.getInt("tirada"), rs.getString("Apuesta"), rs.getString("Resultado"));
+					}
+				}
+			}
 			//Añadir la tabla CuentaBancaria al usuario
 			ResultSet rsCuentaBancaria = stmt.executeQuery("SELECT * FROM Usuario u, CuentaBancaria c WHERE u.nombre_usuario = c.nombre_usuario");
 			while(rsCuentaBancaria.next()) {
