@@ -323,12 +323,22 @@ public class VentanaCoinFlip extends JFrame {
 										JOptionPane.showMessageDialog(null, resultado + " \n¡Has ganado! ¡Felicidades!",
 												"Resultado", JOptionPane.INFORMATION_MESSAGE);
 										winLose = "Win";
+										
+										VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
+										VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+										VentanaPanelMenu.apuesta = 0;
+										
 										System.out.println(tirada);
 									} else {
 										JOptionPane.showMessageDialog(null,
 												resultado + ".\n Has perdido. Mejor suerte la próxima vez.",
 												"Resultado", JOptionPane.ERROR_MESSAGE);
 										winLose = "Lose";
+										
+										VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
+										VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+										VentanaPanelMenu.apuesta = 0;
+										
 										System.out.println(tirada);
 									}
 									
@@ -344,17 +354,6 @@ public class VentanaCoinFlip extends JFrame {
 						}
 
 					};
-					if (resultado.equals(caraCruz)) {
-						VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
-						VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
-						VentanaPanelMenu.apuesta = 0;
-
-					} else {
-						VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
-						VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
-						VentanaPanelMenu.apuesta = 0;
-
-					}
 
 					hilo.start();
 				} else {
