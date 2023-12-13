@@ -342,7 +342,7 @@ public class VentanaCoinFlip extends JFrame {
 										
 										System.out.println(tirada);
 									}
-									
+									 
 									// reiniciar botones
 									bCara.setEnabled(true);
 									bCruz.setEnabled(true);
