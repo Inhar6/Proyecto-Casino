@@ -18,13 +18,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
+
+import db.DBManager;
+import domain.CuentaBancaria;
+import domain.Usuario;
 
 public class VentanaDeposito extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Color colorPanel = new Color(71, 113, 72);
 	private static final Logger logger = Logger.getLogger("VentanaDeposito");
-	public VentanaDeposito() {
+	public VentanaDeposito(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,300);
 		setTitle("Deposito");
@@ -306,7 +312,10 @@ public class VentanaDeposito extends JFrame{
 				}else{
 					JOptionPane.showMessageDialog(null, "El campo \"Numero de cuenta \"debe contener exactamnte 8 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
 				}
-				
+				String[] datos = JTextfieldDiaYMes.getText().split("/");
+				CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
+				DBManager.añadirCuentaBancaria(cb, u);
+			
 			}
 		});
 		
@@ -330,20 +339,6 @@ public class VentanaDeposito extends JFrame{
 		
 		
 		
-	}
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				new VentanaDeposito();				
-			}
-        });
 	}
 	
 }

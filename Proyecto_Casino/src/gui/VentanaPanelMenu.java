@@ -278,7 +278,7 @@ public class VentanaPanelMenu {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(contadorVentanaDepositar < limiteVentanas) {
-							new VentanaDeposito();
+							new VentanaDeposito(user);
 							contadorVentanaDepositar++;
 							logger.info("Has abierto una ventana 'Depositar'");
 						}else {
