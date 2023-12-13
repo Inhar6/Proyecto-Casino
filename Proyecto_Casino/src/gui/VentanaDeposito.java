@@ -297,6 +297,7 @@ public class VentanaDeposito extends JFrame{
 						Pattern.matches("\\d{8}",text)& Pattern.matches("\\d{3}",text1)){
 					logger.info("Tu deposito ha sido realizado con exito");
 					String[] datos = JTextfieldDiaYMes.getText().split("/");
+					
 					CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
 					DBManager.añadirCuentaBancaria(cb, u);
 					dispose();
@@ -318,6 +319,19 @@ public class VentanaDeposito extends JFrame{
 				}
 			
 			
+			}
+		});
+		botonDepositar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldDiaYMes.getText();
+				if(Pattern.matches("\\d{2}/\\d{2}",text )) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"DIA Y MES \"debe contener exactamnte 2/2 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
+				}
+				
 			}
 		});
 		
