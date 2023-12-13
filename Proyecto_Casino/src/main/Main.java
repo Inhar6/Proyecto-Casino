@@ -20,7 +20,9 @@ public class Main {
 		System.out.println("Rellenando la lista de usuarios");		
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
 		System.out.println(DBlstUsuarios);
-		
+		for(Usuario u : DBlstUsuarios) {
+			System.out.println(u.getNombre() + "-" +u.getSaldo());
+		}
 		
         SwingUtilities.invokeLater(new Runnable() {
 
