@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -89,7 +90,7 @@ public class VentanaCoinFlip extends JFrame {
 		controladorVentana = new ControladorVentanaCoinFlip();
 		addWindowListener(controladorVentana);
 
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Coin-Flip");
 		// Centra la ventana en el centro de la pantlla
@@ -99,6 +100,7 @@ public class VentanaCoinFlip extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				VentanaPanelMenu.contadorVentanaJuego = 0; // Reiniciar el contador
+				
 			}
 		});
 		setVisible(true);
@@ -212,7 +214,7 @@ public class VentanaCoinFlip extends JFrame {
 
 		menuGeneral.enseñarApostar(panelMenuInferior);
 		menuGeneral.enseñarMenu(panelMenuSuperior, menu);
-
+		
 		// listeners
 		bCara.addActionListener(new ActionListener() {
 
@@ -326,7 +328,6 @@ public class VentanaCoinFlip extends JFrame {
 										
 										VentanaPanelMenu.balance = VentanaPanelMenu.balance + VentanaPanelMenu.apuesta * 2;
 										VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
-										VentanaPanelMenu.apuesta = 0;
 										
 										System.out.println(tirada);
 									} else {
@@ -337,7 +338,7 @@ public class VentanaCoinFlip extends JFrame {
 										
 										VentanaPanelMenu.balance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
 										VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
-										VentanaPanelMenu.apuesta = 0;
+										
 										
 										System.out.println(tirada);
 									}
@@ -347,6 +348,8 @@ public class VentanaCoinFlip extends JFrame {
 									bCruz.setEnabled(true);
 									winLose = "";
 									caraCruz = "";
+									VentanaPanelMenu.apuesta -= VentanaPanelMenu.apuesta;
+									VentanaPanelMenu.lApuesta.setText("Apuesta: " + VentanaPanelMenu.apuesta );
 									
 								}
 							});
