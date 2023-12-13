@@ -1,9 +1,9 @@
 package gui;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Frame;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,9 +19,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
+
 
 public class VentanaApostarSeguro extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Color colorPanel = new Color(71, 113, 72);
 	private static final Logger logger = Logger.getLogger("VentanaApostarSeguro");
 	
@@ -110,8 +114,6 @@ public class VentanaApostarSeguro extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String textoDiario = JTextfieldDiario.getText();
-				String textoMnesual = JTextfieldMensual.getText();
-				String textoAnual = JTextfieldAnual.getText();
 				if(textoDiario.length()<=4) {
 					
 				}else {
