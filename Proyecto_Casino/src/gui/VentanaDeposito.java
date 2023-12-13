@@ -108,7 +108,7 @@ public class VentanaDeposito extends JFrame{
 		//CANTIDAD DE DEPOSITO
 		JTextField JTextfieldCantidadDeDeposito = new JTextField(20);
 		cantidadDeDeposito.add(JTextfieldCantidadDeDeposito);
-		String StringCantidadDeDeposito = "Cantidad De Deposito";
+		String StringCantidadDeDeposito = "Cantidad De Deposito (minimo : 1000€)";
 		JTextfieldCantidadDeDeposito.setText(StringCantidadDeDeposito);
 		JTextfieldCantidadDeDeposito.setForeground(Color.gray);
 		
@@ -335,6 +335,21 @@ public class VentanaDeposito extends JFrame{
 				
 			}
 		});
+		
+		botonDepositar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldCantidadDeDeposito.getText();
+				if(text.length()>=4) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"CANTIDAD DE DEPOSITO\" debe contener minimo 1000€", "Problema del campo", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
+		
 		
 		
 		
