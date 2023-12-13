@@ -35,7 +35,7 @@ public class VentanaPanelMenu {
 	public static Usuario user = new Usuario();
 	// Botones
 	private JButton bLogin = new JButton ("Login");
-	private JButton bSignUp = new JButton ("Sign Up");
+	private JButton bSignUp = new JButton ("Sign up");
 	private JButton bUsuario = new JButton ("Usuario");
 	private JButton bJuegos = new JButton("Juegos");
 	private JButton bCasino = new JButton ();
