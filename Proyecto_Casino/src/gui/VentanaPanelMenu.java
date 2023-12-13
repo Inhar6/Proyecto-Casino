@@ -35,7 +35,7 @@ public class VentanaPanelMenu {
 	public static Usuario user = new Usuario();
 	// Botones
 	private JButton bLogin = new JButton ("Login");
-	private JButton bSingUp = new JButton ("SingUp");
+	private JButton bSignUp = new JButton ("Sign Up");
 	private JButton bUsuario = new JButton ("Usuario");
 	private JButton bJuegos = new JButton("Juegos");
 	private JButton bCasino = new JButton ();
@@ -178,7 +178,7 @@ public class VentanaPanelMenu {
 			}
 		});
 		
-		bSingUp.addActionListener(new ActionListener() {
+		bSignUp.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -302,7 +302,7 @@ public class VentanaPanelMenu {
 			pMenuUsuarioSingUp.add(bUsuario);
 			pMenuBalanceLogin.add(lBalance);
 		} else {
-			pMenuUsuarioSingUp.add(bSingUp);
+			pMenuUsuarioSingUp.add(bSignUp);
 			pMenuBalanceLogin.add(bLogin);
 		}
 	}
