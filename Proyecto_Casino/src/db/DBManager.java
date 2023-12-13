@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.CuentaBancaria;
 import domain.Point;
 import domain.Usuario;
 
@@ -113,6 +114,7 @@ public class DBManager {
 				for(Usuario user: lstUsuarios) {
 					if(user.getNombreUsuario().equals(rsCuentaBancaria.getString("nombre_usuario"))) {
 						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("saldo"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
+						user.addSaldo(rsCuentaBancaria.getDouble("saldo"));
 					}
 				}
 			}
@@ -216,6 +218,24 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	//Añadir cuenta Bancaria
+	public static void añadirCuentaBancaria(CuentaBancaria cb,Usuario user) {
+		String sql = "INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, cb.getTitular());
+			pstmt.setDouble(2, cb.getSaldo());
+			pstmt.setString(3, cb.getNumero_cuenta());
+			pstmt.setInt(4, cb.getCvc());
+			pstmt.setInt(5, cb.getMes());
+			pstmt.setInt(6, cb.getAno());
+			pstmt.setString(7, user.getNombreUsuario());
+			pstmt.executeUpdate();
+			System.out.println("Guardados los datos de la cuenta bancaria");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		}
 	//Añadir tirada de la ruleta 
 	public static void addTiradaRuleta( int tirada, int numero, double ganancia, Usuario user) {
 		String sql = "INSERT INTO Ruleta (numero, ganancia, tirada, nombre_usuario) VALUES (?, ?, ?, ?);";

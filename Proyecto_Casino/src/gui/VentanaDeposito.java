@@ -18,13 +18,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
+
+import db.DBManager;
+import domain.CuentaBancaria;
+import domain.Usuario;
 
 public class VentanaDeposito extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Color colorPanel = new Color(71, 113, 72);
 	private static final Logger logger = Logger.getLogger("VentanaDeposito");
-	public VentanaDeposito() {
+	public VentanaDeposito(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500,300);
 		setTitle("Deposito");
@@ -102,7 +108,7 @@ public class VentanaDeposito extends JFrame{
 		//CANTIDAD DE DEPOSITO
 		JTextField JTextfieldCantidadDeDeposito = new JTextField(20);
 		cantidadDeDeposito.add(JTextfieldCantidadDeDeposito);
-		String StringCantidadDeDeposito = "Cantidad De Deposito";
+		String StringCantidadDeDeposito = "Cantidad De Deposito (minimo : 1000€)";
 		JTextfieldCantidadDeDeposito.setText(StringCantidadDeDeposito);
 		JTextfieldCantidadDeDeposito.setForeground(Color.gray);
 		
@@ -290,7 +296,12 @@ public class VentanaDeposito extends JFrame{
 						JTextfieldUsuario.getForeground()== Color.black & JTextfieldContrasea.getForeground()== Color.black & JTextfieldCantidadDeDeposito.getForeground()== Color.black &
 						Pattern.matches("\\d{8}",text)& Pattern.matches("\\d{3}",text1)){
 					logger.info("Tu deposito ha sido realizado con exito");
+					String[] datos = JTextfieldDiaYMes.getText().split("/");
 					
+					CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
+					DBManager.añadirCuentaBancaria(cb, u);
+					dispose();
+				
 				}
 				
 			}
@@ -305,6 +316,20 @@ public class VentanaDeposito extends JFrame{
 					
 				}else{
 					JOptionPane.showMessageDialog(null, "El campo \"Numero de cuenta \"debe contener exactamnte 8 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
+				}
+			
+			
+			}
+		});
+		botonDepositar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldDiaYMes.getText();
+				if(Pattern.matches("\\d{2}/\\d{2}",text )) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"DIA Y MES \"debe contener exactamnte 2/2 numeros", "Problema del campo", JOptionPane.WARNING_MESSAGE);
 				}
 				
 			}
@@ -325,25 +350,26 @@ public class VentanaDeposito extends JFrame{
 			}
 		});
 		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
+		botonDepositar.addActionListener(new ActionListener() {
+			
 			@Override
-			public void run() {
-				new VentanaDeposito();				
+			public void actionPerformed(ActionEvent e) {
+				String text = JTextfieldCantidadDeDeposito.getText();
+				if(text.length()>=4) {
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "El campo \"CANTIDAD DE DEPOSITO\" debe contener minimo 1000€", "Problema del campo", JOptionPane.WARNING_MESSAGE);
+				}
+				
 			}
-        });
+		});
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 }

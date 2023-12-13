@@ -25,6 +25,16 @@ public class CuentaBancaria {
 		this.saldo = saldo;
 		this.mapaCuentaBancaria = mapaCuentaBancaria;
 	}
+	public CuentaBancaria(String titular, String numero_cuenta, int cvc, int mes, int ano, double saldo) {
+		super();
+		this.titular = titular;
+		this.numero_cuenta = numero_cuenta;
+		this.cvc = cvc;
+		this.mes = mes;
+		this.ano = ano;
+		this.saldo = saldo;
+	
+	}
 
 	// Constructor vacio
 	public CuentaBancaria() {

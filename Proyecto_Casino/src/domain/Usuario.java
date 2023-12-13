@@ -107,7 +107,11 @@ public class Usuario implements Comparable<Usuario>{
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-
+	//Sumar saldo
+	public void addSaldo(Double s) {
+		saldo = saldo + s;
+	}
+	
 	public Map<String, Map<Double, Map<Integer, Map<Integer, Map<Integer, Integer>>>>> getMapaCuentaBancaria() {
 		return mapaCuentaBancaria;
 	}
