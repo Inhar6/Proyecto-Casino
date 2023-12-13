@@ -113,8 +113,8 @@ public class DBManager {
 			while(rsCuentaBancaria.next()) {
 				for(Usuario user: lstUsuarios) {
 					if(user.getNombreUsuario().equals(rsCuentaBancaria.getString("nombre_usuario"))) {
-						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("saldo"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
-						user.addSaldo(rsCuentaBancaria.getDouble("saldo"));
+						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("dinero"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
+						user.addSaldo(rsCuentaBancaria.getDouble("dinero"));
 					}
 				}
 			}
@@ -220,7 +220,7 @@ public class DBManager {
 	}
 	//Añadir cuenta Bancaria
 	public static void añadirCuentaBancaria(CuentaBancaria cb,Usuario user) {
-		String sql = "INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO CuentaBancaria (titular, dinero, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, cb.getTitular());
@@ -304,7 +304,7 @@ public class DBManager {
 				Statement stmt = conn.createStatement()) {
 			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS CuentaBancaria (\n"
 				    + "     titular VARCHAR(30),\n"
-				    + "     saldo DOUBLE,\n"    
+				    + "     dinero DOUBLE,\n"    
 				    + "     numero_cuenta VARCHAR(30),\n"
 				    + "     cvc VARCHAR(4),\n"
 				    + "     mes VARCHAR(4),\n"
@@ -411,7 +411,7 @@ public class DBManager {
 	}
 	public static void añadirCuentaBancariaEjemplo() {
 		try (Connection conn = obtenerConexion();
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, saldo, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES\r\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO CuentaBancaria (titular, dinero, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES\r\n"
 					+ "			('Nombre1 Apellido1', 1500.0, '12345', '123', '01', '26', 'usuario1'),\r\n"
 					+ "			('Nombre2 Apellido2', 75000.0, '67890', '235', '07', '25', 'usuario2'),\r\n"
 					+ "			('Nombre3 Apellido3', 20000.0, '54321', '345', '04', '27', 'usuario3'),\r\n"
