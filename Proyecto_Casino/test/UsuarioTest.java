@@ -92,6 +92,12 @@ public class UsuarioTest {
 		u.setSaldo(12000);
 		assertEquals(12000,u.getSaldo(),1.0 );
 	}
+	@Test
+	public void testAddSaldo() {
+		u.setSaldo(12000);
+		u.addSaldo(3000.0);
+		assertEquals(15000,u.getSaldo(),1.0 );
+	}
 	@Test 
 	public void testToString() {
 		assertEquals(String.format("%s, %s, %s, %s", u.getNombre(),u.getApellidos(), u.getDNI(), u.getNombreUsuario()), u.toString());
