@@ -108,7 +108,7 @@ public class Usuario implements Comparable<Usuario>{
 		this.saldo = saldo;
 	}
 	//Sumar saldo
-	public void addSaldo(Double s) {
+	public void addSaldo(double s) {
 		saldo = saldo + s;
 	}
 	
