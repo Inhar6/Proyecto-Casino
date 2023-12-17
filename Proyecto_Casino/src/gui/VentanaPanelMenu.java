@@ -42,7 +42,7 @@ public class VentanaPanelMenu {
 	// Color
 	static Color colorPanel = new Color(71, 113, 72);
 	// Balance
-	static double balance = 10000;
+	static double balance = 10000.0;
 	static JLabel lBalance = new JLabel("Balance: " + balance);
 	// Paneles
 	public JPanel pMenu = new JPanel (new BorderLayout());
@@ -84,8 +84,13 @@ public class VentanaPanelMenu {
     }
     
     // Menu superior
-	public void enseñarMenu(JPanel panel, JMenu menu) {
-
+	public void enseñarMenu(JPanel panel, JMenu menu, Usuario u) {
+		
+		u=user;
+		balance = user.getSaldo();
+		
+		lBalance = new JLabel("Balance: " + balance);
+		
 		panel.add(pMenu);
 
 		propiedades = new Propiedades();
@@ -420,7 +425,7 @@ public class VentanaPanelMenu {
         Font nuevaFuente = new Font(fuente.getName(), Font.PLAIN, 18);
         lApuesta.setFont(nuevaFuente);
         lApuesta.setForeground(Color.yellow);
-        lBalance.setForeground(Color.yellow);
+        lBalance.setForeground(Color.black);
         //
         
         bficha1.addActionListener (new ActionListener() {
