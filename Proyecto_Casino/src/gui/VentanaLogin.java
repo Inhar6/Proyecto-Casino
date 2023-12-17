@@ -97,6 +97,7 @@ public class VentanaLogin extends JFrame{
 					System.out.println(u);
 					//Mandar el usuario a las ventanas
 					VentanaPanelMenu.user = u;
+					VentanaPanelMenu.balance = u.getSaldo();
 					loged = true;
 					dispose();
 				}else {
