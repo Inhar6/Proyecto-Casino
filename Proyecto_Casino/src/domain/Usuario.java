@@ -48,7 +48,7 @@ public class Usuario implements Comparable<Usuario>{
 	//Constructor vacio
 	public Usuario() {
 		super();
-		
+		this.saldo= 10000;
 	}
 	
 	//Getters y Setters
