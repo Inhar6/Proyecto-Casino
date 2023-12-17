@@ -277,7 +277,7 @@ public class VentanaRuleta extends JFrame{
 		////////////////////////
         setJMenuBar(menuBar1);
         menuGeneral.enseñarApostar(menuInferior);
-        menuGeneral.enseñarMenu(menuSuperior, menu);
+        menuGeneral.enseñarMenu(menuSuperior, menu, VentanaPanelMenu.user);
         // Contador ventanas abiertas
         addWindowListener(new WindowAdapter() {
             @Override
@@ -588,6 +588,7 @@ public class VentanaRuleta extends JFrame{
 				
 			}
 		});
+		
 	}
 	
 	class MyCellRender extends JLabel implements ListCellRenderer<Integer>{
