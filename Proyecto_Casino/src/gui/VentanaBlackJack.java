@@ -11,7 +11,6 @@ import java.awt.Toolkit;import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,16 +29,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import db.DBManager;
 import domain.Carta;
 import domain.Usuario;
-import gui.VentanaCrash.MyRender;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -99,7 +93,7 @@ public class VentanaBlackJack extends JFrame {
         add(menuInferior, BorderLayout.SOUTH);
 
         menuGeneral.enseñarApostar(menuInferior);
-        menuGeneral.enseñarMenu(menuSuperior, menu);
+        menuGeneral.enseñarMenu(menuSuperior, menu, VentanaPanelMenu.user);
         // Contador ventanas abiertas
         addWindowListener(new WindowAdapter() {
             @Override
@@ -423,9 +417,9 @@ public class VentanaBlackJack extends JFrame {
     //Metodo crear la baraja
     public Map<String,List<String>> crearMapaBaraja() {
     	Map<String,List<String>> mapaCartas = new HashMap<>();
-    	 List<Carta> baraja = new ArrayList<>();
+    	 //List<Carta> baraja = new ArrayList<>();
     	 String[] numeros = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-    	 String[] palos = {"Corazones","Treboles","Picas","Diamantes"};
+    	 //String[] palos = {"Corazones","Treboles","Picas","Diamantes"};
     	 
     	 mapaCartas.putIfAbsent("Corazones", new ArrayList<>());
     	 mapaCartas.putIfAbsent("Treboles", new ArrayList<>());

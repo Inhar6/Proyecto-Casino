@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -29,7 +28,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -81,7 +79,7 @@ public class VentanaCrash extends JFrame{
 	private JProgressBar progressBar = new JProgressBar(100, 500);
 	private int valor = 100;
     private int tirada;
-    private int numeroRangoProb;
+    //private int numeroRangoProb;
 
     public VentanaCrash() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -221,7 +219,7 @@ public class VentanaCrash extends JFrame{
       
 	    // Mostrar VentanaMenuPanel
 	    menuGeneral.enseñarApostar(menuInferior);
-	    menuGeneral.enseñarMenu(menuSuperior, menu);
+	    menuGeneral.enseñarMenu(menuSuperior, menu, VentanaPanelMenu.user);
 	    //
 	}
     public void resetJuego() {

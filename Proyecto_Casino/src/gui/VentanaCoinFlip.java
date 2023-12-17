@@ -5,7 +5,6 @@ import java.awt.Color;
 
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -213,7 +212,7 @@ public class VentanaCoinFlip extends JFrame {
 		panelCentral.setLayout(gl_panelCentral);
 
 		menuGeneral.enseñarApostar(panelMenuInferior);
-		menuGeneral.enseñarMenu(panelMenuSuperior, menu);
+		menuGeneral.enseñarMenu(panelMenuSuperior, menu, VentanaPanelMenu.user);
 		
 		// listeners
 		bCara.addActionListener(new ActionListener() {

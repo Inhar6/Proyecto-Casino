@@ -137,6 +137,6 @@ public class VentanaInicial extends JFrame{
 			}
 		});
         // Mostrar VentanaMenuPanel
-        menuGeneral.enseñarMenu(menuSuperior, menu);
+        menuGeneral.enseñarMenu(menuSuperior, menu, VentanaPanelMenu.user);
 	}
 }
