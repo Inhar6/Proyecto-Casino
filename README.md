@@ -1,0 +1,1 @@
+Este repositorio contiene un trabajo grupal sobre un tipo de casino, con distintos juegos como: Ruleta, Black Jack, Crash y Coin Flip. Mediante la implementacion de cuentas unicas para cada usuario se hace uso de todo el sistema de juego. Tambien se cuenta con una vista de adminitrador para el control de las cuentas y transacciones.
