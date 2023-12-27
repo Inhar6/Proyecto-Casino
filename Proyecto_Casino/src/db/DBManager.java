@@ -218,6 +218,32 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	//Editar saldo del usuario
+	public static void guardarSaldo(Usuario user, double saldo) {
+		String sql = "UPDATE Usuario SET saldo = ? WHERE nombre_usuario = ?;";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setDouble(1, user.getSaldo());
+			pstmt.setString(2, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	//Añadir saldo al usuario ( mediante CuentaBancaria )
+	public static void añadirSaldoCB(Usuario user, CuentaBancaria cb) {
+		String sql = "UPDATE Usuario SET saldo = ? , numero_cuenta = ? WHERE nombre_usuario = ?;";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setDouble(1, user.getSaldo() +cb.getSaldo());
+			pstmt.setString(2, cb.getNumero_cuenta());
+			pstmt.setString(3, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//Añadir cuenta Bancaria
 	public static void añadirCuentaBancaria(CuentaBancaria cb,Usuario user) {
 		String sql = "INSERT INTO CuentaBancaria (titular, dinero, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -231,6 +257,7 @@ public class DBManager {
 			pstmt.setInt(6, cb.getAno());
 			pstmt.setString(7, user.getNombreUsuario());
 			pstmt.executeUpdate();
+			añadirSaldoCB(user, cb);
 			System.out.println("Guardados los datos de la cuenta bancaria");
 		} catch (SQLException e) {
 			e.printStackTrace();
