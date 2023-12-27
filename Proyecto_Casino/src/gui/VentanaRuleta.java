@@ -291,15 +291,18 @@ public class VentanaRuleta extends JFrame{
 
 		//pack();
 		
+		//Estructuracion de mapaApuesta
+		construccionMapaApuesta();
+		
 		//Color verde
 		btnVerde.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					btnVerde.setEnabled(false);
+					//btnVerde.setEnabled(false);
 					//Apuesta unica
 					//Verde == 1
-					mapaApuestas.get("Color").put(1, dineroApostado);
+					mapaApuestas.get("Color").put(1, mapaApuestas.get("Color").get(1) + dineroApostado);
 					//Sumar dinero al total apostado
 					dineroApostadoTotal+=dineroApostado;
 					actualizarSaldos();
@@ -310,10 +313,10 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnRojo.setEnabled(false);
+				//btnRojo.setEnabled(false);
 				//Apuesta unica
 				//Rojo == 2
-				mapaApuestas.get("Color").put(2, dineroApostado);
+				mapaApuestas.get("Color").put(2, mapaApuestas.get("Color").get(2) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -324,10 +327,10 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnNegro.setEnabled(false);
+				//btnNegro.setEnabled(false);
 				//Apuesta unica
 				//Negro == 3
-				mapaApuestas.get("Color").put(3, dineroApostado);
+				mapaApuestas.get("Color").put(3, mapaApuestas.get("Color").get(3) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -338,9 +341,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnPar.setEnabled(false);
+				//btnPar.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Par").put(1, dineroApostado);
+				mapaApuestas.get("Par").put(1, mapaApuestas.get("Par").get(1) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -351,9 +354,9 @@ public class VentanaRuleta extends JFrame{
 		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnImpar.setEnabled(false);
+				//btnImpar.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Par").put(2, dineroApostado);
+				mapaApuestas.get("Par").put(2, mapaApuestas.get("Par").get(2) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -364,9 +367,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn1a18.setEnabled(false);
+				//btn1a18.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Rango").put(1, dineroApostado);
+				mapaApuestas.get("Rango").put(1, mapaApuestas.get("Rango").get(1) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -377,9 +380,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn19a36.setEnabled(false);
+				//btn19a36.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Rango").put(2, dineroApostado);
+				mapaApuestas.get("Rango").put(2, mapaApuestas.get("Rango").get(2) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -390,9 +393,9 @@ public class VentanaRuleta extends JFrame{
 					
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn1Docena.setEnabled(false);
+				//btn1Docena.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Docena").put(1, dineroApostado);
+				mapaApuestas.get("Docena").put(1, mapaApuestas.get("Docena").get(1) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -403,9 +406,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn2Docena.setEnabled(false);
+				//btn2Docena.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Docena").put(2, dineroApostado);
+				mapaApuestas.get("Docena").put(2, mapaApuestas.get("Docena").get(2) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -416,9 +419,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn3Docena.setEnabled(false);
+				//btn3Docena.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Docena").put(3, dineroApostado);
+				mapaApuestas.get("Docena").put(3, mapaApuestas.get("Docena").get(3) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -429,9 +432,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn1Fila.setEnabled(false);
+				//btn1Fila.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Fila").put(1, dineroApostado);
+				mapaApuestas.get("Fila").put(1, mapaApuestas.get("Fila").get(1) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -442,9 +445,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn2Fila.setEnabled(false);
+				//btn2Fila.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Fila").put(2, dineroApostado);
+				mapaApuestas.get("Fila").put(2, mapaApuestas.get("Fila").get(2) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -455,9 +458,9 @@ public class VentanaRuleta extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btn3Fila.setEnabled(false);
+				//btn3Fila.setEnabled(false);
 				//Apuesta unica
-				mapaApuestas.get("Fila").put(3, dineroApostado);
+				mapaApuestas.get("Fila").put(3,mapaApuestas.get("Fila").get(3) + dineroApostado);
 				//Sumar dinero al total apostado
 				dineroApostadoTotal+=dineroApostado;
 				actualizarSaldos();
@@ -620,6 +623,23 @@ public class VentanaRuleta extends JFrame{
 		
 	}
 	
+	public void construccionMapaApuesta() {
+		//Construccion del mapaApuestas
+		mapaApuestas.get("Color").putIfAbsent(1, 0.0);
+		mapaApuestas.get("Color").putIfAbsent(2, 0.0);
+		mapaApuestas.get("Color").putIfAbsent(3, 0.0);
+		mapaApuestas.get("Par").putIfAbsent(1, 0.0);
+		mapaApuestas.get("Par").putIfAbsent(2, 0.0);
+		mapaApuestas.get("Rango").putIfAbsent(1, 0.0);
+		mapaApuestas.get("Rango").putIfAbsent(2, 0.0);
+		mapaApuestas.get("Docena").putIfAbsent(1, 0.0);
+		mapaApuestas.get("Docena").putIfAbsent(2, 0.0);
+		mapaApuestas.get("Docena").putIfAbsent(3, 0.0);
+		mapaApuestas.get("Fila").putIfAbsent(1, 0.0);
+		mapaApuestas.get("Fila").putIfAbsent(2, 0.0);
+		mapaApuestas.get("Fila").putIfAbsent(3, 0.0);
+	}
+	
 	//Funcion para saber si el valor que se muestra es rojo
 	public static boolean esRojo(Integer i) {
 		for(Integer num : rojo) {
@@ -630,31 +650,6 @@ public class VentanaRuleta extends JFrame{
 		return false;
 	}
 
-	public void activarBotones() {
-		btnVerde.setEnabled(true);
-		btnRojo.setEnabled(true);
-		btnNegro.setEnabled(true);
-		btnVerde.setEnabled(true);
-			btnVerde.setBackground(Color.green);
-			btnVerde.setForeground(Color.white);
-		btnRojo.setEnabled(true);
-			btnRojo.setBackground(Color.red);
-			btnRojo.setForeground(Color.white);
-		btnNegro.setEnabled(true);
-			btnNegro.setBackground(Color.black);
-			btnNegro.setForeground(Color.white);
-		btn1Docena.setEnabled(true);
-		btn2Docena.setEnabled(true);
-		btn3Docena.setEnabled(true);
-		btn1a18.setEnabled(true);
-		btn19a36.setEnabled(true);
-		btnPar.setEnabled(true);
-		btnImpar.setEnabled(true);
-		btn1Fila.setEnabled(true);
-		btn2Fila.setEnabled(true);
-		btn3Fila.setEnabled(true);
-		
-	}
 	public void actualizarSaldos() {
 		dineroTotal-=dineroApostado;
 		saldo.setText("---- " + dineroTotal + " ----");
@@ -719,8 +714,6 @@ public class VentanaRuleta extends JFrame{
 	}
 	
 	public void reinicio(List<String> coloresApostadas,List<Integer> docenasApostadas,List<Integer> filasApostadas,List<Integer> rangoApostadas,List<Integer> parApostadas) {
-		//Activa los botones para otra partida
-		activarBotones();
 		//Quitar los valores anteriores de la lista
 		coloresApostadas.clear();
 		docenasApostadas.clear();
@@ -728,11 +721,12 @@ public class VentanaRuleta extends JFrame{
 		rangoApostadas.clear();
 		parApostadas.clear();
 		//Dinero apostado
-		dineroApostado=0;
-		dineroApostadoTotal=0;
+		dineroApostado=0.0;
+		dineroApostadoTotal=0.0;
 		actualizarSaldos();
 		
 	}
+	
 	public void result(double gano, int r) {
 		ApuestaRuleta t = new ApuestaRuleta(r,obtenerColor(r),obtenerDocena(r),obtenerFila(r),obtenerRango(r),obtenerPar(r));
 		JOptionPane.showMessageDialog(null, t.toString());
@@ -846,15 +840,14 @@ public class VentanaRuleta extends JFrame{
 	}
 	
 	public void reinicio2(Map<String, Map<Integer, Double>> mapa) {
-		//Activa los botones para otra partida
-		activarBotones();
 		//Quitar los valores anteriores del mapa
 		for (Map<Integer, Double> mapas :mapa.values()) {
 			mapas.clear();
 		}
+		construccionMapaApuesta();
 		//Dinero apostado
-		dineroApostado=0;
-		dineroApostadoTotal=0;
+		dineroApostado=0.0;
+		dineroApostadoTotal=0.0;
 		actualizarSaldos();
 
 		
