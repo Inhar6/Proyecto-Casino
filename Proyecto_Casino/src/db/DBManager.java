@@ -291,7 +291,21 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+	//Añadir tirada de Crash
+	public static void addTiradaCrash(int tirada, String resultado, double multiplicador, double ganancia, Usuario user) {
+		String sql= "INSERT INTO Crash (tirada, resultado, multiplicador, ganancia, nombre_usuario) VALUES (?, ?, ?, ?, ?)";
+		try (Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, tirada);
+			pstmt.setString(2, resultado);
+			pstmt.setDouble(3, multiplicador);
+			pstmt.setDouble(4, ganancia);
+			pstmt.setString(5, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	//Añadir tirada de BlackJack
 	public static void addTiradaBlackJack( int partida, String ganador,int resultado ,double ganancia, Usuario user) {
 		String sql = "INSERT INTO BlackJack(partida, ganador, puntuacion,ganancia, nombre_usuario) VALUES (?, ?, ?, ?, ?);";
@@ -396,7 +410,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-
 	public static void crearTablaBlackJack() {
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement()) {
