@@ -33,6 +33,7 @@ import io.Propiedades;
 
 import javax.swing.SwingUtilities;
 
+import db.DBManager;
 import domain.Usuario;
 import gui.controller.ControladorVentanaCoinFlip;
 
@@ -321,7 +322,8 @@ public class VentanaCoinFlip extends JFrame {
 									mapaCoinFlip.putIfAbsent(tirada, new HashMap<>());
 									mapaCoinFlip.get(tirada).put(caraCruz, winLose);
 									System.out.println(mapaCoinFlip);
-									
+									//Base de datos
+									DBManager.addTiradaCoinFlip(tirada, caraCruz, winLose, user);
 								
 									dlmHistorial.addElement(resultado);
 									logger.info("Ha salido" + resultado);
