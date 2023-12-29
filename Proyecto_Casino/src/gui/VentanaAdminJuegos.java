@@ -404,9 +404,62 @@ public class VentanaAdminJuegos extends JFrame{
 		return total;
 		
 	}
-	/*
-	 * RULETA
-	 */
+	
+	//BLACKJACK
+	public Map<Usuario, Double> obtenerMapaGananciasPorUsuariosBlackJack(List<Usuario> usuarios){
+		Map<Usuario, Double> mapa = new HashMap<>();
+		for(Usuario user: usuarios) {
+			mapa.putIfAbsent(user, 0.0);
+			Map<Integer, Map<String, Map<Integer, Double>>> mapaCrash = user.getMapaBlackJack();
+			for(Map<String, Map<Integer, Double>> apuesta : mapaCrash.values()) {
+				for(Map<Integer, Double> apuesta1 : apuesta.values()) {
+					for(Double c: apuesta1.values()) {
+						mapa.put(user, mapa.get(user) + c) ;
+					}
+				}
+			}
+		}
+		return mapa;
+	}
+	
+	public Usuario obtenerUsuarioConMayorGananciaBlackJack(List<Usuario> usuarios) {
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuariosBlackJack(usuarios);
+		double ganancia = 0;
+		Usuario u = new Usuario();
+		for(Entry<Usuario, Double> entry : mapaUsuarios.entrySet()) {
+			if(entry.getValue()>ganancia) {
+				ganancia = entry.getValue();
+				u = entry.getKey();
+			}
+		}
+		return u;
+	}
+	public Usuario obtenerUsuarioConMayorNumeroDeTiradasBlackJack(List<Usuario> usuarios) {
+		Usuario usuario = new Usuario();
+		int tamaño = 0;
+		for(Usuario user : usuarios) {
+			Map<Integer, Map<String, Map<Integer, Double>>> mapa = user.getMapaBlackJack();
+			int tiradas = mapa.size();
+			if(tiradas > tamaño) {
+				usuario = user;
+				tamaño = tiradas;
+			}
+		}
+		return usuario;
+	}
+	
+	public Double obtenerTotalGananciasBlackJack(List<Usuario> usuarios) {
+		double total= 0;
+		Map<Usuario, Double> mapaUsuarios = obtenerMapaGananciasPorUsuariosBlackJack(usuarios);
+		for(Double t : mapaUsuarios.values()) {
+			total += t;
+		}
+		return total;
+		
+	}
+	
+	
+	 
 	
 	
 	/*
