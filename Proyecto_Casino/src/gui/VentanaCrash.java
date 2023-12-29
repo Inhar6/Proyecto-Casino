@@ -85,7 +85,8 @@ public class VentanaCrash extends JFrame{
     //private int numeroRangoProb;
     //Usuario
     private Usuario user = new Usuario();
-    
+    //Balance - Grafica
+    private int marca = 0;
     
     public VentanaCrash(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -101,6 +102,8 @@ public class VentanaCrash extends JFrame{
 		user = u;
 		//Tirada
 		tirada = u.getMapaCrash().size();
+		//Balance - Grafica
+		marca = u.getLstBalance().size();
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
@@ -305,14 +308,24 @@ public class VentanaCrash extends JFrame{
 		    detallesTirada.put(resultado, new HashMap<>());
 		    detallesTirada.get(resultado).put(multiplicador, ganado);
 		    mapaTiradaCrash.put(tirada, detallesTirada);
+		    //Base de datos
 		    String result = ""+resultado;
 		    DBManager.addTiradaCrash(tirada, result.toUpperCase(), multiplicador, ganado, user);
+		    //Balance - Grafica
+		    int x = (int)ganado / 100;
+		    DBManager.addPuntoBalance(marca, x, user);
+		    marca++;
 	    } else {
 		    detallesTirada.put(resultado, new HashMap<>());
 		    detallesTirada.get(resultado).put(numeroCrono, VentanaPanelMenu.apuesta);
 		    mapaTiradaCrash.put(tirada, detallesTirada);
+		    //Base de datos
 		    String result = ""+resultado;
 		    DBManager.addTiradaCrash(tirada, result.toUpperCase(), multiplicador, ganado, user);
+		    //Balance - Grafica
+		    int x = (int)ganado / 100;
+		    DBManager.addPuntoBalance(marca, x, user);
+		    marca ++;
 	    }
 	}
 	//
