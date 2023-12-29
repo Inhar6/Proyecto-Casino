@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import db.DBManager;
 import domain.Point;
 import domain.Usuario;
 import io.Fichero;
@@ -92,7 +93,8 @@ public class VentanaAdminJuegos extends JFrame{
 		Border tituloRuleta = BorderFactory.createTitledBorder(lineaRuleta,"Ruleta");
 		Border lineaBalanceRuleta = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloBalanceRuleta = BorderFactory.createTitledBorder(lineaBalanceRuleta,"Balance");
-		puntosRuleta = obtenerUsuarioConMayorNumeroDeTiradas(lstUsuarios).getLstBalance();
+		//puntosRuleta = obtenerUsuarioConMayorNumeroDeTiradas(lstUsuarios).getLstBalance();
+		puntosRuleta = DBManager.balanceRuleta();
 		PanelGrafico grfRuleta = new PanelGrafico(puntosRuleta);
 		usuario = new JLabel("Usuario con mayor ganacia: ");
 		Usuario a = obtenerUsuarioConMayorGanancia(lstUsuarios);
