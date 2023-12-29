@@ -462,7 +462,24 @@ public class VentanaAdminJuegos extends JFrame{
 	 
 	
 	
-	/*
-	 * COIN-FLIP
-	 */
+	
+	 // COIN-FLIP
+
+	
+	public Usuario obtenerUsuarioConMayorNumeroDeTiradasCoinFlip(List<Usuario> usuarios) {
+		Usuario usuario = new Usuario();
+		int tamaño = 0;
+		for(Usuario user : usuarios) {
+			Map<Integer, Map<String, String>> mapa = user.getMapaCoinFlip();
+			int tiradas = mapa.size();
+			if(tiradas > tamaño) {
+				usuario = user;
+				tamaño = tiradas;
+			}
+		}
+		return usuario;
+	}
+	
+	
+	
 }
