@@ -34,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import db.DBManager;
 import domain.Usuario;
 
 public class VentanaCrash extends JFrame{
@@ -80,7 +81,7 @@ public class VentanaCrash extends JFrame{
 	// PorgressBar
 	private JProgressBar progressBar = new JProgressBar(100, 500);
 	private int valor = 100;
-    private int tirada;
+    private int tirada = 0;
     //private int numeroRangoProb;
     //Usuario
     private Usuario user = new Usuario();
@@ -98,6 +99,8 @@ public class VentanaCrash extends JFrame{
 		
 		//Usuario
 		user = u;
+		//Tirada
+		tirada = u.getMapaCrash().size();
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
@@ -302,10 +305,14 @@ public class VentanaCrash extends JFrame{
 		    detallesTirada.put(resultado, new HashMap<>());
 		    detallesTirada.get(resultado).put(multiplicador, ganado);
 		    mapaTiradaCrash.put(tirada, detallesTirada);
+		    String result = ""+resultado;
+		    DBManager.addTiradaCrash(tirada, result.toUpperCase(), multiplicador, ganado, user);
 	    } else {
 		    detallesTirada.put(resultado, new HashMap<>());
 		    detallesTirada.get(resultado).put(numeroCrono, VentanaPanelMenu.apuesta);
 		    mapaTiradaCrash.put(tirada, detallesTirada);
+		    String result = ""+resultado;
+		    DBManager.addTiradaCrash(tirada, result.toUpperCase(), multiplicador, ganado, user);
 	    }
 	}
 	//
