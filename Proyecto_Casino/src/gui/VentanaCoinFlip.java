@@ -33,6 +33,7 @@ import io.Propiedades;
 
 import javax.swing.SwingUtilities;
 
+import domain.Usuario;
 import gui.controller.ControladorVentanaCoinFlip;
 
 public class VentanaCoinFlip extends JFrame {
@@ -73,6 +74,9 @@ public class VentanaCoinFlip extends JFrame {
 	private JPanel contentPane;
 
 	private ControladorVentanaCoinFlip controladorVentana;
+	
+	//Usuario
+	private Usuario user = new Usuario();
 
 	//properties
 	private Propiedades propiedades;
@@ -81,7 +85,7 @@ public class VentanaCoinFlip extends JFrame {
 		return propiedades;
 	}
 
-	public VentanaCoinFlip() {
+	public VentanaCoinFlip(Usuario u) {
 
 		propiedades = new Propiedades();
 		propiedades.cargar();
@@ -94,6 +98,8 @@ public class VentanaCoinFlip extends JFrame {
 		setTitle("Coin-Flip");
 		// Centra la ventana en el centro de la pantlla
 		setLocationRelativeTo(null);
+		//Usuario
+		u = user;
 		// Contador ventanas abiertas
 		addWindowListener(new WindowAdapter() {
 			@Override

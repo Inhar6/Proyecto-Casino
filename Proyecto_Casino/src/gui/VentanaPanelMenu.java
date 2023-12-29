@@ -256,7 +256,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaJuego < limiteVentanas) {
-					new VentanaCoinFlip();
+					new VentanaCoinFlip(user);
 					contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Coin-Flip'");
                 } else {

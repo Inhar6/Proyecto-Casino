@@ -128,7 +128,7 @@ public class VentanaInicial extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-					new VentanaCoinFlip();
+					new VentanaCoinFlip(VentanaPanelMenu.user);
 					VentanaPanelMenu.contadorVentanaJuego++;
 					logger.info("Has abierto una ventana 'Coin-Flip'");
                 } else {
