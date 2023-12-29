@@ -277,6 +277,20 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	//Añadir tirada de Coin-Flip
+	public static void addTiradaCoinFlip(int tirada, String apuesta, String resultado, Usuario user) {
+		String sql = "INSERT INTO CoinFLip(tirada, apuesta, resultado, nombre_usuario) VALUES ( ?, ? , ? , ?);";
+		try(Connection conn = obtenerConexion();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, tirada);
+			pstmt.setString(2, apuesta);
+			pstmt.setString(3, resultado);
+			pstmt.setString(4, user.getNombreUsuario());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//Añadir tirada de BlackJack
 	public static void addTiradaBlackJack( int partida, String ganador,int resultado ,double ganancia, Usuario user) {
