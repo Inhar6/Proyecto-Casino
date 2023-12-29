@@ -34,6 +34,7 @@ import javax.swing.table.TableCellRenderer;
 
 import db.DBManager;
 import domain.Carta;
+import domain.Point;
 import domain.Usuario;
 
 public class VentanaBlackJack extends JFrame {
@@ -65,8 +66,7 @@ public class VentanaBlackJack extends JFrame {
 	
 	// 
 	private Usuario user = new Usuario();
-	
-	
+	private int marca = 0;
 
 
 
@@ -81,6 +81,7 @@ public class VentanaBlackJack extends JFrame {
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		
 		user = u;
+		marca = user.getLstBalance().size();
 		// Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
@@ -410,7 +411,10 @@ public class VentanaBlackJack extends JFrame {
 		user.addMapaBlackJack(contador, nombre, a, b);
 		System.out.println(user.getMapaBlackJack());
 		DBManager.addTiradaBlackJack(contador, nombre, a, b, user);
-		
+		//Grafico balance
+		int x = (int) b /100;
+		DBManager.addPuntoBalance(marca, x, user);
+		user.addListaBalance(new Point(marca, x));
 	}  
 
 	
