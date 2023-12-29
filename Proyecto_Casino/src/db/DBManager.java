@@ -38,23 +38,29 @@ public class DBManager {
 	}
 	*/
 	 private static final String URL = "jdbc:sqlite:resources/db/NoEscasino.db";
-
-	    // Método para obtener una conexión a la base de datos
-	    public static Connection obtenerConexion() throws SQLException {
-	        return DriverManager.getConnection(URL);
-	    }
-
-	    // Método para cerrar una conexión
-	    public static void cerrarConexion(Connection conexion) {
-	        if (conexion != null) {
-	            try {
-	                conexion.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
-	public static List<Usuario> obtenerTodosLosUsuarios(){
+	 
+	/*
+	 * Conexion con la BD
+	 */
+    // Método para obtener una conexión a la base de datos
+    public static Connection obtenerConexion() throws SQLException {
+        return DriverManager.getConnection(URL);
+    }
+    // Método para cerrar una conexión
+    public static void cerrarConexion(Connection conexion) {
+        if (conexion != null) {
+            try {
+                conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    /*
+     * Funciones
+     */
+    // Metodo para llenar una lista con todos los usuarios
+    public static List<Usuario> obtenerTodosLosUsuarios(){
 		List<Usuario> lstUsuarios = new ArrayList<>();
 		try(Connection conn = obtenerConexion();
 			Statement stmt = conn.createStatement()){
@@ -133,7 +139,7 @@ public class DBManager {
 		}
 		return lstUsuarios;
 	}
-	
+    //Verificar existencia de usuario
 	public static boolean existeUsuario(String nombreU) {
 		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ?";
 		try (Connection conn = obtenerConexion();
@@ -146,6 +152,7 @@ public class DBManager {
 			return false;
 		}
 	}
+	//Verificar existencia de usuario ( Login )
 	public static boolean existeUsuarioLogin(String nombreU, String contraseña) {
 		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ? AND contrasena = ?";
 		try (Connection conn = obtenerConexion();
@@ -159,6 +166,7 @@ public class DBManager {
 			return false;
 		}
 	}
+	//Verificar existencia de usuario ( CB )
 	public static boolean existeUsuarioCuentaBancaria(String nombreU, String numero_cuenta) {
 		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ? AND numero_cuenta = ?";
 		try (Connection conn = obtenerConexion();
@@ -230,6 +238,9 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * Metodos de añadir
+	 */
 	//Añadir saldo al usuario ( mediante CuentaBancaria )
 	public static void añadirSaldoCB(Usuario user, CuentaBancaria cb) {
 		String sql = "UPDATE Usuario SET saldo = ? , numero_cuenta = ? WHERE nombre_usuario = ?;";
@@ -243,7 +254,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
 	//Añadir cuenta Bancaria
 	public static void añadirCuentaBancaria(CuentaBancaria cb,Usuario user) {
 		String sql = "INSERT INTO CuentaBancaria (titular, dinero, numero_cuenta, cvc, mes, ano, nombre_usuario) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -321,7 +331,6 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-
 	//Añadir Puntos del balance
 	public static void addPuntoBalance(int sesion, double saldo, Usuario user) {
 		String sql = "INSERT INTO Balance (sesion, total, nombre_usuario) VALUES (?, ?, ?);";
@@ -335,7 +344,27 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
+	 * Extras
+	 */
+	public static List<Point> balanceRuleta(){
+		List<Point> lst = new ArrayList<>();
+		String sql = "SELECT * FROM Ruleta";
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)){
+			int x = 0;
+			while(rs.next()) {
+				int y = (int)rs.getInt("ganancia")/100;
+				Point p = new Point(x, y);
+				lst.add(p);
+				x++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lst;
+	}
 	/*
 	 * Creacion de Tablas
 	 */
