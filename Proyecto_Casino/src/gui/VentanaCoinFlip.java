@@ -99,7 +99,7 @@ public class VentanaCoinFlip extends JFrame {
 		// Centra la ventana en el centro de la pantlla
 		setLocationRelativeTo(null);
 		//Usuario
-		u = user;
+		user = u;
 		// Contador ventanas abiertas
 		addWindowListener(new WindowAdapter() {
 			@Override
