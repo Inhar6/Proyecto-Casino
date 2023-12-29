@@ -230,7 +230,7 @@ public class VentanaPanelMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (contadorVentanaJuego < limiteVentanas) {
-                    new VentanaCrash();
+                    new VentanaCrash(user);
                     contadorVentanaJuego++;
                 	logger.info("Has abierto una ventana 'Crash'");
                 } else {

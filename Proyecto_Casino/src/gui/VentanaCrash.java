@@ -34,6 +34,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import domain.Usuario;
+
 public class VentanaCrash extends JFrame{
 
 	/**
@@ -80,8 +82,11 @@ public class VentanaCrash extends JFrame{
 	private int valor = 100;
     private int tirada;
     //private int numeroRangoProb;
-
-    public VentanaCrash() {
+    //Usuario
+    private Usuario user = new Usuario();
+    
+    
+    public VentanaCrash(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("Crash");
@@ -90,7 +95,9 @@ public class VentanaCrash extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
 		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
-				
+		
+		//Usuario
+		user = u;
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new BorderLayout());
 		JMenuBar menuBar1 = new JMenuBar();
