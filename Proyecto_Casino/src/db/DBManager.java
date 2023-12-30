@@ -120,7 +120,7 @@ public class DBManager {
 				for(Usuario user: lstUsuarios) {
 					if(user.getNombreUsuario().equals(rsCuentaBancaria.getString("nombre_usuario"))) {
 						user.addMapaCuentaBancaria(rsCuentaBancaria.getString("titular"), rsCuentaBancaria.getDouble("dinero"), rsCuentaBancaria.getInt("numero_cuenta"), rsCuentaBancaria.getInt("cvc"), rsCuentaBancaria.getInt("mes"), rsCuentaBancaria.getInt("ano"));
-						user.addSaldo(rsCuentaBancaria.getDouble("dinero"));
+						//user.addSaldo(rsCuentaBancaria.getDouble("dinero"));
 					}
 				}
 			}
