@@ -29,8 +29,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import db.DBManager;
 import domain.Carta;
@@ -329,12 +331,40 @@ public class VentanaBlackJack extends JFrame {
 			
 		}
 	});
+     
+     
+     DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
+  		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		JLabel label = new JLabel();
+  	    @Override
+  	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+  	    {
+  	    	 label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+  	        String Ganador = (String)value;
+  	        if("Crupier".equals(Ganador)) {
+  	           label.setBackground(Color.RED);
+  	        }else if("Jugador".equals(Ganador)){
+  	           label.setBackground(Color.GREEN);
+  			}else {
+  				label.setBackground(Color.WHITE);
+  			}
+  		
+  				
+  	        return label;
+  	    }
+  	};
+  	
+  	           TableColumn c = tabla.getColumnModel().getColumn(1);
+               c.setCellRenderer(tcr);
+               tabla.repaint();
 
+         
+ 	}
         
-	}
 	
-	
-
 	
 	
 	public void mostrarTabla() {
@@ -343,38 +373,6 @@ public class VentanaBlackJack extends JFrame {
 	}
 
 	
-	public class MyRender extends JLabel implements TableCellRenderer {
-
-	    private static final long serialVersionUID = 1L;
-	    
-	    
-	    public MyRender(){
-	    	
-	    }
-	    
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-				
-		setText(value.toString());
-		setOpaque(false);
-			
-		if("Jugador".equals(value) && column==1) {
-			setBackground(Color.GREEN);
-			setOpaque(true);
-		}else if ("Crupier".equals(value)&& column == 1) {
-			setBackground(Color.red);
-			setOpaque(true);
-				
-		}else {
-			setBackground(table.getBackground());
-			}
-			
-			return this;
-		}
-
-
-	    }
 	public void mapaHistorial(Map<Integer,Map<String,Map<Integer,Double>>> mapaHistorial ,int puntuacionCrupier, int puntuacionJugador){
 		saberGanadorActualizarTabla(puntuacionCrupier, puntuacionJugador);
 		
