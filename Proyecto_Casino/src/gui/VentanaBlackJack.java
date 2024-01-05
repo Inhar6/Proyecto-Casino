@@ -11,6 +11,7 @@ import java.awt.Toolkit;import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import db.DBManager;
@@ -331,6 +331,40 @@ public class VentanaBlackJack extends JFrame {
 			
 		}
 	});
+     
+   //Accion al cerrar la ventana	
+   		addWindowListener(new WindowListener() {
+   			@Override
+   			public void windowOpened(WindowEvent e) {
+   				// TODO Auto-generated method stub	
+   			}
+   			@Override
+   			public void windowIconified(WindowEvent e) {
+   				// TODO Auto-generated method stub	
+   			}
+   			@Override
+   			public void windowDeiconified(WindowEvent e) {
+   				// TODO Auto-generated method stub
+   			}
+   			@Override
+   			public void windowDeactivated(WindowEvent e) {
+   				// TODO Auto-generated method stub	
+   			}
+   			@Override
+   			public void windowClosing(WindowEvent e) {
+   				//Guardar el saldo del usuario
+   				DBManager.guardarSaldo(user, VentanaPanelMenu.balance );	
+   				logger.info("Datos guardados: " + VentanaPanelMenu.balance);
+   			}
+   			@Override
+   			public void windowClosed(WindowEvent e) {
+   				// TODO Auto-generated method stub	
+   			}
+   			@Override
+   			public void windowActivated(WindowEvent e) {
+   				// TODO Auto-generated method stub	
+   			}
+   		});
      
      
      DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {

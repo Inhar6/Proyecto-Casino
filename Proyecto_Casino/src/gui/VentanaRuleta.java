@@ -592,9 +592,8 @@ public class VentanaRuleta extends JFrame{
 				
 			}
 		});
-		
+		//Accion al cerrar la ventana	
 		addWindowListener(new WindowListener() {
-			
 			@Override
 			public void windowOpened(WindowEvent e) {
 				// TODO Auto-generated method stub	
@@ -613,8 +612,9 @@ public class VentanaRuleta extends JFrame{
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
+				//Guardar el saldo del usuario
 				DBManager.guardarSaldo(user, VentanaPanelMenu.balance );	
-				System.out.println("Datos guardados: " + VentanaPanelMenu.balance);
+				logger.info("Datos guardados: " + VentanaPanelMenu.balance);
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {

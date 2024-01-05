@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -230,6 +231,40 @@ public class VentanaCrash extends JFrame{
 			}
 		});
       
+      //Accion al cerrar la ventana	
+      		addWindowListener(new WindowListener() {
+      			@Override
+      			public void windowOpened(WindowEvent e) {
+      				// TODO Auto-generated method stub	
+      			}
+      			@Override
+      			public void windowIconified(WindowEvent e) {
+      				// TODO Auto-generated method stub	
+      			}
+      			@Override
+      			public void windowDeiconified(WindowEvent e) {
+      				// TODO Auto-generated method stub
+      			}
+      			@Override
+      			public void windowDeactivated(WindowEvent e) {
+      				// TODO Auto-generated method stub	
+      			}
+      			@Override
+      			public void windowClosing(WindowEvent e) {
+      				//Guardar el saldo del usuario
+      				DBManager.guardarSaldo(user, VentanaPanelMenu.balance );	
+      				logger.info("Datos guardados: " + VentanaPanelMenu.balance);
+      			}
+      			@Override
+      			public void windowClosed(WindowEvent e) {
+      				// TODO Auto-generated method stub	
+      			}
+      			@Override
+      			public void windowActivated(WindowEvent e) {
+      				// TODO Auto-generated method stub	
+      			}
+      		});
+        
 	    // Mostrar VentanaMenuPanel
 	    menuGeneral.enseñarApostar(menuInferior);
 	    menuGeneral.enseñarMenu(menuSuperior, menu, VentanaPanelMenu.user);
