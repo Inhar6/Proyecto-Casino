@@ -322,8 +322,7 @@ public class VentanaCoinFlip extends JFrame {
 									mapaCoinFlip.putIfAbsent(tirada, new HashMap<>());
 									mapaCoinFlip.get(tirada).put(caraCruz, winLose);
 									System.out.println(mapaCoinFlip);
-									//Base de datos
-									DBManager.addTiradaCoinFlip(tirada, caraCruz, winLose, user);
+									
 								
 									dlmHistorial.addElement(resultado);
 									logger.info("Ha salido" + resultado);
@@ -349,7 +348,10 @@ public class VentanaCoinFlip extends JFrame {
 										
 										System.out.println(tirada);
 									}
-									 
+									
+									//Base de datos
+									DBManager.addTiradaCoinFlip(tirada, caraCruz, winLose, user);
+									
 									// reiniciar botones
 									bCara.setEnabled(true);
 									bCruz.setEnabled(true);
