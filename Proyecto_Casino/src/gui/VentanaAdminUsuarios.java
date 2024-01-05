@@ -266,7 +266,7 @@ public class VentanaAdminUsuarios extends JFrame{
 			}
 			if(isSelected) {
 				setBackground(Color.CYAN);
-				nombre.setText(value.toString());
+				nombre.setText(value.getNombreUsuario() + " --> " + value.getSaldo() + "$");
 				user = (Usuario)value;
 				tJuegos.repaint();
 				//Pintado del grafico
