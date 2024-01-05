@@ -228,10 +228,10 @@ public class DBManager {
 	}
 	//Editar saldo del usuario
 	public static void guardarSaldo(Usuario user, double saldo) {
-		String sql = "UPDATE Usuario SET saldo = ? WHERE nombre_usuario = ?;";
+		String sql = "UPDATE Usuario SET saldo = ? WHERE nombre_usuario = ? ;";
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setDouble(1, user.getSaldo());
+			pstmt.setDouble(1, saldo);
 			pstmt.setString(2, user.getNombreUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
