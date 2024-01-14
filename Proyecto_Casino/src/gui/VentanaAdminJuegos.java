@@ -72,7 +72,15 @@ public class VentanaAdminJuegos extends JFrame{
 	private JLabel totalGananciasCrash;
 	private JLabel txtTotalGananciasCrash;
 	//Estadisticas-->CoinFlip
-	
+	private List<Point> puntosCoinFlip;
+	private JLabel usuarioCoinFlip;
+	private JLabel txtUsuarioCoinFlip;
+	private JLabel gananciaCoinFlip;
+	private JLabel txtGananciaCoinFlip;
+	private JLabel usoCoinFlip;
+	private JLabel txtUsoCoinFlip;
+	private JLabel totalGananciasCoinFlip;
+	private JLabel txtTotalGananciasCoinFlip;
 	//Estadisticas-->BlackJack
 	
 	public VentanaAdminJuegos() {
@@ -93,7 +101,6 @@ public class VentanaAdminJuegos extends JFrame{
 		Border tituloRuleta = BorderFactory.createTitledBorder(lineaRuleta,"Ruleta");
 		Border lineaBalanceRuleta = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloBalanceRuleta = BorderFactory.createTitledBorder(lineaBalanceRuleta,"Balance");
-		//puntosRuleta = obtenerUsuarioConMayorNumeroDeTiradas(lstUsuarios).getLstBalance();
 		puntosRuleta = DBManager.balanceRuleta();
 		PanelGrafico grfRuleta = new PanelGrafico(puntosRuleta);
 		usuario = new JLabel("Usuario con mayor ganacia: ");
@@ -139,7 +146,23 @@ public class VentanaAdminJuegos extends JFrame{
 		//CoinFlip
 		Border lineaCoinFlip = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCoinFlip = BorderFactory.createTitledBorder(lineaCoinFlip,"CoinFlip");
-		
+		puntosCoinFlip = puntosPrueba();
+		PanelGrafico grfCoinFlip = new PanelGrafico(puntosCoinFlip);
+		usuarioCoinFlip = new JLabel("Usuario con mayor ganacia: ");
+		Usuario userCoinFlip1 = new Usuario();//obtenerUsuarioConMayorGananciaCrash(lstUsuarios);
+		txtUsuarioCoinFlip= new JLabel(""+ userCoinFlip1.getNombreUsuario());
+		txtUsuarioCoinFlip.setForeground(Color.GRAY);
+		gananciaCoinFlip= new JLabel("Mayor ganancia en una tirada: ");
+		Usuario userCoinFlip2 = new Usuario(); //obtenerUsuarioConMayorGananciaCrash(lstUsuarios);
+		txtGananciaCoinFlip= new JLabel(""+ userCoinFlip2.getNombreUsuario());
+		txtGananciaCoinFlip.setForeground(Color.GRAY);
+		usoCoinFlip= new JLabel("Usuario con mayor numero de tiradas: ");
+		Usuario userCoinFlip3 = new Usuario();//obtenerUsuarioConMayorNumeroDeTiradasCrash(lstUsuarios);
+		txtUsoCoinFlip= new JLabel(""+ userCoinFlip3.getNombreUsuario());
+		txtUsoCoinFlip.setForeground(Color.GRAY);
+		totalGananciasCoinFlip= new JLabel("Total ganancias/perdidas: ");
+		txtTotalGananciasCoinFlip= new JLabel(""+100);//obtenerTotalGananciasCrash(lstUsuarios));
+		txtTotalGananciasCoinFlip.setForeground(Color.GRAY);
 		//BlackJack
 		Border lineaBlackJack = BorderFactory.createLineBorder(Color.RED);
 		Border tituloBlackJack = BorderFactory.createTitledBorder(lineaBlackJack,"BlackJack");
@@ -164,7 +187,12 @@ public class VentanaAdminJuegos extends JFrame{
 				JPanel pGananciaCrash = new JPanel(new FlowLayout());
 				JPanel pUsoCrash = new JPanel(new FlowLayout());
 				JPanel pTotalGananciasCrash = new JPanel(new FlowLayout());
-			JPanel pCoinFlip = new JPanel();
+			JPanel pCoinFlip = new JPanel(new GridLayout(2,1));
+				JPanel pUsuarioCoinFlip = new JPanel(new FlowLayout());
+				//
+				JPanel pGananciaCoinFlip = new JPanel(new FlowLayout());
+				JPanel pUsoCoinFlip = new JPanel(new FlowLayout());
+				JPanel pTotalGananciasCoinFlip = new JPanel(new FlowLayout());
 			JPanel pBlackJack = new JPanel();
 		
 		pRuleta.setBorder(tituloRuleta);
@@ -208,10 +236,29 @@ public class VentanaAdminJuegos extends JFrame{
 		pEstadicticasCrash.add(pUsoCrash);
 		pEstadicticasCrash.add(pTotalGananciasCrash);
 		pCrash.add(pEstadicticasCrash);
+		//Panel CoinFlip
+		pUsuarioCoinFlip.add(usuarioCoinFlip);
+		pUsuarioCoinFlip.add(txtUsuarioCoinFlip);
+		//	Añadir otro datos de CoinFlip
+		//	Añadir otro datos de CoinFlip
+		pGananciaCoinFlip.add(gananciaCoinFlip);
+		pGananciaCoinFlip.add(txtGananciaCoinFlip);
+		pUsoCoinFlip.add(usoCoinFlip);
+		pUsoCoinFlip.add(txtUsoCoinFlip);
+		pTotalGananciasCoinFlip.add(totalGananciasCoinFlip);
+		pTotalGananciasCoinFlip.add(txtTotalGananciasCoinFlip);
+		JPanel pEstadicticasCoinFlip = new JPanel(new GridLayout(3,2));
+		pEstadicticasCoinFlip.add(pUsuarioCoinFlip);
+		pEstadicticasCoinFlip.add(pGananciaCoinFlip);
+		pEstadicticasCoinFlip.add(pUsoCoinFlip);
+		pEstadicticasCoinFlip.add(pTotalGananciasCoinFlip);
+		pCoinFlip.add(pEstadicticasCoinFlip);
+		
 		//Grafico
 		grfRuleta.setBorder(tituloBalanceRuleta);
 		pRuleta.add(grfRuleta);
 		pCrash.add(grfCrash);
+		pCoinFlip.add(grfCoinFlip);
 		
 		pJuegos.add(pRuleta);	
 		pJuegos.add(pCrash);	
