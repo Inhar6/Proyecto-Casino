@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -32,10 +33,10 @@ public class VentanaInicial extends JFrame{
 	JPanel pJuego3 = new JPanel(new BorderLayout());
 	JPanel pJuego4 = new JPanel(new BorderLayout());
 	
-	JButton bJuego1 = new JButton("Black Jack");
+	JButton bJuego1 = new JButton("");
 	JButton bJuego2 = new JButton("Crash");
-	JButton bJuego3 = new JButton("Ruleta");
-	JButton bJuego4 = new JButton("Coin-Flip");
+	JButton bJuego3 = new JButton("");
+	JButton bJuego4 = new JButton("");
 	
 	public VentanaInicial() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -46,6 +47,23 @@ public class VentanaInicial extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	    setVisible(true);
 		setIconImage((new ImageIcon("resources/images/iconos/favicon.png")).getImage());
+		//BlackJack
+		bJuego1.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoBlackJack.png"), 225, 225));
+		bJuego1.setBorder(null);
+		bJuego1.setBackground(Color.WHITE);
+		//Crash
+		//bJuego2.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoBlackJack.png"), 225, 225));
+		bJuego2.setBorder(null);
+		bJuego2.setBackground(Color.WHITE);
+		//Ruleta
+		bJuego3.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoRuleta.png"), 225, 225));
+		bJuego3.setBorder(null);
+		bJuego3.setBackground(Color.WHITE);
+		//CoinFlip
+		bJuego4.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoCoinFlip.png"), 200, 200));
+		bJuego4.setBorder(null);
+		bJuego4.setBackground(Color.WHITE);
+		setBackground(Color.WHITE);
 		
         // Añadir menuSuperior
 		JPanel menuSuperior = new JPanel(new GridLayout());
@@ -80,9 +98,13 @@ public class VentanaInicial extends JFrame{
         pJuego4.setBorder(new EmptyBorder(10,10,10,10));
 
         pJuego1.add(bJuego1);
+        pJuego1.setBackground(Color.white);
         pJuego2.add(bJuego2);
+        pJuego2.setBackground(Color.white);
         pJuego3.add(bJuego3);
+        pJuego3.setBackground(Color.white);
         pJuego4.add(bJuego4);
+        pJuego4.setBackground(Color.white);
 
         bJuego1.addActionListener(new ActionListener() {
 			
