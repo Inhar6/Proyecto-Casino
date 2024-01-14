@@ -82,7 +82,15 @@ public class VentanaAdminJuegos extends JFrame{
 	private JLabel totalGananciasCoinFlip;
 	private JLabel txtTotalGananciasCoinFlip;
 	//Estadisticas-->BlackJack
-	
+	private List<Point> puntosBlackJack;
+	private JLabel usuarioBlackJack;
+	private JLabel txtUsuarioBlackJack;
+	private JLabel gananciaBlackJack;
+	private JLabel txtGananciaBlackJack;
+	private JLabel usoBlackJack;
+	private JLabel txtUsoBlackJack;
+	private JLabel totalGananciasBlackJack;
+	private JLabel txtTotalGananciasBlackJack;
 	public VentanaAdminJuegos() {
 		setTitle("Estadisticas de los juegos");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -170,6 +178,28 @@ public class VentanaAdminJuegos extends JFrame{
 		//BlackJack
 		Border lineaBlackJack = BorderFactory.createLineBorder(Color.RED);
 		Border tituloBlackJack = BorderFactory.createTitledBorder(lineaBlackJack,"BlackJack");
+		Border lineaBalanceBlackJack = BorderFactory.createLineBorder(Color.BLACK);
+		Border tituloBalanceBlackJack = BorderFactory.createTitledBorder(lineaBalanceBlackJack,"Balance");
+		puntosBlackJack = DBManager.balanceBlackJack();
+		PanelGrafico grfBlackJack = new PanelGrafico(puntosBlackJack);
+		usuarioBlackJack = new JLabel("Usuario con mayor ganacia: ");
+		Usuario usuarioBlackJack1 = obtenerUsuarioConMayorGananciaBlackJack(lstUsuarios);
+		txtUsuarioBlackJack= new JLabel(""+ usuarioBlackJack1.getNombreUsuario());
+		txtUsuarioBlackJack.setForeground(Color.GRAY);
+		numero= new JLabel("Numero mas repetido: ");
+		txtNumero= new JLabel("23");
+		txtNumero.setForeground(Color.GRAY);
+		ganancia= new JLabel("Mayor ganancia en una tirada: ");
+		Usuario usuarioBlackJack2 = obtenerUsuarioConMayorGananciaBlackJack(lstUsuarios);
+		txtGananciaBlackJack= new JLabel(""+usuarioBlackJack2.getNombreUsuario());
+		txtGananciaBlackJack.setForeground(Color.GRAY);
+		usoBlackJack= new JLabel("Usuario con mayor numero de tiradas: ");
+		Usuario  usuarioBlackJack3 = obtenerUsuarioConMayorNumeroDeTiradasBlackJack(lstUsuarios);
+		txtUsoBlackJack= new JLabel(""+ usuarioBlackJack3.getNombreUsuario());
+		txtUsoBlackJack.setForeground(Color.GRAY);
+		totalGananciasBlackJack = new JLabel("Total ganancias/perdidas: ");
+		txtTotalGananciasBlackJack= new JLabel(""+obtenerTotalGananciasBlackJack(lstUsuarios));
+		txtTotalGananciasBlackJack.setForeground(Color.GRAY);
 		
 		JPanel pSuperior = new JPanel(new FlowLayout());
 			pSuperior.add(sup);
@@ -198,6 +228,11 @@ public class VentanaAdminJuegos extends JFrame{
 				JPanel pUsoCoinFlip = new JPanel(new FlowLayout());
 				JPanel pTotalGananciasCoinFlip = new JPanel(new FlowLayout());
 			JPanel pBlackJack = new JPanel(new GridLayout(2,1));
+			JPanel pUsuarioBlackJack = new JPanel(new FlowLayout());
+			//
+			JPanel pGananciaBlackJack = new JPanel(new FlowLayout());
+			JPanel pUsoBlackJack = new JPanel(new FlowLayout());
+			JPanel pTotalGananciasBlackJack = new JPanel(new FlowLayout());
 		
 		pRuleta.setBorder(tituloRuleta);
 		pCrash.setBorder(tituloCrash);
@@ -258,6 +293,24 @@ public class VentanaAdminJuegos extends JFrame{
 		pEstadicticasCoinFlip.add(pTotalGananciasCoinFlip);
 		pCoinFlip.add(pEstadicticasCoinFlip);
 		
+		
+		//BlackJack
+		pUsuarioBlackJack.add(usuarioBlackJack);
+		pUsuarioBlackJack.add(txtUsuarioCrash);
+		//	Añadir otro datos de crash
+		//	Añadir otro datos de crash
+		pGananciaBlackJack.add(gananciaBlackJack);
+		pGananciaBlackJack.add(txtGananciaBlackJack);
+		pUsoBlackJack.add(usoBlackJack);
+		pUsoBlackJack.add(txtUsoBlackJack);
+		pTotalGananciasBlackJack.add(totalGananciasBlackJack);
+		pTotalGananciasBlackJack.add(txtTotalGananciasBlackJack);
+		JPanel pEstadicticasBlackJack = new JPanel(new GridLayout(3,2));
+		pEstadicticasBlackJack.add(pUsuarioBlackJack);
+		pEstadicticasBlackJack.add(pGananciaBlackJack);
+		pEstadicticasBlackJack.add(pUsoBlackJack);
+		pEstadicticasBlackJack.add(pTotalGananciasBlackJack);
+		pBlackJack.add(pEstadicticasBlackJack);
 		//Grafico
 		grfRuleta.setBorder(tituloBalanceRuleta);
 		pRuleta.add(grfRuleta);
@@ -265,6 +318,8 @@ public class VentanaAdminJuegos extends JFrame{
 		pCrash.add(grfCrash);
 		grfCoinFlip.setBorder(tituloBalanceCoinFlip);
 		pCoinFlip.add(grfCoinFlip);
+		grfCoinFlip.setBorder(tituloBalanceBlackJack);
+		pCoinFlip.add(grfBlackJack);
 		
 		pJuegos.add(pRuleta);	
 		pJuegos.add(pCrash);	
