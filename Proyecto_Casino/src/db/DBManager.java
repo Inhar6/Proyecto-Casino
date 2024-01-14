@@ -168,7 +168,7 @@ public class DBManager {
 	}
 	//Verificar existencia de usuario ( CB )
 	public static boolean existeUsuarioCuentaBancaria(String nombreU, String numero_cuenta) {
-		String sql= "SELECT * FROM Usuario WHERE nombre_Usuario = ? AND numero_cuenta = ?";
+		String sql= "SELECT * FROM Usuario WHERE nombre_usuario = ? AND numero_cuenta = ?";
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, nombreU);
@@ -350,6 +350,24 @@ public class DBManager {
 	public static List<Point> balanceRuleta(){
 		List<Point> lst = new ArrayList<>();
 		String sql = "SELECT * FROM Ruleta";
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)){
+			int x = 0;
+			while(rs.next()) {
+				int y = (int)rs.getInt("ganancia")/100;
+				Point p = new Point(x, y);
+				lst.add(p);
+				x++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lst;
+	}
+	public static List<Point> balanceCrash(){
+		List<Point> lst = new ArrayList<>();
+		String sql = "SELECT * FROM Crash";
 		try (Connection conn = obtenerConexion();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)){

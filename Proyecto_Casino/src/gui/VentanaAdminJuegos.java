@@ -118,7 +118,7 @@ public class VentanaAdminJuegos extends JFrame{
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCrash = BorderFactory.createTitledBorder(lineaCrash,"Crash");
-		puntosCrash = puntosPrueba();
+		puntosCrash = DBManager.balanceCrash();
 		PanelGrafico grfCrash = new PanelGrafico(puntosCrash);
 		usuarioCrash = new JLabel("Usuario con mayor ganacia: ");
 		Usuario crash0 = obtenerUsuarioConMayorGananciaCrash(lstUsuarios);
