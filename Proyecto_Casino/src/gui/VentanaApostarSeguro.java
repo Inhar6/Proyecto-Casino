@@ -17,7 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+
+import domain.Usuario;
+
 import java.util.logging.Logger;
 
 
@@ -29,7 +31,8 @@ public class VentanaApostarSeguro extends JFrame{
 	private Color colorPanel = new Color(71, 113, 72);
 	private static final Logger logger = Logger.getLogger("VentanaApostarSeguro");
 	
-	public VentanaApostarSeguro() {
+	
+	public VentanaApostarSeguro(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(500, 300);
 		setTitle("ApostarSeguo");
@@ -204,14 +207,4 @@ public class VentanaApostarSeguro extends JFrame{
 		
 		
 	}
-	public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				new VentanaApostarSeguro();				
-			}
-        });
-	}
-
 }
