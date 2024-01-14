@@ -352,7 +352,8 @@ public class VentanaCoinFlip extends JFrame {
 									
 									//Base de datos
 									DBManager.addTiradaCoinFlip(tirada, caraCruz, winLose, user);
-									
+									//Mapa
+									user.addMapaCoinFlip(tirada, caraCruz, resultado);
 									// reiniciar botones
 									bCara.setEnabled(true);
 									bCruz.setEnabled(true);
