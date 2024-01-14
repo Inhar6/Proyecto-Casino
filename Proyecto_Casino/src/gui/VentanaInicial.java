@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import io.Propiedades;
+
 public class VentanaInicial extends JFrame{
 	
 	/**
@@ -38,6 +40,12 @@ public class VentanaInicial extends JFrame{
 	JButton bJuego3 = new JButton("");
 	JButton bJuego4 = new JButton("");
 	
+	//Propiedades
+	private Propiedades propiedades;
+	private Propiedades getPropiedades() {
+		return propiedades;
+	}
+	
 	public VentanaInicial() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -47,20 +55,24 @@ public class VentanaInicial extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	    setVisible(true);
 		setIconImage((new ImageIcon("resources/images/iconos/favicon.png")).getImage());
+		
+		propiedades = new Propiedades();
+		propiedades.cargar();
+		
 		//BlackJack
-		bJuego1.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoBlackJack.png"), 225, 225));
+		bJuego1.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("blackJack")), 225, 225));
 		bJuego1.setBorder(null);
 		bJuego1.setBackground(Color.WHITE);
 		//Crash
-		//bJuego2.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoBlackJack.png"), 225, 225));
+		//bJuego2.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("Crash")), 225, 225));
 		bJuego2.setBorder(null);
 		bJuego2.setBackground(Color.WHITE);
 		//Ruleta
-		bJuego3.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoRuleta.png"), 225, 225));
+		bJuego3.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ruleta")), 225, 225));
 		bJuego3.setBorder(null);
 		bJuego3.setBackground(Color.WHITE);
 		//CoinFlip
-		bJuego4.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon("resources/images/iconos/iconoCoinFlip.png"), 200, 200));
+		bJuego4.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("coinFlip")), 200, 200));
 		bJuego4.setBorder(null);
 		bJuego4.setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
