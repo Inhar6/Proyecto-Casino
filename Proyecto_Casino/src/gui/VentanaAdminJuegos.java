@@ -327,16 +327,18 @@ public class VentanaAdminJuegos extends JFrame{
 	            		+ "\t Usuario con mayor numero de tiradas: "+txtUso.getText()+"\n"
 	            		+ "\t Total de ganancias/perdidas: "+txtTotalGanancias.getText()+"\n");
 	            writer.write("CRASH: \n"
-	            		+ "\t Usuario con mayor ganancia: "+txtUsuario.getText()+"\n"
+	            		+ "\t Usuario con mayor ganancia: "+txtUsuarioCrash.getText()+"\n"
 //	            		+ "\t Numero mas repetido: "+txtNumero.getText()+"\n"
-	            		+ "\t Mayor ganacia en una tirada: "+ txtGanancia.getText()+"\n"
-	            		+ "\t Usuario con mayor numero de tiradas: "+txtUso.getText()+"\n"
-	            		+ "\t Total de ganancias/perdidas: "+txtTotalGanancias.getText()+"\n");
+	            		+ "\t Mayor ganacia en una tirada: "+ txtGananciaCrash.getText()+"\n"
+	            		+ "\t Usuario con mayor numero de tiradas: "+txtUsoCrash.getText()+"\n"
+	            		+ "\t Total de ganancias/perdidas: "+txtTotalGananciasCrash.getText()+"\n");
+	            writer.write("COIN-FLIP: \n"
+	            		+ "\t Usuario con mayor numero de tiradas: " + txtUsoCoinFlip.getText() + "\n");
 	            /*
 	             * AÑADIR MAS INFORMACION DE OTROS JUEGOS
 	             */
 	            //Final del informe
-	            writer.write("En conclusión, el presente informe destaca la dinámica y el rendimiento sólido observado en NoEscasino durante el período analizado. Los datos detallados revelan "
+	            writer.write("\nEn conclusión, el presente informe destaca la dinámica y el rendimiento sólido observado en NoEscasino durante el período analizado. Los datos detallados revelan "
 	            		+ "tendencias significativas en la participación de jugadores, los ingresos generados por diferentes juegos y la eficacia de estrategias de retención de clientes. Estos hallazgos"
 	            		+ " proporcionan una base sólida para la toma de decisiones futuras y la implementación de mejoras específicas para maximizar la satisfacción del cliente y la rentabilidad. "
 	            		+ "NoEscasino continúa siendo un actor destacado en la industria del entretenimiento y los juegos de azar, y este informe sienta las bases para abordar desafíos y aprovechar oportunidades "
