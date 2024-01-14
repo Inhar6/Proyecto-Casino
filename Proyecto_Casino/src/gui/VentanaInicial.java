@@ -50,14 +50,14 @@ public class VentanaInicial extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
 		setTitle("NoEscasino");
+		propiedades = new Propiedades();
+		propiedades.cargar();
+		
 		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 	    setVisible(true);
-		setIconImage((new ImageIcon("resources/images/iconos/favicon.png")).getImage());
-		
-		propiedades = new Propiedades();
-		propiedades.cargar();
+		setIconImage((new ImageIcon(getPropiedades().getProperty("favicon"))).getImage());
 		
 		//BlackJack
 		bJuego1.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("blackJack")), 225, 225));
