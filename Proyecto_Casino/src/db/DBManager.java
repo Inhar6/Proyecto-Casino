@@ -383,6 +383,24 @@ public class DBManager {
 		}
 		return lst;
 	}
+	public static List<Point> balanceBlackJack(){
+		List<Point> lst = new ArrayList<>();
+		String sql = "SELECT * FROM BlackJack";
+		try (Connection conn = obtenerConexion();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)){
+			int x = 0;
+			while(rs.next()) {
+				int y = (int)rs.getInt("ganancia")/100;
+				Point p = new Point(x, y);
+				lst.add(p);
+				x++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lst;
+	}
 	/*
 	 * Creacion de Tablas
 	 */
