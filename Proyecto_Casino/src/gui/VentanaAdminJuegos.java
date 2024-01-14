@@ -125,6 +125,8 @@ public class VentanaAdminJuegos extends JFrame{
 		//Crash
 		Border lineaCrash = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCrash = BorderFactory.createTitledBorder(lineaCrash,"Crash");
+		Border lineaBalanceCrash = BorderFactory.createLineBorder(Color.RED);
+		Border tituloBalanceCrash = BorderFactory.createTitledBorder(lineaBalanceCrash,"Balance");
 		puntosCrash = DBManager.balanceCrash();
 		PanelGrafico grfCrash = new PanelGrafico(puntosCrash);
 		usuarioCrash = new JLabel("Usuario con mayor ganacia: ");
@@ -146,6 +148,8 @@ public class VentanaAdminJuegos extends JFrame{
 		//CoinFlip
 		Border lineaCoinFlip = BorderFactory.createLineBorder(Color.BLACK);
 		Border tituloCoinFlip = BorderFactory.createTitledBorder(lineaCoinFlip,"CoinFlip");
+		Border lineaBalanceCoinFlip = BorderFactory.createLineBorder(Color.RED);
+		Border tituloBalanceCoinFlip = BorderFactory.createTitledBorder(lineaBalanceCoinFlip,"Balance");
 		puntosCoinFlip = puntosPrueba();
 		PanelGrafico grfCoinFlip = new PanelGrafico(puntosCoinFlip);
 		usuarioCoinFlip = new JLabel("Usuario con mayor ganacia: ");
@@ -157,7 +161,7 @@ public class VentanaAdminJuegos extends JFrame{
 		txtGananciaCoinFlip= new JLabel(""+ userCoinFlip2.getNombreUsuario());
 		txtGananciaCoinFlip.setForeground(Color.GRAY);
 		usoCoinFlip= new JLabel("Usuario con mayor numero de tiradas: ");
-		Usuario userCoinFlip3 = new Usuario();//obtenerUsuarioConMayorNumeroDeTiradasCrash(lstUsuarios);
+		Usuario userCoinFlip3 = obtenerUsuarioConMayorNumeroDeTiradasCoinFlip(lstUsuarios);
 		txtUsoCoinFlip= new JLabel(""+ userCoinFlip3.getNombreUsuario());
 		txtUsoCoinFlip.setForeground(Color.GRAY);
 		totalGananciasCoinFlip= new JLabel("Total ganancias/perdidas: ");
@@ -193,7 +197,7 @@ public class VentanaAdminJuegos extends JFrame{
 				JPanel pGananciaCoinFlip = new JPanel(new FlowLayout());
 				JPanel pUsoCoinFlip = new JPanel(new FlowLayout());
 				JPanel pTotalGananciasCoinFlip = new JPanel(new FlowLayout());
-			JPanel pBlackJack = new JPanel();
+			JPanel pBlackJack = new JPanel(new GridLayout(2,1));
 		
 		pRuleta.setBorder(tituloRuleta);
 		pCrash.setBorder(tituloCrash);
@@ -257,7 +261,9 @@ public class VentanaAdminJuegos extends JFrame{
 		//Grafico
 		grfRuleta.setBorder(tituloBalanceRuleta);
 		pRuleta.add(grfRuleta);
+		grfCrash.setBorder(tituloBalanceCrash);
 		pCrash.add(grfCrash);
+		grfCoinFlip.setBorder(tituloBalanceCoinFlip);
 		pCoinFlip.add(grfCoinFlip);
 		
 		pJuegos.add(pRuleta);	
