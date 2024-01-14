@@ -43,7 +43,7 @@ public class Propiedades extends Properties {
 			setProperty("ficha1000", "resources/images/fichas/ficha1000.png");
 
 			
-		try (FileOutputStream output = new FileOutputStream("config.properties")) {
+		try (FileOutputStream output = new FileOutputStream("conf/config.properties")) {
 			store(output, "Configuración de la base de datos");
 		} catch (IOException io) {
 			io.printStackTrace();
@@ -51,7 +51,7 @@ public class Propiedades extends Properties {
 	}
 
 	public void cargar() {
-		try (FileInputStream input = new FileInputStream("config.properties")) {
+		try (FileInputStream input = new FileInputStream("conf/config.properties")) {
 			load(input);
 			// Leer propiedades
 			System.out.println("URL: " + getProperty("database.url"));
