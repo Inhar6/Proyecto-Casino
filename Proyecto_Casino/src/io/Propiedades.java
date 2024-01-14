@@ -31,6 +31,9 @@ public class Propiedades extends Properties {
 			// Iconos
 			setProperty("icono", "resources/images/iconos/logoNoEscasino.png");
 			setProperty ("favicon", "resources/images/iconos/favicon.png");
+			setProperty("ruleta", "resources/images/iconos/iconoRuleta.png");
+			setProperty("coinFlip", "resources/images/iconos/iconoCoinFlip.png");
+			setProperty("blackJack", "resources/images/iconos/iconoBlackJack.png");
 			// Fichas
 			setProperty("ficha1", "resources/images/fichas/ficha1.png");
 			setProperty("ficha10", "resources/images/fichas/ficha10.png");
