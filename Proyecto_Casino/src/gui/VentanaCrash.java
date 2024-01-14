@@ -350,6 +350,8 @@ public class VentanaCrash extends JFrame{
 		    int x = (int)ganado / 100;
 		    DBManager.addPuntoBalance(marca, x, user);
 		    marca++;
+		    //Mapa
+		    user.addMapaCrash(tirada, result, multiplicador, ganado);
 	    } else {
 		    detallesTirada.put(resultado, new HashMap<>());
 		    detallesTirada.get(resultado).put(numeroCrono, VentanaPanelMenu.apuesta);
@@ -361,6 +363,8 @@ public class VentanaCrash extends JFrame{
 		    int x = (int)ganado / 100;
 		    DBManager.addPuntoBalance(marca, x, user);
 		    marca ++;
+		    //Mapa
+		    user.addMapaCrash(tirada, result, multiplicador, ganado);
 	    }
 	}
 	//
