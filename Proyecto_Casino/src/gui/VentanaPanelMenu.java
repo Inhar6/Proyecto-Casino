@@ -311,7 +311,7 @@ public class VentanaPanelMenu {
 			pMenuBalanceLogin.add(bLogin);
 		}
 	}
-	public ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
+	public static ImageIcon redimensionarIcono(ImageIcon imageIcon, int width, int height) {
 		Image image = imageIcon.getImage();
 		Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // escalar la imagen
 		
