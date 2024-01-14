@@ -215,12 +215,13 @@ public class DBManager {
 	}
 	//Edita el nombre y la contraseña
 	public static void editarUsuario(Usuario user) {
-		String sql = "UPDATE Usuario SET nombre = ?, contrasena = ? WHERE nombre_usuario = ?;";
+		String sql = "UPDATE Usuario SET nombre = ?, contrasena = ?, numero_cuenta = ? WHERE nombre_usuario = ?;";
 		try (Connection conn = obtenerConexion();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, user.getNombre());
 			pstmt.setString(2, user.getContraseña());
-			pstmt.setString(3, user.getNombreUsuario());
+			pstmt.setInt(3, user.getNumeroCuenta());
+			pstmt.setString(4, user.getNombreUsuario());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
