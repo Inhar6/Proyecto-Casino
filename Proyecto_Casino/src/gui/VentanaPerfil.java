@@ -197,11 +197,10 @@ public class VentanaPerfil extends JFrame{
 					txtNCuenta.setEditable(false);
 					btnGuardar.setEnabled(false);
 					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNCuenta.getText()+"-"+txtContraseña.getText());
-					user.setNombre(txtNombre.getText());
-					user.setNombreUsuario(txtNCuenta.getText());
-					user.setContraseña(txtContraseña.getText());
-					user.setNumeroCuenta(Integer.parseInt(txtNCuenta.getText()));
-					DBManager.editarUsuario(user);
+					u.setNombre(txtNombre.getText());
+					u.setContraseña(txtContraseña.getText());
+					u.setNumeroCuenta(Integer.parseInt(txtNCuenta.getText()));
+					DBManager.editarUsuario(u);
 				}else {
 					//No hace nada, deberia de guardar los datos del usuario
 					
