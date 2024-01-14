@@ -43,12 +43,12 @@ public class VentanaPerfil extends JFrame{
 	//Elementos
 	//JLabels
 	private JLabel nombre;
-	private JLabel nUsuario;
+	private JLabel nCuenta;
 	private JLabel fechaNacimiento;
 	private JLabel perfil;
 	//JTextFields
 	private JTextField txtNombre;
-	private JTextField txtNUsuario;
+	private JTextField txtNCuenta;
 	private JTextField txtContraseña;
 	//JComboBox
 	private JComboBox<String> jcbJuegos;
@@ -75,14 +75,14 @@ public class VentanaPerfil extends JFrame{
 		user = u;
 		//JLabel
 		nombre = new JLabel("Nombre:               ");
-		nUsuario = new JLabel("Usuario:             ");
+		nCuenta = new JLabel("Nº de Cuenta:             ");
 		fechaNacimiento = new JLabel("Contraseña:         ");
 		perfil = new JLabel("Perfil");
 		//JTextField
 		txtNombre= new JTextField(15);
 		txtNombre.setText(user.getNombre());
-		txtNUsuario= new JTextField(15);
-		txtNUsuario.setText(user.getNombreUsuario());
+		txtNCuenta= new JTextField(15);
+		txtNCuenta.setText(""+user.getNumeroCuenta());
 		txtContraseña= new JTextField(15);
 		txtContraseña.setText(user.getContraseña());
 		//Borde
@@ -122,8 +122,8 @@ public class VentanaPerfil extends JFrame{
 		N.add(nombre);
 		N.add(txtNombre);
 		NU.setLayout(new FlowLayout());
-		NU.add(nUsuario);
-		NU.add(txtNUsuario);
+		NU.add(nCuenta);
+		NU.add(txtNCuenta);
 		F.setLayout(new FlowLayout());
 		F.add(fechaNacimiento);
 		F.add(txtContraseña);
@@ -171,7 +171,7 @@ public class VentanaPerfil extends JFrame{
 		//Que empiezen los JTextField desactivados y el boton de guardar
 		txtContraseña.setEditable(false);
 		txtNombre.setEditable(false);
-		txtNUsuario.setEditable(false);
+		txtNCuenta.setEditable(false);
 		btnGuardar.setEnabled(false);
 		
 		btnEditar.addActionListener(new ActionListener() {
@@ -180,7 +180,7 @@ public class VentanaPerfil extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				txtContraseña.setEditable(true);
 				txtNombre.setEditable(true);
-				txtNUsuario.setEditable(true);
+				txtNCuenta.setEditable(true);
 				btnGuardar.setEnabled(true);
 				logger.info("Edicion activada");
 			}
@@ -194,12 +194,13 @@ public class VentanaPerfil extends JFrame{
 				if( respuesta == JOptionPane.YES_OPTION) {
 					txtContraseña.setEditable(false);
 					txtNombre.setEditable(false);
-					txtNUsuario.setEditable(false);
+					txtNCuenta.setEditable(false);
 					btnGuardar.setEnabled(false);
-					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNUsuario.getText()+"-"+txtContraseña.getText());
+					logger.info("Cambio de datos a " + txtNombre.getText()+"-"+txtNCuenta.getText()+"-"+txtContraseña.getText());
 					user.setNombre(txtNombre.getText());
-					user.setNombreUsuario(txtNUsuario.getText());
+					user.setNombreUsuario(txtNCuenta.getText());
 					user.setContraseña(txtContraseña.getText());
+					user.setNumeroCuenta(Integer.parseInt(txtNCuenta.getText()));
 					DBManager.editarUsuario(user);
 				}else {
 					//No hace nada, deberia de guardar los datos del usuario
