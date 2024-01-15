@@ -392,6 +392,12 @@ public class VentanaAdminJuegos extends JFrame{
 	            /*
 	             * AÑADIR MAS INFORMACION DE OTROS JUEGOS
 	             */
+	            writer.write("BLACKJACK: \n"
+	            		+ "\t Usuario con mayor ganancia: "+txtUsuarioBlackJack.getText()+"\n"
+//	            		+ "\t Numero mas repetido: "+txtNumero.getText()+"\n"
+	            		+ "\t Mayor ganacia en una tirada: "+ txtGananciaBlackJack.getText()+"\n"
+	            		+ "\t Usuario con mayor numero de tiradas: "+txtUsoBlackJack.getText()+"\n"
+	            		+ "\t Total de ganancias/perdidas: "+txtTotalGananciasBlackJack.getText()+"\n");
 	            //Final del informe
 	            writer.write("\nEn conclusión, el presente informe destaca la dinámica y el rendimiento sólido observado en NoEscasino durante el período analizado. Los datos detallados revelan "
 	            		+ "tendencias significativas en la participación de jugadores, los ingresos generados por diferentes juegos y la eficacia de estrategias de retención de clientes. Estos hallazgos"

@@ -4,13 +4,18 @@ RULETA:
 	 Numero mas repetido: 23
 	 Mayor ganacia en una tirada: Prueba
 	 Usuario con mayor numero de tiradas: Prueba
-	 Total de ganancias/perdidas: 68835.0
+	 Total de ganancias/perdidas: 42835.0
 CRASH: 
-	 Usuario con mayor ganancia: Prueba
-	 Mayor ganacia en una tirada: Prueba
-	 Usuario con mayor numero de tiradas: Prueba
-	 Total de ganancias/perdidas: 91906.0
+	 Usuario con mayor ganancia: usuario2
+	 Mayor ganacia en una tirada: usuario2
+	 Usuario con mayor numero de tiradas: usuario1
+	 Total de ganancias/perdidas: 47116.0
 COIN-FLIP: 
-	 Usuario con mayor numero de tiradas: Prueba
+	 Usuario con mayor numero de tiradas: null
+BLACKJACK: 
+	 Usuario con mayor ganancia: usuario2
+	 Mayor ganacia en una tirada: usuario2
+	 Usuario con mayor numero de tiradas: usuario1
+	 Total de ganancias/perdidas: 47116.0
 
 En conclusión, el presente informe destaca la dinámica y el rendimiento sólido observado en NoEscasino durante el período analizado. Los datos detallados revelan tendencias significativas en la participación de jugadores, los ingresos generados por diferentes juegos y la eficacia de estrategias de retención de clientes. Estos hallazgos proporcionan una base sólida para la toma de decisiones futuras y la implementación de mejoras específicas para maximizar la satisfacción del cliente y la rentabilidad. NoEscasino continúa siendo un actor destacado en la industria del entretenimiento y los juegos de azar, y este informe sienta las bases para abordar desafíos y aprovechar oportunidades emergentes en el panorama competitivo.
