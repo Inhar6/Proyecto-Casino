@@ -36,7 +36,7 @@ public class VentanaInicial extends JFrame{
 	JPanel pJuego4 = new JPanel(new BorderLayout());
 	
 	JButton bJuego1 = new JButton("");
-	JButton bJuego2 = new JButton("Crash");
+	JButton bJuego2 = new JButton("");
 	JButton bJuego3 = new JButton("");
 	JButton bJuego4 = new JButton("");
 	
@@ -64,7 +64,7 @@ public class VentanaInicial extends JFrame{
 		bJuego1.setBorder(null);
 		bJuego1.setBackground(Color.WHITE);
 		//Crash
-		//bJuego2.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("Crash")), 225, 225));
+		bJuego2.setIcon(VentanaPanelMenu.redimensionarIcono(new ImageIcon(getPropiedades().getProperty("crash")), 225, 225));
 		bJuego2.setBorder(null);
 		bJuego2.setBackground(Color.WHITE);
 		//Ruleta
