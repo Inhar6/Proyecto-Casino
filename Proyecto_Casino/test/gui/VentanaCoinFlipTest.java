@@ -3,7 +3,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import gui.VentanaCoinFlip;
 
 public class VentanaCoinFlipTest {
 

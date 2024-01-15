@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import domain.Carta;
 import domain.Usuario;
-import gui.VentanaBlackJack;
 
 public class VentanaBlackJackTest {
 	private VentanaBlackJack vBlack;
