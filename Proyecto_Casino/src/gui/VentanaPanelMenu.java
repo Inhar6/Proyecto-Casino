@@ -341,7 +341,7 @@ public class VentanaPanelMenu {
 
 	public static double apuesta;
 	static JLabel lApuesta = new JLabel("Apuesta: " +  apuesta);
-    static JButton bApostar = new JButton("Apostar");
+    static JButton bApuestaMax = new JButton();
     private JButton bEliminarApuesta = new JButton("Eliminar apuesta");
     // Fichas
     private JButton bficha1 = new JButton();
@@ -409,7 +409,7 @@ public class VentanaPanelMenu {
         pApostarE.add(pBotonApuesta, BorderLayout.EAST);
         pLabelApuesta.add(lApuesta);
         pBotonEliminarApuesta.add(bEliminarApuesta);
-        pBotonApuesta.add(bApostar);
+        pBotonApuesta.add(bApuestaMax);
         
         pApostar.setBackground(colorPanel); pApostar.setBorder(new EmptyBorder(20, 20, 20, 20));
         pApostarW.setBackground(colorPanel);
@@ -491,15 +491,16 @@ public class VentanaPanelMenu {
 				logger.info("Has eliminado tu apuesta");
 			}
 		});
-        bApostar.addActionListener(new ActionListener() {
+        bApuestaMax.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (balance >= apuesta) {
-//		            balance -= apuesta;
+				if (balance >= apuesta && balance != 0) {
+					apuesta += balance;
+					balance = 0;
 		            lBalance.setText("Balance: " + balance);
 		            lApuesta.setText("Apuesta: " + apuesta);
-		            logger.info("Has hecho tu apuesta");
+		            logger.info("Has hecho tu apuesta máxima");
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
 		        }

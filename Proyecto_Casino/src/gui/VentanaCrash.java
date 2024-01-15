@@ -61,18 +61,16 @@ public class VentanaCrash extends JFrame{
 	private double multiplicador; // numero final que saca el usuario
 	private double nuevoBalance; // numero nuevo balance
 	private double numeroCrono; // numero por el que va el timer
-	private double ganado;
+	private double ganado; // cantidad ganada
 	private Timer timer;
 	private Random random = new Random();
 	
 	private JLabel lApostado = new JLabel("Apostado: ");
-//	private JLabel lNumeroRandom = new JLabel("Numero random: ");
 	private JLabel lGanado = new JLabel("Ganado: ");
 	private JLabel lMultiplicador = new JLabel("Multiplicador: " + multiplicador);
-//	private JLabel lNumeroCrono = new JLabel("Numero crono: " + numeroCrono);	
 	
 	private JButton bSacar = new JButton("Sacar");
-	
+	private JButton bApostar = new JButton("Apostar");
 	
 	//JTable - Historial
 	private JTable tabla;
@@ -84,12 +82,12 @@ public class VentanaCrash extends JFrame{
 	private JProgressBar progressBar = new JProgressBar(100, 500);
 	private int valor = 100;
     private int tirada = 0;
-    //private int numeroRangoProb;
+
     //Usuario
     private Usuario user = new Usuario();
     //Balance - Grafica
     private int marca = 0;
-  //Propiedades
+    //Propiedades
   	private Propiedades propiedades;
   	public Propiedades getPropiedades() {
   		return propiedades;
@@ -174,9 +172,57 @@ public class VentanaCrash extends JFrame{
         bSacar.setEnabled(false);
         pSacar.add(lGanado);
         pSacar.add(lMultiplicador);
-//      pSacar.add(lNumeroCrono);
+        pSacar.add(bApostar);
         
-        VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+//        VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (VentanaPanelMenu.apuesta != 0 && VentanaPanelMenu.balance >= VentanaPanelMenu.apuesta) {
+//					
+//					VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
+//					
+//					VentanaPanelMenu.lBalance.setText("Balance: " + VentanaPanelMenu.balance);
+//					VentanaPanelMenu.lApuesta.setText("Apuesta: " + VentanaPanelMenu.apuesta);
+//					
+//					double numeroRandom = random.nextDouble(1, 5);
+//		            // https://chat.openai.com/c/b0d0f57d-6616-4fe0-833b-1bd6ac8e7d5d
+//		            timer = new Timer(10, new ActionListener() {
+//		                public void actionPerformed(ActionEvent e) {
+//		                	numeroCrono = numeroX + (segundos/100.0);
+//		                	if(numeroCrono < numeroRandom) {
+//		                    	segundos++;
+//		                    	valor++;
+//		                        progressBar.setString("x" + numeroX + "." + segundos);
+//		                      	progressBar.setValue(valor);
+////		                        actualizarEtiquetaTiempo();
+//		                        if(segundos == 99) {
+//		                        	segundos = 0;
+//		                        	numeroX++;
+//		                        }
+//		                	} else {
+//		                		lose();
+//		                    	timer.stop();
+//		                	}
+//		                }
+//		            });
+//		        	timer.start();
+//			        bSacar.setEnabled(true);
+////			        VentanaPanelMenu.bApostar.setEnabled(false);
+//			        bApostar.setEnabled(false);
+//			        tirada++;
+////			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
+////			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
+//			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
+////			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
+//		        } else {
+//		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
+//		        	tirada--;
+//		        }
+//			}
+//		});
+        
+        bApostar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -210,12 +256,14 @@ public class VentanaCrash extends JFrame{
 		            });
 		        	timer.start();
 			        bSacar.setEnabled(true);
-			        VentanaPanelMenu.bApostar.setEnabled(false);
+			        bApostar.setEnabled(false);
 			        tirada++;
 //			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
 //			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
 //			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
+		        } else if (VentanaPanelMenu.balance < VentanaPanelMenu.apuesta) {
+		        	JOptionPane.showMessageDialog(null, "Balance insuficiente");
 		        } else {
 		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
 		        	tirada--;
@@ -245,19 +293,15 @@ public class VentanaCrash extends JFrame{
       		addWindowListener(new WindowListener() {
       			@Override
       			public void windowOpened(WindowEvent e) {
-      				// TODO Auto-generated method stub	
       			}
       			@Override
       			public void windowIconified(WindowEvent e) {
-      				// TODO Auto-generated method stub	
       			}
       			@Override
       			public void windowDeiconified(WindowEvent e) {
-      				// TODO Auto-generated method stub
       			}
       			@Override
       			public void windowDeactivated(WindowEvent e) {
-      				// TODO Auto-generated method stub	
       			}
       			@Override
       			public void windowClosing(WindowEvent e) {
@@ -267,11 +311,9 @@ public class VentanaCrash extends JFrame{
       			}
       			@Override
       			public void windowClosed(WindowEvent e) {
-      				// TODO Auto-generated method stub	
       			}
       			@Override
       			public void windowActivated(WindowEvent e) {
-      				// TODO Auto-generated method stub	
       			}
       		});
         
@@ -281,20 +323,14 @@ public class VentanaCrash extends JFrame{
 	    //
 	}
     public void resetJuego() {
-    	VentanaPanelMenu.bApostar.setEnabled(true);
+    	bApostar.setEnabled(true);
     	progressBar.setValue(valor = 100);
     	progressBar.setString("x" + (numeroX = 1) + "." + (segundos = 0));
     	lGanado.setText("Ganado: " + (ganado = 0));
     	lApostado.setText("Apostado: " + (VentanaPanelMenu.apuesta = 0));
     	VentanaPanelMenu.lApuesta.setText("Apuesta: " + (VentanaPanelMenu.apuesta = 0));
-//    	resultado = false;
     	logger.info("Se ha reseteado el juego (Crash)");
     }
-//	private void actualizarEtiquetaTiempo() {
-////        lEtiquetaTiempo.setText("Tiempo: x" + numeroX + "." + segundos);
-////        lNumeroCrono.setText("Nuemero crono: " + Math.round(numeroCrono * 100.0) / 100.0);
-//    }
-	
 
 	public class MyRender extends JLabel implements TableCellRenderer {
 
