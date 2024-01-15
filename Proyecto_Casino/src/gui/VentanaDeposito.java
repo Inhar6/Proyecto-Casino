@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import db.DBManager;
 import domain.CuentaBancaria;
 import domain.Usuario;
+import io.Propiedades;
 
 public class VentanaDeposito extends JFrame{
 	/**
@@ -29,6 +30,12 @@ public class VentanaDeposito extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Color colorPanel = new Color(71, 113, 72);
+	//Propiedades
+		private Propiedades propiedades;
+		public Propiedades getPropiedades() {
+			return propiedades;
+		}
+	
 	private static final Logger logger = Logger.getLogger("VentanaDeposito");
 	public VentanaDeposito(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,7 +45,11 @@ public class VentanaDeposito extends JFrame{
 		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
 		
 		JPanel panelPrincipal = new JPanel(new GridLayout(7,1));
 		JPanel deposito = new JPanel();

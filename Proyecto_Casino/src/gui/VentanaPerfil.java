@@ -26,6 +26,7 @@ import javax.swing.table.TableCellRenderer;
 
 import db.DBManager;
 import domain.Usuario;
+import io.Propiedades;
 
 public class VentanaPerfil extends JFrame{
 
@@ -61,15 +62,24 @@ public class VentanaPerfil extends JFrame{
 	private JButton btnGuardar;
 	//Usuario
 	private Usuario user = new Usuario();
-	
+	//Propiedades
+	private Propiedades propiedades;
+	public Propiedades getPropiedades() {
+		return propiedades;
+	}
 	
 	
 	public VentanaPerfil(Usuario u) {
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
 		setTitle("Perfil del Usuario");
 		setSize(500,400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
+				
 		//Usuario
 		//user = new Usuario("Usuario1", "Apellido1", "11111111A", "user1","contraseña1", 12345, 1000.0);
 		user = u;

@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import db.DBManager;
 import domain.Usuario;
+import io.Propiedades;
 import main.Main;
 
 public class VentanaLogin extends JFrame{
@@ -27,6 +28,10 @@ public class VentanaLogin extends JFrame{
 	private static final long serialVersionUID = 1L;
 	//Color del panel
 	private Color colorPanel = new Color(71, 113, 72);
+	private Propiedades propiedades;
+	public Propiedades getPropiedades() {
+		return propiedades;
+	}
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
@@ -35,7 +40,11 @@ public class VentanaLogin extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
 		
 		// JButton
 		JButton bInicioSecion = new JButton("Iniciar sesión");

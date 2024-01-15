@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 import db.DBManager;
 import domain.Usuario;
 import io.Fichero;
+import io.Propiedades;
 import main.Main;
 
 public class VentanaRegistro extends JFrame{
@@ -68,6 +69,11 @@ public class VentanaRegistro extends JFrame{
 	private JButton btnRegistro;
 	//Color del panel
 	private Color colorPanel = new Color(71, 113, 72);
+	//Propiedades
+	private Propiedades propiedades;
+	public Propiedades getPropiedades() {
+		return propiedades;
+	}
 	
 	public VentanaRegistro() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -176,8 +182,12 @@ public class VentanaRegistro extends JFrame{
 		
 		add(central);
 		
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
-			
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
+							
 		btnRegistro.setEnabled(false);
 		String fecha= "yyyy-MM-dd";
 		txtFecha.setText(fecha);

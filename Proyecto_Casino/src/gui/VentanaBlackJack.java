@@ -38,6 +38,7 @@ import db.DBManager;
 import domain.Carta;
 import domain.Point;
 import domain.Usuario;
+import io.Propiedades;
 
 public class VentanaBlackJack extends JFrame {
 	
@@ -69,7 +70,12 @@ public class VentanaBlackJack extends JFrame {
 	// 
 	private Usuario user = new Usuario();
 	private int marca = 0;
-
+	//Propiedades 
+	private Propiedades propiedades;
+	public Propiedades getPropiedades() {
+		return propiedades;
+	}
+	
 
 
 	public VentanaBlackJack(Usuario u) {
@@ -80,7 +86,12 @@ public class VentanaBlackJack extends JFrame {
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
+		
 		
 		user = u;
 		marca = user.getLstBalance().size();

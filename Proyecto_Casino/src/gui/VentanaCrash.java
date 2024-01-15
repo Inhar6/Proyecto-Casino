@@ -37,6 +37,7 @@ import javax.swing.table.TableCellRenderer;
 
 import db.DBManager;
 import domain.Usuario;
+import io.Propiedades;
 
 public class VentanaCrash extends JFrame{
 
@@ -88,7 +89,12 @@ public class VentanaCrash extends JFrame{
     private Usuario user = new Usuario();
     //Balance - Grafica
     private int marca = 0;
-    
+  //Propiedades
+  	private Propiedades propiedades;
+  	public Propiedades getPropiedades() {
+  		return propiedades;
+  	}
+  	
     public VentanaCrash(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -97,8 +103,12 @@ public class VentanaCrash extends JFrame{
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
-		setIconImage(new ImageIcon("resources/images/iconos/favicon.png").getImage());
-		
+		//Propiedades
+		propiedades= new Propiedades();
+		propiedades.cargar();
+		//Icono de la ventana
+		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
+				
 		//Usuario
 		user = u;
 		//Tirada
