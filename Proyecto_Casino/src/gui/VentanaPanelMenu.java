@@ -331,17 +331,17 @@ public class VentanaPanelMenu {
 	
 	private JPanel p1y10 = new JPanel(new BorderLayout());
 	private JPanel p25y50 = new JPanel(new BorderLayout());
-	private JPanel p100y1000 = new JPanel(new BorderLayout());
+	private JPanel p100y1000yMax = new JPanel(new BorderLayout());
 	private JPanel p1 = new JPanel(new BorderLayout());
 	private JPanel p10 = new JPanel(new BorderLayout());
 	private JPanel p25 = new JPanel(new BorderLayout());
 	private JPanel p50 = new JPanel(new BorderLayout());
 	private JPanel p100 = new JPanel(new BorderLayout());
 	private JPanel p1000 = new JPanel(new BorderLayout());
+	private JPanel pMax = new JPanel(new BorderLayout());
 
 	public static double apuesta;
 	static JLabel lApuesta = new JLabel("Apuesta: " +  apuesta);
-    static JButton bApuestaMax = new JButton();
     private JButton bEliminarApuesta = new JButton("Eliminar apuesta");
     // Fichas
     private JButton bficha1 = new JButton();
@@ -350,7 +350,8 @@ public class VentanaPanelMenu {
     private JButton bficha50 = new JButton();
     private JButton bficha100 = new JButton();
     private JButton bficha1000 = new JButton();
-    
+    private JButton bfichaMax = new JButton();
+
     // Menu inferior de apuesta
     public void enseñarApostar(JPanel panel) {
     	Color colorPanel = new Color(71, 113, 72);
@@ -365,12 +366,14 @@ public class VentanaPanelMenu {
 		bficha50.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha50")), 50, 50));
 		bficha100.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha100")), 50, 50));
 		bficha1000.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("ficha1000")), 50, 50));
+		bfichaMax.setIcon(redimensionarIcono(new ImageIcon(getPropiedades().getProperty("fichaMax")), 50, 50));
 		bficha1.setBorder(null);
 		bficha10.setBorder(null);
 		bficha25.setBorder(null);
 		bficha50.setBorder(null);
 		bficha100.setBorder(null);
 		bficha1000.setBorder(null);
+		bfichaMax.setBorder(null);
 		
 		pApostarW.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		
@@ -383,33 +386,34 @@ public class VentanaPanelMenu {
         // Panel pApostarW
         pApostarW.add(p1y10,BorderLayout.WEST);
         pApostarW.add(p25y50,BorderLayout.CENTER);
-        pApostarW.add(p100y1000,BorderLayout.EAST);
+        pApostarW.add(p100y1000yMax,BorderLayout.EAST);
         p1y10.add(p1,BorderLayout.WEST);
         p1y10.add(p10,BorderLayout.EAST);
         p25y50.add(p25,BorderLayout.WEST);
         p25y50.add(p50,BorderLayout.EAST);
-        p100y1000.add(p100,BorderLayout.WEST);
-        p100y1000.add(p1000,BorderLayout.EAST);
+        p100y1000yMax.add(p100,BorderLayout.WEST);
+        p100y1000yMax.add(p1000,BorderLayout.CENTER);
+        p100y1000yMax.add(pMax, BorderLayout.EAST);
         p1.add(bficha1);
         p10.add(bficha10);
         p25.add(bficha25);
         p50.add(bficha50);
         p100.add(bficha100);
         p1000.add(bficha1000);
+        pMax.add(bfichaMax);
         p1.setBorder(new EmptyBorder(0,0,0,5)); p1.setBackground(colorPanel);
         p10.setBorder(new EmptyBorder(0,5,0,5)); p10.setBackground(colorPanel);
         p25.setBorder(new EmptyBorder(0,5,0,5)); p25.setBackground(colorPanel);
         p50.setBorder(new EmptyBorder(0,5,0,5)); p50.setBackground(colorPanel);
         p100.setBorder(new EmptyBorder(0,5,0,5)); p100.setBackground(colorPanel);
         p1000.setBorder(new EmptyBorder(0,5,0,5)); p1000.setBackground(colorPanel);
-                
+        pMax.setBorder(new EmptyBorder(0,5,0,5)); pMax.setBackground(colorPanel);        
         // Panel pApostarE
         pApostarE.add(pLabelApuesta, BorderLayout.WEST);
         pApostarE.add(pBotonEliminarApuesta, BorderLayout.CENTER);
         pApostarE.add(pBotonApuesta, BorderLayout.EAST);
         pLabelApuesta.add(lApuesta);
         pBotonEliminarApuesta.add(bEliminarApuesta);
-        pBotonApuesta.add(bApuestaMax);
         
         pApostar.setBackground(colorPanel); pApostar.setBorder(new EmptyBorder(20, 20, 20, 20));
         pApostarW.setBackground(colorPanel);
@@ -491,19 +495,13 @@ public class VentanaPanelMenu {
 				logger.info("Has eliminado tu apuesta");
 			}
 		});
-        bApuestaMax.addActionListener(new ActionListener() {
+        bfichaMax.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (balance >= apuesta && balance != 0) {
-					apuesta += balance;
-					balance = 0;
-		            lBalance.setText("Balance: " + balance);
-		            lApuesta.setText("Apuesta: " + apuesta);
-		            logger.info("Has hecho tu apuesta máxima");
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Balance Insuficiente");
-		        }
+				apuesta += balance;
+		        lApuesta.setText("Apuesta: " + apuesta);
+		        logger.info("Has hecho tu apuesta máxima");
 			}
 		});
     }

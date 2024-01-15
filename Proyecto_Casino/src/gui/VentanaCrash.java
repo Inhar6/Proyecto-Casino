@@ -262,10 +262,10 @@ public class VentanaCrash extends JFrame{
 //			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
 //			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
-		        } else if (VentanaPanelMenu.balance < VentanaPanelMenu.apuesta) {
-		        	JOptionPane.showMessageDialog(null, "Balance insuficiente");
-		        } else {
+		        } else if (VentanaPanelMenu.balance >= VentanaPanelMenu.apuesta) {
 		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
+		        } else {
+		        	JOptionPane.showMessageDialog(null, "Balance insuficiente");
 		        	tirada--;
 		        }
 			}
