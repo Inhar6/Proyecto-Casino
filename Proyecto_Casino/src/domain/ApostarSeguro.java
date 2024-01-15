@@ -4,7 +4,7 @@ public class ApostarSeguro {
 	
 	private String Diario;
 	private String Semanal;
-	private String Menusal;
+	private String Mensual;
 	
 	
 	
@@ -14,11 +14,11 @@ public class ApostarSeguro {
 
 
 
-	public ApostarSeguro(String diario, String semanal, String menusal) {
+	public ApostarSeguro(String diario, String semanal, String mensual) {
 		super();
 		Diario = diario;
 		Semanal = semanal;
-		Menusal = menusal;
+		Mensual = mensual;
 	}
 
 
@@ -47,15 +47,26 @@ public class ApostarSeguro {
 
 
 
-	public String getMenusal() {
-		return Menusal;
+	public String getMensual() {
+		return Mensual;
 	}
 
 
 
-	public void setMenusal(String menusal) {
-		Menusal = menusal;
+	public void setMenusal(String mensual) {
+		Mensual = mensual;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "ApostarSeguro [Diario=" + Diario + ", Semanal=" + Semanal + ", Mensual=" + Mensual + "]";
+	}
+
+
+
+	
 	
 	
 	
