@@ -69,6 +69,7 @@ public class VentanaRuleta extends JFrame{
 	private JButton btn3Fila;
 	private JButton btnJugar;
 	private JButton btnBorrarApuesta;
+	private JButton btnApostar;
 	//JList
 	private JList<Integer> lstHistorial;
 	private DefaultListModel<Integer> dlmHistorial;
@@ -141,6 +142,9 @@ public class VentanaRuleta extends JFrame{
 		btn3Fila = new JButton("2a1");
 		btnJugar = new JButton("Jugar");
 		btnBorrarApuesta= new JButton("Borrar apuesta");
+		btnApostar = new JButton("Ingresar");
+			btnApostar.setBackground(Color.RED);
+			btnApostar.setForeground(Color.WHITE);
 		//Apuesta
 		saldo = new JLabel("---- " + dineroTotal + " ----");
 		saldoApostado= new JLabel("---- " + saldoApostado + " ----");
@@ -243,6 +247,7 @@ public class VentanaRuleta extends JFrame{
 		pSaldo.setBorder(tituloSaldo);
 		pSaldo.add(saldoApostado,BorderLayout.CENTER);
 		pRecuperar.setLayout(new BorderLayout());
+		pRecuperar.add(btnApostar, BorderLayout.NORTH);
 		pRecuperar.add(btnSacarDinero, BorderLayout.SOUTH);
 		pBalance.setLayout(new GridLayout(1,3));
 		pBalance.add(pDinero);
@@ -525,6 +530,7 @@ public class VentanaRuleta extends JFrame{
 			}
 		});
 		//Meter dinero dentro de la ruleta
+		/*
 		VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -537,6 +543,29 @@ public class VentanaRuleta extends JFrame{
 					VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
 					saldo.setText("---- " + dineroTotal + " ----");
 					logger.info("Añadido a la ventana ruleta "+ dineroTotal+ " del Balance");
+				}else {
+					JOptionPane.showMessageDialog(null, "Haga su apuesta");
+				}
+				
+				
+			}
+		});
+		*/
+		//Meter dinero dentro de la ruleta
+		btnApostar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(VentanaPanelMenu.apuesta != 0) {
+					//Metemos el dinero total como el saldo que se introuce en la apuesta
+					dineroTotal += VentanaPanelMenu.apuesta;
+					dineroTotalInicial += VentanaPanelMenu.apuesta;
+					VentanaPanelMenu.balance-=dineroTotal;
+					VentanaPanelMenu.lBalance.setText("Balance: "+ VentanaPanelMenu.balance);
+					saldo.setText("---- " + dineroTotal + " ----");
+					logger.info("Añadido a la ventana ruleta "+ dineroTotal+ " del Balance");
+					VentanaPanelMenu.apuesta=0;
+					VentanaPanelMenu.lApuesta.setText("Apuesta: " + VentanaPanelMenu.apuesta);
 				}else {
 					JOptionPane.showMessageDialog(null, "Haga su apuesta");
 				}
@@ -595,34 +624,29 @@ public class VentanaRuleta extends JFrame{
 		//Accion al cerrar la ventana	
 		addWindowListener(new WindowListener() {
 			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub	
+			public void windowOpened(WindowEvent e) {	
 			}
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub	
 			}
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 			}
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub	
 			}
 			@Override
 			public void windowClosing(WindowEvent e) {
 				//Guardar el saldo del usuario
 				DBManager.guardarSaldo(user, VentanaPanelMenu.balance );	
 				logger.info("Datos guardados: " + VentanaPanelMenu.balance);
+				dispose();
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub	
 			}
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub	
 			}
 		});
 		
