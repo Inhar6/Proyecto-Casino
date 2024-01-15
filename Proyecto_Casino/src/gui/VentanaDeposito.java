@@ -314,6 +314,7 @@ public class VentanaDeposito extends JFrame{
 					}else {
 						CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
 						DBManager.añadirCuentaBancaria(cb, u);
+						u.addSaldo(cb.getSaldo());
 						dispose();
 					}
 					
