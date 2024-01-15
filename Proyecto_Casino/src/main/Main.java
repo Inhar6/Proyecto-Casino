@@ -12,22 +12,23 @@ import gui.VentanaInicial;
 public class Main {
 	
 	public static List<Usuario> DBlstUsuarios = new ArrayList<>(); 
-
-	public static void main(String[] args) {
-		
-		
-		
+	
+	public Main() {
 		DBlstUsuarios = DBManager.obtenerTodosLosUsuarios();
-		
-        SwingUtilities.invokeLater(new Runnable() {
-
+		new VentanaInicial();
+       
+	}
+	
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			
 			@Override
 			public void run() {
+				new Main();
 				
-				new VentanaInicial();				
 			}
-        });
-        
-        System.out.println("Final del programa");
+		});
 	}
+	
+	
 }
