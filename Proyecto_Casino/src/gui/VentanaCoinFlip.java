@@ -257,7 +257,7 @@ public class VentanaCoinFlip extends JFrame {
 			}
 		});
 
-		VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+		/*VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (caraCruz.equals("Cruz") || caraCruz.equals("Cara")) {
@@ -376,7 +376,7 @@ public class VentanaCoinFlip extends JFrame {
 
 				}
 			}
-		});
+		});*/
 		
 		//Accion al cerrar la ventana	
 				addWindowListener(new WindowListener() {

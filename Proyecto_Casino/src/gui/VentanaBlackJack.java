@@ -145,6 +145,8 @@ public class VentanaBlackJack extends JFrame {
         JButton botonAyuda = new JButton(new ImageIcon("resources/images/iconos/favicon.png"));
         botonAyuda.setPreferredSize(new Dimension (30,30));
         JButton botonHistorial = new JButton("Historial");
+        JButton botonApostar = new JButton("Apostar");
+        
         
         //Añadir al panel Principal
         add(panelPrincipal);
@@ -192,6 +194,7 @@ public class VentanaBlackJack extends JFrame {
         panelBotones.add(botonPlantarse);
         panelBotones.add(botonDoblar);
         panelBotones.add(botonHistorial);
+        panelBotones.add(botonApostar);
         
         
         String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
@@ -307,7 +310,7 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
 
-     VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+    /* VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -330,7 +333,30 @@ public class VentanaBlackJack extends JFrame {
 	
 			
 		}
-	});
+	});*/
+        
+        
+        botonApostar.addActionListener(new ActionListener() {
+			
+        	@Override
+    		public void actionPerformed(ActionEvent e) {
+    			if(VentanaPanelMenu.apuesta == 0 ) {
+    				JOptionPane.showMessageDialog(null, "Debes introducir una cantidad para apostar", "Apuesta",JOptionPane.INFORMATION_MESSAGE);
+    			}else {
+    				ap = VentanaPanelMenu.apuesta;
+    				VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
+
+    				reiniciarJuego( botonPlantarse, botonPedirCarta, botonDoblar, textAreaCrupier, textAreaJugador);
+    				ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
+    				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+    				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
+    				
+    				botonPedirCarta.setEnabled(true);
+    				botonPlantarse.setEnabled(true);
+    				botonDoblar.setEnabled(true);
+    			}
+        	}
+		});
      
      botonHistorial.addActionListener(new ActionListener() {
 		
