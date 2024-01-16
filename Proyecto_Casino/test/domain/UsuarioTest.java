@@ -116,10 +116,69 @@ public class UsuarioTest {
 		u.addMapaRuleta(1, 2, 600);
 		assertFalse(u.getMapaRuleta().isEmpty());
 	}
+	
+	@Test
+	public void testGetMapaCrash() {
+		assertTrue(u.getMapaCrash().isEmpty());
+	}
+	@Test
+	public void testSetMapaCrash() {
+	 Map<Integer,Map<String, Map<Double, Double>>> mapaCrash = new HashMap<>();
+		u.setMapaCrash(mapaCrash);
+		assertEquals(mapaCrash,u.getMapaCrash() );
+	}
+	@Test
+	public void testAddMapaCrash() {
+		u.addMapaCrash(1, "2", 600,300);
+		assertFalse(u.getMapaCrash().isEmpty());
+	}
+	
+	@Test
+	public void testGetMapaBlackJack() {
+		assertTrue(u.getMapaBlackJack().isEmpty());
+	}
+	
+	@Test
+	public void testSetMapaBlackJack() {
+	    Map<Integer,Map<String,Map<Integer,Double>>> mapaBlackJack = new HashMap<>();
+		u.setMapaBlackJack(mapaBlackJack);
+		assertEquals(mapaBlackJack,u.getMapaBlackJack() );
+	}
+	
+	@Test
+	public void testAddMapaBlackJack() {
+		u.addMapaBlackJack(1, "2", 600,600);
+		assertFalse(u.getMapaBlackJack().isEmpty());
+	}
+	
+	
+	@Test
+	public void testGetMapaCoinFlip() {
+		assertTrue(u.getMapaCoinFlip().isEmpty());
+	}
+	
+	
+	@Test
+	public void testSetMapaCoinFlip() {
+	    Map<Integer, Map<String, String >> mapaCoinFlip = new HashMap<>();
+		u.setMapaCoinFlip(mapaCoinFlip);
+		assertEquals(mapaCoinFlip,u.getMapaCoinFlip() );
+	}
+	
+	
+	@Test
+	public void testAddMapaCoinFlip() {
+		u.addMapaCoinFlip(1, "2", "600");
+		assertFalse(u.getMapaCoinFlip().isEmpty());
+	}
+	
+	
 	@Test
 	public void testGetLstBalance() {
 		assertTrue(u.getLstBalance().isEmpty());
 	}
+	
+	
 	@Test
 	public void testSetLstBalance() {
 		List<Point> lstPuntos = new ArrayList<>();
