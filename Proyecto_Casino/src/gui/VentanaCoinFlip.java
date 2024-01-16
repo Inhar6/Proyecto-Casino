@@ -48,7 +48,7 @@ public class VentanaCoinFlip extends JFrame {
 	// botones
 	private JButton bCara;
 	private JButton bCruz;
-	private JButton bJugar;
+	private JButton bApostar;
 	private JButton bBorrarSelec;
 
 	// contador
@@ -133,10 +133,10 @@ public class VentanaCoinFlip extends JFrame {
 		bBorrarSelec.setMargin(new Insets(10, 30, 10, 20));
 		
 		//Jugar
-		bJugar = new JButton("Jugar");
+		bApostar = new JButton("Apostar");
 
-		bJugar.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY	));
-		bJugar.setMargin(new Insets(10, 30, 10, 20));
+		bApostar.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY	));
+		bApostar.setMargin(new Insets(10, 30, 10, 20));
 		
 		// lista
 		DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
@@ -166,7 +166,7 @@ public class VentanaCoinFlip extends JFrame {
 		panelBotonIferior.add(bCara);
 		panelBotonIferior.add(bBorrarSelec);
 		panelBotonIferior.add(bCruz);
-		panelBotonIferior.add(bJugar);
+		panelBotonIferior.add(bApostar);
 		panelPrincipal.add(panelBotonIferior, BorderLayout.SOUTH);
 
 		JPanel panelCentral = new JPanel();
@@ -250,7 +250,7 @@ public class VentanaCoinFlip extends JFrame {
 			}
 		});
 
-		bJugar.addActionListener(new ActionListener() {
+		bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (caraCruz.equals("Cruz") || caraCruz.equals("Cara")) {
