@@ -308,22 +308,12 @@ public class VentanaDeposito extends JFrame{
 						Pattern.matches("\\d{8}",text)& Pattern.matches("\\d{3}",text1)){
 					logger.info("Tu deposito ha sido realizado con exito");
 					String[] datos = JTextfieldDiaYMes.getText().split("/");
-					if(!DBManager.existeUsuarioCuentaBancaria(u.getNombreUsuario(), JTextfieldNumeroDeCuenta.getText())) {
-						if(u.getAs()==null) {
-							new VentanaApostarSeguro(u);
-							//dispose();
-						}else {
-							CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
-							DBManager.añadirCuentaBancaria(cb, u);
-							u.addSaldo(cb.getSaldo());
-							dispose();
-						}
-					}else {
-						CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
-						DBManager.añadirCuentaBancaria(cb, u);
-						u.addSaldo(cb.getSaldo());
-						dispose();
-					}
+					//Guardar datos
+					CuentaBancaria cb = new CuentaBancaria(JTextfieldUsuario.getText(),JTextfieldNumeroDeCuenta.getText(),Integer.parseInt(JTextfieldCvc.getText()) ,Integer.parseInt(datos[0]) ,Integer.parseInt(datos[1]),Double.parseDouble(JTextfieldCantidadDeDeposito.getText()));
+					DBManager.añadirCuentaBancaria(cb, u);
+					u.addSaldo(cb.getSaldo());
+					dispose();
+					
 					
 				
 				}
