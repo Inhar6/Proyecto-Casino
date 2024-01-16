@@ -138,7 +138,6 @@ public class VentanaLogin extends JFrame{
 				if("Admin".equals(tfUsuario.getText()) && "Admin".equals(new String(passContraseña.getPassword()))) {
 					new VentanaAdmin();
 					loged = true;
-					new VentanaInicial();
 					dispose();
 					
 				}else if(DBManager.existeUsuarioLogin(tfUsuario.getText(), contra)) {
