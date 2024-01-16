@@ -174,54 +174,6 @@ public class VentanaCrash extends JFrame{
         pSacar.add(lMultiplicador);
         pSacar.add(bApostar);
         
-//        VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				if (VentanaPanelMenu.apuesta != 0 && VentanaPanelMenu.balance >= VentanaPanelMenu.apuesta) {
-//					
-//					VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
-//					
-//					VentanaPanelMenu.lBalance.setText("Balance: " + VentanaPanelMenu.balance);
-//					VentanaPanelMenu.lApuesta.setText("Apuesta: " + VentanaPanelMenu.apuesta);
-//					
-//					double numeroRandom = random.nextDouble(1, 5);
-//		            // https://chat.openai.com/c/b0d0f57d-6616-4fe0-833b-1bd6ac8e7d5d
-//		            timer = new Timer(10, new ActionListener() {
-//		                public void actionPerformed(ActionEvent e) {
-//		                	numeroCrono = numeroX + (segundos/100.0);
-//		                	if(numeroCrono < numeroRandom) {
-//		                    	segundos++;
-//		                    	valor++;
-//		                        progressBar.setString("x" + numeroX + "." + segundos);
-//		                      	progressBar.setValue(valor);
-////		                        actualizarEtiquetaTiempo();
-//		                        if(segundos == 99) {
-//		                        	segundos = 0;
-//		                        	numeroX++;
-//		                        }
-//		                	} else {
-//		                		lose();
-//		                    	timer.stop();
-//		                	}
-//		                }
-//		            });
-//		        	timer.start();
-//			        bSacar.setEnabled(true);
-////			        VentanaPanelMenu.bApostar.setEnabled(false);
-//			        bApostar.setEnabled(false);
-//			        tirada++;
-////			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
-////			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
-//			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
-////			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
-//		        } else {
-//		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
-//		        	tirada--;
-//		        }
-//			}
-//		});
-        
         bApostar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -258,10 +210,7 @@ public class VentanaCrash extends JFrame{
 			        bSacar.setEnabled(true);
 			        bApostar.setEnabled(false);
 			        tirada++;
-//			        nuevoBalance = VentanaPanelMenu.balance - VentanaPanelMenu.apuesta;
-//			        VentanaPanelMenu.lBalance.setText("Balance: " + nuevoBalance);
 			        lApostado.setText("Apostado: " + VentanaPanelMenu.apuesta);
-//			        lNumeroRandom.setText("Numero random: " + Math.round(numeroRandom * 100.0) / 100.0);
 		        } else if (VentanaPanelMenu.balance >= VentanaPanelMenu.apuesta) {
 		        	JOptionPane.showMessageDialog(null, "Haga su apuesta");
 		        } else {

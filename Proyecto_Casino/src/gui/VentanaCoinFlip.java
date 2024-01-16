@@ -36,7 +36,6 @@ import javax.swing.SwingUtilities;
 
 import db.DBManager;
 import domain.Usuario;
-import gui.controller.ControladorVentanaCoinFlip;
 
 public class VentanaCoinFlip extends JFrame {
 
@@ -49,7 +48,7 @@ public class VentanaCoinFlip extends JFrame {
 	// botones
 	private JButton bCara;
 	private JButton bCruz;
-
+	private JButton bApostar;
 	private JButton bBorrarSelec;
 
 	// contador
@@ -75,7 +74,6 @@ public class VentanaCoinFlip extends JFrame {
 
 	private JPanel contentPane;
 
-	private ControladorVentanaCoinFlip controladorVentana;
 	
 	//Usuario
 	private Usuario user = new Usuario();
@@ -91,9 +89,6 @@ public class VentanaCoinFlip extends JFrame {
 
 		propiedades = new Propiedades();
 		propiedades.cargar();
-
-		controladorVentana = new ControladorVentanaCoinFlip();
-		addWindowListener(controladorVentana);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 600);
@@ -121,31 +116,28 @@ public class VentanaCoinFlip extends JFrame {
 
 		// Cara
 		bCara = new JButton("Cara");
-		bCara.setActionCommand("Cara");
-
-		bCara.addActionListener(controladorVentana);
 
 		bCara.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCara.setMargin(new Insets(10, 30, 10, 20));
 
 		// Cruz
 		bCruz = new JButton("Cruz");
-		bCruz.setActionCommand("Cruz");
-
-		bCara.addActionListener(controladorVentana);
 
 		bCruz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		bCruz.setMargin(new Insets(10, 30, 10, 20));
 
 		// BorrarSelec
 		bBorrarSelec = new JButton("Borrar seleccion");
-		bBorrarSelec.setActionCommand("Borrar seleccion");
 
-		bBorrarSelec.addActionListener(controladorVentana);
-
-		bBorrarSelec.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		bBorrarSelec.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		bBorrarSelec.setMargin(new Insets(10, 30, 10, 20));
+		
+		//Jugar
+		bApostar = new JButton("Apostar");
 
+		bApostar.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY	));
+		bApostar.setMargin(new Insets(10, 30, 10, 20));
+		
 		// lista
 		DefaultListModel<String> dlmHistorial = new DefaultListModel<>();
 		JList<String> lstHistorial = new JList<>(dlmHistorial);
@@ -174,6 +166,7 @@ public class VentanaCoinFlip extends JFrame {
 		panelBotonIferior.add(bCara);
 		panelBotonIferior.add(bBorrarSelec);
 		panelBotonIferior.add(bCruz);
+		panelBotonIferior.add(bApostar);
 		panelPrincipal.add(panelBotonIferior, BorderLayout.SOUTH);
 
 		JPanel panelCentral = new JPanel();
@@ -257,7 +250,7 @@ public class VentanaCoinFlip extends JFrame {
 			}
 		});
 
-		/*VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
+		bApostar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (caraCruz.equals("Cruz") || caraCruz.equals("Cara")) {
@@ -376,7 +369,7 @@ public class VentanaCoinFlip extends JFrame {
 
 				}
 			}
-		});*/
+		});
 		
 		//Accion al cerrar la ventana	
 				addWindowListener(new WindowListener() {
