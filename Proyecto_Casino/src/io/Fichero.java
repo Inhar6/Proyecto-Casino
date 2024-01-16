@@ -1,11 +1,18 @@
 package io;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+
+import domain.ApostarSeguro;
 
 public class Fichero {
 	
@@ -26,6 +33,34 @@ public class Fichero {
 	       }
 	        return texto.toString();
 	}
+	
+	
+	
+	public void leerLimitesJugadores(File fichero) {
+		try{
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));
+			
+		}catch(IOException e) {
+			e.getStackTrace();
+		}
+	}
+	
+	public void escribirLimitesJugadores(ApostarSeguro ap) {
+		try {
+		     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("LimitesUsuario.dat"));
+		     os.writeObject(ap);
+			logger.info("Has escrito en el fichero los limites con exito");
+			os.close();
+			
+		}catch(IOException e) {
+			e.getStackTrace();
+			logger.warning(String.format("Se a producido un error a la hora d escribir en el fichero los limites : %s", e.getMessage()));
+		}
+		
+		
+	}
+	
+	
 	
 	
 }

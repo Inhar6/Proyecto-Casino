@@ -61,7 +61,7 @@ public class ApostarSeguro {
 
 	@Override
 	public String toString() {
-		return "ApostarSeguro [Diario=" + Diario + ", Semanal=" + Semanal + ", Mensual=" + Mensual + "]";
+		return Diario +","+Semanal+","+Mensual;
 	}
 
 
