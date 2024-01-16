@@ -1,6 +1,11 @@
-A continuacion te explicaremos las reglas del juego:
-1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)
-2- El crupier se planta con 17 puntos
-3-Las cartas del 1-10 puntuaran su valor nominal
-4-Las cartas (J,Q,K) puntuaran 10 puntos
-5-Tendras la opcion de doblar la aupesta durante la partida mediante el boton de doblar
+A continuación, se presentan las normativas del juego:
+
+1-En este juego, te enfrentarás al crupier de la mesa, con el objetivo de alcanzar una suma de 21 puntos mediante la combinación de las puntuaciones de las cartas, sin exceder este valor.
+
+2-El crupier dejará de solicitar cartas cuando su puntuación sea igual o superior a 17.
+
+3-Las cartas numeradas del 1 al 10 sumarán su valor nominal en puntos.
+
+4-Las cartas con figuras (J, Q, K) otorgarán 10 puntos cada una.
+
+5-A lo largo del juego, se te proporcionará la opción de duplicar tu apuesta mediante la función correspondiente.
