@@ -27,10 +27,6 @@ import io.Propiedades;
 
 public class VentanaPanelMenu {
 	
-	/**
-	 * 
-	 */
-	//private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger("VentanaPanelMenu");
 	public static Usuario user = new Usuario();
 	// Botones
@@ -109,11 +105,6 @@ public class VentanaPanelMenu {
 		pMenuN3.add(pMenuBalanceLogin, BorderLayout.WEST);
 		pJuegos.add(bJuegos);
 		pCasino.add(bCasino);
-		
-		JPanel n = new JPanel();
-		pMenuN.add(n, BorderLayout.CENTER);
-		n.add(bUsuario);
-		n.add(lBalance);
 		
 		mostrarUsuarioLogin();
 
@@ -430,7 +421,6 @@ public class VentanaPanelMenu {
         lApuesta.setFont(nuevaFuente);
         lApuesta.setForeground(Color.yellow);
         lBalance.setForeground(Color.black);
-        //
         
         bficha1.addActionListener (new ActionListener() {
 			
