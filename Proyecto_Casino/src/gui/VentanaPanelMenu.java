@@ -207,52 +207,70 @@ public class VentanaPanelMenu {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaJuego < limiteVentanas) {
-                    new VentanaBlackJack(user);
-                    contadorVentanaJuego++;
-                    logger.info("Has abierto una ventana 'Black Jack'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
-                }	
+				if (VentanaLogin.loged == true) {
+					if (contadorVentanaJuego < limiteVentanas) {
+	                    new VentanaBlackJack(user);
+	                    contadorVentanaJuego++;
+	                    logger.info("Has abierto una ventana 'Black Jack'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas BlackJack.");
+	                }
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}	
 			}
 		});
+		
 		menuItemCrash.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaJuego < limiteVentanas) {
-                    new VentanaCrash(user);
-                    contadorVentanaJuego++;
-                	logger.info("Has abierto una ventana 'Crash'");
-                } else {
+				if (VentanaLogin.loged == true) {
+					if (contadorVentanaJuego < limiteVentanas) {
+	                    new VentanaCrash(user);
+	                    contadorVentanaJuego++;
+	                	logger.info("Has abierto una ventana 'Crash'");
+	                } else {
                     JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
-                }
+	                }
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}	
+
 			}
 		});
 		menuItemRuleta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaJuego < limiteVentanas) {
-					new VentanaRuleta(user);
-					contadorVentanaJuego++;
-					logger.info("Has abierto una ventana 'Ruleta'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
-                }
+				if (VentanaLogin.loged == true) {
+					if (contadorVentanaJuego < limiteVentanas) {
+						new VentanaRuleta(user);
+						contadorVentanaJuego++;
+						logger.info("Has abierto una ventana 'Ruleta'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
+	                }
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}
 			}
 		});
 		menuItemCoinFlip.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (contadorVentanaJuego < limiteVentanas) {
-					new VentanaCoinFlip(user);
-					contadorVentanaJuego++;
-					logger.info("Has abierto una ventana 'Coin-Flip'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
-                }	
+				if (VentanaLogin.loged == true) {
+					if (contadorVentanaJuego < limiteVentanas) {
+						new VentanaCoinFlip(user);
+						contadorVentanaJuego++;
+						logger.info("Has abierto una ventana 'Coin-Flip'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
+	                }	
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}
 			}
 		});
 		menuItemPerfil.addActionListener(new ActionListener() {
@@ -266,7 +284,6 @@ public class VentanaPanelMenu {
 				}else {
 					JOptionPane.showMessageDialog(null, "Se alcanzo el limite de ventanas de Perfil");
 				}
-				
 			}
 		});
 		menuItemDepositar.addActionListener(new ActionListener() {

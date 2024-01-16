@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domain.Usuario;
 import io.Propiedades;
 
 public class VentanaInicial extends JFrame{
@@ -52,7 +53,7 @@ public class VentanaInicial extends JFrame{
 		setTitle("NoEscasino");
 		propiedades = new Propiedades();
 		propiedades.cargar();
-		
+
 		// Centra la ventana en el centro de la pantlla
 		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
@@ -122,52 +123,67 @@ public class VentanaInicial extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-                    new VentanaBlackJack(VentanaPanelMenu.user);
-                    VentanaPanelMenu.contadorVentanaJuego++;
-                    logger.info("Has abierto una ventana 'Black Jack'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Black Jack.");
-                }	
+				if (VentanaLogin.loged == true) {
+					if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
+	                    new VentanaBlackJack(VentanaPanelMenu.user);
+	                    VentanaPanelMenu.contadorVentanaJuego++;
+	                    logger.info("Has abierto una ventana 'Black Jack'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Black Jack.");
+	                }
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}
 			}
 		});
         bJuego2.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-                    new VentanaCrash(VentanaPanelMenu.user);
-                    VentanaPanelMenu.contadorVentanaJuego++;
-                	logger.info("Has abierto una ventana 'Crash'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
-                }
+//				if (VentanaLogin.loged == true) {
+					if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
+	                    new VentanaCrash(VentanaPanelMenu.user);
+	                    VentanaPanelMenu.contadorVentanaJuego++;
+	                	logger.info("Has abierto una ventana 'Crash'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Crash.");
+	                }					
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+//				}
 			}
 		});
         bJuego3.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-					new VentanaRuleta(VentanaPanelMenu.user);
-					VentanaPanelMenu.contadorVentanaJuego++;
-					logger.info("Has abierto una ventana 'Ruleta'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
-                }
+				if (VentanaLogin.loged == true) {
+					if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
+						new VentanaRuleta(VentanaPanelMenu.user);
+						VentanaPanelMenu.contadorVentanaJuego++;
+						logger.info("Has abierto una ventana 'Ruleta'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Ruleta.");
+	                }
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}
 			}
 		});
         bJuego4.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
-					new VentanaCoinFlip(VentanaPanelMenu.user);
-					VentanaPanelMenu.contadorVentanaJuego++;
-					logger.info("Has abierto una ventana 'Coin-Flip'");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
-                }	
+				if (VentanaLogin.loged == true) {
+					if (VentanaPanelMenu.contadorVentanaJuego < VentanaPanelMenu.limiteVentanas) {
+						new VentanaCoinFlip(VentanaPanelMenu.user);
+						VentanaPanelMenu.contadorVentanaJuego++;
+						logger.info("Has abierto una ventana 'Coin-Flip'");
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Se alcanzó el límite de ventanas Coin-Flip.");
+	                }	
+				} else {
+					JOptionPane.showMessageDialog(null, "Inicie sesion para poder jugar.");
+				}
 			}
 		});
         // Mostrar VentanaMenuPanel

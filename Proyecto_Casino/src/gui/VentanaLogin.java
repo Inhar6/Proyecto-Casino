@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class VentanaLogin extends JFrame{
 	public Propiedades getPropiedades() {
 		return propiedades;
 	}
+	
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
@@ -45,6 +48,49 @@ public class VentanaLogin extends JFrame{
 		propiedades.cargar();
 		//Icono de la ventana
 		setIconImage(new ImageIcon(getPropiedades().getProperty("favicon")).getImage());
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+//			
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		// JButton
 		JButton bInicioSecion = new JButton("Iniciar sesión");
@@ -92,7 +138,9 @@ public class VentanaLogin extends JFrame{
 				if("Admin".equals(tfUsuario.getText()) && "Admin".equals(new String(passContraseña.getPassword()))) {
 					new VentanaAdmin();
 					loged = true;
+					new VentanaInicial();
 					dispose();
+					
 				}else if(DBManager.existeUsuarioLogin(tfUsuario.getText(), contra)) {
 					System.out.println("Registro exitoso");
 					Usuario u = new Usuario();

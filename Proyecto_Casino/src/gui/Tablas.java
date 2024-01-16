@@ -42,7 +42,7 @@ public class Tablas {
 		}
 		
 	}
-	//Pintado de tabla BlackJack
+	//Pintado de tabla Crash
 	public static void pintadoCrash(DefaultTableModel dtmJuegos, Map<Integer, Map<String, Map<Double, Double>>> mapaCrash) {
 		dtmJuegos.addColumn("Tirada");
 		dtmJuegos.addColumn("Resultado");
