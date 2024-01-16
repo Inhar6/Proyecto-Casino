@@ -38,6 +38,7 @@ import db.DBManager;
 import domain.Carta;
 import domain.Point;
 import domain.Usuario;
+import io.Fichero;
 import io.Propiedades;
 
 public class VentanaBlackJack extends JFrame {
@@ -186,7 +187,7 @@ public class VentanaBlackJack extends JFrame {
     	defaultTableModel.addColumn("Ganancia/Perdida");
     	
 
-      //	tabla.setDefaultRenderer(Object.class, new MyRender());
+      
  
 		
 		
@@ -197,12 +198,7 @@ public class VentanaBlackJack extends JFrame {
         panelBotones.add(botonApostar);
         
         
-        String ayuda = "A continuacion te explicaremos las reglas del juego:\n\n"
-        		+ "1- Te enfrentaras al crupier de la mesa, y tendras que tratar de sumar 21 puntos sumando la puntuacion de las cartas(sin pasarte)\n\n"
-        		+"2- El crupier se planta con 17 puntos\n\n"
-        		+"3-Las cartas del 1-10 puntuaran su valor nominal\n\n"
-        		+"4-Las cartas (J,Q,K) puntuaran 10 puntos\n\n"
-        		+"5-Tendras la opcion de doblar la aupesta durante la partida mediante el boton de doblar";
+      
         
         
         
@@ -217,7 +213,19 @@ public class VentanaBlackJack extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, ayuda, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+				logger.info("Politica de privacidad abierta");
+				String rutaArchivo = "resources/data/ReglasBlackJack.txt";
+				String datos = Fichero.leerFichero(rutaArchivo);
+				//Hacer que el tetxto aparezca en buenas condiciones
+				JTextArea area = new JTextArea(datos);
+				area.setEditable(false);
+				area.setLineWrap(true);
+				area.setWrapStyleWord(true);
+				//Meter un scroll para que el texto no tenga problemas de visualizacion
+				JScrollPane scroll = new JScrollPane(area);
+				scroll.setPreferredSize(new Dimension(400,300));
+				JOptionPane.showMessageDialog(null, scroll, "Reglas del juego", JOptionPane.INFORMATION_MESSAGE);
+				
 	
 				
 			}
@@ -310,30 +318,7 @@ public class VentanaBlackJack extends JFrame {
 			}
 		});
 
-    /* VentanaPanelMenu.bApostar.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(VentanaPanelMenu.apuesta == 0 ) {
-				JOptionPane.showMessageDialog(null, "Debes introducir una cantidad para apostar", "Apuesta",JOptionPane.INFORMATION_MESSAGE);
-			}else {
-				ap = VentanaPanelMenu.apuesta;
-				VentanaPanelMenu.balance -= VentanaPanelMenu.apuesta;
 
-				reiniciarJuego( botonPlantarse, botonPedirCarta, botonDoblar, textAreaCrupier, textAreaJugador);
-				ImprimirCartasCrupier(textAreaCrupier, listaCartasBarajeada);
-				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
-				ImprimirCartasJugador(textAreaJugador, listaCartasBarajeada);
-				
-				botonPedirCarta.setEnabled(true);
-				botonPlantarse.setEnabled(true);
-				botonDoblar.setEnabled(true);
-			}
-			
-	
-			
-		}
-	});*/
         
         
         botonApostar.addActionListener(new ActionListener() {
