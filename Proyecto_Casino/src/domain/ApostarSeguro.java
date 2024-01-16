@@ -2,6 +2,7 @@ package domain;
 
 public class ApostarSeguro {
 	
+	private String Nick;
 	private String Diario;
 	private String Semanal;
 	private String Mensual;
@@ -14,11 +15,12 @@ public class ApostarSeguro {
 
 
 
-	public ApostarSeguro(String diario, String semanal, String mensual) {
+	public ApostarSeguro(String diario, String semanal, String mensual,String nick) {
 		super();
 		Diario = diario;
 		Semanal = semanal;
 		Mensual = mensual;
+		Nick = nick;
 	}
 
 
@@ -57,11 +59,21 @@ public class ApostarSeguro {
 		Mensual = mensual;
 	}
 
+	public String getNick() {
+		return Nick;
+	}
+
+
+
+	public void setNick(String nick) {
+		Nick = nick;
+	}
+
 
 
 	@Override
 	public String toString() {
-		return Diario +","+Semanal+","+Mensual;
+		return Diario +","+Semanal+","+Mensual+","+Nick;
 	}
 
 

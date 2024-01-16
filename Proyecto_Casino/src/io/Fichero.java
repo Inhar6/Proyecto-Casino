@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
@@ -36,22 +38,23 @@ public class Fichero {
 	
 	
 	
-	public void leerLimitesJugadores(File fichero) {
-		try{
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero));
-			
-		}catch(IOException e) {
+	public static List<ApostarSeguro> leerLimitesJugadores() {
+		List<ApostarSeguro> lst = new ArrayList<>();
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("resources/data/LimiteUsuario.dat"))){
+			 lst = (List<ApostarSeguro>) ois.readObject();
+			//return lst;
+		}catch(IOException | ClassNotFoundException e) {
 			e.getStackTrace();
+			//return null;
 		}
+		return lst;
 	}
 	
-	public void escribirLimitesJugadores(ApostarSeguro ap) {
-		try {
-		     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("LimitesUsuario.dat"));
-		     os.writeObject(ap);
+	public static void escribirLimitesJugadores(List<ApostarSeguro> lst) {
+		try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("resources/data/LimiteUsuario.dat"))){
+		     os.writeObject(lst);
+		     os.flush();
 			logger.info("Has escrito en el fichero los limites con exito");
-			os.close();
-			
 		}catch(IOException e) {
 			e.getStackTrace();
 			logger.warning(String.format("Se a producido un error a la hora d escribir en el fichero los limites : %s", e.getMessage()));

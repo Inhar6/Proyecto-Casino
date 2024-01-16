@@ -26,7 +26,8 @@ public class Usuario implements Comparable<Usuario>{
 	private Map<Integer, Map<String, String >> mapaCoinFlip = new HashMap<>();
 	//Lista balance
 	private List<Point> lstBalance = new ArrayList<>();
-	
+	//Apostar Seguro
+	private ApostarSeguro as;
 	
 	//Constructores
 	public Usuario(String nombre, String apellidos, String dNI, String nombreUsuario, String contraseña, int numeroCuenta, double saldo) {
@@ -191,6 +192,15 @@ public class Usuario implements Comparable<Usuario>{
 	//Añadirle cosas a la lista de puntos
 	public void addListaBalance(Point p) {
 		lstBalance.add(p);
+	}
+	
+
+	public ApostarSeguro getAs() {
+		return as;
+	}
+
+	public void setAs(ApostarSeguro as) {
+		this.as = as;
 	}
 
 	//toString

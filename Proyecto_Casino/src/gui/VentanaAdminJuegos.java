@@ -173,7 +173,7 @@ public class VentanaAdminJuegos extends JFrame{
 		txtUsoCoinFlip= new JLabel(""+ userCoinFlip3.getNombreUsuario());
 		txtUsoCoinFlip.setForeground(Color.GRAY);
 		totalGananciasCoinFlip= new JLabel("Total ganancias/perdidas: ");
-		txtTotalGananciasCoinFlip= new JLabel(""+100);//obtenerTotalGananciasCrash(lstUsuarios));
+		txtTotalGananciasCoinFlip= new JLabel(""+1600);//obtenerTotalGananciasCrash(lstUsuarios));
 		txtTotalGananciasCoinFlip.setForeground(Color.GRAY);
 		
 		//BlackJack

@@ -18,7 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import domain.ApostarSeguro;
 import domain.Usuario;
+import io.Fichero;
+import main.Main;
 
 import java.util.logging.Logger;
 
@@ -30,7 +33,6 @@ public class VentanaApostarSeguro extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private Color colorPanel = new Color(71, 113, 72);
 	private static final Logger logger = Logger.getLogger("VentanaApostarSeguro");
-	
 	
 	public VentanaApostarSeguro(Usuario u) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -192,7 +194,10 @@ public class VentanaApostarSeguro extends JFrame{
 				String textoAnual = JTextfieldAnual.getText();
 				if(casilla.isSelected() & textoDiario.length()<=4 & textoMensual.length()<=5 & textoAnual.length()<=8) {
 					logger.info("Has establecido con exito tus limites de apuesta");
-					
+					ApostarSeguro ob = new ApostarSeguro(textoDiario, textoMensual, textoAnual, u.getNombreUsuario());
+					Main.lstApostarSeguro.add(ob);
+					Fichero.escribirLimitesJugadores(Main.lstApostarSeguro);
+					dispose();
 				}
 					
 				

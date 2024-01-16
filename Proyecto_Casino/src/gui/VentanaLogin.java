@@ -48,7 +48,6 @@ public class VentanaLogin extends JFrame{
 		
 		// JButton
 		JButton bInicioSecion = new JButton("Iniciar sesión");
-		JButton bRecuperarContraseña = new JButton("Recuperar contaseña");
 		
 		// Textos Usuario/Contraseña
 		JTextField tfUsuario = new JTextField(20);
@@ -83,7 +82,6 @@ public class VentanaLogin extends JFrame{
 		pText2.add(passContraseña);
 		
 		// Panel botones
-		pBotones.add(bRecuperarContraseña);
 		pBotones.add(bInicioSecion);
 		
 		bInicioSecion.addActionListener(new ActionListener() {

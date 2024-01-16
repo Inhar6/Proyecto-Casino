@@ -13,7 +13,7 @@ public class ApostarSeguroTest {
 	
 	@Before 
 	public void setUp() {
-		apostarSeguro = new ApostarSeguro("100","2000","6000");
+		apostarSeguro = new ApostarSeguro("100","2000","6000","nick");
 	}
 	
 	@Test
